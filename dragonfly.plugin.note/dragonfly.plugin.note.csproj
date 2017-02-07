@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{11A0EFBA-7A1F-4E79-9B5F-51682EB5032C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dragonfly.Plugin.Note</RootNamespace>
+    <AssemblyName>dragonfly.plugin.note</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NoteForm.designer.cs">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoteMainPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NoteMainPanel.designer.cs">
+      <DependentUpon>NoteMainPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoteManager.cs" />
+    <Compile Include="NoteOptionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NoteOptionPanel.designer.cs">
+      <DependentUpon>NoteOptionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NoteForm.resx">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoteMainPanel.resx">
+      <DependentUpon>NoteMainPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoteOptionPanel.resx">
+      <DependentUpon>NoteOptionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dragonfly.common\dragonfly.common.csproj">
+      <Project>{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}</Project>
+      <Name>dragonfly.common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\addnote.bmp" />
+    <Content Include="Resources\alignCenter.bmp" />
+    <Content Include="Resources\alignLeft.bmp" />
+    <Content Include="Resources\alignRight.bmp" />
+    <Content Include="Resources\alwaystop.bmp" />
+    <Content Include="Resources\backcolor.bmp" />
+    <Content Include="Resources\bold.bmp" />
+    <Content Include="Resources\bullets.bmp" />
+    <Content Include="Resources\copy.bmp" />
+    <Content Include="Resources\cut.bmp" />
+    <Content Include="Resources\del.bmp" />
+    <Content Include="Resources\delnote.bmp" />
+    <Content Include="Resources\font.bmp" />
+    <Content Include="Resources\fontcolor.bmp" />
+    <Content Include="Resources\hide.bmp" />
+    <Content Include="Resources\indentDecrease.bmp" />
+    <Content Include="Resources\indentIncrease.bmp" />
+    <Content Include="Resources\insertPicture.bmp" />
+    <Content Include="Resources\italic.bmp" />
+    <Content Include="Resources\note_hide.png" />
+    <Content Include="Resources\note_showbar.png" />
+    <Content Include="Resources\paste.bmp" />
+    <Content Include="Resources\redo.bmp" />
+    <Content Include="Resources\refresh.bmp" />
+    <Content Include="Resources\scale.png" />
+    <Content Include="Resources\underline.bmp" />
+    <Content Include="Resources\undo.bmp" />
+    <Content Include="Resources\zoomIn.bmp" />
+    <Content Include="Resources\zoomOut.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

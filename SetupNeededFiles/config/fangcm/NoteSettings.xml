@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NoteWndSettings>
+  <NoteWnd top="423" left="866" height="124" width="202" backcolor="3250758" bHidden="False" NoteState="0">
+    <NoteText>{\rtf1\ansi\ansicpg936\deff0\deflang1033\deflangfe2052{\fonttbl{\f0\fnil\fcharset134 \'cb\'ce\'cc\'e5;}{\f1\fnil\fcharset2 Symbol;}}
+\viewkind4\uc1\pard{\pntext\f1\'B7\tab}{\*\pn\pnlvlblt\pnf1\pnindent0{\pntxtb\'B7}}\lang2052\f0\fs18\'bd\'f1\'cc\'ec\'d2\'aa\'b8\'f8\'c0\'cf\'c6\'c5\'b4\'f2\'b5\'e7\'bb\'b0\par
+{\pntext\f1\'B7\tab}\'d5\'c5\'c8\'fd\'c9\'cf\'b4\'ce\'b4\'d3\'ce\'d2\'d5\'e2\'bd\'e8\'c1\'cb50\'d4\'aa\par
+{\pntext\f1\'B7\tab}\'c3\'f7\'cc\'ec\'c8\'a5\'bd\'bb\'ce\'ef\'d2\'b5\'b7\'d1\par
+}
+</NoteText>
+    <NoteTitle>便签</NoteTitle>
+  </NoteWnd>
+  <NoteWnd top="103" left="801" height="264" width="299" backcolor="3830177" bHidden="False" NoteState="0">
+    <NoteText>{\rtf1\ansi\ansicpg936\deff0\deflang1033\deflangfe2052{\fonttbl{\f0\fnil\fcharset134 \'cb\'ce\'cc\'e5;}}
+{\colortbl ;\red255\green0\blue0;\red0\green0\blue255;}
+\viewkind4\uc1\pard\cf1\lang2052\f0\fs18\'b9\'a4\'d7\'f71\'a3\'ba\cf0\par
+    \'d0\'b4\'ce\'c4\'b5\'b5\par
+\cf1\'b9\'a4\'d7\'f72\'a3\'ba\cf0\par
+    \'c3\'f7\'cc\'ec\'cc\'e1\'bd\'bb\'b2\'c4\'c1\'cf\par
+\'b9\'a4\'d7\'f73\'a3\'ba\par
+    \highlight2\'b8\'f8\'c0\'cf\'c0\'ee\'b4\'f2\'b5\'e7\'bb\'b0\par
+\highlight0\par
+}
+</NoteText>
+    <NoteTitle>便签</NoteTitle>
+  </NoteWnd>
+</NoteWndSettings>

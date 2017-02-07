@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+  <KeyHookExclude>
+  	<Item title="WINWORD.EXE" />
+  </KeyHookExclude>
+  <MouseHookInclude>
+  	<Item title="证券" />
+  	<Item title="银行" />
+  </MouseHookInclude>
+</Settings>
