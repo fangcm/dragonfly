@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("dragonfly.main")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("此程序是爸爸专为【方小玉】开发，目的只有一个：保护她免受电脑伤害。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("fangcm")]
 [assembly: AssemblyProduct("dragonfly.main")]
-[assembly: AssemblyCopyright("Copyright © fangcm 2009")]
+[assembly: AssemblyCopyright("Copyright © fangcm 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]

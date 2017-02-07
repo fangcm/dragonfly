@@ -10,6 +10,7 @@ namespace Dragonfly.Main
     {
         private bool bNotifyIconExitApp = false;
         private OptionForm optionDialog = null;
+        private PasswordBox passwordDialog = null;
         private AboutBox aboutDialog = null;
         private PluginManager pluginManager;
 
@@ -20,6 +21,7 @@ namespace Dragonfly.Main
             InitializeComponent();
 
             optionDialog = new OptionForm();
+            passwordDialog = new PasswordBox();
             aboutDialog = new AboutBox();
 
             this.Text = "［蜻蜓］工具";

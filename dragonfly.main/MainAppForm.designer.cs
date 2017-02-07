@@ -47,21 +47,25 @@
             // 
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
+            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(584, 240);
+            this.tabControlMain.Size = new System.Drawing.Size(779, 306);
             this.tabControlMain.TabIndex = 1;
             // 
             // menuStripMain
             // 
+            this.menuStripMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(584, 24);
+            this.menuStripMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStripMain.Size = new System.Drawing.Size(779, 24);
             this.menuStripMain.TabIndex = 3;
             this.menuStripMain.Text = "menuStripMain";
             // 
             // contextMenuStripNotify
             // 
+            this.contextMenuStripNotify.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripNotify.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator3,
             this.toolStripMenuShowMainForm,
@@ -71,30 +75,30 @@
             this.toolStripSeparator2,
             this.toolStripMenuExit});
             this.contextMenuStripNotify.Name = "contextMenuStripNotify";
-            this.contextMenuStripNotify.Size = new System.Drawing.Size(153, 132);
+            this.contextMenuStripNotify.Size = new System.Drawing.Size(172, 126);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(168, 6);
             // 
             // toolStripMenuShowMainForm
             // 
-            this.toolStripMenuShowMainForm.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStripMenuShowMainForm.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripMenuShowMainForm.Name = "toolStripMenuShowMainForm";
-            this.toolStripMenuShowMainForm.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuShowMainForm.Size = new System.Drawing.Size(171, 26);
             this.toolStripMenuShowMainForm.Text = "主程序...";
             this.toolStripMenuShowMainForm.Click += new System.EventHandler(this.toolStripMenuShowMainForm_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(168, 6);
             // 
             // toolStripMenuOption
             // 
             this.toolStripMenuOption.Name = "toolStripMenuOption";
-            this.toolStripMenuOption.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuOption.Size = new System.Drawing.Size(171, 26);
             this.toolStripMenuOption.Text = "参数设置...";
             this.toolStripMenuOption.Click += new System.EventHandler(this.toolStripMenuOption_Click);
             // 
@@ -103,19 +107,19 @@
             this.toolStripMenuAbout.Image = global::Dragonfly.Main.Properties.Resources.about;
             this.toolStripMenuAbout.ImageTransparentColor = System.Drawing.Color.Teal;
             this.toolStripMenuAbout.Name = "toolStripMenuAbout";
-            this.toolStripMenuAbout.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuAbout.Size = new System.Drawing.Size(171, 26);
             this.toolStripMenuAbout.Text = "关于本软件...";
             this.toolStripMenuAbout.Click += new System.EventHandler(this.toolStripMenuAbout_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(168, 6);
             // 
             // toolStripMenuExit
             // 
             this.toolStripMenuExit.Name = "toolStripMenuExit";
-            this.toolStripMenuExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuExit.Size = new System.Drawing.Size(171, 26);
             this.toolStripMenuExit.Text = "退出";
             this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
@@ -131,20 +135,21 @@
             // 
             // MainAppForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 264);
+            this.ClientSize = new System.Drawing.Size(779, 330);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainAppForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "欢迎使用 [蜻蜓] 工具";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainAppForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainAppForm_FormClosed);
             this.Load += new System.EventHandler(this.MainAppForm_Load);
             this.Shown += new System.EventHandler(this.MainAppForm_Shown);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainAppForm_FormClosed);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainAppForm_FormClosing);
             this.contextMenuStripNotify.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
