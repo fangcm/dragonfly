@@ -1,21 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 14
+# Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.main", "dragonfly.main\dragonfly.main.csproj", "{CC6A99C8-6A66-4059-AF43-F8229E3A3DFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.common", "dragonfly.common\dragonfly.common.csproj", "{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.note", "dragonfly.plugin.note\dragonfly.plugin.note.csproj", "{11A0EFBA-7A1F-4E79-9B5F-51682EB5032C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task", "dragonfly.plugin.task\dragonfly.plugin.task.csproj", "{892EC103-467F-41A7-A337-A517406DAD3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task.notify", "dragonfly.plugin.task.notify\dragonfly.plugin.task.notify.csproj", "{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupWithoutChalk", "SetupWithoutChalk\SetupWithoutChalk.vdproj", "{4AB2F121-6451-4508-A734-534925AAB786}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chalk", "chalk\chalk.csproj", "{8E4A9543-19E6-4CD5-8E1C-0C04B60C8F4B}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{33109A77-E528-48EF-B728-099F70BC4A36}"
 EndProject
@@ -33,10 +29,6 @@ Global
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11A0EFBA-7A1F-4E79-9B5F-51682EB5032C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11A0EFBA-7A1F-4E79-9B5F-51682EB5032C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11A0EFBA-7A1F-4E79-9B5F-51682EB5032C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11A0EFBA-7A1F-4E79-9B5F-51682EB5032C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{892EC103-467F-41A7-A337-A517406DAD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{892EC103-467F-41A7-A337-A517406DAD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892EC103-467F-41A7-A337-A517406DAD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +39,6 @@ Global
 		{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4AB2F121-6451-4508-A734-534925AAB786}.Debug|Any CPU.ActiveCfg = Debug
 		{4AB2F121-6451-4508-A734-534925AAB786}.Release|Any CPU.ActiveCfg = Release
-		{8E4A9543-19E6-4CD5-8E1C-0C04B60C8F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E4A9543-19E6-4CD5-8E1C-0C04B60C8F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E4A9543-19E6-4CD5-8E1C-0C04B60C8F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E4A9543-19E6-4CD5-8E1C-0C04B60C8F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33109A77-E528-48EF-B728-099F70BC4A36}.Debug|Any CPU.ActiveCfg = Debug
 		{33109A77-E528-48EF-B728-099F70BC4A36}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
