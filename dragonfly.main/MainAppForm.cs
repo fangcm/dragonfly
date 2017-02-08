@@ -9,7 +9,6 @@ namespace Dragonfly.Main
     public partial class MainAppForm : Form
     {
         private bool bNotifyIconExitApp = false;
-        private OptionForm optionDialog = null;
         private PasswordBox passwordDialog = null;
         private AboutBox aboutDialog = null;
         private PluginManager pluginManager;
@@ -20,7 +19,6 @@ namespace Dragonfly.Main
 
             InitializeComponent();
 
-            optionDialog = new OptionForm();
             passwordDialog = new PasswordBox();
             aboutDialog = new AboutBox();
 
@@ -73,29 +71,18 @@ namespace Dragonfly.Main
         private void InitPlugIns()
         {
             pluginManager = new PluginManager();
-            pluginManager.LoadSettings();
 
-            IPlugIn[] plugIns = pluginManager.PlugIns;
-            foreach (IPlugIn plugIn in plugIns)
+            IPlugin[] plugIns = pluginManager.PlugIns;
+            foreach (IPlugin plugIn in plugIns)
             {
-                ToolStripItem notifyIconMenu = plugIn.NotifyIconMenu;
-                if (notifyIconMenu != null)
-                {
-                    this.notifyIconMain.ContextMenuStrip.Items.Insert(0, notifyIconMenu);
-                }
-                PlugInMainPanel panel = plugIn.MainPanel;
+                UserControl pluginPanel = plugIn.PluginPanel;
 
-                if (panel != null)
+                if (pluginPanel != null)
                 {
                     TabPage page = new TabPage(plugIn.Caption);
-                    panel.Dock = DockStyle.Fill;
-                    page.Controls.Add(panel);
+                    pluginPanel.Dock = DockStyle.Fill;
+                    page.Controls.Add(pluginPanel);
                     this.MainTab.TabPages.Add(page);
-                }
-                ToolStripItem mainMenu = plugIn.MainMenu;
-                if (mainMenu != null)
-                {
-                    this.MainMenuStrip.Items.Add(mainMenu);
                 }
             }
         }
@@ -104,9 +91,6 @@ namespace Dragonfly.Main
         {
             if ((!bNotifyIconExitApp) && (e.CloseReason == CloseReason.UserClosing))
             {
-                if (!this.notifyIconMain.Visible)
-                    this.notifyIconMain.Visible = true;
-
                 if (this.Visible)
                     this.Hide();
                 e.Cancel = true;
@@ -118,8 +102,8 @@ namespace Dragonfly.Main
             if (this.notifyIconMain.Visible)
             {
                 this.notifyIconMain.Visible = false;
-                this.notifyIconMain.Dispose();
             }
+            this.notifyIconMain.Dispose();
             pluginManager.ClosePlugins();
         }
 
@@ -151,43 +135,7 @@ namespace Dragonfly.Main
             }
         }
 
-        private void toolStripMenuOption_Click(object sender, EventArgs e)
-        {
-            if (optionDialog.Visible)
-            {
-                optionDialog.Focus();
-                return;
-            }
-
-            optionDialog = new OptionForm();
-
-            IPlugIn[] plugIns = pluginManager.PlugIns;
-            foreach (IPlugIn plugIn in plugIns)
-            {
-                PlugInOptionPanel panel = plugIn.OptionPanel;
-                if (panel == null)
-                    continue;
-                TabPage page = new TabPage(plugIn.Caption);
-                panel.Dock = DockStyle.Fill;
-                page.Controls.Add(panel);
-                optionDialog.OptionTab.TabPages.Add(page);
-            }
-
-            DialogResult ret = optionDialog.ShowDialog(this);
-            if (ret == DialogResult.OK)
-            {
-                foreach (IPlugIn plugIn in plugIns)
-                {
-                    PlugInOptionPanel panel = plugIn.OptionPanel;
-                    if (panel == null)
-                        continue;
-                    panel.OptionsUpdated = true;
-                }
-
-                this.pluginManager.SaveSettings();
-            }
-        }
-
+  
         private void toolStripMenuShowMainForm_Click(object sender, EventArgs e)
         {
             if (this.Visible == true)
@@ -198,15 +146,19 @@ namespace Dragonfly.Main
             }
 
             if (passwordDialog.Visible)
+            {
                 passwordDialog.Focus();
+                return;
+            }
             else
             {
                 passwordDialog = new PasswordBox();
-                DialogResult result = passwordDialog.ShowDialog(this);
-                if(result != DialogResult.OK)
-                {
-                    return;
-                }
+            }
+
+            DialogResult result = passwordDialog.ShowDialog(this);
+            if (result != DialogResult.OK)
+            {
+                return;
             }
 
             this.Visible = true;

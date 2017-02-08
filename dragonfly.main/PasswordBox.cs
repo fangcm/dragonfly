@@ -9,8 +9,6 @@ namespace Dragonfly.Main
         public PasswordBox()
         {
             InitializeComponent();
-            this.label.Text = "";
-
         }
 
         #region Assembly Attribute Accessors

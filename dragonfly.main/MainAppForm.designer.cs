@@ -73,44 +73,44 @@
             this.toolStripSeparator2,
             this.toolStripMenuExit});
             this.contextMenuStripNotify.Name = "contextMenuStripNotify";
-            this.contextMenuStripNotify.Size = new System.Drawing.Size(182, 128);
+            this.contextMenuStripNotify.Size = new System.Drawing.Size(170, 100);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(166, 6);
             // 
             // toolStripMenuShowMainForm
             // 
             this.toolStripMenuShowMainForm.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripMenuShowMainForm.Name = "toolStripMenuShowMainForm";
-            this.toolStripMenuShowMainForm.Size = new System.Drawing.Size(181, 26);
+            this.toolStripMenuShowMainForm.Size = new System.Drawing.Size(169, 26);
             this.toolStripMenuShowMainForm.Text = "主程序...";
             this.toolStripMenuShowMainForm.Click += new System.EventHandler(this.toolStripMenuShowMainForm_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
             // 
             // toolStripMenuAbout
             // 
             this.toolStripMenuAbout.Image = global::Dragonfly.Main.Properties.Resources.about;
             this.toolStripMenuAbout.ImageTransparentColor = System.Drawing.Color.Teal;
             this.toolStripMenuAbout.Name = "toolStripMenuAbout";
-            this.toolStripMenuAbout.Size = new System.Drawing.Size(181, 26);
+            this.toolStripMenuAbout.Size = new System.Drawing.Size(169, 26);
             this.toolStripMenuAbout.Text = "关于本软件...";
             this.toolStripMenuAbout.Click += new System.EventHandler(this.toolStripMenuAbout_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
             // 
             // toolStripMenuExit
             // 
             this.toolStripMenuExit.Name = "toolStripMenuExit";
-            this.toolStripMenuExit.Size = new System.Drawing.Size(181, 26);
+            this.toolStripMenuExit.Size = new System.Drawing.Size(169, 26);
             this.toolStripMenuExit.Text = "退出";
             this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
@@ -136,7 +136,6 @@
             this.Name = "MainAppForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "欢迎使用 [蜻蜓] 工具";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainAppForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainAppForm_FormClosed);
             this.Load += new System.EventHandler(this.MainAppForm_Load);
