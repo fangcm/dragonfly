@@ -35,7 +35,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuShowMainForm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +46,7 @@
             // 
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
-            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(779, 306);
@@ -70,56 +69,48 @@
             this.toolStripSeparator3,
             this.toolStripMenuShowMainForm,
             this.toolStripSeparator1,
-            this.toolStripMenuOption,
             this.toolStripMenuAbout,
             this.toolStripSeparator2,
             this.toolStripMenuExit});
             this.contextMenuStripNotify.Name = "contextMenuStripNotify";
-            this.contextMenuStripNotify.Size = new System.Drawing.Size(172, 126);
+            this.contextMenuStripNotify.Size = new System.Drawing.Size(182, 128);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(178, 6);
             // 
             // toolStripMenuShowMainForm
             // 
             this.toolStripMenuShowMainForm.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripMenuShowMainForm.Name = "toolStripMenuShowMainForm";
-            this.toolStripMenuShowMainForm.Size = new System.Drawing.Size(171, 26);
+            this.toolStripMenuShowMainForm.Size = new System.Drawing.Size(181, 26);
             this.toolStripMenuShowMainForm.Text = "主程序...";
             this.toolStripMenuShowMainForm.Click += new System.EventHandler(this.toolStripMenuShowMainForm_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(168, 6);
-            // 
-            // toolStripMenuOption
-            // 
-            this.toolStripMenuOption.Name = "toolStripMenuOption";
-            this.toolStripMenuOption.Size = new System.Drawing.Size(171, 26);
-            this.toolStripMenuOption.Text = "参数设置...";
-            this.toolStripMenuOption.Click += new System.EventHandler(this.toolStripMenuOption_Click);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // toolStripMenuAbout
             // 
             this.toolStripMenuAbout.Image = global::Dragonfly.Main.Properties.Resources.about;
             this.toolStripMenuAbout.ImageTransparentColor = System.Drawing.Color.Teal;
             this.toolStripMenuAbout.Name = "toolStripMenuAbout";
-            this.toolStripMenuAbout.Size = new System.Drawing.Size(171, 26);
+            this.toolStripMenuAbout.Size = new System.Drawing.Size(181, 26);
             this.toolStripMenuAbout.Text = "关于本软件...";
             this.toolStripMenuAbout.Click += new System.EventHandler(this.toolStripMenuAbout_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
             // 
             // toolStripMenuExit
             // 
             this.toolStripMenuExit.Name = "toolStripMenuExit";
-            this.toolStripMenuExit.Size = new System.Drawing.Size(171, 26);
+            this.toolStripMenuExit.Size = new System.Drawing.Size(181, 26);
             this.toolStripMenuExit.Text = "退出";
             this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
             // 
@@ -141,7 +132,7 @@
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainAppForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "欢迎使用 [蜻蜓] 工具";
@@ -163,7 +154,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripNotify;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuShowMainForm;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuOption;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuAbout;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
         private System.Windows.Forms.NotifyIcon notifyIconMain;

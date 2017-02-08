@@ -6,13 +6,11 @@ namespace Dragonfly.Main
 {
     public partial class PasswordBox : Form
     {
-        public AboutBox()
+        public PasswordBox()
         {
             InitializeComponent();
-            this.Text = String.Format("关于 {0}", AssemblyTitle);
-            this.label.Text = String.Format("版本 {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.label.Text = "";
+
         }
 
         #region Assembly Attribute Accessors

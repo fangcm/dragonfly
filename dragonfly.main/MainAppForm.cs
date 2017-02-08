@@ -194,14 +194,25 @@ namespace Dragonfly.Main
             {
                 this.Hide();
                 this.ShowInTaskbar = false;
+                return;
             }
+
+            if (passwordDialog.Visible)
+                passwordDialog.Focus();
             else
             {
-                this.Visible = true;
-                this.ShowInTaskbar = true;
-                this.WindowState = FormWindowState.Normal;
-                this.BringToFront();
+                passwordDialog = new PasswordBox();
+                DialogResult result = passwordDialog.ShowDialog(this);
+                if(result != DialogResult.OK)
+                {
+                    return;
+                }
             }
+
+            this.Visible = true;
+            this.ShowInTaskbar = true;
+            this.WindowState = FormWindowState.Normal;
+            this.BringToFront();
 
         }
 
