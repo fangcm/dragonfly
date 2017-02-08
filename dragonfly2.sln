@@ -7,14 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.main", "dragonfly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.common", "dragonfly.common\dragonfly.common.csproj", "{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task", "dragonfly.plugin.task\dragonfly.plugin.task.csproj", "{892EC103-467F-41A7-A337-A517406DAD3B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task.notify", "dragonfly.plugin.task.notify\dragonfly.plugin.task.notify.csproj", "{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupWithoutChalk", "SetupWithoutChalk\SetupWithoutChalk.vdproj", "{4AB2F121-6451-4508-A734-534925AAB786}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{33109A77-E528-48EF-B728-099F70BC4A36}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,18 +21,6 @@ Global
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Release|Any CPU.Build.0 = Release|Any CPU
-		{892EC103-467F-41A7-A337-A517406DAD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{892EC103-467F-41A7-A337-A517406DAD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{892EC103-467F-41A7-A337-A517406DAD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{892EC103-467F-41A7-A337-A517406DAD3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AB2F121-6451-4508-A734-534925AAB786}.Debug|Any CPU.ActiveCfg = Debug
-		{4AB2F121-6451-4508-A734-534925AAB786}.Release|Any CPU.ActiveCfg = Release
-		{33109A77-E528-48EF-B728-099F70BC4A36}.Debug|Any CPU.ActiveCfg = Debug
-		{33109A77-E528-48EF-B728-099F70BC4A36}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

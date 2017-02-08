@@ -9,12 +9,10 @@ namespace Dragonfly.Main
 	{
         public static bool IsAlreadyRunning()
 		{
-			string strLoc = Assembly.GetExecutingAssembly().Location;
-			FileSystemInfo fileInfo = new FileInfo(strLoc);
-			string sExeName = fileInfo.Name;
+			string sAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
 			bool bCreatedNew;
 
-			mutex = new Mutex(true, "Global\\"+sExeName, out bCreatedNew);
+			mutex = new Mutex(true, "Global\\"+ sAssemblyName, out bCreatedNew);
 			if (bCreatedNew)
 				mutex.ReleaseMutex();
 

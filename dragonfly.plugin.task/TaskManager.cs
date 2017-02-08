@@ -9,7 +9,7 @@ using Dragonfly.Common.Utils;
 namespace Dragonfly.Plugin.Task
 {
 
-    public class TaskManager : IPlugIn
+    public class TaskManager : IPlugin
     {
         private string sSettingsFileName;
         private TaskCenter taskCenter;
