@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("fangcm")]
 [assembly: AssemblyProduct("dragonfly.common")]
-[assembly: AssemblyCopyright("Copyright © fangcm 2009")]
+[assembly: AssemblyCopyright("Copyright © fangcm 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
