@@ -33,13 +33,14 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.labelTip = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(161, 26);
+            this.label.Location = new System.Drawing.Point(161, 15);
             this.label.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.label.MaximumSize = new System.Drawing.Size(0, 20);
             this.label.Name = "label";
@@ -85,17 +86,27 @@
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(164, 55);
+            this.textBoxPassword.Location = new System.Drawing.Point(164, 46);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(240, 25);
             this.textBoxPassword.TabIndex = 1;
             this.textBoxPassword.UseSystemPasswordChar = true;
+            // 
+            // labelTip
+            // 
+            this.labelTip.AutoSize = true;
+            this.labelTip.Location = new System.Drawing.Point(161, 83);
+            this.labelTip.Name = "labelTip";
+            this.labelTip.Size = new System.Drawing.Size(45, 15);
+            this.labelTip.TabIndex = 27;
+            this.labelTip.Text = "提示:";
             // 
             // PasswordBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 170);
+            this.Controls.Add(this.labelTip);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
@@ -119,5 +130,6 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label labelTip;
     }
 }

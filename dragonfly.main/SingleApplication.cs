@@ -7,6 +7,8 @@ namespace Dragonfly.Main
 
     public class SingleApplication
 	{
+        private static Mutex mutex;
+
         public static bool IsAlreadyRunning()
 		{
 			string sAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
@@ -18,7 +20,6 @@ namespace Dragonfly.Main
 
 			return !bCreatedNew;
 		}
-		
-		static Mutex mutex;
+
 	}
 }

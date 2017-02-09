@@ -15,11 +15,7 @@ namespace Dragonfly.Main
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-
-                MainAppForm mainForm = new MainAppForm();
-                mainForm.WindowState = FormWindowState.Minimized;
-                mainForm.ShowInTaskbar = false;
-                Application.Run(mainForm);
+                Application.Run(new CustomApplicationContext());
             }
         }
     }

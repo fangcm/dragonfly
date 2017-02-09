@@ -8,20 +8,13 @@ namespace Dragonfly.Main
 {
     public partial class MainAppForm : Form
     {
-        private bool bNotifyIconExitApp = false;
-        private PasswordBox passwordDialog = null;
-        private AboutBox aboutDialog = null;
-        private PluginManager pluginManager;
+        private PluginManager pluginManager = null;
 
         public MainAppForm()
         {
             RegistryInit();
 
             InitializeComponent();
-
-            passwordDialog = new PasswordBox();
-            aboutDialog = new AboutBox();
-
             this.Text = "［蜻蜓］工具";
 
             InitPlugIns();
@@ -30,14 +23,6 @@ namespace Dragonfly.Main
         public TabControl MainTab
         {
             get { return this.tabControlMain; }
-        }
-
-        private void MainAppForm_Load(object sender, EventArgs e)
-        {
-            if (this.menuStripMain.Items.Count == 0)
-            {
-                this.menuStripMain.Visible = false;
-            }
         }
 
         private void RegistryInit()
@@ -70,6 +55,11 @@ namespace Dragonfly.Main
 
         private void InitPlugIns()
         {
+            if(pluginManager != null)
+            {
+                return;
+            }
+
             pluginManager = new PluginManager();
 
             IPlugin[] plugIns = pluginManager.PlugIns;
@@ -89,70 +79,45 @@ namespace Dragonfly.Main
 
         private void MainAppForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((!bNotifyIconExitApp) && (e.CloseReason == CloseReason.UserClosing))
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (this.Visible)
-                    this.Hide();
+                this.Hide();
                 e.Cancel = true;
             }
         }
 
         private void MainAppForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.notifyIconMain.Visible)
-            {
-                this.notifyIconMain.Visible = false;
-            }
-            this.notifyIconMain.Dispose();
             pluginManager.ClosePlugins();
-        }
-
-        private void MainAppForm_Shown(object sender, EventArgs e)
-        {
-            this.ShowInTaskbar = false;
-            if (this.Visible)
-                this.Hide();
-        }
-
-        private void toolStripMenuExit_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(this, "确实要退出［蜻蜓］软件吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (result == DialogResult.Yes)
-            {
-                bNotifyIconExitApp = true;
-                this.Close();
-            }
         }
 
         private void toolStripMenuAbout_Click(object sender, EventArgs e)
         {
-            if (aboutDialog.Visible)
-                aboutDialog.Focus();
-            else
-            {
-                aboutDialog = new AboutBox();
-                aboutDialog.Show(this);
-            }
+            AboutBox aboutDialog = new AboutBox();
+            aboutDialog.ShowDialog();
         }
 
   
         private void toolStripMenuShowMainForm_Click(object sender, EventArgs e)
         {
-            if (this.Visible == true)
+
+
+                    PasswordBox passwordDialog = null;
+
+            if (passwordDialog == null)
             {
-                this.Hide();
-                this.ShowInTaskbar = false;
-                return;
+                passwordDialog = new PasswordBox();
             }
 
             if (passwordDialog.Visible)
             {
+                passwordDialog.ResetPassword();
                 passwordDialog.Focus();
                 return;
             }
             else
             {
-                passwordDialog = new PasswordBox();
+                passwordDialog.ResetPassword();
             }
 
             DialogResult result = passwordDialog.ShowDialog(this);
@@ -161,18 +126,11 @@ namespace Dragonfly.Main
                 return;
             }
 
-            this.Visible = true;
-            this.ShowInTaskbar = true;
-            this.WindowState = FormWindowState.Normal;
-            this.BringToFront();
+
 
         }
 
 
-        private void notifyIconMain_DoubleClick(object sender, EventArgs e)
-        {
-            toolStripMenuShowMainForm.PerformClick();
-        }
 
     }
 }

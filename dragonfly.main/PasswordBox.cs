@@ -6,9 +6,12 @@ namespace Dragonfly.Main
 {
     public partial class PasswordBox : Form
     {
+        private string password;
+
         public PasswordBox()
         {
             InitializeComponent();
+
         }
 
         #region Assembly Attribute Accessors
@@ -74,6 +77,15 @@ namespace Dragonfly.Main
         private void okButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public void ResetPassword()
+        {
+            Random random = new Random();
+            string key = random.Next(100, 999).ToString();
+            labelTip.Text = "提示:" + key;
+
+            password = key;
         }
 
     }
