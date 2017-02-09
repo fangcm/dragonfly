@@ -20,11 +20,6 @@ namespace Dragonfly.Main
             InitPlugIns();
         }
 
-        public TabControl MainTab
-        {
-            get { return this.tabControlMain; }
-        }
-
         private void RegistryInit()
         {
             try
@@ -72,7 +67,7 @@ namespace Dragonfly.Main
                     TabPage page = new TabPage(plugIn.Caption);
                     pluginPanel.Dock = DockStyle.Fill;
                     page.Controls.Add(pluginPanel);
-                    this.MainTab.TabPages.Add(page);
+                    this.tabControlMain.TabPages.Add(page);
                 }
             }
         }
@@ -86,50 +81,22 @@ namespace Dragonfly.Main
             }
         }
 
-        private void MainAppForm_FormClosed(object sender, FormClosedEventArgs e)
+        protected override void Dispose(bool disposing)
         {
             pluginManager.ClosePlugins();
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
+      
         private void toolStripMenuAbout_Click(object sender, EventArgs e)
         {
             AboutBox aboutDialog = new AboutBox();
             aboutDialog.ShowDialog();
         }
-
-  
-        private void toolStripMenuShowMainForm_Click(object sender, EventArgs e)
-        {
-
-
-                    PasswordBox passwordDialog = null;
-
-            if (passwordDialog == null)
-            {
-                passwordDialog = new PasswordBox();
-            }
-
-            if (passwordDialog.Visible)
-            {
-                passwordDialog.ResetPassword();
-                passwordDialog.Focus();
-                return;
-            }
-            else
-            {
-                passwordDialog.ResetPassword();
-            }
-
-            DialogResult result = passwordDialog.ShowDialog(this);
-            if (result != DialogResult.OK)
-            {
-                return;
-            }
-
-
-
-        }
-
 
 
     }

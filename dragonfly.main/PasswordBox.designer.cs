@@ -64,7 +64,6 @@
             // 
             // btnOK
             // 
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(304, 128);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4, 25, 4, 4);
             this.btnOK.Name = "btnOK";
@@ -72,6 +71,7 @@
             this.btnOK.TabIndex = 3;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
@@ -103,8 +103,10 @@
             // 
             // PasswordBox
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(417, 170);
             this.Controls.Add(this.labelTip);
             this.Controls.Add(this.textBoxPassword);
