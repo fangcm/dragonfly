@@ -18,6 +18,8 @@ namespace Dragonfly.Main
             notifyIcon.Text = "便签（蜻蜓）";
             notifyIcon.Visible = true;
             notifyIcon.DoubleClick += new EventHandler(notifyIcon_DoubleClick);
+
+            mainAppForm.Hide();
         }
 
         void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -46,6 +48,7 @@ namespace Dragonfly.Main
             {
                 notifyIcon.Visible = false;
                 notifyIcon.Dispose();
+                mainAppForm.Dispose();
                 Application.Exit();
             }
 
