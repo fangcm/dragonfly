@@ -4,7 +4,7 @@ using Dragonfly.Common.Plugin;
 
 namespace Dragonfly.Plugin.Task
 {
-    public partial class TaskMainPanel : PlugInMainPanel
+    public partial class TaskMainPanel : UserControl
     {
         private TaskCenter taskCenter;
         private TaskManager taskManager;

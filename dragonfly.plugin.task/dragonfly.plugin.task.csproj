@@ -53,13 +53,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Task.cs" />
+    <Compile Include="TaskCenter.cs" />
     <Compile Include="TaskMainPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="TaskMainPanel.Designer.cs">
       <DependentUpon>TaskMainPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskManager.cs" />
+    <Compile Include="TaskPlugin.cs" />
     <Compile Include="TaskSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,15 +81,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dragonfly.common\dragonfly.common.csproj">
-      <Project>{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}</Project>
-      <Name>dragonfly.common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\addnote.bmp" />
     <Content Include="Resources\del.bmp" />
     <Content Include="Resources\refresh.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dragonfly.common\dragonfly.common.csproj">
+      <Project>{9a72322c-0ef7-4a3e-bf03-7c4d7b944753}</Project>
+      <Name>dragonfly.common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

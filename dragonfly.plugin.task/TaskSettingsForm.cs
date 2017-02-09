@@ -11,18 +11,6 @@ namespace Dragonfly.Plugin.Task
         Interval2Hour = 3
     }
 
-    public enum DaysOfTheWeek : int
-    {
-        None = 0,
-        Sunday = 0x1,
-        Monday = 0x2,
-        Tuesday = 0x4,
-        Wednesday = 0x8,
-        Thursday = 0x10,
-        Friday = 0x20,
-        Saturday = 0x40
-    }
-
     public enum NotifyInternalType : int
     {
         ShutDown = 1,
@@ -39,71 +27,7 @@ namespace Dragonfly.Plugin.Task
             comboBoxInterval.SelectedIndex = 0;
         }
 
-        private void radioButtonOnce_CheckedChanged(object sender, EventArgs e)
-        {
-            bool bChecked = radioButtonOnce.Checked;
-            checkBoxInterval.Visible = !bChecked;
-            comboBoxInterval.Visible = !bChecked;
-            checkBoxMonday.Visible = !bChecked;
-            checkBoxTuesday.Visible = !bChecked;
-            checkBoxWednesday.Visible = !bChecked;
-            checkBoxThursday.Visible = !bChecked;
-            checkBoxFriday.Visible = !bChecked;
-            checkBoxSaturday.Visible = !bChecked;
-            checkBoxSunday.Visible = !bChecked;
-
-            if (bChecked)
-                dateTimePickerStartTime.Location = new System.Drawing.Point(261, 29);
-            else
-                dateTimePickerStartTime.Location = dateTimePickerStartDate.Location;
-            dateTimePickerStartDate.Visible = bChecked;
-        }
-
-        private void radioButtonDay_CheckedChanged(object sender, EventArgs e)
-        {
-            bool bChecked = radioButtonDay.Checked;
-            checkBoxInternal.Visible = bChecked;
-            comboBoxInterval.Visible = bChecked;
-            checkBoxMonday.Visible = !bChecked;
-            checkBoxTuesday.Visible = !bChecked;
-            checkBoxWednesday.Visible = !bChecked;
-            checkBoxThursday.Visible = !bChecked;
-            checkBoxFriday.Visible = !bChecked;
-            checkBoxSaturday.Visible = !bChecked;
-            checkBoxSunday.Visible = !bChecked;
-
-            if (bChecked)
-            {
-                dateTimePickerStartTime.Location = dateTimePickerStartDate.Location;
-                dateTimePickerStartDate.Visible = false;
-            }
-        }
-
-        private void radioButtonWeek_CheckedChanged(object sender, EventArgs e)
-        {
-            bool bChecked = radioButtonWeek.Checked;
-            checkBoxInternal.Visible = bChecked;
-            comboBoxInterval.Visible = bChecked;
-            checkBoxMonday.Visible = bChecked;
-            checkBoxTuesday.Visible = bChecked;
-            checkBoxWednesday.Visible = bChecked;
-            checkBoxThursday.Visible = bChecked;
-            checkBoxFriday.Visible = bChecked;
-            checkBoxSaturday.Visible = bChecked;
-            checkBoxSunday.Visible = bChecked;
-
-            if (bChecked)
-            {
-                dateTimePickerStartTime.Location = dateTimePickerStartDate.Location;
-                dateTimePickerStartDate.Visible = false;
-            }
-        }
-
-        private void checkBoxInterval_CheckedChanged(object sender, EventArgs e)
-        {
-            bool bChecked = checkBoxInterval.Checked;
-            comboBoxInterval.Enabled = bChecked;
-        }
+ 
 
         private void checkBoxInternal_CheckedChanged(object sender, EventArgs e)
         {
@@ -139,84 +63,7 @@ namespace Dragonfly.Plugin.Task
             set { this.textBoxContent.Text = value; }
         }
 
-        public int TriggerType
-        {
-            get
-            {
-                int type;
-                if (radioButtonOnce.Checked)
-                    type = 1;
-                else if (radioButtonDay.Checked)
-                    type = 2;
-                else if (radioButtonWeek.Checked)
-                    type = 3;
-                else
-                    type = 1;
-
-                return type;
-            }
-            set
-            {
-                switch (value)
-                {
-                    case 1:
-                        radioButtonOnce.Checked = true;
-                        break;
-                    case 2:
-                        radioButtonDay.Checked = true;
-                        break;
-                    case 3:
-                        radioButtonWeek.Checked = true;
-                        break;
-                }
-
-                if (radioButtonOnce.Checked)
-                    dateTimePickerStartTime.Location = new System.Drawing.Point(261, 29);
-                else
-                    dateTimePickerStartTime.Location = dateTimePickerStartDate.Location;
-                dateTimePickerStartDate.Visible = radioButtonOnce.Checked;
-
-            }
-        }
-
-        public DateTime BeginTime
-        {
-            get 
-            {
-                DateTime dtDate;
-                if (radioButtonOnce.Checked)
-                    dtDate = dateTimePickerStartDate.Value;
-                else
-                    dtDate = DateTime.Now;
-
-                DateTime dt = new DateTime(
-                    dtDate.Year,
-                    dtDate.Month,
-                    dtDate.Day,
-                    dateTimePickerStartTime.Value.Hour,
-                    dateTimePickerStartTime.Value.Minute,
-                    dateTimePickerStartTime.Value.Second );
-
-                return dt; 
-            }
-            set
-            {
-                this.dateTimePickerStartDate.Value = value;
-                this.dateTimePickerStartTime.Value = value;
-            }
-        }
-
-        public bool IsInterval
-        {
-            get
-            {
-                return checkBoxInterval.Checked;
-            }
-            set
-            {
-                checkBoxInterval.Checked = value;
-            }
-        }
+ 
 
         public EnumInterval Interval
         {
@@ -230,44 +77,7 @@ namespace Dragonfly.Plugin.Task
             }
         }
 
-        public DaysOfTheWeek DaysOfTheWeek
-        {
-            get
-            {
-                DaysOfTheWeek ret = DaysOfTheWeek.None;
-
-                if (checkBoxMonday.Checked) { ret |= DaysOfTheWeek.Monday; }
-                if (checkBoxTuesday.Checked) { ret |= DaysOfTheWeek.Tuesday; }
-                if (checkBoxWednesday.Checked) { ret |= DaysOfTheWeek.Wednesday; }
-                if (checkBoxThursday.Checked) { ret |= DaysOfTheWeek.Thursday; }
-                if (checkBoxFriday.Checked) { ret |= DaysOfTheWeek.Friday; }
-                if (checkBoxSaturday.Checked) { ret |= DaysOfTheWeek.Saturday; }
-                if (checkBoxSunday.Checked) { ret |= DaysOfTheWeek.Sunday; }
-                return ret;
-            }
-            set
-            {
-                checkBoxMonday.Checked = ((value & DaysOfTheWeek.Monday) != 0);
-                checkBoxTuesday.Checked = ((value & DaysOfTheWeek.Tuesday) != 0);
-                checkBoxWednesday.Checked = ((value & DaysOfTheWeek.Wednesday) != 0);
-                checkBoxThursday.Checked = ((value & DaysOfTheWeek.Thursday) != 0);
-                checkBoxFriday.Checked = ((value & DaysOfTheWeek.Friday) != 0);
-                checkBoxSaturday.Checked = ((value & DaysOfTheWeek.Saturday) != 0);
-                checkBoxSunday.Checked = ((value & DaysOfTheWeek.Sunday) != 0);
-            }
-        }
-
-        public bool IsNotifyShowMessage
-        {
-            get { return checkBoxShowMessage.Checked; }
-            set { checkBoxShowMessage.Checked = value; }
-        }
-
-        public bool IsNotifyShowAnimation
-        {
-            get { return checkBoxShowAnimation.Checked; }
-            set { checkBoxShowAnimation.Checked = value; }
-        }
+ 
 
         public bool IsNotifyInternal
         {
