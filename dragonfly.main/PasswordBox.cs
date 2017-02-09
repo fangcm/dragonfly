@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace Dragonfly.Main
 {
@@ -11,7 +11,6 @@ namespace Dragonfly.Main
         public PasswordBox()
         {
             InitializeComponent();
-
         }
 
         #region Assembly Attribute Accessors

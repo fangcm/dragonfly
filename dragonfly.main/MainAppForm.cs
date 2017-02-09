@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using Dragonfly.Common.Plugin;
+﻿using Dragonfly.Common.Plugin;
 using Dragonfly.Common.Utils;
 using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace Dragonfly.Main
 {
@@ -92,12 +91,5 @@ namespace Dragonfly.Main
         }
 
       
-        private void toolStripMenuAbout_Click(object sender, EventArgs e)
-        {
-            AboutBox aboutDialog = new AboutBox();
-            aboutDialog.ShowDialog();
-        }
-
-
     }
 }
