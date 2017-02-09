@@ -36,9 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Quartz, Version=1.0.1.2, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ReferencesLib\Quartz.dll</HintPath>
+    <Reference Include="FluentScheduler">
+      <HintPath>..\ReferencesLib\FluentScheduler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -52,7 +51,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Task.cs" />
+    <Compile Include="NotifyJob.cs" />
     <Compile Include="TaskCenter.cs" />
     <Compile Include="TaskMainPanel.cs">
       <SubType>UserControl</SubType>
@@ -61,12 +60,6 @@
       <DependentUpon>TaskMainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="TaskPlugin.cs" />
-    <Compile Include="TaskSettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TaskSettingsForm.designer.cs">
-      <DependentUpon>TaskSettingsForm.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -75,9 +68,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TaskMainPanel.resx">
       <DependentUpon>TaskMainPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TaskSettingsForm.resx">
-      <DependentUpon>TaskSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Xml;
-using System.IO;
-using System.Drawing;
 
 namespace Dragonfly.Common.Utils
 {

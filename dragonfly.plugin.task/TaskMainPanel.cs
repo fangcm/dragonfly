@@ -1,28 +1,28 @@
 ﻿using System.Collections;
 using System.Windows.Forms;
 using Dragonfly.Common.Plugin;
+using System;
 
 namespace Dragonfly.Plugin.Task
 {
+    public enum NotifyInternalType : int
+    {
+        None = 0,
+        ShutDown = 1,
+        Hibernate = 2,
+        LockScreen = 3
+    }
+
     public partial class TaskMainPanel : UserControl
     {
         private TaskCenter taskCenter;
-        private TaskManager taskManager;
 
         public TaskMainPanel()
         {
             InitializeComponent();
         }
 
-        public ToolStripItem ToolStripMenuMain
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public TaskCenter TaskCenter
+        internal TaskCenter TaskCenter
         {
             get
             {
@@ -34,151 +34,105 @@ namespace Dragonfly.Plugin.Task
             }
         }
 
-        public TaskManager TaskManager
+        private void TaskMainPanel_Load(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void checkBoxRunApp_CheckedChanged(object sender, System.EventArgs e)
+        {
+            bool bChecked = checkBoxRunApp.Checked;
+            this.textBoxApp.Enabled = bChecked;
+            this.buttonApp.Enabled = bChecked;
+            this.textBoxAppParam.Enabled = bChecked;
+            this.textBoxAppStartpath.Enabled = bChecked;
+        }
+
+        public string Title
+        {
+            get { return textBoxTitle.Text; }
+            set { textBoxTitle.Text = value; }
+        }
+
+        public string Description
+        {
+            get { return this.textBoxContent.Text; }
+            set { this.textBoxContent.Text = value; }
+        }
+
+        public int Interval
         {
             get
             {
-                return this.taskManager;
+                return Convert.ToInt32(comboBoxInterval.Text);
             }
             set
             {
-                this.taskManager = value;
+                comboBoxInterval.Text = value.ToString();
             }
         }
 
-        private void TaskMainPanel_Load(object sender, System.EventArgs e)
+        public NotifyInternalType NotifyInternalType
         {
-            listViewMain.Columns.Clear();
-            listViewMain.Columns.Add("标题", 150, HorizontalAlignment.Left);
-            listViewMain.Columns.Add("内容", 400, HorizontalAlignment.Left);
-
-            RefreshTasks();
-            RefreshToolbarState();
-        }
-
-        private void RefreshTasks()
-        {
-            this.listViewMain.Items.Clear();
-            foreach (Task t in taskCenter.Tasks)
+            get
             {
-                Hashtable param = t.Params;
-                string title = (string)param["Title"];
-                string description = (string)param["Description"];
+                NotifyInternalType ret;
+                if (radioButtonLockScreen.Checked)
+                    ret = NotifyInternalType.LockScreen;
+                else if (radioButtonHibernate.Checked)
+                    ret = NotifyInternalType.Hibernate;
+                else if (radioButtonShutdown.Checked)
+                    ret = NotifyInternalType.ShutDown;
+                else if (radioButtonNull.Checked)
+                    ret = NotifyInternalType.None;
+                else
+                    ret = NotifyInternalType.LockScreen;
 
-                ListViewItem item = listViewMain.Items.Add(title);
-                item.Tag = t;
-                item.SubItems.Add(description);
-
+                return ret;
             }
-        }
-
-        private void RefreshToolbarState()
-        {
-            if (this.listViewMain.SelectedItems.Count == 0)
+            set
             {
-                toolStripButtonModify.Enabled = false;
-                toolStripButtonDelete.Enabled = false;
-            }
-            else
-            {
-                toolStripButtonModify.Enabled = true;
-                toolStripButtonDelete.Enabled = true;
-            }
-        }
-
-        private void toolStripButtonRefresh_Click(object sender, System.EventArgs e)
-        {
-            RefreshTasks();
-            RefreshToolbarState();
-        }
-
-
-        private void toolStripButtonDelete_Click(object sender, System.EventArgs e)
-        {
-            if (this.listViewMain.SelectedItems.Count > 0)
-            {
-                ListViewItem item = this.listViewMain.SelectedItems[0];
-                Task t = (Task)item.Tag;
-                if (t != null)
-                {
-                    this.taskCenter.DelTask(t);
-                    this.listViewMain.Items.RemoveAt(item.Index);
-                    taskManager.SaveTaskSettings();
-                }
+                if (value == NotifyInternalType.LockScreen)
+                    radioButtonLockScreen.Checked = true;
+                else if (value == NotifyInternalType.Hibernate)
+                    radioButtonHibernate.Checked = true;
+                else if (value == NotifyInternalType.ShutDown)
+                    radioButtonShutdown.Checked = true;
+                else if (value == NotifyInternalType.None)
+                    radioButtonShutdown.Checked = true;
+                else
+                    radioButtonLockScreen.Checked = true;
             }
         }
 
-        private void listViewMain_SelectedIndexChanged(object sender, System.EventArgs e)
+        public int LockScreenSeconds
         {
-            RefreshToolbarState();
-
-            if (this.listViewMain.SelectedItems.Count > 0)
-            {
-                ListViewItem item = this.listViewMain.SelectedItems[0];
-                Task task = (Task)item.Tag;
-                if (task == null)
-                {
-                    RefreshTasks();
-                    RefreshToolbarState();
-                }
-            }
+            get { return (int)numericUpDownLockScreen.Value; }
+            set { numericUpDownLockScreen.Value = value; }
         }
 
-
-
-        private void toolStripButtonAdd_Click(object sender, System.EventArgs e)
+        public bool IsNotifyRunApp
         {
-            Task t = taskCenter.AddTask();
-            if (t != null)
-            {
-                Hashtable param = t.Params;
-                string title = (string)param["Title"];
-                string description = (string)param["Description"];
-
-                ListViewItem item = listViewMain.Items.Add(title);
-                item.Tag = t;
-                item.SubItems.Add(description);
-
-                taskManager.SaveTaskSettings();
-            }
+            get { return this.checkBoxRunApp.Checked; }
+            set { checkBoxRunApp.Checked = value; }
         }
 
-        private void toolStripButtonModify_Click(object sender, System.EventArgs e)
+        public string NotifyRunApp
         {
-            if (this.listViewMain.SelectedItems.Count > 0)
-            {
-                ListViewItem item = this.listViewMain.SelectedItems[0];
-                Task t = (Task)item.Tag;
-                if (t == null)
-                {
-                    RefreshTasks();
-                    RefreshToolbarState();
-                    return;
-                }
-
-                Task newTask = taskCenter.EditTask(t);
-                if (newTask != null)
-                {
-                    Hashtable param = newTask.Params;
-                    string title = (string)param["Title"];
-                    string description = (string)param["Description"];
-
-                    item.Text = title;
-                    item.SubItems[1].Text = description;
-                    item.Tag = newTask;
-
-                    taskManager.SaveTaskSettings();
-                }
-
-            }
+            get { return this.textBoxApp.Text; }
+            set { textBoxApp.Text = value; }
+        }
+        public string NotifyRunAppParam
+        {
+            get { return this.textBoxAppParam.Text; }
+            set { textBoxAppParam.Text = value; }
+        }
+        public string NotifyRunAppStartpath
+        {
+            get { return this.textBoxAppStartpath.Text; }
+            set { textBoxAppStartpath.Text = value; }
         }
 
-        private void listViewMain_DoubleClick(object sender, System.EventArgs e)
-        {
-            toolStripButtonModify_Click(null,null);
-        }
-
-      
     }
 
 }
