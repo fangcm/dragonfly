@@ -26,29 +26,29 @@ namespace Dragonfly.Common.Utils
                 xmldoc.Save(path);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.Message);
                 return false;
             }
         }
 
-        public static bool GetParamValue(XmlNode node, string param, bool defaultValue)
+        public static bool GetAttributeValue(XmlNode node, string param, bool defaultValue)
         {
-            return Convert.ToBoolean(GetParamValue(node, param, Convert.ToString(defaultValue)));
+            return Convert.ToBoolean(GetAttributeValue(node, param, Convert.ToString(defaultValue)));
         }
 
-        public static int GetParamValue(XmlNode node, string param, int defaultValue)
+        public static int GetAttributeValue(XmlNode node, string param, int defaultValue)
         {
-            return Convert.ToInt32(GetParamValue(node, param, Convert.ToString(defaultValue)));
+            return Convert.ToInt32(GetAttributeValue(node, param, Convert.ToString(defaultValue)));
         }
 
-        public static DateTime GetParamValue(XmlNode node, string param, DateTime defaultValue)
+        public static DateTime GetAttributeValue(XmlNode node, string param, DateTime defaultValue)
         {
-            return Convert.ToDateTime(GetParamValue(node, param, Convert.ToString(defaultValue)));
+            return Convert.ToDateTime(GetAttributeValue(node, param, Convert.ToString(defaultValue)));
         }
 
-        public static string GetParamValue(XmlNode node, string param, string defaultValue)
+        public static string GetAttributeValue(XmlNode node, string param, string defaultValue)
         {
             string value = GetAttributeValue(node, param);
             if (value == null)
@@ -59,26 +59,6 @@ namespace Dragonfly.Common.Utils
             {
                 return value;
             }
-        }
-
-        public static void PutParamValue(XmlNode node, string param, bool value)
-        {
-            PutParamValue(node, param, Convert.ToString(value));
-        }
-
-        public static void PutParamValue(XmlNode node, string param, int value)
-        {
-            PutParamValue(node, param, Convert.ToString(value));
-        }
-
-        public static void PutParamValue(XmlNode node, string param, DateTime value)
-        {
-            PutParamValue(node, param, Convert.ToString(value));
-        }
-
-        public static void PutParamValue(XmlNode node, string param, string value)
-        {
-            PutAttributeValue(node,param,value);
         }
 
         public static string GetAttributeValue(XmlNode node, string attributeName)
@@ -94,14 +74,19 @@ namespace Dragonfly.Common.Utils
             return attribute.Value;
         }
 
-        public static string GetElementText(XmlNode node, string elementName)
+        public static void PutAttributeValue(XmlNode node, string param, bool value)
         {
-            if (node == null)
-                return null;
-            XmlNode child = node.SelectSingleNode(elementName);
-            if (child == null)
-                return null;
-            return child.InnerText;
+            PutAttributeValue(node, param, Convert.ToString(value));
+        }
+
+        public static void PutAttributeValue(XmlNode node, string param, int value)
+        {
+            PutAttributeValue(node, param, Convert.ToString(value));
+        }
+
+        public static void PutAttributeValue(XmlNode node, string param, DateTime value)
+        {
+            PutAttributeValue(node, param, Convert.ToString(value));
         }
 
         public static void PutAttributeValue(XmlNode node, string attributeName, string value)
@@ -114,7 +99,17 @@ namespace Dragonfly.Common.Utils
             attribute.Value = value;
             node.Attributes.Append(attribute);
         }
-
+        
+        public static string GetElementText(XmlNode node, string elementName)
+        {
+            if (node == null)
+                return null;
+            XmlNode child = node.SelectSingleNode(elementName);
+            if (child == null)
+                return null;
+            return child.InnerText;
+        }
+        
         public static void PutElementText(XmlNode node, string elementName, string value)
         {
             if (node == null)
@@ -127,7 +122,6 @@ namespace Dragonfly.Common.Utils
             }
             child.InnerText = value;
         }
-
 
     }
 }
