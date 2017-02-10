@@ -10,65 +10,45 @@ namespace Dragonfly.Plugin.Task
         None = 0,
         ShutDown = 1,
         Hibernate = 2,
-        LockScreen = 3
     }
 
     public partial class TaskMainPanel : UserControl
     {
-        private TaskCenter taskCenter;
+        private TaskPlugin taskPlugin;
+        bool bDataChanged = false;
 
         public TaskMainPanel()
         {
             InitializeComponent();
         }
 
-        internal TaskCenter TaskCenter
+        internal TaskPlugin TaskPlugin
         {
             get
             {
-                return this.taskCenter;
+                return this.taskPlugin;
             }
             set
             {
-                this.taskCenter = value;
+                this.taskPlugin = value;
             }
-        }
-
-        private void TaskMainPanel_Load(object sender, System.EventArgs e)
-        {
-
-        }
-
-        private void checkBoxRunApp_CheckedChanged(object sender, System.EventArgs e)
-        {
-            bool bChecked = checkBoxRunApp.Checked;
-            this.textBoxApp.Enabled = bChecked;
-            this.buttonApp.Enabled = bChecked;
-            this.textBoxAppParam.Enabled = bChecked;
-            this.textBoxAppStartpath.Enabled = bChecked;
-        }
-
-        public string Title
-        {
-            get { return textBoxTitle.Text; }
-            set { textBoxTitle.Text = value; }
         }
 
         public string Description
         {
-            get { return this.textBoxContent.Text; }
-            set { this.textBoxContent.Text = value; }
+            get { return this.textBoxDescription.Text; }
+            set { this.textBoxDescription.Text = value; }
         }
 
-        public int Interval
+        public int IntervalMinutes
         {
             get
             {
-                return Convert.ToInt32(comboBoxInterval.Text);
+                return Convert.ToInt32(numericUpDownLockScreen.Value);
             }
             set
             {
-                comboBoxInterval.Text = value.ToString();
+                numericUpDownLockScreen.Value = value;
             }
         }
 
@@ -77,37 +57,36 @@ namespace Dragonfly.Plugin.Task
             get
             {
                 NotifyInternalType ret;
-                if (radioButtonLockScreen.Checked)
-                    ret = NotifyInternalType.LockScreen;
-                else if (radioButtonHibernate.Checked)
+
+                if (radioButtonHibernate.Checked)
                     ret = NotifyInternalType.Hibernate;
                 else if (radioButtonShutdown.Checked)
                     ret = NotifyInternalType.ShutDown;
-                else if (radioButtonNull.Checked)
-                    ret = NotifyInternalType.None;
                 else
-                    ret = NotifyInternalType.LockScreen;
+                    ret = NotifyInternalType.None;
 
                 return ret;
             }
             set
             {
-                if (value == NotifyInternalType.LockScreen)
-                    radioButtonLockScreen.Checked = true;
-                else if (value == NotifyInternalType.Hibernate)
+                if (value == NotifyInternalType.Hibernate)
                     radioButtonHibernate.Checked = true;
                 else if (value == NotifyInternalType.ShutDown)
                     radioButtonShutdown.Checked = true;
-                else if (value == NotifyInternalType.None)
-                    radioButtonShutdown.Checked = true;
                 else
-                    radioButtonLockScreen.Checked = true;
+                    radioButtonNull.Checked = true;
             }
         }
 
-        public int LockScreenSeconds
+        public bool IsLockScreen
         {
-            get { return (int)numericUpDownLockScreen.Value; }
+            get { return this.checkBoxLockScreen.Checked; }
+            set { checkBoxLockScreen.Checked = value; }
+        }
+
+        public int LockScreenMinutes
+        {
+            get { return Convert.ToInt32(numericUpDownLockScreen.Value); }
             set { numericUpDownLockScreen.Value = value; }
         }
 
@@ -122,16 +101,55 @@ namespace Dragonfly.Plugin.Task
             get { return this.textBoxApp.Text; }
             set { textBoxApp.Text = value; }
         }
+
         public string NotifyRunAppParam
         {
             get { return this.textBoxAppParam.Text; }
             set { textBoxAppParam.Text = value; }
         }
+
         public string NotifyRunAppStartpath
         {
             get { return this.textBoxAppStartpath.Text; }
             set { textBoxAppStartpath.Text = value; }
         }
+
+        private void TaskMainPanel_Load(object sender, System.EventArgs e)
+        {
+
+            JobSetting setting = this.TaskPlugin.JobSetting;
+
+            Description = setting.Description;
+            IntervalMinutes = setting.IntervalMinutes;
+            IsLockScreen = setting.IsLockScreen;
+            LockScreenMinutes = setting.LockScreenMinutes;
+            NotifyInternalType = (NotifyInternalType)setting.NotifyInternalType;
+            IsNotifyRunApp = setting.IsNotifyRunApp;
+            NotifyRunApp = setting.NotifyRunApp;
+            NotifyRunAppParam = setting.NotifyRunAppParam;
+            NotifyRunAppStartpath = setting.NotifyRunAppStartpath;
+
+            this.textBoxDescription.TextChanged += new System.EventHandler(this.Data_Changed);
+            this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.Data_Changed);
+            this.checkBoxLockScreen.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.numericUpDownLockScreen.ValueChanged += new System.EventHandler(this.Data_Changed);
+            this.radioButtonHibernate.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.radioButtonShutdown.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.radioButtonNull.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.checkBoxRunApp.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.textBoxApp.TextChanged += new System.EventHandler(this.Data_Changed);
+            this.textBoxAppParam.TextChanged += new System.EventHandler(this.Data_Changed);
+            this.textBoxAppStartpath.TextChanged += new System.EventHandler(this.Data_Changed);
+
+            bDataChanged = false;
+        }
+
+        private void Data_Changed(object sender, System.EventArgs e)
+        {
+            bDataChanged = true;
+
+        }
+
 
     }
 

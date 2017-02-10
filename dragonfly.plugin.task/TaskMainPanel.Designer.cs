@@ -29,17 +29,14 @@
         private void InitializeComponent()
         {
             this.labelContent = new System.Windows.Forms.Label();
-            this.labelTitle = new System.Windows.Forms.Label();
-            this.textBoxContent = new System.Windows.Forms.TextBox();
-            this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.labelInterval = new System.Windows.Forms.Label();
-            this.comboBoxInterval = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownLockScreen = new System.Windows.Forms.NumericUpDown();
-            this.radioButtonLockScreen = new System.Windows.Forms.RadioButton();
-            this.labelLockScreen = new System.Windows.Forms.Label();
+            this.radioButtonNull = new System.Windows.Forms.RadioButton();
             this.radioButtonHibernate = new System.Windows.Forms.RadioButton();
             this.radioButtonShutdown = new System.Windows.Forms.RadioButton();
+            this.numericUpDownLockScreen = new System.Windows.Forms.NumericUpDown();
+            this.labelLockScreen = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxApp = new System.Windows.Forms.TextBox();
             this.labelApp = new System.Windows.Forms.Label();
@@ -49,87 +46,102 @@
             this.labelAppStartpath = new System.Windows.Forms.Label();
             this.textBoxAppParam = new System.Windows.Forms.TextBox();
             this.checkBoxRunApp = new System.Windows.Forms.CheckBox();
-            this.labelSecond = new System.Windows.Forms.Label();
+            this.labelMinute = new System.Windows.Forms.Label();
             this.labelInternal = new System.Windows.Forms.Label();
-            this.radioButtonNull = new System.Windows.Forms.RadioButton();
+            this.checkBoxLockScreen = new System.Windows.Forms.CheckBox();
+            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLockScreen)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // labelContent
             // 
             this.labelContent.AutoSize = true;
-            this.labelContent.Location = new System.Drawing.Point(13, 46);
+            this.labelContent.Location = new System.Drawing.Point(17, 23);
+            this.labelContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelContent.Name = "labelContent";
-            this.labelContent.Size = new System.Drawing.Size(41, 12);
+            this.labelContent.Size = new System.Drawing.Size(52, 15);
             this.labelContent.TabIndex = 2;
-            this.labelContent.Text = "内容：";
+            this.labelContent.Text = "描述：";
             // 
-            // labelTitle
+            // textBoxDescription
             // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.Location = new System.Drawing.Point(13, 14);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(41, 12);
-            this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "标题：";
-            // 
-            // textBoxContent
-            // 
-            this.textBoxContent.Location = new System.Drawing.Point(61, 46);
-            this.textBoxContent.Multiline = true;
-            this.textBoxContent.Name = "textBoxContent";
-            this.textBoxContent.Size = new System.Drawing.Size(364, 69);
-            this.textBoxContent.TabIndex = 3;
-            // 
-            // textBoxTitle
-            // 
-            this.textBoxTitle.Location = new System.Drawing.Point(61, 11);
-            this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(364, 21);
-            this.textBoxTitle.TabIndex = 1;
+            this.textBoxDescription.Location = new System.Drawing.Point(81, 23);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(484, 85);
+            this.textBoxDescription.TabIndex = 3;
             // 
             // labelInterval
             // 
             this.labelInterval.AutoSize = true;
-            this.labelInterval.Location = new System.Drawing.Point(13, 136);
+            this.labelInterval.Location = new System.Drawing.Point(17, 135);
+            this.labelInterval.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInterval.Name = "labelInterval";
-            this.labelInterval.Size = new System.Drawing.Size(89, 12);
+            this.labelInterval.Size = new System.Drawing.Size(112, 15);
             this.labelInterval.TabIndex = 4;
             this.labelInterval.Text = "任务重复间隔：";
-            // 
-            // comboBoxInterval
-            // 
-            this.comboBoxInterval.FormattingEnabled = true;
-            this.comboBoxInterval.Items.AddRange(new object[] {
-            "5分钟",
-            "30分钟",
-            "1小时",
-            "2小时"});
-            this.comboBoxInterval.Location = new System.Drawing.Point(103, 133);
-            this.comboBoxInterval.Name = "comboBoxInterval";
-            this.comboBoxInterval.Size = new System.Drawing.Size(139, 20);
-            this.comboBoxInterval.TabIndex = 5;
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.radioButtonNull);
-            this.groupBox5.Controls.Add(this.numericUpDownLockScreen);
-            this.groupBox5.Controls.Add(this.radioButtonLockScreen);
-            this.groupBox5.Controls.Add(this.labelLockScreen);
             this.groupBox5.Controls.Add(this.radioButtonHibernate);
             this.groupBox5.Controls.Add(this.radioButtonShutdown);
-            this.groupBox5.Location = new System.Drawing.Point(15, 196);
+            this.groupBox5.Location = new System.Drawing.Point(135, 206);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(410, 47);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(430, 59);
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
+            // 
+            // radioButtonNull
+            // 
+            this.radioButtonNull.AutoSize = true;
+            this.radioButtonNull.Enabled = false;
+            this.radioButtonNull.Location = new System.Drawing.Point(216, 26);
+            this.radioButtonNull.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonNull.Name = "radioButtonNull";
+            this.radioButtonNull.Size = new System.Drawing.Size(73, 19);
+            this.radioButtonNull.TabIndex = 5;
+            this.radioButtonNull.TabStop = true;
+            this.radioButtonNull.Text = "无操作";
+            this.radioButtonNull.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonHibernate
+            // 
+            this.radioButtonHibernate.AutoSize = true;
+            this.radioButtonHibernate.Enabled = false;
+            this.radioButtonHibernate.Location = new System.Drawing.Point(8, 26);
+            this.radioButtonHibernate.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonHibernate.Name = "radioButtonHibernate";
+            this.radioButtonHibernate.Size = new System.Drawing.Size(88, 19);
+            this.radioButtonHibernate.TabIndex = 3;
+            this.radioButtonHibernate.TabStop = true;
+            this.radioButtonHibernate.Text = "自动休眠";
+            this.radioButtonHibernate.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonShutdown
+            // 
+            this.radioButtonShutdown.AutoSize = true;
+            this.radioButtonShutdown.Enabled = false;
+            this.radioButtonShutdown.Location = new System.Drawing.Point(114, 26);
+            this.radioButtonShutdown.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonShutdown.Name = "radioButtonShutdown";
+            this.radioButtonShutdown.Size = new System.Drawing.Size(88, 19);
+            this.radioButtonShutdown.TabIndex = 4;
+            this.radioButtonShutdown.TabStop = true;
+            this.radioButtonShutdown.Text = "自动关机";
+            this.radioButtonShutdown.UseVisualStyleBackColor = true;
             // 
             // numericUpDownLockScreen
             // 
             this.numericUpDownLockScreen.Enabled = false;
-            this.numericUpDownLockScreen.Location = new System.Drawing.Point(89, 19);
+            this.numericUpDownLockScreen.Location = new System.Drawing.Point(137, 173);
+            this.numericUpDownLockScreen.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownLockScreen.Maximum = new decimal(new int[] {
             36000,
             0,
@@ -141,58 +153,23 @@
             0,
             0});
             this.numericUpDownLockScreen.Name = "numericUpDownLockScreen";
-            this.numericUpDownLockScreen.Size = new System.Drawing.Size(54, 21);
+            this.numericUpDownLockScreen.Size = new System.Drawing.Size(72, 25);
             this.numericUpDownLockScreen.TabIndex = 1;
             this.numericUpDownLockScreen.Value = new decimal(new int[] {
-            10,
+            60,
             0,
             0,
             0});
             // 
-            // radioButtonLockScreen
-            // 
-            this.radioButtonLockScreen.AutoSize = true;
-            this.radioButtonLockScreen.Enabled = false;
-            this.radioButtonLockScreen.Location = new System.Drawing.Point(12, 19);
-            this.radioButtonLockScreen.Name = "radioButtonLockScreen";
-            this.radioButtonLockScreen.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonLockScreen.TabIndex = 0;
-            this.radioButtonLockScreen.TabStop = true;
-            this.radioButtonLockScreen.Text = "锁定屏幕";
-            this.radioButtonLockScreen.UseVisualStyleBackColor = true;
-            // 
             // labelLockScreen
             // 
             this.labelLockScreen.AutoSize = true;
-            this.labelLockScreen.Location = new System.Drawing.Point(149, 21);
+            this.labelLockScreen.Location = new System.Drawing.Point(217, 178);
+            this.labelLockScreen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLockScreen.Name = "labelLockScreen";
-            this.labelLockScreen.Size = new System.Drawing.Size(17, 12);
+            this.labelLockScreen.Size = new System.Drawing.Size(37, 15);
             this.labelLockScreen.TabIndex = 2;
-            this.labelLockScreen.Text = "秒";
-            // 
-            // radioButtonHibernate
-            // 
-            this.radioButtonHibernate.AutoSize = true;
-            this.radioButtonHibernate.Enabled = false;
-            this.radioButtonHibernate.Location = new System.Drawing.Point(172, 19);
-            this.radioButtonHibernate.Name = "radioButtonHibernate";
-            this.radioButtonHibernate.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonHibernate.TabIndex = 3;
-            this.radioButtonHibernate.TabStop = true;
-            this.radioButtonHibernate.Text = "自动休眠";
-            this.radioButtonHibernate.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonShutdown
-            // 
-            this.radioButtonShutdown.AutoSize = true;
-            this.radioButtonShutdown.Enabled = false;
-            this.radioButtonShutdown.Location = new System.Drawing.Point(251, 19);
-            this.radioButtonShutdown.Name = "radioButtonShutdown";
-            this.radioButtonShutdown.Size = new System.Drawing.Size(71, 16);
-            this.radioButtonShutdown.TabIndex = 4;
-            this.radioButtonShutdown.TabStop = true;
-            this.radioButtonShutdown.Text = "自动关机";
-            this.radioButtonShutdown.UseVisualStyleBackColor = true;
+            this.labelLockScreen.Text = "分钟";
             // 
             // groupBox2
             // 
@@ -203,35 +180,40 @@
             this.groupBox2.Controls.Add(this.labelAppParam);
             this.groupBox2.Controls.Add(this.labelAppStartpath);
             this.groupBox2.Controls.Add(this.textBoxAppParam);
-            this.groupBox2.Location = new System.Drawing.Point(15, 281);
+            this.groupBox2.Location = new System.Drawing.Point(20, 316);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(410, 120);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(547, 150);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
             // textBoxApp
             // 
             this.textBoxApp.Enabled = false;
-            this.textBoxApp.Location = new System.Drawing.Point(6, 36);
+            this.textBoxApp.Location = new System.Drawing.Point(8, 45);
+            this.textBoxApp.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxApp.Name = "textBoxApp";
-            this.textBoxApp.Size = new System.Drawing.Size(316, 21);
+            this.textBoxApp.Size = new System.Drawing.Size(403, 25);
             this.textBoxApp.TabIndex = 1;
             // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
-            this.labelApp.Location = new System.Drawing.Point(6, 21);
+            this.labelApp.Location = new System.Drawing.Point(8, 26);
+            this.labelApp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelApp.Name = "labelApp";
-            this.labelApp.Size = new System.Drawing.Size(41, 12);
+            this.labelApp.Size = new System.Drawing.Size(52, 15);
             this.labelApp.TabIndex = 0;
             this.labelApp.Text = "程序：";
             // 
             // buttonApp
             // 
             this.buttonApp.Enabled = false;
-            this.buttonApp.Location = new System.Drawing.Point(328, 34);
+            this.buttonApp.Location = new System.Drawing.Point(437, 42);
+            this.buttonApp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonApp.Name = "buttonApp";
-            this.buttonApp.Size = new System.Drawing.Size(75, 23);
+            this.buttonApp.Size = new System.Drawing.Size(100, 29);
             this.buttonApp.TabIndex = 2;
             this.buttonApp.Text = "浏览...";
             this.buttonApp.UseVisualStyleBackColor = true;
@@ -239,101 +221,133 @@
             // textBoxAppStartpath
             // 
             this.textBoxAppStartpath.Enabled = false;
-            this.textBoxAppStartpath.Location = new System.Drawing.Point(113, 90);
+            this.textBoxAppStartpath.Location = new System.Drawing.Point(151, 112);
+            this.textBoxAppStartpath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppStartpath.Name = "textBoxAppStartpath";
-            this.textBoxAppStartpath.Size = new System.Drawing.Size(290, 21);
+            this.textBoxAppStartpath.Size = new System.Drawing.Size(385, 25);
             this.textBoxAppStartpath.TabIndex = 6;
             // 
             // labelAppParam
             // 
             this.labelAppParam.AutoSize = true;
-            this.labelAppParam.Location = new System.Drawing.Point(6, 66);
+            this.labelAppParam.Location = new System.Drawing.Point(8, 82);
+            this.labelAppParam.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAppParam.Name = "labelAppParam";
-            this.labelAppParam.Size = new System.Drawing.Size(77, 12);
+            this.labelAppParam.Size = new System.Drawing.Size(98, 15);
             this.labelAppParam.TabIndex = 3;
             this.labelAppParam.Text = "参数(可选)：";
             // 
             // labelAppStartpath
             // 
             this.labelAppStartpath.AutoSize = true;
-            this.labelAppStartpath.Location = new System.Drawing.Point(4, 93);
+            this.labelAppStartpath.Location = new System.Drawing.Point(5, 116);
+            this.labelAppStartpath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAppStartpath.Name = "labelAppStartpath";
-            this.labelAppStartpath.Size = new System.Drawing.Size(101, 12);
+            this.labelAppStartpath.Size = new System.Drawing.Size(128, 15);
             this.labelAppStartpath.TabIndex = 5;
             this.labelAppStartpath.Text = "开始目录(可选)：";
             // 
             // textBoxAppParam
             // 
             this.textBoxAppParam.Enabled = false;
-            this.textBoxAppParam.Location = new System.Drawing.Point(113, 63);
+            this.textBoxAppParam.Location = new System.Drawing.Point(151, 79);
+            this.textBoxAppParam.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppParam.Name = "textBoxAppParam";
-            this.textBoxAppParam.Size = new System.Drawing.Size(290, 21);
+            this.textBoxAppParam.Size = new System.Drawing.Size(385, 25);
             this.textBoxAppParam.TabIndex = 4;
             // 
             // checkBoxRunApp
             // 
             this.checkBoxRunApp.AutoSize = true;
-            this.checkBoxRunApp.Location = new System.Drawing.Point(15, 258);
+            this.checkBoxRunApp.Location = new System.Drawing.Point(20, 287);
+            this.checkBoxRunApp.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxRunApp.Name = "checkBoxRunApp";
-            this.checkBoxRunApp.Size = new System.Drawing.Size(84, 16);
+            this.checkBoxRunApp.Size = new System.Drawing.Size(104, 19);
             this.checkBoxRunApp.TabIndex = 9;
             this.checkBoxRunApp.Text = "运行程序：";
             this.checkBoxRunApp.UseVisualStyleBackColor = true;
-            this.checkBoxRunApp.CheckedChanged += new System.EventHandler(this.checkBoxRunApp_CheckedChanged);
             // 
-            // labelSecond
+            // labelMinute
             // 
-            this.labelSecond.AutoSize = true;
-            this.labelSecond.Location = new System.Drawing.Point(248, 136);
-            this.labelSecond.Name = "labelSecond";
-            this.labelSecond.Size = new System.Drawing.Size(17, 12);
-            this.labelSecond.TabIndex = 6;
-            this.labelSecond.Text = "秒";
+            this.labelMinute.AutoSize = true;
+            this.labelMinute.Location = new System.Drawing.Point(217, 135);
+            this.labelMinute.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMinute.Name = "labelMinute";
+            this.labelMinute.Size = new System.Drawing.Size(37, 15);
+            this.labelMinute.TabIndex = 6;
+            this.labelMinute.Text = "分钟";
             // 
             // labelInternal
             // 
             this.labelInternal.AutoSize = true;
-            this.labelInternal.Location = new System.Drawing.Point(13, 170);
+            this.labelInternal.Location = new System.Drawing.Point(17, 223);
+            this.labelInternal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInternal.Name = "labelInternal";
-            this.labelInternal.Size = new System.Drawing.Size(65, 12);
+            this.labelInternal.Size = new System.Drawing.Size(82, 15);
             this.labelInternal.TabIndex = 7;
             this.labelInternal.Text = "触发操作：";
             // 
-            // radioButtonNull
+            // checkBoxLockScreen
             // 
-            this.radioButtonNull.AutoSize = true;
-            this.radioButtonNull.Enabled = false;
-            this.radioButtonNull.Location = new System.Drawing.Point(328, 19);
-            this.radioButtonNull.Name = "radioButtonNull";
-            this.radioButtonNull.Size = new System.Drawing.Size(59, 16);
-            this.radioButtonNull.TabIndex = 5;
-            this.radioButtonNull.TabStop = true;
-            this.radioButtonNull.Text = "无操作";
-            this.radioButtonNull.UseVisualStyleBackColor = true;
+            this.checkBoxLockScreen.AutoSize = true;
+            this.checkBoxLockScreen.Location = new System.Drawing.Point(20, 174);
+            this.checkBoxLockScreen.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxLockScreen.Name = "checkBoxLockScreen";
+            this.checkBoxLockScreen.Size = new System.Drawing.Size(104, 19);
+            this.checkBoxLockScreen.TabIndex = 11;
+            this.checkBoxLockScreen.Text = "锁定屏幕：";
+            this.checkBoxLockScreen.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownInterval
+            // 
+            this.numericUpDownInterval.Enabled = false;
+            this.numericUpDownInterval.Location = new System.Drawing.Point(135, 133);
+            this.numericUpDownInterval.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownInterval.Maximum = new decimal(new int[] {
+            36000,
+            0,
+            0,
+            0});
+            this.numericUpDownInterval.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownInterval.Name = "numericUpDownInterval";
+            this.numericUpDownInterval.Size = new System.Drawing.Size(72, 25);
+            this.numericUpDownInterval.TabIndex = 12;
+            this.numericUpDownInterval.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
             // 
             // TaskMainPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.numericUpDownInterval);
+            this.Controls.Add(this.checkBoxLockScreen);
             this.Controls.Add(this.labelInternal);
-            this.Controls.Add(this.labelSecond);
+            this.Controls.Add(this.numericUpDownLockScreen);
+            this.Controls.Add(this.labelMinute);
+            this.Controls.Add(this.labelLockScreen);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkBoxRunApp);
             this.Controls.Add(this.labelInterval);
-            this.Controls.Add(this.comboBoxInterval);
             this.Controls.Add(this.labelContent);
-            this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.textBoxContent);
-            this.Controls.Add(this.textBoxTitle);
+            this.Controls.Add(this.textBoxDescription);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TaskMainPanel";
-            this.Size = new System.Drawing.Size(440, 410);
+            this.Size = new System.Drawing.Size(587, 480);
             this.Load += new System.EventHandler(this.TaskMainPanel_Load);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLockScreen)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,14 +356,10 @@
         #endregion
 
         private System.Windows.Forms.Label labelContent;
-        private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.TextBox textBoxContent;
-        private System.Windows.Forms.TextBox textBoxTitle;
+        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label labelInterval;
-        private System.Windows.Forms.ComboBox comboBoxInterval;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.NumericUpDown numericUpDownLockScreen;
-        private System.Windows.Forms.RadioButton radioButtonLockScreen;
         private System.Windows.Forms.Label labelLockScreen;
         private System.Windows.Forms.RadioButton radioButtonHibernate;
         private System.Windows.Forms.RadioButton radioButtonShutdown;
@@ -362,8 +372,10 @@
         private System.Windows.Forms.Label labelAppStartpath;
         private System.Windows.Forms.TextBox textBoxAppParam;
         private System.Windows.Forms.CheckBox checkBoxRunApp;
-        private System.Windows.Forms.Label labelSecond;
+        private System.Windows.Forms.Label labelMinute;
         private System.Windows.Forms.RadioButton radioButtonNull;
         private System.Windows.Forms.Label labelInternal;
+        private System.Windows.Forms.CheckBox checkBoxLockScreen;
+        private System.Windows.Forms.NumericUpDown numericUpDownInterval;
     }
 }
