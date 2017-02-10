@@ -24,7 +24,7 @@ namespace Dragonfly.Plugin.Task
         }
 
         public string Name { get { return "DragonflyTask"; } }
-        public string Caption { get { return "提醒"; } }
+        public string Caption { get { return "定时提醒"; } }
         public string Version { get { return "1.1.0"; } }
 
         public void Initialize()

@@ -50,6 +50,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NotifyJob.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SchedulerRegistry.cs" />
     <Compile Include="JobSetting.cs" />
     <Compile Include="TaskMainPanel.cs">
@@ -59,16 +64,28 @@
       <DependentUpon>TaskMainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="TaskPlugin.cs" />
+    <Compile Include="JobSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobSettingForm.designer.cs">
+      <DependentUpon>JobSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="TaskMainPanel.resx">
       <DependentUpon>TaskMainPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="JobSettingForm.resx">
+      <DependentUpon>JobSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\addnote.bmp" />
-    <Content Include="Resources\del.bmp" />
+    <Content Include="Resources\setting.bmp" />
     <Content Include="Resources\refresh.bmp" />
   </ItemGroup>
   <ItemGroup>

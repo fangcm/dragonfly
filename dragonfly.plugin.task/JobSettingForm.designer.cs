@@ -1,6 +1,6 @@
 ﻿namespace Dragonfly.Plugin.Task
 {
-    partial class JobSettingsForm
+    partial class JobSettingForm
     {
         /// <summary>
         /// Required designer variable.
