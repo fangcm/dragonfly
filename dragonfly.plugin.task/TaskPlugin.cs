@@ -12,7 +12,6 @@ namespace Dragonfly.Plugin.Task
 
     public class TaskPlugin : IPlugin
     {
-        private JobSetting jobSetting = null;
         private TaskMainPanel mainPanel = null;
 
         public TaskPlugin()
@@ -30,12 +29,6 @@ namespace Dragonfly.Plugin.Task
 
         public void Initialize()
         {
-            if (jobSetting == null)
-            {
-                jobSetting = new JobSetting();
-                jobSetting.Load();
-            }
-
             StartTask();
         }
 
@@ -46,21 +39,7 @@ namespace Dragonfly.Plugin.Task
             {
                 mainPanel.Dispose();
             }
-            jobSetting.Save();
-        }
-
-        internal JobSetting JobSetting
-        {
-            get
-            {
-                if (jobSetting == null)
-                {
-                    jobSetting = new JobSetting();
-                    jobSetting.Load();
-                }
-
-                return this.jobSetting;
-            }
+            JobSetting.GetInstance().Save();
         }
 
         public UserControl PluginPanel

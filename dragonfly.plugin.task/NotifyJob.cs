@@ -16,71 +16,22 @@ namespace Dragonfly.Plugin.Task
 
             System.Diagnostics.Debug.WriteLine("worker execute:" + DateTime.Now);
 
-            string title = (string)param["Title"];
-            string description = (string)param["Description"];
+            JobSetting setting = JobSetting.GetInstance();
 
-            bool isNotifyShowMessage = (bool)param["IsNotifyShowMessage"];
-            if (isNotifyShowMessage)
+            if (setting.IsLockScreen || setting.NotifyInternalType != JobSetting.NotifyInternalType_None)
             {
                 string notifyRunApp = Application.StartupPath + @"\dragonfly.plugin.task.notify.exe";
-                string notifyRunAppParam = string.Format("msg \"{0}\" \"{1}\"",title,description);
                 string notifyRunAppStartpath = Application.StartupPath;
-                ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-            }
-
-            bool isNotifyShowAnimation = (bool)param["IsNotifyShowAnimation"];
-            if (isNotifyShowAnimation)
-            {
-                int showSeconds = 60; // (int)param["ShowSeconds"];
-                string notifyRunApp = Application.StartupPath + @"\dragonfly.plugin.task.notify.exe";
-                string notifyRunAppParam = string.Format("other \"{0}\"", showSeconds);
-                string notifyRunAppStartpath = Application.StartupPath;
-                ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-            }
-
-            bool isNotifyInternal = (bool)param["IsNotifyInternal"];
-            if (isNotifyInternal)
-            {
-                NotifyInternalType notifyInternalType = (NotifyInternalType)param["NotifyInternalType"];
-                int lockScreenSeconds = (int)param["LockScreenSeconds"];
-
-                string notifyRunApp = Application.StartupPath + @"\dragonfly.plugin.task.notify.exe";
-                string notifyRunAppParam;
-                string notifyRunAppStartpath = Application.StartupPath;
-
-                if (notifyInternalType == NotifyInternalType.LockScreen)
-                {
-                    notifyRunAppParam = string.Format("lock {0} \"{1}\" \"{2}\"", lockScreenSeconds, title, description);
-                }
-                else if (notifyInternalType == NotifyInternalType.Hibernate)
-                {
-                    notifyRunAppParam = "shutdown hibernate";
-                }
-                else if (notifyInternalType == NotifyInternalType.ShutDown)
-                {
-                    notifyRunAppParam = "shutdown poweroff";
-                }
-                else
-                {
-                    notifyRunAppParam = string.Format("lock 30 提醒 锁定屏幕，请稍休息一下");
-                }
+                string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -o {2} -desc \"{3}\"", setting.IsLockScreen,setting.LockScreenMinutes, setting.NotifyInternalType, setting.Description);
 
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-
                 System.Diagnostics.Debug.WriteLine("ExecApp:" + notifyRunApp);
             }
 
-            bool isNotifyRunApp = (bool)param["IsNotifyRunApp"];
-            if (isNotifyRunApp)
+            if (setting.IsNotifyRunApp)
             {
-
-                string notifyRunApp = (string)param["NotifyRunApp"];
-                string notifyRunAppParam = (string)param["NotifyRunAppParam"];
-                string notifyRunAppStartpath = (string)param["NotifyRunAppStartpath"];
-
-                ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-
-                System.Diagnostics.Debug.WriteLine("ExecApp:" + notifyRunApp);
+                ExecApp(setting.NotifyRunApp, setting.NotifyRunAppParam, setting.NotifyRunAppStartpath);
+                System.Diagnostics.Debug.WriteLine("ExecApp:" + setting.NotifyRunApp);
             }
 
         }

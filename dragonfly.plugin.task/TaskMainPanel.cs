@@ -5,12 +5,7 @@ using System;
 
 namespace Dragonfly.Plugin.Task
 {
-    public enum NotifyInternalType : int
-    {
-        None = 0,
-        ShutDown = 1,
-        Hibernate = 2,
-    }
+
 
     public partial class TaskMainPanel : UserControl
     {
@@ -52,29 +47,29 @@ namespace Dragonfly.Plugin.Task
             }
         }
 
-        public NotifyInternalType NotifyInternalType
+        public int NotifyInternalType
         {
             get
             {
-                NotifyInternalType ret;
+                int ret;
 
                 if (radioButtonHibernate.Checked)
-                    ret = NotifyInternalType.Hibernate;
+                    ret = JobSetting.NotifyInternalType_Hibernate;
                 else if (radioButtonShutdown.Checked)
-                    ret = NotifyInternalType.ShutDown;
+                    ret = JobSetting.NotifyInternalType_ShutDown;
                 else
-                    ret = NotifyInternalType.None;
+                    ret = JobSetting.NotifyInternalType_None;
 
                 return ret;
             }
             set
             {
-                if (value == NotifyInternalType.Hibernate)
+                if (value == JobSetting.NotifyInternalType_Hibernate)
                     radioButtonHibernate.Checked = true;
-                else if (value == NotifyInternalType.ShutDown)
+                else if (value == JobSetting.NotifyInternalType_ShutDown)
                     radioButtonShutdown.Checked = true;
                 else
-                    radioButtonNull.Checked = true;
+                    radioButtonNone.Checked = true;
             }
         }
 
@@ -117,13 +112,13 @@ namespace Dragonfly.Plugin.Task
         private void TaskMainPanel_Load(object sender, System.EventArgs e)
         {
 
-            JobSetting setting = this.TaskPlugin.JobSetting;
+            JobSetting setting = JobSetting.GetInstance();
 
             Description = setting.Description;
             IntervalMinutes = setting.IntervalMinutes;
             IsLockScreen = setting.IsLockScreen;
             LockScreenMinutes = setting.LockScreenMinutes;
-            NotifyInternalType = (NotifyInternalType)setting.NotifyInternalType;
+            NotifyInternalType = setting.NotifyInternalType;
             IsNotifyRunApp = setting.IsNotifyRunApp;
             NotifyRunApp = setting.NotifyRunApp;
             NotifyRunAppParam = setting.NotifyRunAppParam;
@@ -135,7 +130,7 @@ namespace Dragonfly.Plugin.Task
             this.numericUpDownLockScreen.ValueChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonHibernate.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonShutdown.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.radioButtonNull.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.radioButtonNone.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.checkBoxRunApp.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxApp.TextChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxAppParam.TextChanged += new System.EventHandler(this.Data_Changed);

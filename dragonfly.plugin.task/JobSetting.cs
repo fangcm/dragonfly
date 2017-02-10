@@ -10,6 +10,13 @@ namespace Dragonfly.Plugin.Task
 {
     internal class JobSetting
     {
+        private static JobSetting instance;
+        private static readonly object locker = new object();
+
+        internal static readonly int NotifyInternalType_None = 0;
+        internal static readonly int NotifyInternalType_ShutDown = 1;
+        internal static readonly int NotifyInternalType_Hibernate = 2;
+
         private string sSettingsFileName;
 
         private string description;
@@ -22,12 +29,29 @@ namespace Dragonfly.Plugin.Task
         private string notifyRunAppParam;
         private string notifyRunAppStartpath;
 
-        public JobSetting()
+        private JobSetting()
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string path = appDataPath + "\\fangcm\\";
-            DirectoryUtils.CreateDirectory(path);
+            Util.CreateDirectory(path);
             this.sSettingsFileName = path + "TaskSettings.xml";
+        }
+
+        public static JobSetting GetInstance()
+        {
+            if (instance == null)
+            {
+                lock (locker)
+                {
+                    if (instance == null)
+
+                    {
+                        instance = new JobSetting();
+                        instance.Load();
+                    }
+                }
+            }
+            return instance;
         }
 
         public string Description
@@ -151,54 +175,59 @@ namespace Dragonfly.Plugin.Task
 
         public bool Load()
         {
-            XmlDocument xmlDocument = XmlHelper.Load(sSettingsFileName);
-            if (xmlDocument == null)
+            lock (locker)
             {
-                return false;
+                XmlDocument xmlDocument = XmlHelper.Load(sSettingsFileName);
+                if (xmlDocument == null)
+                {
+                    return false;
+                }
+
+                XmlNode xmlNode = xmlDocument.SelectSingleNode("/TaskSettings/NotifyJob");
+
+                description = XmlHelper.GetElementText(xmlNode, "Description");
+                intervalMinutes = XmlHelper.GetParamValue(xmlNode, "IntervalMinutes", 60);
+                isLockScreen = XmlHelper.GetParamValue(xmlNode, "IsLockScreen", true);
+                lockScreenMinutes = XmlHelper.GetParamValue(xmlNode, "LockScreenMinutes", 60);
+                notifyInternalType = XmlHelper.GetParamValue(xmlNode, "NotifyInternalType", 0);
+                isNotifyRunApp = XmlHelper.GetParamValue(xmlNode, "IsNotifyRunApp", false);
+                notifyRunApp = XmlHelper.GetParamValue(xmlNode, "NotifyRunApp", string.Empty);
+                notifyRunAppParam = XmlHelper.GetParamValue(xmlNode, "NotifyRunAppParam", string.Empty);
+                notifyRunAppStartpath = XmlHelper.GetParamValue(xmlNode, "NotifyRunAppStartpath", string.Empty);
+
+                //beginTime = (DateTime)XmlHelper.GetParamValue(xmlNode, "BeginTime", DateTime.Now);
+
+                return true;
             }
-
-            XmlNode xmlNode = xmlDocument.SelectSingleNode("/TaskSettings/NotifyJob");
-
-            description = XmlHelper.GetElementText(xmlNode, "Description");
-            intervalMinutes = XmlHelper.GetParamValue(xmlNode, "IntervalMinutes", 60);
-            isLockScreen = XmlHelper.GetParamValue(xmlNode, "IsLockScreen", true);
-            lockScreenMinutes = XmlHelper.GetParamValue(xmlNode, "LockScreenMinutes", 60);
-            notifyInternalType = XmlHelper.GetParamValue(xmlNode, "NotifyInternalType", 0);
-            isNotifyRunApp = XmlHelper.GetParamValue(xmlNode, "IsNotifyRunApp", false);
-            notifyRunApp = XmlHelper.GetParamValue(xmlNode, "NotifyRunApp", string.Empty);
-            notifyRunAppParam = XmlHelper.GetParamValue(xmlNode, "NotifyRunAppParam", string.Empty);
-            notifyRunAppStartpath = XmlHelper.GetParamValue(xmlNode, "NotifyRunAppStartpath", string.Empty);
-
-            //beginTime = (DateTime)XmlHelper.GetParamValue(xmlNode, "BeginTime", DateTime.Now);
-
-            return true;
-
 
         }
 
         public bool Save()
         {
-            XmlDocument xmlDocument = new XmlDocument();
-            XmlDeclaration xmldecl = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
-            XmlElement root = xmlDocument.DocumentElement;
-            xmlDocument.AppendChild(xmldecl);
+            lock (locker)
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                XmlDeclaration xmldecl = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = xmlDocument.DocumentElement;
+                xmlDocument.AppendChild(xmldecl);
 
-            XmlNode node = xmlDocument.CreateNode("element", "TaskSettings", "");
-            xmlDocument.AppendChild(node);
+                XmlNode node = xmlDocument.CreateNode("element", "TaskSettings", "");
+                xmlDocument.AppendChild(node);
 
-            XmlNode xmlNode = xmlDocument.CreateNode("element", "NotifyJob", "");
+                XmlNode xmlNode = xmlDocument.CreateNode("element", "NotifyJob", "");
 
-            XmlHelper.PutElementText(xmlNode, "Description", description);
-            XmlHelper.PutParamValue(xmlNode, "IntervalMinutes", intervalMinutes);
-            XmlHelper.PutParamValue(xmlNode, "IsLockScreen", isLockScreen);
-            XmlHelper.PutParamValue(xmlNode, "LockScreenMinutes", lockScreenMinutes);
-            XmlHelper.PutParamValue(xmlNode, "NotifyInternalType", notifyInternalType);
-            XmlHelper.PutParamValue(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
-            XmlHelper.PutParamValue(xmlNode, "NotifyRunApp", notifyRunApp);
-            XmlHelper.PutParamValue(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
-            XmlHelper.PutParamValue(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
+                XmlHelper.PutElementText(xmlNode, "Description", description);
+                XmlHelper.PutParamValue(xmlNode, "IntervalMinutes", intervalMinutes);
+                XmlHelper.PutParamValue(xmlNode, "IsLockScreen", isLockScreen);
+                XmlHelper.PutParamValue(xmlNode, "LockScreenMinutes", lockScreenMinutes);
+                XmlHelper.PutParamValue(xmlNode, "NotifyInternalType", notifyInternalType);
+                XmlHelper.PutParamValue(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
+                XmlHelper.PutParamValue(xmlNode, "NotifyRunApp", notifyRunApp);
+                XmlHelper.PutParamValue(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
+                XmlHelper.PutParamValue(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
 
-            return XmlHelper.Save(sSettingsFileName, xmlDocument);
+                return XmlHelper.Save(sSettingsFileName, xmlDocument);
+            }
         }
 
     }

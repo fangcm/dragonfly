@@ -32,7 +32,7 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.labelInterval = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioButtonNull = new System.Windows.Forms.RadioButton();
+            this.radioButtonNone = new System.Windows.Forms.RadioButton();
             this.radioButtonHibernate = new System.Windows.Forms.RadioButton();
             this.radioButtonShutdown = new System.Windows.Forms.RadioButton();
             this.numericUpDownLockScreen = new System.Windows.Forms.NumericUpDown();
@@ -87,7 +87,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.radioButtonNull);
+            this.groupBox5.Controls.Add(this.radioButtonNone);
             this.groupBox5.Controls.Add(this.radioButtonHibernate);
             this.groupBox5.Controls.Add(this.radioButtonShutdown);
             this.groupBox5.Location = new System.Drawing.Point(135, 206);
@@ -98,23 +98,21 @@
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
             // 
-            // radioButtonNull
+            // radioButtonNone
             // 
-            this.radioButtonNull.AutoSize = true;
-            this.radioButtonNull.Enabled = false;
-            this.radioButtonNull.Location = new System.Drawing.Point(216, 26);
-            this.radioButtonNull.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButtonNull.Name = "radioButtonNull";
-            this.radioButtonNull.Size = new System.Drawing.Size(73, 19);
-            this.radioButtonNull.TabIndex = 5;
-            this.radioButtonNull.TabStop = true;
-            this.radioButtonNull.Text = "无操作";
-            this.radioButtonNull.UseVisualStyleBackColor = true;
+            this.radioButtonNone.AutoSize = true;
+            this.radioButtonNone.Location = new System.Drawing.Point(216, 26);
+            this.radioButtonNone.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonNone.Name = "radioButtonNone";
+            this.radioButtonNone.Size = new System.Drawing.Size(73, 19);
+            this.radioButtonNone.TabIndex = 5;
+            this.radioButtonNone.TabStop = true;
+            this.radioButtonNone.Text = "无操作";
+            this.radioButtonNone.UseVisualStyleBackColor = true;
             // 
             // radioButtonHibernate
             // 
             this.radioButtonHibernate.AutoSize = true;
-            this.radioButtonHibernate.Enabled = false;
             this.radioButtonHibernate.Location = new System.Drawing.Point(8, 26);
             this.radioButtonHibernate.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonHibernate.Name = "radioButtonHibernate";
@@ -127,7 +125,6 @@
             // radioButtonShutdown
             // 
             this.radioButtonShutdown.AutoSize = true;
-            this.radioButtonShutdown.Enabled = false;
             this.radioButtonShutdown.Location = new System.Drawing.Point(114, 26);
             this.radioButtonShutdown.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonShutdown.Name = "radioButtonShutdown";
@@ -139,7 +136,6 @@
             // 
             // numericUpDownLockScreen
             // 
-            this.numericUpDownLockScreen.Enabled = false;
             this.numericUpDownLockScreen.Location = new System.Drawing.Point(137, 173);
             this.numericUpDownLockScreen.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownLockScreen.Maximum = new decimal(new int[] {
@@ -190,7 +186,6 @@
             // 
             // textBoxApp
             // 
-            this.textBoxApp.Enabled = false;
             this.textBoxApp.Location = new System.Drawing.Point(8, 45);
             this.textBoxApp.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxApp.Name = "textBoxApp";
@@ -209,7 +204,6 @@
             // 
             // buttonApp
             // 
-            this.buttonApp.Enabled = false;
             this.buttonApp.Location = new System.Drawing.Point(437, 42);
             this.buttonApp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonApp.Name = "buttonApp";
@@ -220,7 +214,6 @@
             // 
             // textBoxAppStartpath
             // 
-            this.textBoxAppStartpath.Enabled = false;
             this.textBoxAppStartpath.Location = new System.Drawing.Point(151, 112);
             this.textBoxAppStartpath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppStartpath.Name = "textBoxAppStartpath";
@@ -249,7 +242,6 @@
             // 
             // textBoxAppParam
             // 
-            this.textBoxAppParam.Enabled = false;
             this.textBoxAppParam.Location = new System.Drawing.Point(151, 79);
             this.textBoxAppParam.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppParam.Name = "textBoxAppParam";
@@ -300,7 +292,6 @@
             // 
             // numericUpDownInterval
             // 
-            this.numericUpDownInterval.Enabled = false;
             this.numericUpDownInterval.Location = new System.Drawing.Point(135, 133);
             this.numericUpDownInterval.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
@@ -373,7 +364,7 @@
         private System.Windows.Forms.TextBox textBoxAppParam;
         private System.Windows.Forms.CheckBox checkBoxRunApp;
         private System.Windows.Forms.Label labelMinute;
-        private System.Windows.Forms.RadioButton radioButtonNull;
+        private System.Windows.Forms.RadioButton radioButtonNone;
         private System.Windows.Forms.Label labelInternal;
         private System.Windows.Forms.CheckBox checkBoxLockScreen;
         private System.Windows.Forms.NumericUpDown numericUpDownInterval;
