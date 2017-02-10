@@ -56,120 +56,57 @@ namespace Dragonfly.Plugin.Task
 
         public string Description
         {
-            get
-            {
-                return description;
-            }
-
-            set
-            {
-                description = value;
-            }
+            get { return description; }
+            set { description = value; }
         }
 
         public int IntervalMinutes
         {
-            get
-            {
-                return intervalMinutes;
-            }
-
-            set
-            {
-                intervalMinutes = value;
-            }
+            get { return intervalMinutes; }
+            set { intervalMinutes = value; }
         }
 
         public bool IsLockScreen
         {
-            get
-            {
-                return isLockScreen;
-            }
-
-            set
-            {
-                isLockScreen = value;
-            }
+            get { return isLockScreen; }
+            set { isLockScreen = value; }
         }
 
         public int LockScreenMinutes
         {
-            get
-            {
-                return lockScreenMinutes;
-            }
-
-            set
-            {
-                lockScreenMinutes = value;
-            }
+            get { return lockScreenMinutes; }
+            set { lockScreenMinutes = value; }
         }
 
         public int NotifyInternalType
         {
-            get
-            {
-                return notifyInternalType;
-            }
-
-            set
-            {
-                notifyInternalType = value;
-            }
+            get { return notifyInternalType; }
+            set { notifyInternalType = value; }
         }
 
 
         public bool IsNotifyRunApp
         {
-            get
-            {
-                return isNotifyRunApp;
-            }
-
-            set
-            {
-                isNotifyRunApp = value;
-            }
+            get { return isNotifyRunApp; }
+            set { isNotifyRunApp = value; }
         }
 
         public string NotifyRunApp
         {
-            get
-            {
-                return notifyRunApp;
-            }
-
-            set
-            {
-                notifyRunApp = value;
-            }
+            get { return notifyRunApp; }
+            set { notifyRunApp = value; }
         }
 
         public string NotifyRunAppParam
         {
-            get
-            {
-                return notifyRunAppParam;
-            }
-
-            set
-            {
-                notifyRunAppParam = value;
-            }
+            get { return notifyRunAppParam; }
+            set { notifyRunAppParam = value; }
         }
 
         public string NotifyRunAppStartpath
         {
-            get
-            {
-                return notifyRunAppStartpath;
-            }
-
-            set
-            {
-                notifyRunAppStartpath = value;
-            }
+            get { return notifyRunAppStartpath; }
+            set { notifyRunAppStartpath = value; }
         }
 
 
@@ -191,9 +128,9 @@ namespace Dragonfly.Plugin.Task
                 lockScreenMinutes = XmlHelper.GetParamValue(xmlNode, "LockScreenMinutes", 60);
                 notifyInternalType = XmlHelper.GetParamValue(xmlNode, "NotifyInternalType", 0);
                 isNotifyRunApp = XmlHelper.GetParamValue(xmlNode, "IsNotifyRunApp", false);
-                notifyRunApp = XmlHelper.GetParamValue(xmlNode, "NotifyRunApp", string.Empty);
-                notifyRunAppParam = XmlHelper.GetParamValue(xmlNode, "NotifyRunAppParam", string.Empty);
-                notifyRunAppStartpath = XmlHelper.GetParamValue(xmlNode, "NotifyRunAppStartpath", string.Empty);
+                notifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp");
+                notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam");
+                notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath");
 
                 //beginTime = (DateTime)XmlHelper.GetParamValue(xmlNode, "BeginTime", DateTime.Now);
 
@@ -208,11 +145,10 @@ namespace Dragonfly.Plugin.Task
             {
                 XmlDocument xmlDocument = new XmlDocument();
                 XmlDeclaration xmldecl = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
-                XmlElement root = xmlDocument.DocumentElement;
                 xmlDocument.AppendChild(xmldecl);
 
-                XmlNode node = xmlDocument.CreateNode("element", "TaskSettings", "");
-                xmlDocument.AppendChild(node);
+                XmlNode xmlRoot = xmlDocument.CreateNode("element", "TaskSettings", "");
+                xmlDocument.AppendChild(xmlRoot);
 
                 XmlNode xmlNode = xmlDocument.CreateNode("element", "NotifyJob", "");
 
@@ -222,9 +158,11 @@ namespace Dragonfly.Plugin.Task
                 XmlHelper.PutParamValue(xmlNode, "LockScreenMinutes", lockScreenMinutes);
                 XmlHelper.PutParamValue(xmlNode, "NotifyInternalType", notifyInternalType);
                 XmlHelper.PutParamValue(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
-                XmlHelper.PutParamValue(xmlNode, "NotifyRunApp", notifyRunApp);
-                XmlHelper.PutParamValue(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
-                XmlHelper.PutParamValue(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
+                XmlHelper.PutElementText(xmlNode, "NotifyRunApp", notifyRunApp);
+                XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
+                XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
+
+                xmlRoot.AppendChild(xmlNode);
 
                 return XmlHelper.Save(sSettingsFileName, xmlDocument);
             }

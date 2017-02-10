@@ -15,14 +15,8 @@ namespace Dragonfly.Plugin.Task
 
         public int IntervalMinutes
         {
-            get
-            {
-                return Convert.ToInt32(numericUpDownLockScreen.Value);
-            }
-            set
-            {
-                numericUpDownLockScreen.Value = value;
-            }
+            get { return Convert.ToInt32(this.numericUpDownInterval.Value); }
+            set { numericUpDownInterval.Value = value; }
         }
 
         public int NotifyInternalType
@@ -124,7 +118,7 @@ namespace Dragonfly.Plugin.Task
         private void Data_Changed(object sender, System.EventArgs e)
         {
             bDataChanged = true;
-
+            System.Diagnostics.Debug.WriteLine("Data_Changed:" + sender);
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -139,7 +133,17 @@ namespace Dragonfly.Plugin.Task
 
             if(bDataChanged)
             {
-                JobSetting.GetInstance().Save();
+                JobSetting setting = JobSetting.GetInstance();
+                setting.Description = Description;
+                setting.IntervalMinutes = IntervalMinutes;
+                setting.IsLockScreen = IsLockScreen;
+                setting.LockScreenMinutes = LockScreenMinutes;
+                setting.NotifyInternalType = NotifyInternalType;
+                setting.IsNotifyRunApp = IsNotifyRunApp;
+                setting.NotifyRunApp = NotifyRunApp;
+                setting.NotifyRunAppParam = NotifyRunAppParam;
+                setting.NotifyRunAppStartpath = NotifyRunAppStartpath;
+                setting.Save();
             }
 
             this.DialogResult = DialogResult.OK;

@@ -49,7 +49,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxApp = new System.Windows.Forms.TextBox();
             this.labelApp = new System.Windows.Forms.Label();
-            this.buttonApp = new System.Windows.Forms.Button();
             this.textBoxAppStartpath = new System.Windows.Forms.TextBox();
             this.labelAppParam = new System.Windows.Forms.Label();
             this.labelAppStartpath = new System.Windows.Forms.Label();
@@ -88,8 +87,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
-            this.splitContainer1.Size = new System.Drawing.Size(611, 423);
-            this.splitContainer1.SplitterDistance = 376;
+            this.splitContainer1.Size = new System.Drawing.Size(611, 457);
+            this.splitContainer1.SplitterDistance = 409;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -102,7 +101,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 376);
+            this.tabControl1.Size = new System.Drawing.Size(611, 409);
             this.tabControl1.TabIndex = 0;
             // 
             // SchetabTriggers
@@ -114,7 +113,7 @@
             this.SchetabTriggers.Margin = new System.Windows.Forms.Padding(4);
             this.SchetabTriggers.Name = "SchetabTriggers";
             this.SchetabTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Size = new System.Drawing.Size(603, 347);
+            this.SchetabTriggers.Size = new System.Drawing.Size(603, 380);
             this.SchetabTriggers.TabIndex = 1;
             this.SchetabTriggers.Text = "触发时间";
             this.SchetabTriggers.UseVisualStyleBackColor = true;
@@ -135,7 +134,7 @@
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(545, 112);
+            this.textBoxDescription.Size = new System.Drawing.Size(531, 112);
             this.textBoxDescription.TabIndex = 2;
             // 
             // groupBox1
@@ -147,7 +146,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(547, 96);
+            this.groupBox1.Size = new System.Drawing.Size(531, 96);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "设置";
@@ -207,7 +206,7 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 347);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 380);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;
@@ -275,7 +274,7 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(432, 59);
+            this.groupBox5.Size = new System.Drawing.Size(417, 59);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             // 
@@ -319,7 +318,6 @@
             // 
             this.groupBox2.Controls.Add(this.textBoxApp);
             this.groupBox2.Controls.Add(this.labelApp);
-            this.groupBox2.Controls.Add(this.buttonApp);
             this.groupBox2.Controls.Add(this.textBoxAppStartpath);
             this.groupBox2.Controls.Add(this.labelAppParam);
             this.groupBox2.Controls.Add(this.labelAppStartpath);
@@ -328,41 +326,31 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(547, 150);
+            this.groupBox2.Size = new System.Drawing.Size(532, 131);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             // 
             // textBoxApp
             // 
-            this.textBoxApp.Location = new System.Drawing.Point(8, 45);
+            this.textBoxApp.Location = new System.Drawing.Point(135, 23);
             this.textBoxApp.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxApp.Name = "textBoxApp";
-            this.textBoxApp.Size = new System.Drawing.Size(420, 25);
+            this.textBoxApp.Size = new System.Drawing.Size(385, 25);
             this.textBoxApp.TabIndex = 1;
             // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
-            this.labelApp.Location = new System.Drawing.Point(5, 26);
+            this.labelApp.Location = new System.Drawing.Point(8, 26);
             this.labelApp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelApp.Name = "labelApp";
             this.labelApp.Size = new System.Drawing.Size(82, 15);
             this.labelApp.TabIndex = 0;
             this.labelApp.Text = "外部程序：";
             // 
-            // buttonApp
-            // 
-            this.buttonApp.Location = new System.Drawing.Point(437, 42);
-            this.buttonApp.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonApp.Name = "buttonApp";
-            this.buttonApp.Size = new System.Drawing.Size(100, 29);
-            this.buttonApp.TabIndex = 2;
-            this.buttonApp.Text = "浏览...";
-            this.buttonApp.UseVisualStyleBackColor = true;
-            // 
             // textBoxAppStartpath
             // 
-            this.textBoxAppStartpath.Location = new System.Drawing.Point(151, 112);
+            this.textBoxAppStartpath.Location = new System.Drawing.Point(135, 89);
             this.textBoxAppStartpath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppStartpath.Name = "textBoxAppStartpath";
             this.textBoxAppStartpath.Size = new System.Drawing.Size(385, 25);
@@ -371,7 +359,7 @@
             // labelAppParam
             // 
             this.labelAppParam.AutoSize = true;
-            this.labelAppParam.Location = new System.Drawing.Point(5, 82);
+            this.labelAppParam.Location = new System.Drawing.Point(8, 59);
             this.labelAppParam.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAppParam.Name = "labelAppParam";
             this.labelAppParam.Size = new System.Drawing.Size(98, 15);
@@ -381,7 +369,7 @@
             // labelAppStartpath
             // 
             this.labelAppStartpath.AutoSize = true;
-            this.labelAppStartpath.Location = new System.Drawing.Point(5, 115);
+            this.labelAppStartpath.Location = new System.Drawing.Point(8, 92);
             this.labelAppStartpath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAppStartpath.Name = "labelAppStartpath";
             this.labelAppStartpath.Size = new System.Drawing.Size(128, 15);
@@ -390,7 +378,7 @@
             // 
             // textBoxAppParam
             // 
-            this.textBoxAppParam.Location = new System.Drawing.Point(151, 79);
+            this.textBoxAppParam.Location = new System.Drawing.Point(135, 56);
             this.textBoxAppParam.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppParam.Name = "textBoxAppParam";
             this.textBoxAppParam.Size = new System.Drawing.Size(385, 25);
@@ -410,7 +398,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(505, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(462, 4);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 29);
@@ -420,7 +408,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(397, 4);
+            this.buttonOK.Location = new System.Drawing.Point(350, 4);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 29);
@@ -429,18 +417,18 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // JobSettingsForm
+            // JobSettingForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(611, 423);
+            this.ClientSize = new System.Drawing.Size(611, 457);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "JobSettingsForm";
+            this.Name = "JobSettingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "定时提醒";
             this.TopMost = true;
@@ -479,7 +467,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxApp;
         private System.Windows.Forms.Label labelApp;
-        private System.Windows.Forms.Button buttonApp;
         private System.Windows.Forms.TextBox textBoxAppStartpath;
         private System.Windows.Forms.Label labelAppParam;
         private System.Windows.Forms.Label labelAppStartpath;
