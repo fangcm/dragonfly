@@ -14,6 +14,8 @@ namespace Dragonfly.Plugin.Task
             System.Diagnostics.Debug.WriteLine("worker execute:" + DateTime.Now);
 
             JobSetting setting = JobSetting.GetInstance();
+            setting.LastTriggerTime = DateTime.Now;
+            setting.Save();
 
             if (setting.IsLockScreen || setting.NotifyInternalType != JobSetting.NotifyInternalType_None)
             {

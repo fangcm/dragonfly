@@ -6,6 +6,7 @@ using System.Xml;
 using Dragonfly.Common.Plugin;
 using Dragonfly.Common.Utils;
 using FluentScheduler;
+using Microsoft.Win32;
 
 namespace Dragonfly.Plugin.Task
 {
@@ -13,6 +14,10 @@ namespace Dragonfly.Plugin.Task
     public class TaskPlugin : IPlugin
     {
         private TaskMainPanel mainPanel = null;
+
+        private PowerModeChangedEventHandler pmceh;
+        private SessionEndedEventHandler seeh;
+        private EventHandler timeChanged;
 
         public TaskPlugin()
         {
@@ -29,11 +34,27 @@ namespace Dragonfly.Plugin.Task
 
         public void Initialize()
         {
+            pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
+            seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
+            timeChanged = new EventHandler(SystemEvents_TimeChanged);
+
+            SystemEvents.SessionEnded += seeh;
+            SystemEvents.PowerModeChanged += pmceh;
+            SystemEvents.TimeChanged += timeChanged;
+
             StartTask();
+        }
+        
+        private void detachEventsHandlers()
+        {
+            if (pmceh != null) SystemEvents.PowerModeChanged -= this.pmceh;
+            if (seeh != null) SystemEvents.SessionEnded -= this.seeh;
+            if (timeChanged != null) SystemEvents.TimeChanged -= this.timeChanged;
         }
 
         public void Dispose()
         {
+            detachEventsHandlers();
             StopTask();
             if (mainPanel != null && !mainPanel.IsDisposed)
             {
@@ -53,6 +74,32 @@ namespace Dragonfly.Plugin.Task
                 }
                 return mainPanel;
             }
+        }
+
+
+        private void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == PowerModes.Suspend)
+            {
+                JobSetting.GetInstance().LastTurnOffMachineTime = DateTime.Now;
+                JobSetting.GetInstance().Save();
+            }
+            else if (e.Mode == PowerModes.Resume)
+            {
+                JobSetting.GetInstance().TurnOnMachineTime = DateTime.Now;
+                JobSetting.GetInstance().Save();
+            }
+        }
+
+        private void SystemEvents_SessionEnded(object sender, SessionEndedEventArgs e)
+        {
+            JobSetting.GetInstance().LastTurnOffMachineTime = DateTime.Now;
+            JobSetting.GetInstance().Save();
+        }
+
+        private void SystemEvents_TimeChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         internal void StartTask()

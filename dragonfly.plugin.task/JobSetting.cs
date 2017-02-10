@@ -19,7 +19,7 @@ namespace Dragonfly.Plugin.Task
 
         private string sSettingsFileName;
 
-        private string description;
+        private string description = "健康是生命之本，保护视力，从娃娃开始！";
         private int intervalMinutes = 60; //重复间隔
         private bool isLockScreen = true;
         private int lockScreenMinutes = 60;
@@ -28,6 +28,10 @@ namespace Dragonfly.Plugin.Task
         private string notifyRunApp;
         private string notifyRunAppParam;
         private string notifyRunAppStartpath;
+
+        private DateTime lastTriggerTime = DateTime.MinValue; //上次触发时间
+        private DateTime lastTurnOffMachineTime = DateTime.MinValue; //上次关机时间，不需要保存
+        private DateTime turnOnMachineTime = DateTime.Now; //开机时间，不需要保存
 
         private JobSetting()
         {
@@ -109,6 +113,23 @@ namespace Dragonfly.Plugin.Task
             set { notifyRunAppStartpath = value; }
         }
 
+        public DateTime LastTriggerTime
+        {
+            get { return lastTriggerTime; }
+            set { lastTriggerTime = value; }
+        }
+
+        public DateTime TurnOnMachineTime
+        {
+            get { return turnOnMachineTime; }
+            set { turnOnMachineTime = value; }
+        }
+
+        public DateTime LastTurnOffMachineTime
+        {
+            get { return lastTurnOffMachineTime; }
+            set { lastTurnOffMachineTime = value; }
+        }
 
         public bool Load()
         {
@@ -131,8 +152,8 @@ namespace Dragonfly.Plugin.Task
                 notifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp");
                 notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam");
                 notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath");
-
-                //beginTime = (DateTime)XmlHelper.GetParamValue(xmlNode, "BeginTime", DateTime.Now);
+                lastTriggerTime = XmlHelper.GetParamValue(xmlNode, "LastTriggerTime", DateTime.MinValue);
+                lastTurnOffMachineTime = XmlHelper.GetParamValue(xmlNode, "LastTurnOffMachineTime", DateTime.MinValue);
 
                 return true;
             }
@@ -161,6 +182,8 @@ namespace Dragonfly.Plugin.Task
                 XmlHelper.PutElementText(xmlNode, "NotifyRunApp", notifyRunApp);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
+                XmlHelper.PutParamValue(xmlNode, "LastTriggerTime", lastTriggerTime);
+                XmlHelper.PutParamValue(xmlNode, "LastTurnOffMachineTime", lastTurnOffMachineTime);
 
                 xmlRoot.AppendChild(xmlNode);
 
