@@ -1,14 +1,11 @@
 ﻿using FluentScheduler;
 using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
 
 
-
 namespace Dragonfly.Plugin.Task
 {
-
     internal class NotifyJob : IJob
     {
         void IJob.Execute()
@@ -22,7 +19,7 @@ namespace Dragonfly.Plugin.Task
             {
                 string notifyRunApp = Application.StartupPath + @"\dragonfly.plugin.task.notify.exe";
                 string notifyRunAppStartpath = Application.StartupPath;
-                string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -o {2} -desc \"{3}\"", setting.IsLockScreen,setting.LockScreenMinutes, setting.NotifyInternalType, setting.Description);
+                string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -o {2} -desc \"{3}\"", setting.IsLockScreen, setting.LockScreenMinutes, setting.NotifyInternalType, setting.Description);
 
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
                 System.Diagnostics.Debug.WriteLine("ExecApp:" + notifyRunApp);
@@ -36,11 +33,8 @@ namespace Dragonfly.Plugin.Task
 
         }
 
-
-
         private bool ExecApp(string app, string appParam, string appStartpath)
         {
-
             try
             {
                 Process myprocess = new Process();
@@ -58,10 +52,6 @@ namespace Dragonfly.Plugin.Task
             }
         }
 
-    }     
+    }
 
-   
- 
-
-  
-} 
+}
