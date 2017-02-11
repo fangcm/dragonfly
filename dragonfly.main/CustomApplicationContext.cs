@@ -12,9 +12,14 @@ namespace Dragonfly.Main
         public CustomApplicationContext()
         {
             MenuItem menuShowMainForm = new MenuItem("［蜻蜓］工具...", new EventHandler(ShowMainForm_Click));
+#if DEBUG
             MenuItem menuExit = new MenuItem("退出", new EventHandler(ExitApp_Click));
-
-            notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { menuShowMainForm, menuExit }); ;
+#endif
+            notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { menuShowMainForm
+#if DEBUG
+                , menuExit
+#endif
+                }); ;
             notifyIcon.Icon = global::Dragonfly.Main.Properties.Resources.NotifyIcon;
             notifyIcon.Text = "［蜻蜓］工具";
             notifyIcon.Visible = true;
