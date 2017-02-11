@@ -90,6 +90,9 @@ namespace Dragonfly.Main
             base.Dispose(disposing);
         }
 
-      
+        private void timer_Tick(object sender, System.EventArgs e)
+        {
+            RegistryInit();
+        }
     }
 }
