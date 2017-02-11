@@ -11,6 +11,8 @@ namespace Dragonfly.Main
         public PasswordBox()
         {
             InitializeComponent();
+
+            this.textBoxPassword.Focus();
         }
 
         #region Assembly Attribute Accessors

@@ -88,7 +88,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Size = new System.Drawing.Size(611, 457);
-            this.splitContainer1.SplitterDistance = 409;
+            this.splitContainer1.SplitterDistance = 407;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -101,7 +101,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 409);
+            this.tabControl1.Size = new System.Drawing.Size(611, 407);
             this.tabControl1.TabIndex = 0;
             // 
             // SchetabTriggers
@@ -113,7 +113,7 @@
             this.SchetabTriggers.Margin = new System.Windows.Forms.Padding(4);
             this.SchetabTriggers.Name = "SchetabTriggers";
             this.SchetabTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Size = new System.Drawing.Size(603, 380);
+            this.SchetabTriggers.Size = new System.Drawing.Size(603, 378);
             this.SchetabTriggers.TabIndex = 1;
             this.SchetabTriggers.Text = "触发时间";
             this.SchetabTriggers.UseVisualStyleBackColor = true;
@@ -156,12 +156,12 @@
             this.numericUpDownInterval.Location = new System.Drawing.Point(144, 39);
             this.numericUpDownInterval.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
-            360,
+            720,
             0,
             0,
             0});
             this.numericUpDownInterval.Minimum = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});
@@ -206,7 +206,7 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 380);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 378);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;
@@ -242,7 +242,7 @@
             0,
             0});
             this.numericUpDownLockScreen.Minimum = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             0});

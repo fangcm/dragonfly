@@ -21,7 +21,7 @@ namespace Dragonfly.Plugin.Task
 
         public TaskPlugin()
         {
-       
+
         }
         ~TaskPlugin()
         {
@@ -34,6 +34,13 @@ namespace Dragonfly.Plugin.Task
 
         public void Initialize()
         {
+            if(mainPanel == null)
+            {
+                //为了初始化
+                UserControl m = PluginPanel;
+            }
+            LoggerUtil.Init(mainPanel);
+
             pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
             timeChanged = new EventHandler(SystemEvents_TimeChanged);
@@ -70,7 +77,6 @@ namespace Dragonfly.Plugin.Task
                 if (mainPanel == null || mainPanel.IsDisposed)
                 {
                     this.mainPanel = new TaskMainPanel();
-                    this.mainPanel.TaskPlugin = this;
                 }
                 return mainPanel;
             }
@@ -83,11 +89,13 @@ namespace Dragonfly.Plugin.Task
             {
                 JobSetting.GetInstance().LastTurnOffMachineTime = DateTime.Now;
                 JobSetting.GetInstance().Save();
+                LoggerUtil.Log(Logger.LoggType.Suspend, "休眠");
             }
             else if (e.Mode == PowerModes.Resume)
             {
                 JobSetting.GetInstance().TurnOnMachineTime = DateTime.Now;
                 JobSetting.GetInstance().Save();
+                LoggerUtil.Log(Logger.LoggType.Resume, "唤醒");
             }
         }
 
@@ -95,15 +103,24 @@ namespace Dragonfly.Plugin.Task
         {
             JobSetting.GetInstance().LastTurnOffMachineTime = DateTime.Now;
             JobSetting.GetInstance().Save();
+            if (e.Reason == SessionEndReasons.Logoff)
+            {
+                LoggerUtil.Log(Logger.LoggType.Logoff, "注销登录");
+            }
+            else if (e.Reason == SessionEndReasons.SystemShutdown)
+            {
+                LoggerUtil.Log(Logger.LoggType.SystemShutdown, "关机");
+            }
         }
 
         private void SystemEvents_TimeChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            LoggerUtil.Log(Logger.LoggType.Other, "修改系统时间");
         }
 
         internal void StartTask()
         {
+            LoggerUtil.Log(Logger.LoggType.Other, "开始线程");
             Schedule job = JobManager.GetSchedule(SchedulerRegistry.JOB_NAME);
             if (job != null)
             {

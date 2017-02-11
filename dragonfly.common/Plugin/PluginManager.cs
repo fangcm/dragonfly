@@ -43,6 +43,7 @@ namespace Dragonfly.Common.Plugin
                             if (typeInterface != null)
                             {
                                 IPlugin plugin = (IPlugin)Activator.CreateInstance(t);
+                                plugin.Initialize();
                                 plugInList.Add(plugin);
                             }
                         }
