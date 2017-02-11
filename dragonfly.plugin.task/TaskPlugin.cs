@@ -63,10 +63,6 @@ namespace Dragonfly.Plugin.Task
         {
             detachEventsHandlers();
             StopTask();
-            if (mainPanel != null && !mainPanel.IsDisposed)
-            {
-                mainPanel.Dispose();
-            }
             JobSetting.GetInstance().Save();
         }
 

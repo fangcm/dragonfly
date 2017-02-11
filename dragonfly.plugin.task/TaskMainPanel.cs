@@ -16,22 +16,8 @@ namespace Dragonfly.Plugin.Task
         {
             listViewMain.Columns.Clear();
             listViewMain.Columns.Add("时间", 150, HorizontalAlignment.Left);
-            listViewMain.Columns.Add("事件", 150, HorizontalAlignment.Left);
-            listViewMain.Columns.Add("描述", 400, HorizontalAlignment.Left);
-
-            RefreshTasks();
-
-        }
-
-        private void toolStripButtonRefresh_Click(object sender, System.EventArgs e)
-        {
-            RefreshTasks();
-
-        }
-
-        private void RefreshTasks()
-        {
-            this.listViewMain.Items.Clear();
+            listViewMain.Columns.Add("事件", 40, HorizontalAlignment.Left);
+            listViewMain.Columns.Add("描述", 300, HorizontalAlignment.Left);
 
         }
 
@@ -48,10 +34,9 @@ namespace Dragonfly.Plugin.Task
             if (this.listViewMain.InvokeRequired == false)
             {
                 //如果调用该函数的线程和控件lstMain位于同一个线程内
-                ListViewItem lvi = new ListViewItem();
-                lvi.SubItems[0].Text = date.ToString("yyyy年MM月dd日 HH:mm:ss");
-                lvi.SubItems.AddRange(new string[] { type, desc });
-                this.listViewMain.Items.Insert(index, lvi);
+                ListViewItem lvi = listViewMain.Items.Add(date.ToString("yyyy年MM月dd日 HH:mm:ss"));
+                lvi.SubItems.Add(type);
+                lvi.SubItems.Add(desc);
             }
             else
             {

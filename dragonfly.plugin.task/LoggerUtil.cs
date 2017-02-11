@@ -15,7 +15,7 @@ namespace Dragonfly.Plugin.Task
             IList loggInfos = Logger.Logger.LoggInfos;
             foreach (LoggInfo loggInfo in loggInfos)
             {
-                AddMsg(loggInfo.Date, loggInfo.Type, loggInfo.Text);
+                InserLineToTaskMainPanel(loggInfo.Date, loggInfo.Type, loggInfo.Text);
             }
 
             Logger.Logger.LoggInfos.CollectionChanged += LoggInfos_CollectionChanged;
@@ -26,7 +26,7 @@ namespace Dragonfly.Plugin.Task
             IList loggInfos =  e.NewItems;
             foreach(LoggInfo loggInfo in loggInfos)
             {
-                AddMsg(loggInfo.Date, loggInfo.Type, loggInfo.Text);
+                InserLineToTaskMainPanel(loggInfo.Date, loggInfo.Type, loggInfo.Text);
             }
         }
 
@@ -35,7 +35,7 @@ namespace Dragonfly.Plugin.Task
             Logger.Logger.Default.Log(type, msg);
         }
 
-        public static void AddMsg(DateTime date, Logger.LoggType type, string msg)
+        public static void InserLineToTaskMainPanel(DateTime date, Logger.LoggType type, string msg)
         {
             string typeInfo = "其它";
             switch(type)

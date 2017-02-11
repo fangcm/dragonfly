@@ -30,8 +30,6 @@
         {
             this.listViewMain = new System.Windows.Forms.ListView();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonSetting = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
@@ -43,7 +41,6 @@
             this.listViewMain.GridLines = true;
             this.listViewMain.Location = new System.Drawing.Point(0, 27);
             this.listViewMain.Margin = new System.Windows.Forms.Padding(4);
-            this.listViewMain.MultiSelect = false;
             this.listViewMain.Name = "listViewMain";
             this.listViewMain.ShowGroups = false;
             this.listViewMain.Size = new System.Drawing.Size(471, 161);
@@ -56,28 +53,12 @@
             this.toolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh,
-            this.toolStripSeparator1,
             this.toolStripButtonSetting});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(471, 27);
             this.toolStripMain.TabIndex = 2;
             this.toolStripMain.Text = "toolStripMain";
-            // 
-            // toolStripButtonRefresh
-            // 
-            this.toolStripButtonRefresh.Image = global::Dragonfly.Plugin.Task.Properties.Resources.refresh;
-            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(63, 24);
-            this.toolStripButtonRefresh.Text = "刷新";
-            this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripButtonSetting
             // 
@@ -109,8 +90,6 @@
 
         private System.Windows.Forms.ListView listViewMain;
         private System.Windows.Forms.ToolStrip toolStripMain;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonSetting;
     }
 }
