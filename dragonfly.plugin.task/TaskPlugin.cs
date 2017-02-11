@@ -17,7 +17,6 @@ namespace Dragonfly.Plugin.Task
 
         private PowerModeChangedEventHandler pmceh;
         private SessionEndedEventHandler seeh;
-        private EventHandler timeChanged;
 
         public TaskPlugin()
         {
@@ -43,11 +42,9 @@ namespace Dragonfly.Plugin.Task
 
             pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
-            timeChanged = new EventHandler(SystemEvents_TimeChanged);
 
             SystemEvents.SessionEnded += seeh;
             SystemEvents.PowerModeChanged += pmceh;
-            SystemEvents.TimeChanged += timeChanged;
 
             StartTask();
         }
@@ -56,7 +53,6 @@ namespace Dragonfly.Plugin.Task
         {
             if (pmceh != null) SystemEvents.PowerModeChanged -= this.pmceh;
             if (seeh != null) SystemEvents.SessionEnded -= this.seeh;
-            if (timeChanged != null) SystemEvents.TimeChanged -= this.timeChanged;
         }
 
         public void Dispose()
@@ -83,13 +79,13 @@ namespace Dragonfly.Plugin.Task
         {
             if (e.Mode == PowerModes.Suspend)
             {
-                JobSetting.GetInstance().LastTurnOffMachineTime = DateTime.Now;
+                JobSetting.GetInstance().LastSuspendTime = DateTime.Now;
                 JobSetting.GetInstance().Save();
                 LoggerUtil.Log(Logger.LoggType.Suspend, "休眠");
             }
             else if (e.Mode == PowerModes.Resume)
             {
-                JobSetting.GetInstance().TurnOnMachineTime = DateTime.Now;
+                JobSetting.GetInstance().ResumeTime = DateTime.Now;
                 JobSetting.GetInstance().Save();
                 LoggerUtil.Log(Logger.LoggType.Resume, "唤醒");
             }
@@ -97,37 +93,36 @@ namespace Dragonfly.Plugin.Task
 
         private void SystemEvents_SessionEnded(object sender, SessionEndedEventArgs e)
         {
-            JobSetting.GetInstance().LastTurnOffMachineTime = DateTime.Now;
+            JobSetting.GetInstance().LastSuspendTime = DateTime.Now;
             JobSetting.GetInstance().Save();
             if (e.Reason == SessionEndReasons.Logoff)
             {
-                LoggerUtil.Log(Logger.LoggType.Logoff, "注销登录");
+                LoggerUtil.Log(Logger.LoggType.Suspend, "注销登录");
             }
             else if (e.Reason == SessionEndReasons.SystemShutdown)
             {
-                LoggerUtil.Log(Logger.LoggType.SystemShutdown, "关机");
+                LoggerUtil.Log(Logger.LoggType.Suspend, "关机");
             }
-        }
-
-        private void SystemEvents_TimeChanged(object sender, EventArgs e)
-        {
-            LoggerUtil.Log(Logger.LoggType.Other, "修改系统时间");
         }
 
         internal void StartTask()
         {
-            LoggerUtil.Log(Logger.LoggType.Other, "开始线程");
-            Schedule job = JobManager.GetSchedule(SchedulerRegistry.JOB_NAME);
-            if (job != null)
-            {
-                JobManager.RemoveJob(SchedulerRegistry.JOB_NAME);
-            }
+            StopTask();
             JobManager.Initialize(new SchedulerRegistry());
         }
 
         internal void StopTask()
         {
-            JobManager.RemoveJob(SchedulerRegistry.JOB_NAME);
+            Schedule jobInterval = JobManager.GetSchedule(SchedulerRegistry.JOB_NAME_INTERVAL);
+            if (jobInterval != null)
+            {
+                JobManager.RemoveJob(SchedulerRegistry.JOB_NAME_INTERVAL);
+            }
+            Schedule jobFix = JobManager.GetSchedule(SchedulerRegistry.JOB_NAME_FIX);
+            if (jobFix != null)
+            {
+                JobManager.RemoveJob(SchedulerRegistry.JOB_NAME_FIX);
+            }
         }
 
     }

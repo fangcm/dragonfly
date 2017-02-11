@@ -5,10 +5,7 @@ namespace Dragonfly.Plugin.Task.Logger
 {
     public enum LoggType
     {
-        LockScreen,
-        Command,
-        SystemShutdown,
-        Logoff,
+        Trigger,
         Suspend,
         Resume,
         Other

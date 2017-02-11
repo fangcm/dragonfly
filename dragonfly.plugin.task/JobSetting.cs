@@ -10,12 +10,12 @@ namespace Dragonfly.Plugin.Task
 {
     internal class JobSetting
     {
+        internal const int NotifyInternalType_None = 0;
+        internal const int NotifyInternalType_ShutDown = 1;
+        internal const int NotifyInternalType_Hibernate = 2;
+
         private static JobSetting instance;
         private static readonly object locker = new object();
-
-        internal static readonly int NotifyInternalType_None = 0;
-        internal static readonly int NotifyInternalType_ShutDown = 1;
-        internal static readonly int NotifyInternalType_Hibernate = 2;
 
         private string sSettingsFileName;
 
@@ -30,8 +30,8 @@ namespace Dragonfly.Plugin.Task
         private string notifyRunAppStartpath;
 
         private DateTime lastTriggerTime = DateTime.MinValue; //上次触发时间
-        private DateTime lastTurnOffMachineTime = DateTime.MinValue; //上次关机时间，不需要保存
-        private DateTime turnOnMachineTime = DateTime.Now; //开机时间，不需要保存
+        private DateTime lastSuspendTime = DateTime.MinValue; //上次关机时间，不需要保存
+        private DateTime resumeTime = DateTime.Now; //开机时间，不需要保存
 
         private JobSetting()
         {
@@ -119,16 +119,16 @@ namespace Dragonfly.Plugin.Task
             set { lastTriggerTime = value; }
         }
 
-        public DateTime TurnOnMachineTime
+        public DateTime ResumeTime
         {
-            get { return turnOnMachineTime; }
-            set { turnOnMachineTime = value; }
+            get { return resumeTime; }
+            set { resumeTime = value; }
         }
 
-        public DateTime LastTurnOffMachineTime
+        public DateTime LastSuspendTime
         {
-            get { return lastTurnOffMachineTime; }
-            set { lastTurnOffMachineTime = value; }
+            get { return lastSuspendTime; }
+            set { lastSuspendTime = value; }
         }
 
         public bool Load()
@@ -153,7 +153,7 @@ namespace Dragonfly.Plugin.Task
                 notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam");
                 notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath");
                 lastTriggerTime = XmlHelper.GetAttributeValue(xmlNode, "LastTriggerTime", DateTime.MinValue);
-                lastTurnOffMachineTime = XmlHelper.GetAttributeValue(xmlNode, "LastTurnOffMachineTime", DateTime.MinValue);
+                lastSuspendTime = XmlHelper.GetAttributeValue(xmlNode, "LastSuspendTime", DateTime.MinValue);
 
                 return true;
             }
@@ -183,13 +183,41 @@ namespace Dragonfly.Plugin.Task
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
                 XmlHelper.PutAttributeValue(xmlNode, "LastTriggerTime", lastTriggerTime);
-                XmlHelper.PutAttributeValue(xmlNode, "LastTurnOffMachineTime", lastTurnOffMachineTime);
+                XmlHelper.PutAttributeValue(xmlNode, "LastSuspendTime", lastSuspendTime);
 
                 xmlRoot.AppendChild(xmlNode);
 
                 return XmlHelper.Save(sSettingsFileName, xmlDocument);
             }
         }
+
+        public int caculateSchedulerInterval()
+        {
+            return intervalMinutes + LockScreenMinutes;
+        }
+
+        public int caculateRemainingMinutes()
+        {
+            if (!DateTime.MinValue.Equals(lastTriggerTime) && lastTriggerTime.AddMinutes(LockScreenMinutes).CompareTo(DateTime.Now) > 0)
+            {
+                return LockScreenMinutes - (DateTime.Now - lastTriggerTime).Minutes;
+            }
+
+            return 0;
+        }
+
+        public DateTime caculateFirstTriggerTime()
+        {
+            int remainingMinutes = caculateRemainingMinutes();
+            if (remainingMinutes > 0)
+            {
+                return DateTime.Now.AddMinutes(remainingMinutes + intervalMinutes);
+            }
+            
+            return DateTime.Now.AddMinutes(intervalMinutes);
+
+        }
+
 
     }
 }

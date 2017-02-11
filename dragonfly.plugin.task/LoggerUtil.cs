@@ -37,26 +37,20 @@ namespace Dragonfly.Plugin.Task
 
         public static void InserLineToTaskMainPanel(DateTime date, Logger.LoggType type, string msg)
         {
-            string typeInfo = "其它";
+            string typeInfo;
             switch(type)
             {
-                case Logger.LoggType.Command:
-                    typeInfo = "命令";
-                    break;
-                case Logger.LoggType.LockScreen:
-                    typeInfo = "锁屏";
-                    break;
-                case Logger.LoggType.Logoff:
-                    typeInfo = "注销";
+                case Logger.LoggType.Trigger:
+                    typeInfo = "触发";
                     break;
                 case Logger.LoggType.Suspend:
-                    typeInfo = "休眠";
-                    break;
-                case Logger.LoggType.SystemShutdown:
-                    typeInfo = "关机";
+                    typeInfo = "休息";
                     break;
                 case Logger.LoggType.Resume:
                     typeInfo = "唤醒";
+                    break;
+                default:
+                    typeInfo = "其它";
                     break;
             }
             LoggerUtil.taskMainPanel.InsertLine(date, typeInfo, msg);
