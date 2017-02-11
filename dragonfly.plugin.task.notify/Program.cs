@@ -5,17 +5,51 @@ namespace Dragonfly.Plugin.Task.Notify
 {
     static class Program
     {
-        private static string[] ProgramArgument;
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            ProgramArgument = args;
+            var arguments = CommandLineArgumentParser.Parse(args);
 
-            if (ProgramArgument.Length == 0)
+            bool bLock = false;
+            int lockMinutes = 0;
+            int cmd = 0;
+            string desc = string.Empty;
+
+            if (arguments.Has("-lock"))
+            {
+                var arg = arguments.Get("-lock").Next;
+                if(arg != null)
+                {
+                    bLock = Convert.ToBoolean(arg.ToString());
+                }
+            }
+            if (arguments.Has("-lockminutes"))
+            {
+                var arg = arguments.Get("-lockminutes").Next;
+                if (arg != null)
+                {
+                    lockMinutes = Convert.ToInt32(arg.ToString());
+                }
+            }
+            if (arguments.Has("-cmd"))
+            {
+                var arg = arguments.Get("-cmd").Next;
+                if (arg != null)
+                {
+                    cmd = Convert.ToInt32(arg.ToString());
+                }
+            }
+            if (arguments.Has("-desc"))
+            {
+                var arg = arguments.Get("-desc").Next;
+                if (arg != null)
+                {
+                    desc = arg.ToString();
+                }
+            }
+
+            if(bLock == false && cmd == 0)
             {
                 return;
             }
@@ -25,63 +59,20 @@ namespace Dragonfly.Plugin.Task.Notify
 
             Form mainWindow = null;
 
-            string type = ProgramArgument[0];
-            if ("msg".Equals(type.ToLower()))
+            if (bLock && lockMinutes>0)
             {
-                string title = "";
-                string content = "";
-                if (ProgramArgument.Length >= 2)
-                    title = ProgramArgument[1];
-                if (ProgramArgument.Length >= 3)
-                    content = ProgramArgument[2];
-
-                mainWindow = new Utils().ShowNotifyWindow(title, content);
-                Application.Run(mainWindow);
-
-            }
-            if ("other".Equals(type.ToLower()))
-            {
-                int seconds = 30;
-
-                if (ProgramArgument.Length >= 2)
-                    seconds = Int32.Parse(ProgramArgument[1]);
-
-                Application.Run(Utils.ShowOther(seconds));
-
-            }
-            else if ("lock".Equals(type.ToLower()))
-            {
-                int seconds = 30;
-                string title = "";
-                string content = "";
-                if (ProgramArgument.Length >= 2)
-                    seconds = Int32.Parse(ProgramArgument[1]);
-                if (ProgramArgument.Length >= 3)
-                    title = ProgramArgument[2];
-                if (ProgramArgument.Length >= 4)
-                    content = ProgramArgument[3];
-
-                mainWindow = Utils.LockScreen(seconds, title, content);
+                mainWindow = Utils.LockScreen(lockMinutes*60, desc);
                 Application.Run(mainWindow);
             }
-            else if ("shutdown".Equals(type.ToLower()))
-            {
-                string restartOption = "hibernate";
-                if (ProgramArgument.Length >= 2)
-                    restartOption = ProgramArgument[1];
 
-                if ("logoff".Equals(restartOption.ToLower()))
-                    Utils.ExitWindows(RestartOptions.LogOff, true);
-                else if ("poweroff".Equals(restartOption.ToLower()))
+            switch (cmd)
+            {
+                case 1:
                     Utils.ExitWindows(RestartOptions.PowerOff, true);
-                else if ("suspend".Equals(restartOption.ToLower()))
-                    Utils.ExitWindows(RestartOptions.Suspend, true);
-                else if ("reboot".Equals(restartOption.ToLower()))
-                    Utils.ExitWindows(RestartOptions.Reboot, true);
-                else
+                    break;
+                case 2:
                     Utils.ExitWindows(RestartOptions.Hibernate, true);
-
-                return;
+                    break;
             }
 
         }

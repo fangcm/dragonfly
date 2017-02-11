@@ -1,15 +1,27 @@
-﻿using System.Collections;
+﻿using System;
 using System.Windows.Forms;
-using Dragonfly.Common.Plugin;
-using System;
 
 namespace Dragonfly.Plugin.Task
 {
     public partial class TaskMainPanel : UserControl
     {
+        private TaskPlugin taskPlugin;
+
         public TaskMainPanel()
         {
             InitializeComponent();
+        }
+
+        internal TaskPlugin TaskPlugin
+        {
+            get
+            {
+                return this.taskPlugin;
+            }
+            set
+            {
+                this.taskPlugin = value;
+            }
         }
 
         private void TaskMainPanel_Load(object sender, System.EventArgs e)
@@ -24,7 +36,13 @@ namespace Dragonfly.Plugin.Task
         private void toolStripButtonSetting_Click(object sender, EventArgs e)
         {
             JobSettingForm settingForm = new JobSettingForm();
-            settingForm.ShowDialog();
+            if(settingForm.ShowDialog() == DialogResult.OK)
+            {
+                if (settingForm.bDataChanged)
+                {
+                    this.taskPlugin.StartTask();
+                }
+            }
         }
 
         private delegate void InsertLineDelegate(int index, DateTime date, string type, string desc);

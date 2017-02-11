@@ -9,21 +9,26 @@ namespace Dragonfly.Plugin.Task
 {
     internal class NotifyJob : IJob
     {
+        public bool IsSpecifyLockScreenMinutes { get; set; }
+        public int SpecifyLockScreenMinutes { get; set; }
+
         void IJob.Execute()
         {
 
-            LoggerUtil.Log(Logger.LoggType.Trigger, "worker execute");
-
             JobSetting setting = JobSetting.GetInstance();
-            setting.LastTriggerTime = DateTime.Now;
-            setting.Save();
+            if (!IsSpecifyLockScreenMinutes)
+            {
+                setting.LastTriggerTime = DateTime.Now;
+                setting.Save();
+            }
 
+            int lockScreenMinutes = IsSpecifyLockScreenMinutes ? SpecifyLockScreenMinutes : setting.LockScreenMinutes;
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("触发指令:");
+            sb.Append("指令:");
             if (setting.IsLockScreen)
             {
-                sb.Append("锁屏【").Append(setting.LockScreenMinutes).Append("】分钟");
+                sb.Append("锁屏【").Append(lockScreenMinutes).Append("】分钟");
             }
             switch (setting.NotifyInternalType)
             {
@@ -38,13 +43,13 @@ namespace Dragonfly.Plugin.Task
             {
                 sb.Append("，执行外部程序【").Append(setting.NotifyRunApp).Append("】");
             }
-                LoggerUtil.Log(Logger.LoggType.Trigger, sb.ToString());
+            LoggerUtil.Log(Logger.LoggType.Trigger, sb.ToString());
 
             if (setting.IsLockScreen || setting.NotifyInternalType != JobSetting.NotifyInternalType_None)
             {
                 string notifyRunApp = Application.StartupPath + @"\dragonfly.plugin.task.notify.exe";
                 string notifyRunAppStartpath = Application.StartupPath;
-                string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -o {2} -desc \"{3}\"", setting.IsLockScreen, setting.LockScreenMinutes, setting.NotifyInternalType, setting.Description);
+                string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
 
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
             }
@@ -52,7 +57,6 @@ namespace Dragonfly.Plugin.Task
             if (setting.IsNotifyRunApp)
             {
                 ExecApp(setting.NotifyRunApp, setting.NotifyRunAppParam, setting.NotifyRunAppStartpath);
-                System.Diagnostics.Debug.WriteLine("ExecApp:" + setting.NotifyRunApp);
             }
 
         }

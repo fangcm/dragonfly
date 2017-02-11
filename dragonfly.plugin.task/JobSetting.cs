@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using FluentScheduler;
-using Dragonfly.Common.Utils;
+﻿using Dragonfly.Common.Utils;
+using System;
 using System.Xml;
 
 namespace Dragonfly.Plugin.Task
@@ -30,8 +26,6 @@ namespace Dragonfly.Plugin.Task
         private string notifyRunAppStartpath;
 
         private DateTime lastTriggerTime = DateTime.MinValue; //上次触发时间
-        private DateTime lastSuspendTime = DateTime.MinValue; //上次关机时间，不需要保存
-        private DateTime resumeTime = DateTime.Now; //开机时间，不需要保存
 
         private JobSetting()
         {
@@ -119,18 +113,6 @@ namespace Dragonfly.Plugin.Task
             set { lastTriggerTime = value; }
         }
 
-        public DateTime ResumeTime
-        {
-            get { return resumeTime; }
-            set { resumeTime = value; }
-        }
-
-        public DateTime LastSuspendTime
-        {
-            get { return lastSuspendTime; }
-            set { lastSuspendTime = value; }
-        }
-
         public bool Load()
         {
             lock (locker)
@@ -153,7 +135,6 @@ namespace Dragonfly.Plugin.Task
                 notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam");
                 notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath");
                 lastTriggerTime = XmlHelper.GetAttributeValue(xmlNode, "LastTriggerTime", DateTime.MinValue);
-                lastSuspendTime = XmlHelper.GetAttributeValue(xmlNode, "LastSuspendTime", DateTime.MinValue);
 
                 return true;
             }
@@ -183,7 +164,6 @@ namespace Dragonfly.Plugin.Task
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
                 XmlHelper.PutAttributeValue(xmlNode, "LastTriggerTime", lastTriggerTime);
-                XmlHelper.PutAttributeValue(xmlNode, "LastSuspendTime", lastSuspendTime);
 
                 xmlRoot.AppendChild(xmlNode);
 

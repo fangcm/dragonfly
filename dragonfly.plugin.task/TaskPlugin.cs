@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Xml;
-using Dragonfly.Common.Plugin;
-using Dragonfly.Common.Utils;
+﻿using Dragonfly.Common.Plugin;
 using FluentScheduler;
 using Microsoft.Win32;
+using System;
+using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Task
 {
@@ -59,7 +55,6 @@ namespace Dragonfly.Plugin.Task
         {
             detachEventsHandlers();
             StopTask();
-            JobSetting.GetInstance().Save();
         }
 
         public UserControl PluginPanel
@@ -69,6 +64,7 @@ namespace Dragonfly.Plugin.Task
                 if (mainPanel == null || mainPanel.IsDisposed)
                 {
                     this.mainPanel = new TaskMainPanel();
+                    this.mainPanel.TaskPlugin = this;
                 }
                 return mainPanel;
             }
@@ -79,22 +75,17 @@ namespace Dragonfly.Plugin.Task
         {
             if (e.Mode == PowerModes.Suspend)
             {
-                JobSetting.GetInstance().LastSuspendTime = DateTime.Now;
-                JobSetting.GetInstance().Save();
                 LoggerUtil.Log(Logger.LoggType.Suspend, "休眠");
             }
             else if (e.Mode == PowerModes.Resume)
             {
-                JobSetting.GetInstance().ResumeTime = DateTime.Now;
-                JobSetting.GetInstance().Save();
                 LoggerUtil.Log(Logger.LoggType.Resume, "唤醒");
+                StartTask();
             }
         }
 
         private void SystemEvents_SessionEnded(object sender, SessionEndedEventArgs e)
         {
-            JobSetting.GetInstance().LastSuspendTime = DateTime.Now;
-            JobSetting.GetInstance().Save();
             if (e.Reason == SessionEndReasons.Logoff)
             {
                 LoggerUtil.Log(Logger.LoggType.Suspend, "注销登录");

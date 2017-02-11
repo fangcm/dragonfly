@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Task.Notify
 {
@@ -19,79 +17,14 @@ namespace Dragonfly.Plugin.Task.Notify
 
     internal class Utils
     {
-        public TaskbarNotifier ShowNotifyWindow(string title, string description)
-        {
-            TaskbarNotifier notifier = new TaskbarNotifier();
-
-            Random r = new Random();
-            int type = r.Next(3);
-            switch (type)
-            {
-                case 0:
-                    notifier.SetBackgroundBitmap(new Bitmap(GetType(), "skin.bmp"), Color.FromArgb(255, 0, 255));
-                    notifier.SetCloseBitmap(new Bitmap(GetType(), "close.bmp"), Color.FromArgb(255, 0, 255), new Point(127, 8));
-                    notifier.TitleRectangle = new Rectangle(40, 9, 70, 25);
-                    notifier.ContentRectangle = new Rectangle(8, 41, 133, 68);
-                    break;
-
-                case 1:
-                    notifier = new TaskbarNotifier();
-                    notifier.SetBackgroundBitmap(new Bitmap(GetType(), "skin2.bmp"), Color.FromArgb(255, 0, 255));
-                    notifier.SetCloseBitmap(new Bitmap(GetType(), "close2.bmp"), Color.FromArgb(255, 0, 255), new Point(300, 74));
-                    notifier.TitleRectangle = new Rectangle(123, 80, 176, 16);
-                    notifier.ContentRectangle = new Rectangle(116, 97, 197, 22);
-                    break;
-
-                case 2:
-                    notifier = new TaskbarNotifier();
-                    notifier.SetBackgroundBitmap(new Bitmap(GetType(), "skin3.bmp"), Color.FromArgb(255, 0, 255));
-                    notifier.SetCloseBitmap(new Bitmap(GetType(), "close.bmp"), Color.FromArgb(255, 0, 255), new Point(280, 57));
-                    notifier.TitleRectangle = new Rectangle(150, 57, 125, 28);
-                    notifier.ContentRectangle = new Rectangle(75, 92, 215, 55);
-                    break;
-            }
-
-            notifier.ContentClickable = false;
-            notifier.ReShowOnMouseOver = true;			// Added Rev 002
-            notifier.TitleText = title;
-            notifier.ContentText = description;
-            notifier.Show(title, description, 500, 60000, 500);
-
-            return notifier;
-        }
-
-        public static Form ShowOther(int seconds)
-        {
-            Form ret = null;
-            Random r = new Random();
-            int type = r.Next(2);
-            switch (type)
-            {
-                case 0:
-                    ret = new SnowForm();
-                    ((SnowForm)ret).TimeInterval = seconds * 1000;
-                    break;
-
-                case 1:
-                    ret = new ButterflyForm();
-                    ((ButterflyForm)ret).TimeInterval = seconds * 1000;
-                    break;
-            }
-
-            return ret;
-        }
-
-        public static LockScreenForm LockScreen(int seconds, string title, string description)
+        public static LockScreenForm LockScreen(int seconds, string description)
         {
 
             LockScreenForm form = new LockScreenForm();
-            form.Title = title;
             form.Description = description;
             form.TimeInterval = seconds * 1000;
             return form;
         }
-
-
 
         public static void ExitWindows(RestartOptions how, bool force)
         {

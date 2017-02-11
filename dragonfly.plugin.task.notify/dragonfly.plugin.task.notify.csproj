@@ -41,18 +41,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButterflyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ButterflyForm.Designer.cs">
-      <DependentUpon>ButterflyForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="CommandLine.cs" />
     <Compile Include="LockScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,30 +57,8 @@
     <EmbeddedResource Include="LockScreenForm.resx">
       <DependentUpon>LockScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="SnowForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SnowForm.Designer.cs">
-      <DependentUpon>SnowForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TaskbarNotifier.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UserActivityHook.cs" />
     <Compile Include="Utils.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ButterflyForm.resx">
-      <DependentUpon>ButterflyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="close.bmp" />
-    <EmbeddedResource Include="close2.bmp" />
-    <EmbeddedResource Include="skin.bmp" />
-    <EmbeddedResource Include="skin2.bmp" />
-    <EmbeddedResource Include="skin3.bmp" />
-    <EmbeddedResource Include="SnowForm.resx">
-      <DependentUpon>SnowForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

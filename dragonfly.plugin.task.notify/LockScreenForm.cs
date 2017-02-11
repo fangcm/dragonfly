@@ -11,8 +11,6 @@ namespace Dragonfly.Plugin.Task.Notify
         private UserActivityHook globalHooks;
         private DateTime endDateTime;
 
-        private String releaseLockKey;
-
         public LockScreenForm()
         {
             InitializeComponent();
@@ -21,9 +19,8 @@ namespace Dragonfly.Plugin.Task.Notify
             base.Width = Screen.PrimaryScreen.Bounds.Width;
             base.Height = Screen.PrimaryScreen.Bounds.Height;
 
-            Random r = new Random();
-            releaseLockKey = r.Next(0, 100).ToString();
         }
+
 
         public int TimeInterval
         {
@@ -35,18 +32,6 @@ namespace Dragonfly.Plugin.Task.Notify
             {
                 this.timerBlock.Interval = value;
                 endDateTime = DateTime.Now + TimeSpan.FromMilliseconds(this.timerBlock.Interval);
-            }
-        }
-
-        public string Title
-        {
-            get
-            {
-                return this.labelTitle.Text;
-            }
-            set
-            {
-                this.labelTitle.Text = value;
             }
         }
 
@@ -117,12 +102,6 @@ namespace Dragonfly.Plugin.Task.Notify
                     break;
 
                 case Keys.Enter:
-                    String input = this.textBoxInput.Text;
-                    if (releaseLockKey.Equals(input))
-                    {
-                        this.Close();
-                    }
-                    this.textBoxInput.Text = "";
                     e.Handled = true;
                     break;
 

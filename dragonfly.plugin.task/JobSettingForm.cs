@@ -5,7 +5,7 @@ namespace Dragonfly.Plugin.Task
 {
     public partial class JobSettingForm : Form
     {
-        private bool bDataChanged = false;
+        public bool bDataChanged = false;
 
         public string Description
         {
