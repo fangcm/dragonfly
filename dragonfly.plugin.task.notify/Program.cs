@@ -19,7 +19,7 @@ namespace Dragonfly.Plugin.Task.Notify
             if (arguments.Has("-lock"))
             {
                 var arg = arguments.Get("-lock").Next;
-                if(arg != null)
+                if (arg != null)
                 {
                     bLock = Convert.ToBoolean(arg.ToString());
                 }
@@ -49,7 +49,7 @@ namespace Dragonfly.Plugin.Task.Notify
                 }
             }
 
-            if(bLock == false && cmd == 0)
+            if (bLock == false && cmd == 0)
             {
                 return;
             }
@@ -59,9 +59,10 @@ namespace Dragonfly.Plugin.Task.Notify
 
             Form mainWindow = null;
 
-            if (bLock && lockMinutes>0)
+            if (bLock && lockMinutes > 0)
             {
-                mainWindow = Utils.LockScreen(lockMinutes*60, desc);
+                desc += (" , lockMinutes:"+ lockMinutes);
+                mainWindow = Utils.LockScreen(lockMinutes * 60, desc);
                 Application.Run(mainWindow);
             }
 

@@ -35,7 +35,7 @@ namespace Dragonfly.Plugin.Task
                 UserControl m = PluginPanel;
             }
             LoggerUtil.Init(mainPanel);
-
+            LoggerUtil.Log(Logger.LoggType.Resume, "启动初始化");
             pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
 

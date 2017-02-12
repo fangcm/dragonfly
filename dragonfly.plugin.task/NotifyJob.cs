@@ -51,6 +51,7 @@ namespace Dragonfly.Plugin.Task
                 string notifyRunAppStartpath = Application.StartupPath;
                 string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
 
+                LoggerUtil.Log(Logger.LoggType.Trigger, notifyRunAppParam);
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
             }
 

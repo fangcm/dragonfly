@@ -19,6 +19,11 @@ namespace Dragonfly.Plugin.Task.Notify
             base.Width = Screen.PrimaryScreen.Bounds.Width;
             base.Height = Screen.PrimaryScreen.Bounds.Height;
 
+#if DEBUG
+            this.ControlBox = true;
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+#endif
+
         }
 
 
