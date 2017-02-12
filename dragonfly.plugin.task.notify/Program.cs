@@ -61,7 +61,6 @@ namespace Dragonfly.Plugin.Task.Notify
 
             if (bLock && lockMinutes > 0)
             {
-                desc += (" , lockMinutes:"+ lockMinutes);
                 mainWindow = Utils.LockScreen(lockMinutes * 60, desc);
                 Application.Run(mainWindow);
             }

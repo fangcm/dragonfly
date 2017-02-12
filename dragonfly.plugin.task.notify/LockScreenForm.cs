@@ -27,16 +27,16 @@ namespace Dragonfly.Plugin.Task.Notify
         }
 
 
-        public int TimeInterval
+        public int TimeIntervalSeconds
         {
             get
             {
-                return this.timerBlock.Interval;
+                return this.timerBlock.Interval / 1000;
             }
             set
             {
-                this.timerBlock.Interval = value;
-                endDateTime = DateTime.Now + TimeSpan.FromMilliseconds(this.timerBlock.Interval);
+                this.timerBlock.Interval = value * 1000;
+                
             }
         }
 
@@ -86,6 +86,7 @@ namespace Dragonfly.Plugin.Task.Notify
             globalHooks = new UserActivityHook(false, true);
             globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
 
+            endDateTime = DateTime.Now + TimeSpan.FromSeconds(this.timerBlock.Interval / 1000);
         }
 
         private void GlobalHooks_KeyDown(object sender, KeyEventArgs e)
@@ -156,7 +157,7 @@ namespace Dragonfly.Plugin.Task.Notify
 
             TimeSpan leftTime = endDateTime - DateTime.Now;
 
-            string time = string.Format("{0}:{1}:{2}", leftTime.TotalHours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
+            string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
 
             this.labelClock.Text = time;
         }

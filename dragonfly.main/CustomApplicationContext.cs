@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Common.Utils;
+using System;
 using System.Windows.Forms;
 
 namespace Dragonfly.Main
@@ -12,14 +13,19 @@ namespace Dragonfly.Main
         public CustomApplicationContext()
         {
             MenuItem menuShowMainForm = new MenuItem("［蜻蜓］工具...", new EventHandler(ShowMainForm_Click));
-#if DEBUG
-            MenuItem menuExit = new MenuItem("退出", new EventHandler(ExitApp_Click));
-#endif
-            notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { menuShowMainForm
-#if DEBUG
-                , menuExit
-#endif
-                }); ;
+
+            MenuItem[] menus = null;
+            if (AppConfig.GetBoolean("MenuExit"))
+            {
+                MenuItem menuExit = new MenuItem("退出", new EventHandler(ExitApp_Click));
+                menus = new MenuItem[] { menuShowMainForm, menuExit };
+            }
+            else
+            {
+                menus = new MenuItem[] { menuShowMainForm };
+            }
+
+            notifyIcon.ContextMenu = new ContextMenu(menus); ;
             notifyIcon.Icon = global::Dragonfly.Main.Properties.Resources.NotifyIcon;
             notifyIcon.Text = "［蜻蜓］工具";
             notifyIcon.Visible = true;
@@ -42,26 +48,34 @@ namespace Dragonfly.Main
         {
             if (!mainAppForm.Visible)
             {
-                if (passwordDialog == null || passwordDialog.IsDisposed)
+                if (!AppConfig.GetBoolean("HidePasswordDialog"))
                 {
-                    passwordDialog = new PasswordBox();
-                    passwordDialog.ResetPassword();
-                    if (passwordDialog.ShowDialog() == DialogResult.OK)
+                    if (passwordDialog == null || passwordDialog.IsDisposed)
                     {
-                        mainAppForm.Show();
-                        mainAppForm.Activate();
+                        passwordDialog = new PasswordBox();
+                        passwordDialog.ResetPassword();
+                        if (passwordDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            mainAppForm.Show();
+                            mainAppForm.Activate();
+                        }
+                        passwordDialog.Dispose();
+
                     }
-                    passwordDialog.Dispose();
+                    else
+                    {
+                        passwordDialog.ResetPassword();
+                        passwordDialog.Activate();
+                    }
+                    return;
 
                 }
                 else
                 {
-                    passwordDialog.ResetPassword();
-                    passwordDialog.Activate();
+                    mainAppForm.Show();
                 }
-                return;
-
             }
+
             mainAppForm.Activate();
         }
 
