@@ -152,10 +152,16 @@ namespace Dragonfly.Plugin.Task.Notify
 
         private void timerTotopAndTaskmgr_Tick(object sender, EventArgs e)
         {
+            if (endDateTime <= DateTime.Now)
+            {
+                this.Close();
+            }
+
             KillTaskmgr();
             SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, 0, 300, 1);
 
             TimeSpan leftTime = endDateTime - DateTime.Now;
+
 
             string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
 
