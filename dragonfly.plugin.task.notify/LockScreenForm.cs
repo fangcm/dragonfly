@@ -10,6 +10,7 @@ namespace Dragonfly.Plugin.Task.Notify
     {
         private UserActivityHook globalHooks;
         private DateTime endDateTime;
+        private int intervalSeconds = 30;
 
         public LockScreenForm()
         {
@@ -27,15 +28,15 @@ namespace Dragonfly.Plugin.Task.Notify
         }
 
 
-        public int TimeIntervalSeconds
+        public int IntervalSeconds
         {
             get
             {
-                return this.timerBlock.Interval / 1000;
+                return this.intervalSeconds;
             }
             set
             {
-                this.timerBlock.Interval = value * 1000;
+                this.intervalSeconds = value;
                 
             }
         }
@@ -76,17 +77,12 @@ namespace Dragonfly.Plugin.Task.Notify
             }
         }
 
-        private void timerBlock_Tick(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
             globalHooks = new UserActivityHook(false, true);
             globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
 
-            endDateTime = DateTime.Now + TimeSpan.FromSeconds(this.timerBlock.Interval / 1000);
+            endDateTime = DateTime.Now + TimeSpan.FromSeconds(this.intervalSeconds);
         }
 
         private void GlobalHooks_KeyDown(object sender, KeyEventArgs e)
@@ -120,7 +116,7 @@ namespace Dragonfly.Plugin.Task.Notify
         private void LockScreenForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             globalHooks.Stop(false, true, false);
-            timerTotopAndTaskmgr.Stop();
+            timerTick.Stop();
         }
         private void LockScreenForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -150,11 +146,12 @@ namespace Dragonfly.Plugin.Task.Notify
         [DllImport("user32")]
         public static extern bool SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint wFlags);
 
-        private void timerTotopAndTaskmgr_Tick(object sender, EventArgs e)
+        private void timerTick_Tick(object sender, EventArgs e)
         {
             if (endDateTime <= DateTime.Now)
             {
                 this.Close();
+                return;
             }
 
             KillTaskmgr();

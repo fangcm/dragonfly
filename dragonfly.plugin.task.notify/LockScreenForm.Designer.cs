@@ -29,25 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timerBlock = new System.Windows.Forms.Timer(this.components);
-            this.timerTotopAndTaskmgr = new System.Windows.Forms.Timer(this.components);
+            this.timerTick = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelClock = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // timerBlock
+            // timerTick
             // 
-            this.timerBlock.Enabled = true;
-            this.timerBlock.Interval = 30000;
-            this.timerBlock.Tick += new System.EventHandler(this.timerBlock_Tick);
-            // 
-            // timerTotopAndTaskmgr
-            // 
-            this.timerTotopAndTaskmgr.Enabled = true;
-            this.timerTotopAndTaskmgr.Interval = 1;
-            this.timerTotopAndTaskmgr.Tick += new System.EventHandler(this.timerTotopAndTaskmgr_Tick);
+            this.timerTick.Enabled = true;
+            this.timerTick.Interval = 1;
+            this.timerTick.Tick += new System.EventHandler(this.timerTick_Tick);
             // 
             // tableLayoutPanel1
             // 
@@ -124,9 +117,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timerBlock;
-        private System.Windows.Forms.Timer timerTotopAndTaskmgr;
+        private System.Windows.Forms.Timer timerTick;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelClock;

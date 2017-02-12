@@ -22,7 +22,7 @@ namespace Dragonfly.Plugin.Task.Notify
 
             LockScreenForm form = new LockScreenForm();
             form.Description = description;
-            form.TimeIntervalSeconds = seconds;
+            form.IntervalSeconds = seconds;
             return form;
         }
 
