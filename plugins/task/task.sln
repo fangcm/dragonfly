@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task", "dr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task.notify", "dragonfly.plugin.task.notify\dragonfly.plugin.task.notify.csproj", "{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.common", "dragonfly.common\dragonfly.common.csproj", "{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.common", "..\..\dragonfly.common\dragonfly.common.csproj", "{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
