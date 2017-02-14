@@ -46,7 +46,7 @@
             this.label.MaximumSize = new System.Drawing.Size(0, 20);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(82, 15);
-            this.label.TabIndex = 0;
+            this.label.TabIndex = 1;
             this.label.Text = "请输入密码";
             this.label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -69,7 +69,7 @@
             this.btnOK.Margin = new System.Windows.Forms.Padding(4, 25, 4, 4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(100, 29);
-            this.btnOK.TabIndex = 3;
+            this.btnOK.TabIndex = 2;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -81,7 +81,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 29);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -90,7 +90,7 @@
             this.textBoxPassword.Location = new System.Drawing.Point(163, 131);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(240, 25);
-            this.textBoxPassword.TabIndex = 1;
+            this.textBoxPassword.TabIndex = 0;
             this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // labelTip
@@ -99,7 +99,7 @@
             this.labelTip.Location = new System.Drawing.Point(160, 169);
             this.labelTip.Name = "labelTip";
             this.labelTip.Size = new System.Drawing.Size(45, 15);
-            this.labelTip.TabIndex = 27;
+            this.labelTip.TabIndex = 4;
             this.labelTip.Text = "提示:";
             // 
             // textBoxDescription
@@ -109,7 +109,7 @@
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.Size = new System.Drawing.Size(241, 73);
-            this.textBoxDescription.TabIndex = 28;
+            this.textBoxDescription.TabIndex = 3;
             this.textBoxDescription.Text = "此程序是爸爸专为【方小玉】开发，目的只有一个：保护她免受电脑伤害。";
             // 
             // PasswordBox

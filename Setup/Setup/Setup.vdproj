@@ -15,104 +15,146 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0237AB4D29F74739A0432A58BE3D3B55"
+        "MsmKey" = "8:_038130516FBD40F59DA5DE30067B0657"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_272659B8652E4447A3C1EF9C03A5AA7A"
+        "MsmKey" = "8:_76793DE96A484AD1AA43FEBFD609044D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5ACE1BB461107461909C9AFD8D6A5D89"
-        "OwnerKey" = "8:_60429F0E87904563B8FD11705CFDCAF9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5ACE1BB461107461909C9AFD8D6A5D89"
-        "OwnerKey" = "8:_9635BA5A60654C0EA966D6E28CC66A1B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5C977648E3DBFED1D89072A169EF596D"
-        "OwnerKey" = "8:_60429F0E87904563B8FD11705CFDCAF9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_60429F0E87904563B8FD11705CFDCAF9"
+        "MsmKey" = "8:_7E293AC6151F4731880FE53AEA829449"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6AF9319B8BB64C0BA91914A086BAE390"
+        "MsmKey" = "8:_90CA1EF711CD4E228EF0C4021344E7E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6D65B2973CCB44ACA6B5895A0F2ACE94"
+        "MsmKey" = "8:_934D0ADF3DC8458B92A99CF73BE0CBC8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7DB6A8D87283473682B971E9EEF6CE6B"
+        "MsmKey" = "8:_972750A11420134C5645A1987B92E82F"
+        "OwnerKey" = "8:_038130516FBD40F59DA5DE30067B0657"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B346E2974AC14CAAA7770A27B1F2A6B5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9635BA5A60654C0EA966D6E28CC66A1B"
+        "MsmKey" = "8:_BD793F7EB13B473CAE05688D134F0F86"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C1CE7A0CF2D2497BB1EADBD492F5D6E9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C77AD2F54199522FAA9F27D52AD54D62"
+        "OwnerKey" = "8:_038130516FBD40F59DA5DE30067B0657"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C77AD2F54199522FAA9F27D52AD54D62"
+        "OwnerKey" = "8:_C1CE7A0CF2D2497BB1EADBD492F5D6E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D66AAA761CDE465C82E4802C446CF9A3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DDD7F5FBF05544FC9F6FA2A9F80DB310"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F54EBD467A514D8C9B9695FBCA50D3AD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7DB6A8D87283473682B971E9EEF6CE6B"
+        "OwnerKey" = "8:_B346E2974AC14CAAA7770A27B1F2A6B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9635BA5A60654C0EA966D6E28CC66A1B"
+        "OwnerKey" = "8:_7E293AC6151F4731880FE53AEA829449"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_60429F0E87904563B8FD11705CFDCAF9"
+        "OwnerKey" = "8:_BD793F7EB13B473CAE05688D134F0F86"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5C977648E3DBFED1D89072A169EF596D"
+        "OwnerKey" = "8:_76793DE96A484AD1AA43FEBFD609044D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5ACE1BB461107461909C9AFD8D6A5D89"
+        "OwnerKey" = "8:_DDD7F5FBF05544FC9F6FA2A9F80DB310"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_272659B8652E4447A3C1EF9C03A5AA7A"
+        "OwnerKey" = "8:_C1CE7A0CF2D2497BB1EADBD492F5D6E9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0237AB4D29F74739A0432A58BE3D3B55"
+        "OwnerKey" = "8:_90CA1EF711CD4E228EF0C4021344E7E7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_038130516FBD40F59DA5DE30067B0657"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_972750A11420134C5645A1987B92E82F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C77AD2F54199522FAA9F27D52AD54D62"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -127,7 +169,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -187,6 +229,48 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_0FFBDE1A04144549A9E23A9C09AD13C6"
+            {
+            "Name" = "8:install from SetupLibrary (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_7E293AC6151F4731880FE53AEA829449"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_3D672F87_E70A_445A_8758_E3B6962CA66F"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_202ED15B212244D18A740CB4AB57BAC8"
+            {
+            "Name" = "8:commit from SetupLibrary (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_76793DE96A484AD1AA43FEBFD609044D"
+            "FileType" = "3:1"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_AD9BAA55_7C9B_4FB5_B960_F711D2937DCD"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_C6FD57150F8E4283A055AF6D440DAEE1"
+            {
+            "Name" = "8:uninstall from SetupLibrary (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_BD793F7EB13B473CAE05688D134F0F86"
+            "FileType" = "3:1"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_489224F9_0888_49E4_9A39_94669CB99153"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -202,7 +286,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.5"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.6"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=395269"
                 }
@@ -210,144 +294,20 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0237AB4D29F74739A0432A58BE3D3B55"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dragonfly.plugin.task.notify, Version=1.0.0.1, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0237AB4D29F74739A0432A58BE3D3B55"
-                    {
-                    "Name" = "8:dragonfly.plugin.task.notify.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\bin\\Release\\dragonfly.plugin.task.notify.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_272659B8652E4447A3C1EF9C03A5AA7A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FluentScheduler, Version=5.1.3.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_272659B8652E4447A3C1EF9C03A5AA7A"
-                    {
-                    "Name" = "8:FluentScheduler.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\bin\\Release\\FluentScheduler.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5ACE1BB461107461909C9AFD8D6A5D89"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5ACE1BB461107461909C9AFD8D6A5D89"
-                    {
-                    "Name" = "8:dragonfly.common.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:dragonfly.common.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5C977648E3DBFED1D89072A169EF596D"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FluentScheduler, Version=5.1.3.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5C977648E3DBFED1D89072A169EF596D"
-                    {
-                    "Name" = "8:FluentScheduler.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:FluentScheduler.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_60429F0E87904563B8FD11705CFDCAF9"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_038130516FBD40F59DA5DE30067B0657"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:dragonfly.plugin.task, Version=1.0.0.1, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_60429F0E87904563B8FD11705CFDCAF9"
+                    "_038130516FBD40F59DA5DE30067B0657"
                     {
                     "Name" = "8:dragonfly.plugin.task.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\bin\\Release\\dragonfly.plugin.task.dll"
+            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.plugin.task.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
@@ -365,7 +325,38 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6AF9319B8BB64C0BA91914A086BAE390"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_90CA1EF711CD4E228EF0C4021344E7E7"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:FluentScheduler, Version=5.1.3.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_90CA1EF711CD4E228EF0C4021344E7E7"
+                    {
+                    "Name" = "8:FluentScheduler.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\SetupNeededFiles\\FluentScheduler.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_934D0ADF3DC8458B92A99CF73BE0CBC8"
             {
             "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.plugin.task.notify.exe.config"
             "TargetName" = "8:dragonfly.plugin.task.notify.exe.config"
@@ -385,7 +376,131 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D65B2973CCB44ACA6B5895A0F2ACE94"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_972750A11420134C5645A1987B92E82F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:FluentScheduler, Version=5.1.3.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_972750A11420134C5645A1987B92E82F"
+                    {
+                    "Name" = "8:FluentScheduler.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:FluentScheduler.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B346E2974AC14CAAA7770A27B1F2A6B5"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_B346E2974AC14CAAA7770A27B1F2A6B5"
+                    {
+                    "Name" = "8:dragonfly.common.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.common.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C1CE7A0CF2D2497BB1EADBD492F5D6E9"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dragonfly.main, Version=1.1.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C1CE7A0CF2D2497BB1EADBD492F5D6E9"
+                    {
+                    "Name" = "8:dragonfly.main.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.main.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C77AD2F54199522FAA9F27D52AD54D62"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C77AD2F54199522FAA9F27D52AD54D62"
+                    {
+                    "Name" = "8:dragonfly.common.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:dragonfly.common.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D66AAA761CDE465C82E4802C446CF9A3"
             {
             "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.main.exe.config"
             "TargetName" = "8:dragonfly.main.exe.config"
@@ -405,20 +520,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7DB6A8D87283473682B971E9EEF6CE6B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DDD7F5FBF05544FC9F6FA2A9F80DB310"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:dragonfly.plugin.task.notify, Version=1.0.0.1, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_7DB6A8D87283473682B971E9EEF6CE6B"
+                    "_DDD7F5FBF05544FC9F6FA2A9F80DB310"
                     {
-                    "Name" = "8:dragonfly.common.dll"
+                    "Name" = "8:dragonfly.plugin.task.notify.exe"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\bin\\Release\\dragonfly.common.dll"
+            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.plugin.task.notify.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
@@ -436,21 +551,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9635BA5A60654C0EA966D6E28CC66A1B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F54EBD467A514D8C9B9695FBCA50D3AD"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dragonfly.main, Version=1.1.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_9635BA5A60654C0EA966D6E28CC66A1B"
-                    {
-                    "Name" = "8:dragonfly.main.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\bin\\Release\\dragonfly.main.exe"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\SetupNeededFiles\\NotifyIcon.ico"
+            "TargetName" = "8:NotifyIcon.ico"
             "Tag" = "8:"
             "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
             "Condition" = "8:"
@@ -502,7 +606,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8: [蜻蜓]工具"
         "ProductCode" = "8:{4485CC8B-A6D6-4B25-8893-A35D3EE0CD26}"
-        "PackageCode" = "8:{1520A243-CCCA-4CD3-9BBA-242F97201791}"
+        "PackageCode" = "8:{5DB940EE-2BC6-4182-AED0-2D2439A012A3}"
         "UpgradeCode" = "8:{3D7BD5CE-7A67-4FED-AEFC-F68ADCFF979E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -917,262 +1021,6 @@
                             }
                         }
                     }
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_F1D8B3F5DC3543119DBADAFBF61586A7"
-                    {
-                    "Sequence" = "3:100"
-                    "DisplayName" = "8:文本框  (A)"
-                    "UseDynamicProperties" = "11:TRUE"
-                    "IsDependency" = "11:FALSE"
-                    "SourcePath" = "8:<VsdDialogDir>\\VsdCustomText1Dlg.wid"
-                        "Properties"
-                        {
-                            "BannerBitmap"
-                            {
-                            "Name" = "8:BannerBitmap"
-                            "DisplayName" = "8:#1001"
-                            "Description" = "8:#1101"
-                            "Type" = "3:8"
-                            "ContextData" = "8:Bitmap"
-                            "Attributes" = "3:4"
-                            "Setting" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "BannerText"
-                            {
-                            "Name" = "8:BannerText"
-                            "DisplayName" = "8:#1014"
-                            "Description" = "8:#1114"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1214"
-                            "DefaultValue" = "8:#1214"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "BodyText"
-                            {
-                            "Name" = "8:BodyText"
-                            "DisplayName" = "8:#1015"
-                            "Description" = "8:#1115"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1215"
-                            "DefaultValue" = "8:#1215"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit1Label"
-                            {
-                            "Name" = "8:Edit1Label"
-                            "DisplayName" = "8:#1046"
-                            "Description" = "8:#1146"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1246"
-                            "DefaultValue" = "8:#1246"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit1Property"
-                            {
-                            "Name" = "8:Edit1Property"
-                            "DisplayName" = "8:#1050"
-                            "Description" = "8:#1150"
-                            "Type" = "3:14"
-                            "ContextData" = "8:Public"
-                            "Attributes" = "3:2"
-                            "Setting" = "3:2"
-                            "Value" = "8:EDITA1"
-                            "DefaultValue" = "8:EDITA1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit1Value"
-                            {
-                            "Name" = "8:Edit1Value"
-                            "DisplayName" = "8:#1054"
-                            "Description" = "8:#1154"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:"
-                            "DefaultValue" = "8:"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit1Visible"
-                            {
-                            "Name" = "8:Edit1Visible"
-                            "DisplayName" = "8:#1042"
-                            "Description" = "8:#1142"
-                            "Type" = "3:5"
-                            "ContextData" = "8:1;True=1;False=0"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "Value" = "3:1"
-                            "DefaultValue" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit2Label"
-                            {
-                            "Name" = "8:Edit2Label"
-                            "DisplayName" = "8:#1047"
-                            "Description" = "8:#1147"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1247"
-                            "DefaultValue" = "8:#1247"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit2Property"
-                            {
-                            "Name" = "8:Edit2Property"
-                            "DisplayName" = "8:#1051"
-                            "Description" = "8:#1151"
-                            "Type" = "3:14"
-                            "ContextData" = "8:Public"
-                            "Attributes" = "3:2"
-                            "Setting" = "3:2"
-                            "Value" = "8:EDITA2"
-                            "DefaultValue" = "8:EDITA2"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit2Value"
-                            {
-                            "Name" = "8:Edit2Value"
-                            "DisplayName" = "8:#1055"
-                            "Description" = "8:#1155"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:"
-                            "DefaultValue" = "8:"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit2Visible"
-                            {
-                            "Name" = "8:Edit2Visible"
-                            "DisplayName" = "8:#1043"
-                            "Description" = "8:#1143"
-                            "Type" = "3:5"
-                            "ContextData" = "8:1;True=1;False=0"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "Value" = "3:1"
-                            "DefaultValue" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit3Label"
-                            {
-                            "Name" = "8:Edit3Label"
-                            "DisplayName" = "8:#1048"
-                            "Description" = "8:#1148"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1248"
-                            "DefaultValue" = "8:#1248"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit3Property"
-                            {
-                            "Name" = "8:Edit3Property"
-                            "DisplayName" = "8:#1052"
-                            "Description" = "8:#1152"
-                            "Type" = "3:14"
-                            "ContextData" = "8:Public"
-                            "Attributes" = "3:2"
-                            "Setting" = "3:2"
-                            "Value" = "8:EDITA3"
-                            "DefaultValue" = "8:EDITA3"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit3Value"
-                            {
-                            "Name" = "8:Edit3Value"
-                            "DisplayName" = "8:#1056"
-                            "Description" = "8:#1156"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:"
-                            "DefaultValue" = "8:"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit3Visible"
-                            {
-                            "Name" = "8:Edit3Visible"
-                            "DisplayName" = "8:#1044"
-                            "Description" = "8:#1144"
-                            "Type" = "3:5"
-                            "ContextData" = "8:1;True=1;False=0"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "Value" = "3:1"
-                            "DefaultValue" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit4Label"
-                            {
-                            "Name" = "8:Edit4Label"
-                            "DisplayName" = "8:#1049"
-                            "Description" = "8:#1149"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1249"
-                            "DefaultValue" = "8:#1249"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit4Property"
-                            {
-                            "Name" = "8:Edit4Property"
-                            "DisplayName" = "8:#1053"
-                            "Description" = "8:#1153"
-                            "Type" = "3:14"
-                            "ContextData" = "8:Public"
-                            "Attributes" = "3:2"
-                            "Setting" = "3:2"
-                            "Value" = "8:EDITA4"
-                            "DefaultValue" = "8:EDITA4"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit4Value"
-                            {
-                            "Name" = "8:Edit4Value"
-                            "DisplayName" = "8:#1057"
-                            "Description" = "8:#1157"
-                            "Type" = "3:3"
-                            "ContextData" = "8:"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:"
-                            "DefaultValue" = "8:"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Edit4Visible"
-                            {
-                            "Name" = "8:Edit4Visible"
-                            "DisplayName" = "8:#1045"
-                            "Description" = "8:#1145"
-                            "Type" = "3:5"
-                            "ContextData" = "8:1;True=1;False=0"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "Value" = "3:1"
-                            "DefaultValue" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -1181,6 +1029,90 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_76793DE96A484AD1AA43FEBFD609044D"
+            {
+            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{7A42B404-5BAC-4246-815C-AECD91D19D29}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7E293AC6151F4731880FE53AEA829449"
+            {
+            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{7A42B404-5BAC-4246-815C-AECD91D19D29}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BD793F7EB13B473CAE05688D134F0F86"
+            {
+            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{7A42B404-5BAC-4246-815C-AECD91D19D29}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
         }
     }
 }
