@@ -21,18 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_76793DE96A484AD1AA43FEBFD609044D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7E293AC6151F4731880FE53AEA829449"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_90CA1EF711CD4E228EF0C4021344E7E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -106,24 +94,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7E293AC6151F4731880FE53AEA829449"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BD793F7EB13B473CAE05688D134F0F86"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_76793DE96A484AD1AA43FEBFD609044D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_DDD7F5FBF05544FC9F6FA2A9F80DB310"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -155,6 +125,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C77AD2F54199522FAA9F27D52AD54D62"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BD793F7EB13B473CAE05688D134F0F86"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -229,37 +205,23 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_0FFBDE1A04144549A9E23A9C09AD13C6"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_16C7965E7A5647599461CA91D5A7C385"
             {
-            "Name" = "8:install from SetupLibrary (Active)"
+            "Name" = "8:主输出 from SetupLibrary (Active)"
             "Condition" = "8:"
-            "Object" = "8:_7E293AC6151F4731880FE53AEA829449"
+            "Object" = "8:_BD793F7EB13B473CAE05688D134F0F86"
             "FileType" = "3:1"
             "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_3D672F87_E70A_445A_8758_E3B6962CA66F"
+            "Identifier" = "8:_6CDFE6AB_449D_4DB1_AB05_FCCDDB8C73A5"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_202ED15B212244D18A740CB4AB57BAC8"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_1EE922B84B92403CB6859FE193B0B5A6"
             {
-            "Name" = "8:commit from SetupLibrary (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_76793DE96A484AD1AA43FEBFD609044D"
-            "FileType" = "3:1"
-            "InstallAction" = "3:2"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_AD9BAA55_7C9B_4FB5_B960_F711D2937DCD"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_C6FD57150F8E4283A055AF6D440DAEE1"
-            {
-            "Name" = "8:uninstall from SetupLibrary (Active)"
+            "Name" = "8:主输出 from SetupLibrary (Active)"
             "Condition" = "8:"
             "Object" = "8:_BD793F7EB13B473CAE05688D134F0F86"
             "FileType" = "3:1"
@@ -267,9 +229,37 @@
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_489224F9_0888_49E4_9A39_94669CB99153"
+            "Identifier" = "8:_D7BFA013_7115_415D_8C49_9893BB97C6D0"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_22D82548F2CF4899A6C76BA7FB684688"
+            {
+            "Name" = "8:主输出 from SetupLibrary (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_BD793F7EB13B473CAE05688D134F0F86"
+            "FileType" = "3:1"
+            "InstallAction" = "3:3"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_E8D06AF2_12DB_4077_9C35_F6C950B4EED0"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_278A03D82A1C4B5388837443B8482E8E"
+            {
+            "Name" = "8:主输出 from SetupLibrary (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_BD793F7EB13B473CAE05688D134F0F86"
+            "FileType" = "3:1"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_A255B80D_842C_4E74_98D4_AE824DC59538"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\""
             }
         }
         "DefaultFeature"
@@ -606,7 +596,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8: [蜻蜓]工具"
         "ProductCode" = "8:{4485CC8B-A6D6-4B25-8893-A35D3EE0CD26}"
-        "PackageCode" = "8:{5DB940EE-2BC6-4182-AED0-2D2439A012A3}"
+        "PackageCode" = "8:{C91D0FAF-5000-4AA4-87DC-E4DBB64E2656}"
         "UpgradeCode" = "8:{3D7BD5CE-7A67-4FED-AEFC-F68ADCFF979E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1029,62 +1019,6 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_76793DE96A484AD1AA43FEBFD609044D"
-            {
-            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{7A42B404-5BAC-4246-815C-AECD91D19D29}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7E293AC6151F4731880FE53AEA829449"
-            {
-            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{7A42B404-5BAC-4246-815C-AECD91D19D29}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BD793F7EB13B473CAE05688D134F0F86"
             {
             "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"

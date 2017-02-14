@@ -25,6 +25,7 @@ namespace SetupLibrary
             process.StartInfo.FileName = mainApp;
             process.StartInfo.WorkingDirectory = targetDir;
             process.Start();
+
         }
 
         public override void Uninstall(IDictionary savedState)
