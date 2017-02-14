@@ -81,12 +81,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F54EBD467A514D8C9B9695FBCA50D3AD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B346E2974AC14CAAA7770A27B1F2A6B5"
         "MsmSig" = "8:_UNDEFINED"
@@ -173,11 +167,11 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:Release\\DragonflySetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -192,10 +186,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    "Name" = "8:Microsoft .NET Framework 4.6 (x86 和 x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6"
                     }
                 }
             }
@@ -541,26 +535,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F54EBD467A514D8C9B9695FBCA50D3AD"
-            {
-            "SourcePath" = "8:..\\SetupNeededFiles\\NotifyIcon.ico"
-            "TargetName" = "8:NotifyIcon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -596,7 +570,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8: [蜻蜓]工具"
         "ProductCode" = "8:{4485CC8B-A6D6-4B25-8893-A35D3EE0CD26}"
-        "PackageCode" = "8:{C91D0FAF-5000-4AA4-87DC-E4DBB64E2656}"
+        "PackageCode" = "8:{9FB1455D-7720-4DD4-AF04-E5443AF7D386}"
         "UpgradeCode" = "8:{3D7BD5CE-7A67-4FED-AEFC-F68ADCFF979E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1021,7 +995,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BD793F7EB13B473CAE05688D134F0F86"
             {
-            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
+            "SourcePath" = "8:..\\SetupLibrary\\obj\\Release\\SetupLibrary.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
