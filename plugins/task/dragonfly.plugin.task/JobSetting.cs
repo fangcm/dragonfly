@@ -121,6 +121,7 @@ namespace Dragonfly.Plugin.Task
                 if (xmlDocument == null)
                 {
                     lockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", lockScreenMinutes);
+                    intervalMinutes = AppConfig.GetInt("task.IntervalMinutes", intervalMinutes);
                     return false;
                 }
 
@@ -128,14 +129,14 @@ namespace Dragonfly.Plugin.Task
 
                 description = XmlHelper.GetElementText(xmlNode, "Description", description);
                 intervalMinutes = XmlHelper.GetInt(xmlNode, "IntervalMinutes", intervalMinutes);
-                isLockScreen = XmlHelper.GetAttributeValue(xmlNode, "IsLockScreen", isLockScreen);
+                isLockScreen = XmlHelper.GetBoolean(xmlNode, "IsLockScreen", isLockScreen);
                 lockScreenMinutes = XmlHelper.GetInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
-                notifyInternalType = XmlHelper.GetAttributeValue(xmlNode, "NotifyInternalType", notifyInternalType);
-                isNotifyRunApp = XmlHelper.GetAttributeValue(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
+                notifyInternalType = XmlHelper.GetInt(xmlNode, "NotifyInternalType", notifyInternalType);
+                isNotifyRunApp = XmlHelper.GetBoolean(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
                 notifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp", notifyRunApp);
                 notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
                 notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
-                lastTriggerTime = XmlHelper.GetAttributeValue(xmlNode, "LastTriggerTime", DateTime.MinValue);
+                lastTriggerTime = XmlHelper.GetDateTime(xmlNode, "LastTriggerTime", DateTime.MinValue);
 
                 return true;
             }
@@ -156,15 +157,15 @@ namespace Dragonfly.Plugin.Task
                 XmlNode xmlNode = xmlDocument.CreateNode("element", "NotifyJob", "");
 
                 XmlHelper.PutElementText(xmlNode, "Description", description);
-                XmlHelper.PutAttributeValue(xmlNode, "IntervalMinutes", intervalMinutes);
-                XmlHelper.PutAttributeValue(xmlNode, "IsLockScreen", isLockScreen);
-                XmlHelper.PutAttributeValue(xmlNode, "LockScreenMinutes", lockScreenMinutes);
-                XmlHelper.PutAttributeValue(xmlNode, "NotifyInternalType", notifyInternalType);
-                XmlHelper.PutAttributeValue(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
+                XmlHelper.PutInt(xmlNode, "IntervalMinutes", intervalMinutes);
+                XmlHelper.PutBoolean(xmlNode, "IsLockScreen", isLockScreen);
+                XmlHelper.PutInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
+                XmlHelper.PutInt(xmlNode, "NotifyInternalType", notifyInternalType);
+                XmlHelper.PutBoolean(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunApp", notifyRunApp);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
-                XmlHelper.PutAttributeValue(xmlNode, "LastTriggerTime", lastTriggerTime);
+                XmlHelper.PutDateTime(xmlNode, "LastTriggerTime", lastTriggerTime);
 
                 xmlRoot.AppendChild(xmlNode);
 
@@ -194,7 +195,7 @@ namespace Dragonfly.Plugin.Task
             {
                 return DateTime.Now.AddMinutes(remainingMinutes + intervalMinutes);
             }
-            
+
             return DateTime.Now.AddMinutes(intervalMinutes);
 
         }

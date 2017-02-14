@@ -7,17 +7,38 @@ namespace Dragonfly.Common.Utils
     {
         public static bool GetBoolean(XmlNode node, string param, bool defaultValue)
         {
-            return Convert.ToBoolean(GetString(node, param, Convert.ToString(defaultValue)));
+            try
+            {
+                return Convert.ToBoolean(GetString(node, param, Convert.ToString(defaultValue)));
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
         }
 
         public static int GetInt(XmlNode node, string param, int defaultValue)
         {
-            return Convert.ToInt32(GetString(node, param, Convert.ToString(defaultValue)));
+            try
+            {
+                return Convert.ToInt32(GetString(node, param, Convert.ToString(defaultValue)));
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
         }
 
         public static DateTime GetDateTime(XmlNode node, string param, DateTime defaultValue)
         {
-            return Convert.ToDateTime(GetString(node, param, Convert.ToString(defaultValue)));
+            try
+            {
+                return Convert.ToDateTime(GetString(node, param, Convert.ToString(defaultValue)));
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
         }
 
         public static string GetString(XmlNode node, string param, string defaultValue)

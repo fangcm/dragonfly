@@ -31,19 +31,42 @@ namespace Dragonfly.Common.Utils
             }
         }
 
-        public static string GetString(string key)
+        public static string GetString(string key, string defaultValue)
         {
-            return ReadAppSetting(key);
+            string value = ReadAppSetting(key);
+            if (value == null)
+            {
+                return defaultValue;
+            }
+            else
+            {
+                return value;
+            }
         }
 
-        public static bool GetBoolean(string key)
+        public static bool GetBoolean(string key, bool defaultValue)
         {
-            return Convert.ToBoolean(GetString(key));
+            try
+            {
+                return Convert.ToBoolean(GetString(key, Convert.ToString(defaultValue)));
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
         }
 
-        public static int GetInt(string key)
+        public static int GetInt(string key, int defaultValue)
         {
-            return Convert.ToInt32(GetString(key));
+            try
+            {
+                return Convert.ToInt32(GetString(key, Convert.ToString(defaultValue)));
+            }
+            catch (Exception)
+            {
+                return defaultValue;
+            }
+           
         }
 
     }

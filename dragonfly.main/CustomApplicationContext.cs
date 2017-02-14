@@ -15,7 +15,7 @@ namespace Dragonfly.Main
             MenuItem menuShowMainForm = new MenuItem("［蜻蜓］工具...", new EventHandler(ShowMainForm_Click));
 
             MenuItem[] menus = null;
-            if (AppConfig.GetBoolean("MenuExit"))
+            if (AppConfig.GetBoolean("MenuExit", false))
             {
                 MenuItem menuExit = new MenuItem("退出", new EventHandler(ExitApp_Click));
                 menus = new MenuItem[] { menuShowMainForm, menuExit };
@@ -48,7 +48,7 @@ namespace Dragonfly.Main
         {
             if (!mainAppForm.Visible)
             {
-                if (!AppConfig.GetBoolean("HidePasswordDialog"))
+                if (!AppConfig.GetBoolean("HidePasswordDialog", false))
                 {
                     if (passwordDialog == null || passwordDialog.IsDisposed)
                     {
@@ -86,7 +86,7 @@ namespace Dragonfly.Main
             {
                 notifyIcon.Visible = false;
                 notifyIcon.Dispose();
-                
+
                 System.Environment.Exit(0);
             }
 
