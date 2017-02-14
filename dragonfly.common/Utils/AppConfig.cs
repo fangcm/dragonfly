@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Windows.Forms;
 
 namespace Dragonfly.Common.Utils
 {
@@ -39,7 +38,12 @@ namespace Dragonfly.Common.Utils
 
         public static bool GetBoolean(string key)
         {
-            return Convert.ToBoolean(ReadAppSetting(key));
+            return Convert.ToBoolean(GetString(key));
+        }
+
+        public static int GetInt(string key)
+        {
+            return Convert.ToInt32(GetString(key));
         }
 
     }

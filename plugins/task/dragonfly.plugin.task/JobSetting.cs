@@ -21,9 +21,9 @@ namespace Dragonfly.Plugin.Task
         private int lockScreenMinutes = 60;
         private int notifyInternalType = 0; //无操作
         private bool isNotifyRunApp = false;
-        private string notifyRunApp;
-        private string notifyRunAppParam;
-        private string notifyRunAppStartpath;
+        private string notifyRunApp = string.Empty;
+        private string notifyRunAppParam = string.Empty;
+        private string notifyRunAppStartpath = string.Empty;
 
         private DateTime lastTriggerTime = DateTime.MinValue; //上次触发时间
 
@@ -120,20 +120,21 @@ namespace Dragonfly.Plugin.Task
                 XmlDocument xmlDocument = XmlHelper.Load(sSettingsFileName);
                 if (xmlDocument == null)
                 {
+                    lockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", lockScreenMinutes);
                     return false;
                 }
 
                 XmlNode xmlNode = xmlDocument.SelectSingleNode("/TaskSettings/NotifyJob");
 
-                description = XmlHelper.GetElementText(xmlNode, "Description");
-                intervalMinutes = XmlHelper.GetAttributeValue(xmlNode, "IntervalMinutes", 60);
-                isLockScreen = XmlHelper.GetAttributeValue(xmlNode, "IsLockScreen", true);
-                lockScreenMinutes = XmlHelper.GetAttributeValue(xmlNode, "LockScreenMinutes", 60);
-                notifyInternalType = XmlHelper.GetAttributeValue(xmlNode, "NotifyInternalType", 0);
-                isNotifyRunApp = XmlHelper.GetAttributeValue(xmlNode, "IsNotifyRunApp", false);
-                notifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp");
-                notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam");
-                notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath");
+                description = XmlHelper.GetElementText(xmlNode, "Description", description);
+                intervalMinutes = XmlHelper.GetInt(xmlNode, "IntervalMinutes", intervalMinutes);
+                isLockScreen = XmlHelper.GetAttributeValue(xmlNode, "IsLockScreen", isLockScreen);
+                lockScreenMinutes = XmlHelper.GetInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
+                notifyInternalType = XmlHelper.GetAttributeValue(xmlNode, "NotifyInternalType", notifyInternalType);
+                isNotifyRunApp = XmlHelper.GetAttributeValue(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
+                notifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp", notifyRunApp);
+                notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
+                notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
                 lastTriggerTime = XmlHelper.GetAttributeValue(xmlNode, "LastTriggerTime", DateTime.MinValue);
 
                 return true;
