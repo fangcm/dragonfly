@@ -1,28 +1,45 @@
 ﻿using System;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace Dragonfly.Common.Utils
 {
     public class AppConfig
     {
-        private static Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-        public static bool GetBoolean(string key)
+        public static string ReadAppSetting(string key)
         {
-            return Convert.ToBoolean(GetString(key));
+            try
+            {
+                return ConfigurationManager.AppSettings[key];
+            }
+            catch (ConfigurationErrorsException)
+            {
+                return null;
+            }
+        }
+
+        public static void UpdateAppSetting(string key, string value)
+        {
+            try
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings[key].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+            }
         }
 
         public static string GetString(string key)
         {
-            return ConfigurationManager.AppSettings[key];
+            return ReadAppSetting(key);
         }
 
-        public static void UpdateSetting(string key, string value)
+        public static bool GetBoolean(string key)
         {
-            config.AppSettings.Settings[key].Value = value;
-            config.Save(ConfigurationSaveMode.Modified);
-
-            ConfigurationManager.RefreshSection("appSettings");
+            return Convert.ToBoolean(ReadAppSetting(key));
         }
 
     }
