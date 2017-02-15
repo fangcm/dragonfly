@@ -1,10 +1,32 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 
 namespace Dragonfly.Common.Utils
 {
     public class AppConfig
     {
+        public static string WorkingPath
+        {
+            get
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string path = Path.Combine(appDataPath, "dragonfly");
+                if (!Directory.Exists(path))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    catch
+                    {
+                        return appDataPath;
+                    }
+                }            
+                return path;
+            }
+        }
+
         public static string ReadAppSetting(string key)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using Dragonfly.Common.Utils;
 using System;
+using System.IO;
 using System.Xml;
 
 namespace Dragonfly.Plugin.Task
@@ -29,10 +30,8 @@ namespace Dragonfly.Plugin.Task
 
         private JobSetting()
         {
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string path = appDataPath + "\\fangcm\\";
-            Util.CreateDirectory(path);
-            this.sSettingsFileName = path + "TaskSettings.xml";
+            string path = AppConfig.WorkingPath;
+            this.sSettingsFileName = Path.Combine(path,"TaskSettings.xml");
         }
 
         public static JobSetting GetInstance()
@@ -117,15 +116,16 @@ namespace Dragonfly.Plugin.Task
         {
             lock (locker)
             {
-                XmlDocument xmlDocument = XmlHelper.Load(sSettingsFileName);
-                if (xmlDocument == null)
+                XmlHelper xmlHelper = new XmlHelper();
+                bool loaded = xmlHelper.Load(sSettingsFileName);
+                if (!loaded)
                 {
                     lockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", lockScreenMinutes);
                     intervalMinutes = AppConfig.GetInt("task.IntervalMinutes", intervalMinutes);
                     return false;
                 }
 
-                XmlNode xmlNode = xmlDocument.SelectSingleNode("/TaskSettings/NotifyJob");
+                XmlNode xmlNode = xmlHelper.Document.SelectSingleNode("/TaskSettings/NotifyJob");
 
                 description = XmlHelper.GetElementText(xmlNode, "Description", description);
                 intervalMinutes = XmlHelper.GetInt(xmlNode, "IntervalMinutes", intervalMinutes);
@@ -147,14 +147,11 @@ namespace Dragonfly.Plugin.Task
         {
             lock (locker)
             {
-                XmlDocument xmlDocument = new XmlDocument();
-                XmlDeclaration xmldecl = xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null);
-                xmlDocument.AppendChild(xmldecl);
+                XmlHelper xmlHelper = new XmlHelper();
+                XmlElement xmlRoot = xmlHelper.CreateRootElement("TaskSettings");
 
-                XmlNode xmlRoot = xmlDocument.CreateNode("element", "TaskSettings", "");
-                xmlDocument.AppendChild(xmlRoot);
-
-                XmlNode xmlNode = xmlDocument.CreateNode("element", "NotifyJob", "");
+                XmlNode xmlNode = xmlHelper.Document.CreateElement("NotifyJob");
+                xmlRoot.AppendChild(xmlNode);
 
                 XmlHelper.PutElementText(xmlNode, "Description", description);
                 XmlHelper.PutInt(xmlNode, "IntervalMinutes", intervalMinutes);
@@ -167,9 +164,7 @@ namespace Dragonfly.Plugin.Task
                 XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
                 XmlHelper.PutDateTime(xmlNode, "LastTriggerTime", lastTriggerTime);
 
-                xmlRoot.AppendChild(xmlNode);
-
-                return XmlHelper.Save(sSettingsFileName, xmlDocument);
+                return xmlHelper.Save(sSettingsFileName);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Common.Utils;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -30,14 +31,8 @@ namespace Dragonfly.Plugin.Task.Logger
 
         public static string GetLogFilePathName()
         {
-            string path = Path.Combine(baseDirectory, "fangcm");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
+            string path = AppConfig.WorkingPath;
             return Path.Combine(path, DateTime.Now.ToString("yyyyMMdd") + ".log.xml");
-
         }
 
         public static ObservableCollection<LoggInfo> LoggInfos

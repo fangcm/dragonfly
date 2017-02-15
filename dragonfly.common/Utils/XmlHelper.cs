@@ -1,10 +1,23 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 
 namespace Dragonfly.Common.Utils
 {
     public class XmlHelper
     {
+        private readonly XmlDocument document;
+
+        public XmlHelper()
+        {
+            document = new XmlDocument();
+        }
+
+        public XmlDocument Document
+        {
+            get { return document; }
+        }
+
         public static bool GetBoolean(XmlNode node, string param, bool defaultValue)
         {
             try
@@ -110,36 +123,55 @@ namespace Dragonfly.Common.Utils
             XmlNode child = node.SelectSingleNode(elementName);
             if (child == null)
             {
-                child = node.OwnerDocument.CreateNode("element", elementName, "");
+                child = node.OwnerDocument.CreateElement(elementName);
                 node.AppendChild(child);
             }
             child.InnerText = value;
         }
 
-        public static XmlDocument Load(string path)
+        public XmlElement CreateRootElement(string rootName)
         {
+            XmlDeclaration xmldecl = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+            document.AppendChild(xmldecl);
+
+            XmlElement rootNode = document.CreateElement(rootName);
+            document.AppendChild(rootNode);
+
+            return rootNode;
+        }
+
+        public bool Load(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+
             try
             {
-                XmlDocument xmldoc = new XmlDocument();
-                xmldoc.Load(path);
-                return xmldoc;
+                document.Load(path);
+                return true;
             }
             catch
             {
-                return null;
+                return false;
             }
         }
 
-        public static bool Save(string path, XmlDocument xmldoc)
+        public bool Save(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+
             try
             {
-                xmldoc.Save(path);
+                document.Save(path);
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-                System.Windows.Forms.MessageBox.Show(e.Message);
                 return false;
             }
         }

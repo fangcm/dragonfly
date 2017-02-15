@@ -81,7 +81,6 @@
     <Compile Include="JobSettingForm.designer.cs">
       <DependentUpon>JobSettingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
