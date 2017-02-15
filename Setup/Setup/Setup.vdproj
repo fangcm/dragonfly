@@ -27,12 +27,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_934D0ADF3DC8458B92A99CF73BE0CBC8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_972750A11420134C5645A1987B92E82F"
         "OwnerKey" = "8:_038130516FBD40F59DA5DE30067B0657"
         "MsmSig" = "8:_UNDEFINED"
@@ -65,12 +59,6 @@
         {
         "MsmKey" = "8:_C77AD2F54199522FAA9F27D52AD54D62"
         "OwnerKey" = "8:_C1CE7A0CF2D2497BB1EADBD492F5D6E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D66AAA761CDE465C82E4802C446CF9A3"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -340,26 +328,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_934D0ADF3DC8458B92A99CF73BE0CBC8"
-            {
-            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.plugin.task.notify.exe.config"
-            "TargetName" = "8:dragonfly.plugin.task.notify.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_972750A11420134C5645A1987B92E82F"
             {
             "AssemblyRegister" = "3:1"
@@ -387,7 +355,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -480,28 +448,8 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D66AAA761CDE465C82E4802C446CF9A3"
-            {
-            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.main.exe.config"
-            "TargetName" = "8:dragonfly.main.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DDD7F5FBF05544FC9F6FA2A9F80DB310"
@@ -570,11 +518,11 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8: [蜻蜓]工具"
         "ProductCode" = "8:{4485CC8B-A6D6-4B25-8893-A35D3EE0CD26}"
-        "PackageCode" = "8:{9FB1455D-7720-4DD4-AF04-E5443AF7D386}"
+        "PackageCode" = "8:{3C699BED-A9F8-4148-A00D-7DA2996397B8}"
         "UpgradeCode" = "8:{3D7BD5CE-7A67-4FED-AEFC-F68ADCFF979E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
@@ -613,13 +561,63 @@
                         {
                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_AE12426A7E2F495FA351F8EB2DB835C3"
                             {
-                            "Name" = "8:[Manufacturer]"
+                            "Name" = "8:Microsoft"
                             "Condition" = "8:"
                             "AlwaysCreate" = "11:FALSE"
                             "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_882ECFDC00C14668AB1BB2C06F45774C"
+                                    {
+                                    "Name" = "8:Windows"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7739233C8DE44E2FA686FC8E9D6D6038"
+                                            {
+                                            "Name" = "8:CurrentVersion"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0DA7EF5626964118B6EC0A4EA1FD4718"
+                                                    {
+                                                    "Name" = "8:Run"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                        }
+                                                        "Values"
+                                                        {
+                                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_8FFB769E46CE40E792D9A06D54F2988A"
+                                                            {
+                                                            "Name" = "8:DragonflyNote"
+                                                            "Condition" = "8:"
+                                                            "Transitive" = "11:FALSE"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:[TARGETDIR]dragonfly.main.exe"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
                                 }
                                 "Values"
                                 {
