@@ -21,6 +21,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_782FF87ADCF54A6FA58513F84BC6B7DF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_895DCD3B2DA54E29BF81F83B17846717"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_90CA1EF711CD4E228EF0C4021344E7E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -213,7 +225,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_D7BFA013_7115_415D_8C49_9893BB97C6D0"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
+            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\" /PROFILE=[PROFILE]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_22D82548F2CF4899A6C76BA7FB684688"
             {
@@ -241,7 +253,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_A255B80D_842C_4E74_98D4_AE824DC59538"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\""
+            "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\" /PROFILE=[PROFILE]"
             }
         }
         "DefaultFeature"
@@ -281,6 +293,46 @@
                 }
             "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.plugin.task.dll"
             "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_782FF87ADCF54A6FA58513F84BC6B7DF"
+            {
+            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.main.exe.config"
+            "TargetName" = "8:dragonfly.main.exe.config"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_895DCD3B2DA54E29BF81F83B17846717"
+            {
+            "SourcePath" = "8:..\\SetupNeededFiles\\dragonfly.plugin.task.notify.exe.config"
+            "TargetName" = "8:dragonfly.plugin.task.notify.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
             "Condition" = "8:"
@@ -518,7 +570,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8: [蜻蜓]工具"
         "ProductCode" = "8:{4485CC8B-A6D6-4B25-8893-A35D3EE0CD26}"
-        "PackageCode" = "8:{3C699BED-A9F8-4148-A00D-7DA2996397B8}"
+        "PackageCode" = "8:{EBF095A6-61CC-4B01-8EC1-1C8B1B3749C7}"
         "UpgradeCode" = "8:{3D7BD5CE-7A67-4FED-AEFC-F68ADCFF979E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -928,7 +980,7 @@
                 {
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_67315A40B76C424F85CBF6BFF56504B4"
                     {
-                    "Sequence" = "3:200"
+                    "Sequence" = "3:300"
                     "DisplayName" = "8:确认安装"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -948,9 +1000,135 @@
                             }
                         }
                     }
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_A4306136B3D04B8EA9FD66C4DC063D27"
+                    {
+                    "Sequence" = "3:100"
+                    "DisplayName" = "8:RadioButton  (两个按钮)"
+                    "UseDynamicProperties" = "11:TRUE"
+                    "IsDependency" = "11:FALSE"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdCustom2ButtonDlg.wid"
+                        "Properties"
+                        {
+                            "BannerBitmap"
+                            {
+                            "Name" = "8:BannerBitmap"
+                            "DisplayName" = "8:#1001"
+                            "Description" = "8:#1101"
+                            "Type" = "3:8"
+                            "ContextData" = "8:Bitmap"
+                            "Attributes" = "3:4"
+                            "Setting" = "3:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "BannerText"
+                            {
+                            "Name" = "8:BannerText"
+                            "DisplayName" = "8:#1014"
+                            "Description" = "8:#1114"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:选择使用场景"
+                            "DefaultValue" = "8:#1214"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "BodyText"
+                            {
+                            "Name" = "8:BodyText"
+                            "DisplayName" = "8:#1015"
+                            "Description" = "8:#1115"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:儿童使用的场景，修改配置需要密码，不能退出程序，卸载需要密码。"
+                            "DefaultValue" = "8:#1215"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button1Label"
+                            {
+                            "Name" = "8:Button1Label"
+                            "DisplayName" = "8:#1022"
+                            "Description" = "8:#1122"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:儿童使用场景：控制儿童使用电脑的时间"
+                            "DefaultValue" = "8:#1222"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button1Value"
+                            {
+                            "Name" = "8:Button1Value"
+                            "DisplayName" = "8:#1018"
+                            "Description" = "8:#1118"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:1"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button2Label"
+                            {
+                            "Name" = "8:Button2Label"
+                            "DisplayName" = "8:#1023"
+                            "Description" = "8:#1123"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:一般工作场景：定时执行任务，提醒休息等用途，可以自由更改配置"
+                            "DefaultValue" = "8:#1223"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Button2Value"
+                            {
+                            "Name" = "8:Button2Value"
+                            "DisplayName" = "8:#1019"
+                            "Description" = "8:#1119"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:1"
+                            "Value" = "8:2"
+                            "DefaultValue" = "8:2"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "ButtonProperty"
+                            {
+                            "Name" = "8:ButtonProperty"
+                            "DisplayName" = "8:#1017"
+                            "Description" = "8:#1117"
+                            "Type" = "3:14"
+                            "ContextData" = "8:Public"
+                            "Attributes" = "3:2"
+                            "Setting" = "3:2"
+                            "Value" = "8:PROFILE"
+                            "DefaultValue" = "8:BUTTON2"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "DefaultValue"
+                            {
+                            "Name" = "8:DefaultValue"
+                            "DisplayName" = "8:#1016"
+                            "Description" = "8:#1116"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:1"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                        }
+                    }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_B88E1426EBD741C79176729C068AB9AC"
                     {
-                    "Sequence" = "3:110"
+                    "Sequence" = "3:200"
                     "DisplayName" = "8:安装文件夹"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -993,7 +1171,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BD793F7EB13B473CAE05688D134F0F86"
             {
-            "SourcePath" = "8:..\\SetupLibrary\\obj\\Release\\SetupLibrary.dll"
+            "SourcePath" = "8:..\\SetupLibrary\\obj\\Debug\\SetupLibrary.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"

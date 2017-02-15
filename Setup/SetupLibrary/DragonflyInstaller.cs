@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Configuration.Install;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace SetupLibrary
 {
@@ -18,7 +19,17 @@ namespace SetupLibrary
         {
             base.Commit(savedState);
 
-            string targetDir = this.Context.Parameters["TargetDir"];
+            if (Context.Parameters["TargetDir"] == null)
+                throw new InstallException("Custom Data: TargetDir not set");
+
+            string targetDir = this.Context.Parameters["TargetDir"].Substring(0, Context.Parameters["TargetDir"].Length - 1);
+
+            if ("1".Equals(Context.Parameters["PROFILE"]))
+            {
+                File.Delete(System.IO.Path.Combine(targetDir, "dragonfly.main.exe.config"));
+                File.Delete(System.IO.Path.Combine(targetDir, "dragonfly.plugin.task.notify.exe.config"));
+            }
+
             string mainApp = Path.Combine(targetDir, "dragonfly.main.exe");
 
             Process process = new Process();
@@ -32,11 +43,16 @@ namespace SetupLibrary
         {
             base.Uninstall(savedState);
 
-            PasswordForm passwordForm = new PasswordForm();
-            passwordForm.ResetPassword();
-            if (passwordForm.ShowDialog(ForegroundWindow.Instance) != System.Windows.Forms.DialogResult.OK)
+            string targetDir = this.Context.Parameters["TargetDir"].Substring(0, Context.Parameters["TargetDir"].Length - 1);
+
+            if (!File.Exists(System.IO.Path.Combine(targetDir, "dragonfly.main.exe.config")))
             {
-                throw new InstallException("密码错误");
+                PasswordForm passwordForm = new PasswordForm();
+                passwordForm.ResetPassword();
+                if (passwordForm.ShowDialog(ForegroundWindow.Instance) != System.Windows.Forms.DialogResult.OK)
+                {
+                    throw new InstallException("密码错误");
+                }
             }
 
         }
