@@ -98,22 +98,12 @@ namespace Dragonfly.Plugin.Task
 
         internal void StartTask()
         {
-            StopTask();
-            JobManager.Initialize(new SchedulerRegistry());
+            SchedulerRegistry.StartAllTask();
         }
 
         internal void StopTask()
         {
-            Schedule jobInterval = JobManager.GetSchedule(SchedulerRegistry.JOB_NAME_INTERVAL);
-            if (jobInterval != null)
-            {
-                JobManager.RemoveJob(SchedulerRegistry.JOB_NAME_INTERVAL);
-            }
-            Schedule jobFix = JobManager.GetSchedule(SchedulerRegistry.JOB_NAME_FIX);
-            if (jobFix != null)
-            {
-                JobManager.RemoveJob(SchedulerRegistry.JOB_NAME_FIX);
-            }
+            SchedulerRegistry.StopAllTask();
         }
 
     }
