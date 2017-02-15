@@ -31,6 +31,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.SchetabTriggers = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownTooLate = new System.Windows.Forms.NumericUpDown();
+            this.labelTooLate2 = new System.Windows.Forms.Label();
+            this.labelTooLate1 = new System.Windows.Forms.Label();
+            this.dateTimePickerTooLate = new System.Windows.Forms.DateTimePicker();
+            this.checkBoxTooLate = new System.Windows.Forms.CheckBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -62,6 +68,8 @@
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SchetabTriggers.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooLate)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.tabPageExecute.SuspendLayout();
@@ -88,7 +96,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Size = new System.Drawing.Size(611, 457);
-            this.splitContainer1.SplitterDistance = 407;
+            this.splitContainer1.SplitterDistance = 405;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -101,11 +109,12 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 407);
+            this.tabControl1.Size = new System.Drawing.Size(611, 405);
             this.tabControl1.TabIndex = 0;
             // 
             // SchetabTriggers
             // 
+            this.SchetabTriggers.Controls.Add(this.groupBox3);
             this.SchetabTriggers.Controls.Add(this.labelDescription);
             this.SchetabTriggers.Controls.Add(this.textBoxDescription);
             this.SchetabTriggers.Controls.Add(this.groupBox1);
@@ -113,29 +122,109 @@
             this.SchetabTriggers.Margin = new System.Windows.Forms.Padding(4);
             this.SchetabTriggers.Name = "SchetabTriggers";
             this.SchetabTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Size = new System.Drawing.Size(603, 378);
+            this.SchetabTriggers.Size = new System.Drawing.Size(603, 376);
             this.SchetabTriggers.TabIndex = 1;
             this.SchetabTriggers.Text = "触发时间";
             this.SchetabTriggers.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.numericUpDownTooLate);
+            this.groupBox3.Controls.Add(this.labelTooLate2);
+            this.groupBox3.Controls.Add(this.labelTooLate1);
+            this.groupBox3.Controls.Add(this.dateTimePickerTooLate);
+            this.groupBox3.Controls.Add(this.checkBoxTooLate);
+            this.groupBox3.Location = new System.Drawing.Point(27, 109);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(530, 70);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "其它任务";
+            // 
+            // numericUpDownTooLate
+            // 
+            this.numericUpDownTooLate.Location = new System.Drawing.Point(319, 20);
+            this.numericUpDownTooLate.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownTooLate.Maximum = new decimal(new int[] {
+            720,
+            0,
+            0,
+            0});
+            this.numericUpDownTooLate.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownTooLate.Name = "numericUpDownTooLate";
+            this.numericUpDownTooLate.Size = new System.Drawing.Size(72, 25);
+            this.numericUpDownTooLate.TabIndex = 3;
+            this.numericUpDownTooLate.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // labelTooLate2
+            // 
+            this.labelTooLate2.AutoSize = true;
+            this.labelTooLate2.Location = new System.Drawing.Point(399, 26);
+            this.labelTooLate2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTooLate2.Name = "labelTooLate2";
+            this.labelTooLate2.Size = new System.Drawing.Size(37, 15);
+            this.labelTooLate2.TabIndex = 4;
+            this.labelTooLate2.Text = "分钟";
+            // 
+            // labelTooLate1
+            // 
+            this.labelTooLate1.AutoSize = true;
+            this.labelTooLate1.Location = new System.Drawing.Point(240, 26);
+            this.labelTooLate1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTooLate1.Name = "labelTooLate1";
+            this.labelTooLate1.Size = new System.Drawing.Size(67, 15);
+            this.labelTooLate1.TabIndex = 2;
+            this.labelTooLate1.Text = "后，锁屏";
+            // 
+            // dateTimePickerTooLate
+            // 
+            this.dateTimePickerTooLate.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePickerTooLate.Location = new System.Drawing.Point(127, 20);
+            this.dateTimePickerTooLate.Name = "dateTimePickerTooLate";
+            this.dateTimePickerTooLate.ShowUpDown = true;
+            this.dateTimePickerTooLate.Size = new System.Drawing.Size(106, 25);
+            this.dateTimePickerTooLate.TabIndex = 1;
+            this.dateTimePickerTooLate.Value = new System.DateTime(2017, 2, 15, 22, 0, 0, 0);
+            // 
+            // checkBoxTooLate
+            // 
+            this.checkBoxTooLate.AutoSize = true;
+            this.checkBoxTooLate.Location = new System.Drawing.Point(61, 26);
+            this.checkBoxTooLate.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxTooLate.Name = "checkBoxTooLate";
+            this.checkBoxTooLate.Size = new System.Drawing.Size(59, 19);
+            this.checkBoxTooLate.TabIndex = 0;
+            this.checkBoxTooLate.Text = "每天";
+            this.checkBoxTooLate.UseVisualStyleBackColor = true;
+            // 
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(24, 150);
+            this.labelDescription.Location = new System.Drawing.Point(24, 212);
             this.labelDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(82, 15);
-            this.labelDescription.TabIndex = 1;
+            this.labelDescription.TabIndex = 2;
             this.labelDescription.Text = "提醒内容：";
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Location = new System.Drawing.Point(27, 179);
+            this.textBoxDescription.Location = new System.Drawing.Point(27, 231);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(531, 112);
-            this.textBoxDescription.TabIndex = 2;
+            this.textBoxDescription.Size = new System.Drawing.Size(530, 60);
+            this.textBoxDescription.TabIndex = 3;
             // 
             // groupBox1
             // 
@@ -146,14 +235,14 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(531, 96);
+            this.groupBox1.Size = new System.Drawing.Size(530, 70);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "设置";
+            this.groupBox1.Text = "定时任务";
             // 
             // numericUpDownInterval
             // 
-            this.numericUpDownInterval.Location = new System.Drawing.Point(144, 39);
+            this.numericUpDownInterval.Location = new System.Drawing.Point(176, 20);
             this.numericUpDownInterval.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
             720,
@@ -177,7 +266,7 @@
             // labelMinute
             // 
             this.labelMinute.AutoSize = true;
-            this.labelMinute.Location = new System.Drawing.Point(226, 41);
+            this.labelMinute.Location = new System.Drawing.Point(256, 22);
             this.labelMinute.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMinute.Name = "labelMinute";
             this.labelMinute.Size = new System.Drawing.Size(37, 15);
@@ -187,7 +276,7 @@
             // labelInterval
             // 
             this.labelInterval.AutoSize = true;
-            this.labelInterval.Location = new System.Drawing.Point(26, 41);
+            this.labelInterval.Location = new System.Drawing.Point(58, 22);
             this.labelInterval.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInterval.Name = "labelInterval";
             this.labelInterval.Size = new System.Drawing.Size(112, 15);
@@ -206,7 +295,7 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 378);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 376);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;
@@ -354,7 +443,7 @@
             this.textBoxAppStartpath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppStartpath.Name = "textBoxAppStartpath";
             this.textBoxAppStartpath.Size = new System.Drawing.Size(385, 25);
-            this.textBoxAppStartpath.TabIndex = 6;
+            this.textBoxAppStartpath.TabIndex = 5;
             // 
             // labelAppParam
             // 
@@ -363,7 +452,7 @@
             this.labelAppParam.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAppParam.Name = "labelAppParam";
             this.labelAppParam.Size = new System.Drawing.Size(98, 15);
-            this.labelAppParam.TabIndex = 3;
+            this.labelAppParam.TabIndex = 2;
             this.labelAppParam.Text = "参数(可选)：";
             // 
             // labelAppStartpath
@@ -373,7 +462,7 @@
             this.labelAppStartpath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAppStartpath.Name = "labelAppStartpath";
             this.labelAppStartpath.Size = new System.Drawing.Size(128, 15);
-            this.labelAppStartpath.TabIndex = 5;
+            this.labelAppStartpath.TabIndex = 4;
             this.labelAppStartpath.Text = "开始目录(可选)：";
             // 
             // textBoxAppParam
@@ -382,7 +471,7 @@
             this.textBoxAppParam.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAppParam.Name = "textBoxAppParam";
             this.textBoxAppParam.Size = new System.Drawing.Size(385, 25);
-            this.textBoxAppParam.TabIndex = 4;
+            this.textBoxAppParam.TabIndex = 3;
             // 
             // checkBoxRunApp
             // 
@@ -440,6 +529,9 @@
             this.tabControl1.ResumeLayout(false);
             this.SchetabTriggers.ResumeLayout(false);
             this.SchetabTriggers.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooLate)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
@@ -483,5 +575,11 @@
         private System.Windows.Forms.RadioButton radioButtonNone;
         private System.Windows.Forms.RadioButton radioButtonHibernate;
         private System.Windows.Forms.RadioButton radioButtonShutdown;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxTooLate;
+        private System.Windows.Forms.Label labelTooLate1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTooLate;
+        private System.Windows.Forms.NumericUpDown numericUpDownTooLate;
+        private System.Windows.Forms.Label labelTooLate2;
     }
 }

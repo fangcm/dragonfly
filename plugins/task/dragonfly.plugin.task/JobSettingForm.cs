@@ -19,6 +19,24 @@ namespace Dragonfly.Plugin.Task
             set { numericUpDownInterval.Value = value; }
         }
 
+        public bool IsTooLateLockScreen
+        {
+            get { return this.checkBoxTooLate.Checked; }
+            set { checkBoxTooLate.Checked = value; }
+        }
+
+        public DateTime TooLateTriggerTime
+        {
+            get { return this.dateTimePickerTooLate.Value; }
+            set { dateTimePickerTooLate.Value = value; }
+        }
+
+        public int TooLateMinutes
+        {
+            get { return Convert.ToInt32(this.numericUpDownTooLate.Value); }
+            set { numericUpDownTooLate.Value = value; }
+        }
+
         public int NotifyInternalType
         {
             get
@@ -92,6 +110,9 @@ namespace Dragonfly.Plugin.Task
 
             Description = setting.Description;
             IntervalMinutes = setting.IntervalMinutes;
+            IsTooLateLockScreen = setting.IsTooLateLockScreen;
+            TooLateTriggerTime = setting.TooLateTriggerTime;
+            TooLateMinutes = setting.TooLateMinutes;
             IsLockScreen = setting.IsLockScreen;
             LockScreenMinutes = setting.LockScreenMinutes;
             NotifyInternalType = setting.NotifyInternalType;
@@ -111,7 +132,9 @@ namespace Dragonfly.Plugin.Task
             this.textBoxApp.TextChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxAppParam.TextChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxAppStartpath.TextChanged += new System.EventHandler(this.Data_Changed);
-
+            this.checkBoxTooLate.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.numericUpDownTooLate.ValueChanged += new System.EventHandler(this.Data_Changed);
+            this.dateTimePickerTooLate.ValueChanged += new System.EventHandler(this.Data_Changed);
             bDataChanged = false;
         }
 
@@ -136,6 +159,9 @@ namespace Dragonfly.Plugin.Task
                 JobSetting setting = JobSetting.GetInstance();
                 setting.Description = Description;
                 setting.IntervalMinutes = IntervalMinutes;
+                setting.IsTooLateLockScreen = IsTooLateLockScreen;
+                setting.TooLateTriggerTime = TooLateTriggerTime;
+                setting.TooLateMinutes = TooLateMinutes;
                 setting.IsLockScreen = IsLockScreen;
                 setting.LockScreenMinutes = LockScreenMinutes;
                 setting.NotifyInternalType = NotifyInternalType;

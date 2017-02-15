@@ -18,6 +18,9 @@ namespace Dragonfly.Plugin.Task
 
         private string description = "健康是生命之本，保护视力，从娃娃开始！";
         private int intervalMinutes = 60; //重复间隔
+        private bool isTooLateLockScreen = true;
+        private DateTime tooLateTriggerTime = new DateTime(2017, 2, 15, 22, 0, 0);
+        private int tooLateMinutes = 60;
         private bool isLockScreen = true;
         private int lockScreenMinutes = 60;
         private int notifyInternalType = 0; //无操作
@@ -31,7 +34,7 @@ namespace Dragonfly.Plugin.Task
         private JobSetting()
         {
             string path = AppConfig.WorkingPath;
-            this.sSettingsFileName = Path.Combine(path,"TaskSettings.xml");
+            this.sSettingsFileName = Path.Combine(path, "TaskSettings.xml");
         }
 
         public static JobSetting GetInstance()
@@ -61,6 +64,24 @@ namespace Dragonfly.Plugin.Task
         {
             get { return intervalMinutes; }
             set { intervalMinutes = value; }
+        }
+
+        public bool IsTooLateLockScreen
+        {
+            get { return isTooLateLockScreen; }
+            set { isTooLateLockScreen = value; }
+        }
+
+        public DateTime TooLateTriggerTime
+        {
+            get { return tooLateTriggerTime; }
+            set { tooLateTriggerTime = value; }
+        }
+
+        public int TooLateMinutes
+        {
+            get { return tooLateMinutes; }
+            set { tooLateMinutes = value; }
         }
 
         public bool IsLockScreen
@@ -122,6 +143,7 @@ namespace Dragonfly.Plugin.Task
                 {
                     lockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", lockScreenMinutes);
                     intervalMinutes = AppConfig.GetInt("task.IntervalMinutes", intervalMinutes);
+                    isTooLateLockScreen = AppConfig.GetBoolean("task.IsTooLateLockScreen", isTooLateLockScreen);
                     return false;
                 }
 
@@ -129,6 +151,9 @@ namespace Dragonfly.Plugin.Task
 
                 description = XmlHelper.GetElementText(xmlNode, "Description", description);
                 intervalMinutes = XmlHelper.GetInt(xmlNode, "IntervalMinutes", intervalMinutes);
+                isTooLateLockScreen = XmlHelper.GetBoolean(xmlNode, "IsTooLateLockScreen", isTooLateLockScreen);
+                tooLateTriggerTime = XmlHelper.GetDateTime(xmlNode, "TooLateTriggerTime", tooLateTriggerTime);
+                tooLateMinutes = XmlHelper.GetInt(xmlNode, "TooLateMinutes", tooLateMinutes);
                 isLockScreen = XmlHelper.GetBoolean(xmlNode, "IsLockScreen", isLockScreen);
                 lockScreenMinutes = XmlHelper.GetInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
                 notifyInternalType = XmlHelper.GetInt(xmlNode, "NotifyInternalType", notifyInternalType);
@@ -155,6 +180,9 @@ namespace Dragonfly.Plugin.Task
 
                 XmlHelper.PutElementText(xmlNode, "Description", description);
                 XmlHelper.PutInt(xmlNode, "IntervalMinutes", intervalMinutes);
+                XmlHelper.PutBoolean(xmlNode, "IsTooLateLockScreen", isTooLateLockScreen);
+                XmlHelper.PutDateTime(xmlNode, "TooLateTriggerTime", tooLateTriggerTime);
+                XmlHelper.PutInt(xmlNode, "TooLateMinutes", tooLateMinutes);
                 XmlHelper.PutBoolean(xmlNode, "IsLockScreen", isLockScreen);
                 XmlHelper.PutInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
                 XmlHelper.PutInt(xmlNode, "NotifyInternalType", notifyInternalType);
