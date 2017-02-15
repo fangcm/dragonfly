@@ -106,5 +106,20 @@ namespace Dragonfly.Plugin.Task
             SchedulerRegistry.StopAllTask();
         }
 
+        public DateTime TaskNextRun()
+        {
+            DateTime nextRun = DateTime.MaxValue;
+            foreach (Schedule schedule in JobManager.AllSchedules)
+            {
+                if (schedule.Disabled)
+                    continue;
+                if (nextRun > schedule.NextRun)
+                {
+                    nextRun = schedule.NextRun;
+                }
+            }
+            return nextRun;
+        }
+
     }
 }

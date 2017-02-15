@@ -31,9 +31,18 @@ namespace Dragonfly.Plugin.Task
 
             if (JobSetting.GetInstance().IsTooLateLockScreen)
             {
-                DateTime tooLateTriggerTime = JobSetting.GetInstance().TooLateTriggerTime;
                 int tooLateMinutes = JobSetting.GetInstance().TooLateMinutes;
-                Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunOnceAt(tooLateTriggerTime).AndEvery(1).Days();
+
+                DateTime settingTime = JobSetting.GetInstance().TooLateTriggerTime;
+                DateTime now = DateTime.Now;
+                DateTime tooLateTriggerTime = new DateTime(now.Year,now.Month,now.Day,settingTime.Hour,settingTime.Minute,settingTime.Second);
+                if(tooLateTriggerTime < now)
+                {
+                    Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunNow();
+                    tooLateTriggerTime = tooLateTriggerTime.AddDays(1);
+                }
+
+                Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunOnceAt(tooLateTriggerTime).AndEvery(24).Hours();
 #if DEBUG
                 LoggerUtil.Log(Logger.LoggType.Other, "job3 tooLateTriggerTime: " + tooLateTriggerTime.ToString("yyyy-MM-dd HH:mm:ss") + ", tooLateMinutes: " + tooLateMinutes);
 #endif
@@ -44,6 +53,12 @@ namespace Dragonfly.Plugin.Task
         {
             StopAllTask();
             JobManager.Initialize(new SchedulerRegistry());
+#if DEBUG
+            foreach (Schedule job in JobManager.AllSchedules)
+            {
+                LoggerUtil.Log(Logger.LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
+            }
+#endif
         }
 
         internal static void StopAllTask()
