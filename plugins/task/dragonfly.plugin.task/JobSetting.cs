@@ -205,7 +205,7 @@ namespace Dragonfly.Plugin.Task
         {
             if (!DateTime.MinValue.Equals(lastTriggerTime) && lastTriggerTime.AddMinutes(LockScreenMinutes).CompareTo(DateTime.Now) > 0)
             {
-                return LockScreenMinutes - (DateTime.Now - lastTriggerTime).Minutes;
+                return LockScreenMinutes - Convert.ToInt32((DateTime.Now - lastTriggerTime).TotalMinutes);
             }
 
             return 0;

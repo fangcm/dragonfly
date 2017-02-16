@@ -22,14 +22,21 @@ namespace Dragonfly.Plugin.Task.Logger
             bool exists = File.Exists(filePath);
             AddToObservable(loggInfo);
             XmlDocument document = new XmlDocument();
-            XmlNode rootNode = document.CreateElement("logs");
             if (exists)
             {
-                document.Load(filePath);
+                try
+                {
+                    document.Load(filePath);
+                }
+                catch
+                {
+                    XmlNode rootNode = document.CreateElement("logs");
+                    document.AppendChild(rootNode);
+                }
             }
             else
             {
-                rootNode = document.CreateElement("logs");
+                XmlNode rootNode = document.CreateElement("logs");
                 document.AppendChild(rootNode);
             }
 
@@ -68,14 +75,21 @@ namespace Dragonfly.Plugin.Task.Logger
 
             string filePath = GetLogFilePathName();
             bool exists = File.Exists(filePath);
-            if(!exists)
+            if (!exists)
             {
                 return loggInfos;
             }
             using (XmlReader logReader = XmlReader.Create(filePath, settings))
             {
                 XmlDocument document = new XmlDocument();
-                document.Load(logReader);
+                try
+                {
+                    document.Load(logReader);
+                }
+                catch
+                {
+                    return loggInfos;
+                }
 
                 foreach (XmlNode logNode in document["logs"].ChildNodes)
                 {

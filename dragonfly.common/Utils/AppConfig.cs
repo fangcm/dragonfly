@@ -33,7 +33,7 @@ namespace Dragonfly.Common.Utils
             {
                 return ConfigurationManager.AppSettings[key];
             }
-            catch (ConfigurationErrorsException)
+            catch
             {
                 return null;
             }
@@ -48,7 +48,7 @@ namespace Dragonfly.Common.Utils
                 config.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
             }
-            catch (ConfigurationErrorsException)
+            catch
             {
             }
         }
@@ -72,7 +72,7 @@ namespace Dragonfly.Common.Utils
             {
                 return Convert.ToBoolean(GetString(key, Convert.ToString(defaultValue)));
             }
-            catch (Exception)
+            catch
             {
                 return defaultValue;
             }
@@ -84,7 +84,7 @@ namespace Dragonfly.Common.Utils
             {
                 return Convert.ToInt32(GetString(key, Convert.ToString(defaultValue)));
             }
-            catch (Exception)
+            catch
             {
                 return defaultValue;
             }

@@ -16,7 +16,7 @@ namespace Dragonfly.Plugin.Task
 
             Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(JOB_NAME_INTERVAL).ToRunOnceAt(startTime).AndEvery(interval).Minutes();
 #if DEBUG
-            int leftMinutes = (startTime - DateTime.Now).Minutes;
+            int leftMinutes = Convert.ToInt32(Math.Round((startTime - DateTime.Now).TotalMinutes));
             LoggerUtil.Log(Logger.LoggType.Other, "job1 leftMinutes: " + leftMinutes + ", startTime: " + startTime.ToString("yyyy-MM-dd HH:mm:ss") + ", interval: " + interval);
 #endif
 

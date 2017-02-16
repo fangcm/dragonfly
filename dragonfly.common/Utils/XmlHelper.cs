@@ -24,7 +24,7 @@ namespace Dragonfly.Common.Utils
             {
                 return Convert.ToBoolean(GetString(node, param, Convert.ToString(defaultValue)));
             }
-            catch (Exception)
+            catch
             {
                 return defaultValue;
             }
@@ -36,7 +36,7 @@ namespace Dragonfly.Common.Utils
             {
                 return Convert.ToInt32(GetString(node, param, Convert.ToString(defaultValue)));
             }
-            catch (Exception)
+            catch
             {
                 return defaultValue;
             }
@@ -48,7 +48,7 @@ namespace Dragonfly.Common.Utils
             {
                 return Convert.ToDateTime(GetString(node, param, Convert.ToString(defaultValue)));
             }
-            catch (Exception)
+            catch
             {
                 return defaultValue;
             }

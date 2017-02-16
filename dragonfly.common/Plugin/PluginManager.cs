@@ -29,7 +29,15 @@ namespace Dragonfly.Common.Plugin
             {
                 try
                 {
-                    Assembly asm = Assembly.LoadFile(dll);
+                    Assembly asm = null;
+                    try
+                    {
+                        asm = Assembly.LoadFile(dll);
+                    }
+                    catch
+                    {
+                        asm = null;
+                    }
                     if (asm == null)
                         continue;
 
@@ -42,14 +50,20 @@ namespace Dragonfly.Common.Plugin
 
                             if (typeInterface != null)
                             {
-                                IPlugin plugin = (IPlugin)Activator.CreateInstance(t);
-                                plugin.Initialize();
-                                plugInList.Add(plugin);
+                                try
+                                {
+                                    IPlugin plugin = (IPlugin)Activator.CreateInstance(t);
+                                    plugin.Initialize();
+                                    plugInList.Add(plugin);
+                                }
+                                catch
+                                {
+                                }
                             }
                         }
                     }
                 }
-                catch (Exception)
+                catch
                 {
                 }
             }
