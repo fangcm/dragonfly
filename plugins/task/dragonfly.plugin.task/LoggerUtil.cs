@@ -8,17 +8,13 @@ namespace Dragonfly.Plugin.Task
     internal class LoggerUtil
     {
         private static TaskMainPanel taskMainPanel;
-        private static LoggerReport loggerReport;
 
         public static void Init(TaskMainPanel taskMainPanel)
         {
-            loggerReport.Init(JobSetting.GetInstance().LastTriggerTime);
-
             LoggerUtil.taskMainPanel = taskMainPanel;
-            IList loggInfos = Logger.Logger.LoggInfos;
-            foreach (LoggInfo loggInfo in loggInfos)
+
+            foreach (LoggInfo loggInfo in Logger.Logger.LoggInfos)
             {
-                loggerReport.CaculateFixedTime(loggInfo.Date, loggInfo.Type);
                 InserLineToTaskMainPanel(loggInfo.Date, loggInfo.Type, loggInfo.Text);
             }
 
@@ -27,8 +23,7 @@ namespace Dragonfly.Plugin.Task
 
         private static void LoggInfos_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            IList loggInfos =  e.NewItems;
-            foreach(LoggInfo loggInfo in loggInfos)
+            foreach(LoggInfo loggInfo in e.NewItems)
             {
                 InserLineToTaskMainPanel(loggInfo.Date, loggInfo.Type, loggInfo.Text);
             }

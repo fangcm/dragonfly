@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,55 +9,48 @@ namespace Dragonfly.Plugin.Task.Logger
 {
     internal class LoggerReport
     {
-        private int totalResumeTime = 0;
-        private int totalSuspendTime = 0;
+        private int suspendCount = 0;
         private DateTime lastTriggerTime = DateTime.MinValue;
-        private DateTime lastCaculateDate = DateTime.MinValue;
-        private LoggType lastLoggType = LoggType.Resume;
 
-        public void Init(DateTime lastTriggerTime)
+        private void SetLastTriggerTime(DateTime lastTriggerTime)
         {
-            totalResumeTime = 0;
-            totalSuspendTime = 0;
-            lastCaculateDate = this.lastTriggerTime = lastTriggerTime;
-            lastLoggType = LoggType.Resume;
+            this.suspendCount = 0;
+            this.lastTriggerTime = lastTriggerTime;
         }
 
-        public void CaculateFixedTime(DateTime date, LoggType type)
+        public void AddItem(DateTime date, LoggType type)
         {
-            if (type != LoggType.Suspend && type != LoggType.Resume)
+            if (type != LoggType.Suspend && type != LoggType.Resume && type != LoggType.Trigger)
             {
                 return;
             }
             if (date <= lastTriggerTime)
             {
-                lastCaculateDate = date;
-                lastLoggType = type;
+                //早于最后的数据忽略
                 return;
             }
-            if (lastCaculateDate <= DateTime.MinValue)
+            if (type == LoggType.Trigger)
             {
-                //从未触发过
-                lastCaculateDate = date;
-                return;
-            }
-            if (lastLoggType == type)
-            {
+                SetLastTriggerTime(date);
                 return;
             }
 
-            int totalMinutes = Convert.ToInt32(Math.Round((date - lastCaculateDate).TotalMinutes));
             if (type == LoggType.Suspend)
             {
-                totalSuspendTime += totalMinutes;
-            }
-            else if (type == LoggType.Resume)
-            {
-                totalResumeTime += totalMinutes;
+                suspendCount++;
             }
 
-
-            lastCaculateDate = date;
         }
+
+        public static int CaculateSuspendCount()
+        {
+            LoggerReport loggerReport = new LoggerReport();
+            foreach (LoggInfo loggInfo in Logger.LoggInfos)
+            {
+                loggerReport.AddItem(loggInfo.Date, loggInfo.Type);
+            }
+            return loggerReport.suspendCount;
+        }
+        
     }
 }

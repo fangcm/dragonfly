@@ -14,14 +14,8 @@ namespace Dragonfly.Plugin.Task
 
         internal TaskPlugin TaskPlugin
         {
-            get
-            {
-                return this.taskPlugin;
-            }
-            set
-            {
-                this.taskPlugin = value;
-            }
+            get { return this.taskPlugin; }
+            set { this.taskPlugin = value; }
         }
 
         private void TaskMainPanel_Load(object sender, System.EventArgs e)

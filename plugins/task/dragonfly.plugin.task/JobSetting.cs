@@ -196,12 +196,12 @@ namespace Dragonfly.Plugin.Task
             }
         }
 
-        public int caculateSchedulerInterval()
+        public int CaculateSchedulerInterval()
         {
             return intervalMinutes + LockScreenMinutes;
         }
 
-        public int caculateRemainingMinutes()
+        public int CaculateRemainingMinutes()
         {
             if (!DateTime.MinValue.Equals(lastTriggerTime) && lastTriggerTime.AddMinutes(LockScreenMinutes).CompareTo(DateTime.Now) > 0)
             {
@@ -211,15 +211,20 @@ namespace Dragonfly.Plugin.Task
             return 0;
         }
 
-        public DateTime caculateFirstTriggerTime()
+        public DateTime CaculateFirstTriggerTime(int suspendCount)
         {
-            int remainingMinutes = caculateRemainingMinutes();
+            int remainingMinutes = CaculateRemainingMinutes();
             if (remainingMinutes > 0)
             {
                 return DateTime.Now.AddMinutes(remainingMinutes + intervalMinutes);
             }
 
-            return DateTime.Now.AddMinutes(intervalMinutes);
+            int minutes = intervalMinutes;
+            if (suspendCount >= 3)
+            {
+                minutes /= 3;
+            }
+            return DateTime.Now.AddMinutes(minutes);
 
         }
 

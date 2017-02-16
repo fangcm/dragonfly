@@ -1,4 +1,5 @@
-﻿using FluentScheduler;
+﻿using Dragonfly.Plugin.Task.Logger;
+using FluentScheduler;
 using System;
 
 namespace Dragonfly.Plugin.Task
@@ -11,8 +12,9 @@ namespace Dragonfly.Plugin.Task
 
         public SchedulerRegistry()
         {
-            DateTime startTime = JobSetting.GetInstance().caculateFirstTriggerTime();
-            int interval = JobSetting.GetInstance().caculateSchedulerInterval();
+            int suspendCount = LoggerReport.CaculateSuspendCount();
+            DateTime startTime = JobSetting.GetInstance().CaculateFirstTriggerTime(suspendCount);
+            int interval = JobSetting.GetInstance().CaculateSchedulerInterval();
 
             Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(JOB_NAME_INTERVAL).ToRunOnceAt(startTime).AndEvery(interval).Minutes();
 #if DEBUG
@@ -20,7 +22,7 @@ namespace Dragonfly.Plugin.Task
             LoggerUtil.Log(Logger.LoggType.Other, "job1 leftMinutes: " + leftMinutes + ", startTime: " + startTime.ToString("yyyy-MM-dd HH:mm:ss") + ", interval: " + interval);
 #endif
 
-            int remainingMinutes = JobSetting.GetInstance().caculateRemainingMinutes();
+            int remainingMinutes = JobSetting.GetInstance().CaculateRemainingMinutes();
             if (remainingMinutes > 0)
             {
                 Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = remainingMinutes }).WithName(JOB_NAME_FIX).ToRunNow();
