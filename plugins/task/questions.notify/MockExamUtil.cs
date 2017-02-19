@@ -13,7 +13,7 @@ namespace Dragonfly.Questions.Notify
 
         public Reading GetMockReading()
         {
-            exam = Helper.LoadExaminationFromFile("");
+            exam = Helper.LoadExaminationFromFile("../../../exam1.eqf");
             currentReadingIndex = 0;
             return exam.Readings[currentReadingIndex];
         }

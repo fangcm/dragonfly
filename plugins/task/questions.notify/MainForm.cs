@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Dragonfly.Questions.Notify
 {
     public partial class MainForm : Form
     {
+        MockExamUtil mockExamUtil;
         private Reading reading;
         private int currentQuestionIndex;
         private object[] userAnswers = null;
@@ -18,6 +15,8 @@ namespace Dragonfly.Questions.Notify
         public MainForm()
         {
             InitializeComponent();
+            mockExamUtil = new MockExamUtil();
+            Init(mockExamUtil.GetMockReading());
         }
 
         public void Init(Reading reading)
@@ -53,8 +52,27 @@ namespace Dragonfly.Questions.Notify
         {
             Question question = reading.Questions[currentQuestionIndex];
             labelReadingTitle.Text = reading.Title;
-            txt_question.Text = "Question: " + question.No.ToString() + "\n\n\n" + question.Text;
+            txt_reading.Text = reading.Text;
+            labelQuestionNo.Text = question.No.ToString();
+            txt_question.Text = question.Text;
             AddOptions(question.Options, question.IsMultipleChoice);
+
+            if (currentQuestionIndex == 0)
+            {
+                btn_previous.Enabled = false;
+            }
+            else
+            {
+                btn_previous.Enabled = true;
+            }
+            if (currentQuestionIndex == reading.Questions.Count - 1)
+            {
+                btn_next.Enabled = false;
+            }
+            else
+            {
+                btn_next.Enabled = true;
+            }
         }
 
         private void AddOptions(List<Option> options, bool isMultipleChoice)
@@ -68,11 +86,10 @@ namespace Dragonfly.Questions.Notify
                         AutoSize = true,
                         Text = options[i].Alphabet + ". - " + options[i].Text,
                         Name = "chk" + options[i].Alphabet,
-                        Location = new Point(51, 464 + (i * 22))
                     };
                     if (userAnswers[currentQuestionIndex] != null && ((char[])userAnswers[currentQuestionIndex]).Contains(options[i].Alphabet))
                         chk.Checked = true;
-                    this.panelExam.Controls.Add(chk);
+                    this.flp_options.Controls.Add(chk);
                 }
                 else
                 {
@@ -81,29 +98,28 @@ namespace Dragonfly.Questions.Notify
                         AutoSize = true,
                         Text = options[i].Alphabet + ". - " + options[i].Text,
                         Name = "rdb" + options[i].Alphabet,
-                        Location = new Point(51, 464 + (i * 22))
                     };
                     if (userAnswers[currentQuestionIndex] != null && (char)userAnswers[currentQuestionIndex] == options[i].Alphabet)
                         rdb.Checked = true;
-                    this.panelExam.Controls.Add(rdb);
+                    this.flp_options.Controls.Add(rdb);
                 }
             }
         }
 
         private void RemoveOptions()
         {
-            for (int j = this.panelExam.Controls.OfType<RadioButton>().Count() - 1; j >= 0; --j)
+            for (int j = this.flp_options.Controls.OfType<RadioButton>().Count() - 1; j >= 0; --j)
             {
-                var controls = this.panelExam.Controls.OfType<RadioButton>();
+                var controls = this.flp_options.Controls.OfType<RadioButton>();
                 var control = controls.ElementAt(j);
-                this.panelExam.Controls.Remove(control);
+                this.flp_options.Controls.Remove(control);
                 control.Dispose();
             }
-            for (int j = this.panelExam.Controls.OfType<CheckBox>().Count() - 1; j >= 0; --j)
+            for (int j = this.flp_options.Controls.OfType<CheckBox>().Count() - 1; j >= 0; --j)
             {
-                var controls = this.panelExam.Controls.OfType<CheckBox>();
+                var controls = this.flp_options.Controls.OfType<CheckBox>();
                 var control = controls.ElementAt(j);
-                this.panelExam.Controls.Remove(control);
+                this.flp_options.Controls.Remove(control);
                 control.Dispose();
             }
         }
@@ -115,7 +131,7 @@ namespace Dragonfly.Questions.Notify
             // Determine the question type and return an answer
             if (currentQuestion.IsMultipleChoice)
             {
-                var chks = panelExam.Controls.OfType<CheckBox>().Where(s => s.Checked);
+                var chks = flp_options.Controls.OfType<CheckBox>().Where(s => s.Checked);
                 if (chks == null || chks.Count() == 0)
                 {
                     return new List<char>().ToArray();
@@ -127,7 +143,7 @@ namespace Dragonfly.Questions.Notify
             }
             else
             {
-                var rdb = panelExam.Controls.OfType<RadioButton>().FirstOrDefault(s => s.Checked);
+                var rdb = flp_options.Controls.OfType<RadioButton>().FirstOrDefault(s => s.Checked);
                 if (rdb == null)
                 {
                     return '\0';
