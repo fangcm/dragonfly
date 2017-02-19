@@ -34,45 +34,47 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelReadingTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanelButton = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_previous = new System.Windows.Forms.Button();
             this.btn_next = new System.Windows.Forms.Button();
+            this.btn_previous = new System.Windows.Forms.Button();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanelOptions = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelTitle.SuspendLayout();
             this.tableLayoutPanelButton.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelMain
             // 
             this.tableLayoutPanelMain.ColumnCount = 1;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Controls.Add(this.txt_question, 0, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelTitle, 0, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelButton, 0, 3);
-            this.tableLayoutPanelMain.Controls.Add(this.flowLayoutPanelOptions, 0, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelButton, 0, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.splitContainer, 0, 1);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 5;
+            this.tableLayoutPanelMain.RowCount = 4;
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(805, 498);
             this.tableLayoutPanelMain.TabIndex = 0;
             // 
             // txt_question
             // 
-            this.txt_question.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_question.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_question.Location = new System.Drawing.Point(3, 33);
+            this.txt_question.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_question.Location = new System.Drawing.Point(0, 0);
             this.txt_question.Multiline = true;
             this.txt_question.Name = "txt_question";
             this.txt_question.ReadOnly = true;
-            this.txt_question.Size = new System.Drawing.Size(799, 302);
+            this.txt_question.Size = new System.Drawing.Size(799, 265);
             this.txt_question.TabIndex = 2;
             // 
             // tableLayoutPanelTitle
@@ -129,18 +131,6 @@
             this.tableLayoutPanelButton.Size = new System.Drawing.Size(799, 34);
             this.tableLayoutPanelButton.TabIndex = 0;
             // 
-            // btn_previous
-            // 
-            this.btn_previous.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_previous.Enabled = false;
-            this.btn_previous.Location = new System.Drawing.Point(3, 10);
-            this.btn_previous.Name = "btn_previous";
-            this.btn_previous.Size = new System.Drawing.Size(74, 21);
-            this.btn_previous.TabIndex = 0;
-            this.btn_previous.Text = "Previous";
-            this.btn_previous.UseVisualStyleBackColor = true;
-            this.btn_previous.Click += new System.EventHandler(this.btn_previous_Click);
-            // 
             // btn_next
             // 
             this.btn_next.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -153,14 +143,45 @@
             this.btn_next.UseVisualStyleBackColor = true;
             this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
             // 
+            // btn_previous
+            // 
+            this.btn_previous.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_previous.Enabled = false;
+            this.btn_previous.Location = new System.Drawing.Point(3, 10);
+            this.btn_previous.Name = "btn_previous";
+            this.btn_previous.Size = new System.Drawing.Size(74, 21);
+            this.btn_previous.TabIndex = 0;
+            this.btn_previous.Text = "Previous";
+            this.btn_previous.UseVisualStyleBackColor = true;
+            this.btn_previous.Click += new System.EventHandler(this.btn_previous_Click);
+            // 
+            // splitContainer
+            // 
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer.Location = new System.Drawing.Point(3, 33);
+            this.splitContainer.Name = "splitContainer";
+            this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.txt_question);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.flowLayoutPanelOptions);
+            this.splitContainer.Size = new System.Drawing.Size(799, 382);
+            this.splitContainer.SplitterDistance = 265;
+            this.splitContainer.TabIndex = 4;
+            // 
             // flowLayoutPanelOptions
             // 
             this.flowLayoutPanelOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelOptions.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanelOptions.Location = new System.Drawing.Point(3, 341);
+            this.flowLayoutPanelOptions.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelOptions.Name = "flowLayoutPanelOptions";
-            this.flowLayoutPanelOptions.Size = new System.Drawing.Size(799, 74);
-            this.flowLayoutPanelOptions.TabIndex = 3;
+            this.flowLayoutPanelOptions.Size = new System.Drawing.Size(799, 113);
+            this.flowLayoutPanelOptions.TabIndex = 4;
             // 
             // MockExamPanel
             // 
@@ -168,10 +189,14 @@
             this.Name = "MockExamPanel";
             this.Size = new System.Drawing.Size(805, 498);
             this.tableLayoutPanelMain.ResumeLayout(false);
-            this.tableLayoutPanelMain.PerformLayout();
             this.tableLayoutPanelTitle.ResumeLayout(false);
             this.tableLayoutPanelTitle.PerformLayout();
             this.tableLayoutPanelButton.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel1.PerformLayout();
+            this.splitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -186,6 +211,7 @@
         private System.Windows.Forms.Button btn_previous;
         private System.Windows.Forms.Button btn_next;
         private System.Windows.Forms.TextBox txt_question;
+        private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelOptions;
     }
 }
