@@ -488,11 +488,11 @@
             // 
             // openFileDialogExam
             // 
-            this.openFileDialogExam.FileName = "openFileDialog1";
+            this.openFileDialogExam.Filter = "Examination question file|*.eqf";
             // 
             // saveFileDialogExam
             // 
-            this.saveFileDialogExam.Filter = "OEF File|*.oef";
+            this.saveFileDialogExam.Filter = "Examination question file|*.eqf";
             // 
             // MainForm
             // 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dragonfly.Questions
+namespace Dragonfly.Questions.Notify
 {
     internal class MockExamUtil
     {

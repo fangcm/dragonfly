@@ -39,19 +39,7 @@
   <ItemGroup>
     <Compile Include="Examination.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="MockExamUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MockExamPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MockExamPanel.Designer.cs">
-      <DependentUpon>MockExamPanel.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MockExamPanel.resx">
-      <DependentUpon>MockExamPanel.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
