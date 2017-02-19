@@ -23,12 +23,12 @@ namespace Dragonfly.Questions.Creator
 
     public class ReadingNode : TreeNode
     {
-        public string Title { get; set; }
+        public Reading Reading { get; set; }
 
-        public ReadingNode(string title)
+        public ReadingNode(Reading reading)
         {
-            this.Text = title;
-            this.Title = title;
+            this.Text = reading.Title;
+            this.Reading = reading;
             this.ImageIndex = 1;
             this.SelectedImageIndex = 1;
         }
