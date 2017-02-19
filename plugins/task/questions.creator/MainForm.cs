@@ -26,6 +26,10 @@ namespace Dragonfly.Questions.Creator
             panel_exam.Dock = DockStyle.Fill;
             panelReading.Dock = DockStyle.Fill;
             panel_question.Dock = DockStyle.Fill;
+
+            closeToolStripMenuItem.Enabled = true;
+            saveAsToolStripMenuItem.Enabled = true;
+            saveToolStripMenuItem.Enabled = true;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,6 +42,9 @@ namespace Dragonfly.Questions.Creator
                 splitContainerMain.Panel2.Controls.Clear();
                 splitContainerMain.Panel2.Controls.Add(this.panel_exam);
             }
+            txt_exam_title.Text = exam.Properties.Title;
+            num_exam_passmark.Value = (decimal)exam.Properties.Passmark;
+            IsDirty = false;
         }
 
  
@@ -83,6 +90,7 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.Text = exam.Properties.Title;
                 num_exam_passmark.Value = (decimal)exam.Properties.Passmark;
 
+                IsDirty = false;
 
             }
             else
@@ -100,7 +108,19 @@ namespace Dragonfly.Questions.Creator
             }
             else
             {
+                commit_change();
+                if(treeViewExam.Nodes.Count == 0)
+                {
+                    MessageBox.Show("No data to save.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    IsDirty = false;
+                    return;
+                }
+
                 ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
+                if(this.exam == null)
+                {
+                    this.exam = new Examination();
+                }
                 this.exam.Properties = examNode.Properties;
                 this.exam.Readings.Clear();
                 foreach (ReadingNode readingNode in examNode.Nodes)
@@ -194,9 +214,16 @@ namespace Dragonfly.Questions.Creator
                     splitContainerMain.Panel2.Controls.Remove(panelReading);
                     splitContainerMain.Panel2.Controls.Add(panel_exam);
                 }
+
+                txt_exam_title.TextChanged -= new System.EventHandler(this.Changed);
+                num_exam_passmark.ValueChanged -= new System.EventHandler(this.Changed);
+
                 Questions.Properties properties = ((ExamNode)treeViewExam.SelectedNode).Properties;
                 txt_exam_title.Text = properties.Title;
                 num_exam_passmark.Value = Convert.ToInt32(properties.Passmark);
+
+                txt_exam_title.TextChanged += new System.EventHandler(this.Changed);
+                num_exam_passmark.ValueChanged += new System.EventHandler(this.Changed);
             }
             else if (treeViewExam.SelectedNode.GetType() == typeof(ReadingNode))
             {
@@ -214,10 +241,16 @@ namespace Dragonfly.Questions.Creator
                     splitContainerMain.Panel2.Controls.Remove(panel_question);
                     splitContainerMain.Panel2.Controls.Add(panelReading);
                 }
+
+                txt_reading_title.TextChanged -= new System.EventHandler(this.Changed);
+                txt_reading_text.TextChanged -= new System.EventHandler(this.Changed);
+
                 Reading reading = ((ReadingNode)treeViewExam.SelectedNode).Reading;
                 txt_reading_title.Text = reading.Title;
                 txt_reading_text.Text = reading.Text;
 
+                txt_reading_title.TextChanged += new System.EventHandler(this.Changed);
+                txt_reading_text.TextChanged += new System.EventHandler(this.Changed);
             }
             else
             {
@@ -237,14 +270,17 @@ namespace Dragonfly.Questions.Creator
                 }
                 //
                 Question question = ((QuestionNode)treeViewExam.SelectedNode).Question;
-                txt_question_text.Text = question.Text;
                 lbl_reading_question.Text = "Reading: " + treeViewExam.SelectedNode.Parent.Text + ", Question " + question.No;
 
-                //
+                txt_question_text.TextChanged -= new System.EventHandler(this.Changed);
+                chkMulipleChoice.CheckedChanged -= new System.EventHandler(this.Changed);
+                panel_question_options.ControlAdded -= new  ControlEventHandler(this.OptionsChanged);
+                panel_question_options.ControlRemoved -= new ControlEventHandler(this.OptionsChanged);
+
+                txt_question_text.Text = question.Text;
                 chkMulipleChoice.Checked = question.IsMultipleChoice;
                 //
                 panel_question_options.Controls.Clear();
-                //
                 int i = 0;
                 if (question.IsMultipleChoice)
                 {
@@ -282,6 +318,16 @@ namespace Dragonfly.Questions.Creator
                         i++;
                     }
                 }
+
+                txt_question_text.TextChanged += new System.EventHandler(this.Changed);
+                chkMulipleChoice.CheckedChanged += new System.EventHandler(this.Changed);
+                panel_question_options.ControlAdded += new ControlEventHandler(this.OptionsChanged);
+                panel_question_options.ControlRemoved += new ControlEventHandler(this.OptionsChanged);
+
+                if (panel_question_options.Controls.Count > 0)
+                    btn_remove_option.Enabled = true;
+                else
+                    btn_remove_option.Enabled = false;
             }
 
         }
@@ -429,6 +475,16 @@ namespace Dragonfly.Questions.Creator
 
         private void treeViewExam_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
+            commit_change();
+        }
+
+        private void btn_save_properties_Click(object sender, EventArgs e)
+        {
+            save_properties();
+        }
+
+        private void commit_change()
+        {
             if (treeViewExam.SelectedNode == null)
                 return;
 
@@ -437,20 +493,20 @@ namespace Dragonfly.Questions.Creator
                 Type selectType = treeViewExam.SelectedNode.GetType();
                 if (selectType == typeof(ExamNode))
                 {
-                    btn_save_properties_Click(null, null);
+                    save_properties();
                 }
                 else if (selectType == typeof(ReadingNode))
                 {
-                    btn_save_reading_Click(null, null);
+                    save_reading();
                 }
                 else if (selectType == typeof(QuestionNode))
                 {
-                    btn_save_question_Click(null, null);
+                    save_question();
                 }
             }
         }
 
-        private void btn_save_properties_Click(object sender, EventArgs e)
+        private void save_properties()
         {
             if (treeViewExam.Nodes.Count > 0)
             {
@@ -475,18 +531,17 @@ namespace Dragonfly.Questions.Creator
 
         }
 
-
-        private void btn_save_reading_Click(object sender, EventArgs e)
+        private void save_reading()
         {
             Reading reading = ((ReadingNode)treeViewExam.SelectedNode).Reading;
             reading.Title = txt_reading_title.Text;
             reading.Text = txt_reading_text.Text;
 
             treeViewExam.SelectedNode.Text = reading.Title;
-           
+
         }
 
-        private void btn_save_question_Click(object sender, EventArgs e)
+        private void save_question()
         {
             Question question = ((QuestionNode)treeViewExam.SelectedNode).Question;
             question.IsMultipleChoice = chkMulipleChoice.Checked;

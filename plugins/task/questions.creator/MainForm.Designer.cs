@@ -41,13 +41,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelReading = new System.Windows.Forms.Panel();
-            this.btn_save_reading = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_reading_text = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_reading_title = new System.Windows.Forms.TextBox();
             this.panel_question = new System.Windows.Forms.Panel();
-            this.btn_save_question = new System.Windows.Forms.Button();
             this.txt_question_text = new System.Windows.Forms.TextBox();
             this.lbl_reading_question = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -203,7 +201,6 @@
             // 
             // panelReading
             // 
-            this.panelReading.Controls.Add(this.btn_save_reading);
             this.panelReading.Controls.Add(this.label3);
             this.panelReading.Controls.Add(this.txt_reading_text);
             this.panelReading.Controls.Add(this.label1);
@@ -212,17 +209,6 @@
             this.panelReading.Name = "panelReading";
             this.panelReading.Size = new System.Drawing.Size(221, 238);
             this.panelReading.TabIndex = 0;
-            // 
-            // btn_save_reading
-            // 
-            this.btn_save_reading.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_save_reading.Location = new System.Drawing.Point(90, 186);
-            this.btn_save_reading.Name = "btn_save_reading";
-            this.btn_save_reading.Size = new System.Drawing.Size(75, 23);
-            this.btn_save_reading.TabIndex = 24;
-            this.btn_save_reading.Text = "Save";
-            this.btn_save_reading.UseVisualStyleBackColor = true;
-            this.btn_save_reading.Click += new System.EventHandler(this.btn_save_reading_Click);
             // 
             // label3
             // 
@@ -242,7 +228,7 @@
             this.txt_reading_text.Location = new System.Drawing.Point(12, 96);
             this.txt_reading_text.Multiline = true;
             this.txt_reading_text.Name = "txt_reading_text";
-            this.txt_reading_text.Size = new System.Drawing.Size(197, 73);
+            this.txt_reading_text.Size = new System.Drawing.Size(197, 127);
             this.txt_reading_text.TabIndex = 22;
             this.txt_reading_text.TextChanged += new System.EventHandler(this.Changed);
             // 
@@ -267,7 +253,6 @@
             // 
             // panel_question
             // 
-            this.panel_question.Controls.Add(this.btn_save_question);
             this.panel_question.Controls.Add(this.txt_question_text);
             this.panel_question.Controls.Add(this.lbl_reading_question);
             this.panel_question.Controls.Add(this.label11);
@@ -275,21 +260,10 @@
             this.panel_question.Controls.Add(this.panel_question_options);
             this.panel_question.Controls.Add(this.btn_remove_option);
             this.panel_question.Controls.Add(this.btn_add_options);
-            this.panel_question.Location = new System.Drawing.Point(316, 61);
+            this.panel_question.Location = new System.Drawing.Point(301, 42);
             this.panel_question.Name = "panel_question";
             this.panel_question.Size = new System.Drawing.Size(477, 424);
             this.panel_question.TabIndex = 1;
-            // 
-            // btn_save_question
-            // 
-            this.btn_save_question.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btn_save_question.Location = new System.Drawing.Point(206, 397);
-            this.btn_save_question.Name = "btn_save_question";
-            this.btn_save_question.Size = new System.Drawing.Size(75, 23);
-            this.btn_save_question.TabIndex = 22;
-            this.btn_save_question.Text = "Save";
-            this.btn_save_question.UseVisualStyleBackColor = true;
-            this.btn_save_question.Click += new System.EventHandler(this.btn_save_question_Click);
             // 
             // txt_question_text
             // 
@@ -299,8 +273,9 @@
             this.txt_question_text.Location = new System.Drawing.Point(12, 78);
             this.txt_question_text.Multiline = true;
             this.txt_question_text.Name = "txt_question_text";
-            this.txt_question_text.Size = new System.Drawing.Size(453, 57);
+            this.txt_question_text.Size = new System.Drawing.Size(453, 79);
             this.txt_question_text.TabIndex = 21;
+            this.txt_question_text.TextChanged += new System.EventHandler(this.Changed);
             // 
             // lbl_reading_question
             // 
@@ -592,8 +567,6 @@
         private System.Windows.Forms.TextBox txt_reading_text;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_reading_title;
-        private System.Windows.Forms.Button btn_save_reading;
-        private System.Windows.Forms.Button btn_save_question;
     }
 }
 
