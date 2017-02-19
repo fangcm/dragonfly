@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Dragonfly.Questions
 {
-    class Helper
+    public class Helper
     {
         public static void SaveExaminationToFile(string filePath, Examination exam)
         {
