@@ -45,9 +45,9 @@ namespace Dragonfly.Plugin.Task.Logger
             }
         }
 
-        public void Log(LoggType type, string text)
+        public void Log(LoggType type, string text, params object[] arg)
         {
-            LoggInfo loggInfo = new LoggInfo(text, type);
+            LoggInfo loggInfo = new LoggInfo(string.Format(text, arg), type);
             Log(loggInfo);
         }
 

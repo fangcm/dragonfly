@@ -17,8 +17,10 @@ namespace Dragonfly.Questions.Notify
             InitializeComponent();
             mockExamUtil = new MockExamUtil();
             Init(mockExamUtil.GetMockReading());
-        }
 
+            txt_reading.SetLineHeight(2, 50);
+        }
+        
         public void Init(Reading reading)
         {
             this.reading = reading;
