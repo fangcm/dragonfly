@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,7 +8,6 @@ namespace Dragonfly.Questions.Notify
 {
     public partial class MainForm : Form
     {
-        MockExamUtil mockExamUtil;
         private Reading reading;
         private int currentQuestionIndex;
         private object[] userAnswers = null;
@@ -15,10 +15,13 @@ namespace Dragonfly.Questions.Notify
         public MainForm()
         {
             InitializeComponent();
-            mockExamUtil = new MockExamUtil();
-            Init(mockExamUtil.GetMockReading());
+            this.panelMain.Visible = false;
+            this.panelStart.Visible = true;
+            this.panelMain.Dock = DockStyle.Fill;
+            this.panelStart.Dock = DockStyle.Fill;
 
-            txt_reading.SetLineHeight(2, 50);
+            this.label_tip.Text = "Please do the exercises and save time .";
+            this.label_tip.Left = (this.Width - label_tip.Width) / 2;
         }
         
         public void Init(Reading reading)
@@ -53,14 +56,14 @@ namespace Dragonfly.Questions.Notify
         private void PrintQuestionToScreen()
         {
             Question question = reading.Questions[currentQuestionIndex];
-            labelReadingTitle.Text = reading.Title;
-            txt_reading.Text = reading.Text;
             labelQuestionNo.Text = question.No.ToString();
             txt_question.Text = question.Text;
             AddOptions(question.Options, question.IsMultipleChoice);
 
             if (currentQuestionIndex == 0)
             {
+                labelReadingTitle.Text = reading.Title;
+                txt_reading.Text = reading.Text;
                 btn_previous.Enabled = false;
             }
             else
@@ -75,6 +78,8 @@ namespace Dragonfly.Questions.Notify
             {
                 btn_next.Enabled = true;
             }
+
+            txt_reading.SetLineHeight(1,0);
         }
 
         private void AddOptions(List<Option> options, bool isMultipleChoice)
@@ -157,7 +162,8 @@ namespace Dragonfly.Questions.Notify
             }
         }
 
-        private void EndExam()
+
+        private void btn_finish_Click(object sender, EventArgs e)
         {
             //Save current answer
             userAnswers[currentQuestionIndex] = SelectedAnswer();
@@ -177,8 +183,20 @@ namespace Dragonfly.Questions.Notify
                     numOfCorrectAnswers++;
                 }
             }
+
+            this.label_tip.Text = ""+numOfCorrectAnswers.ToString();
+            this.label_tip.Left = (this.Width - label_tip.Width) / 2;
+            this.panelMain.Visible = false;
+            this.panelStart.Visible = true;
         }
 
+        private void btn_start_exam_Click(object sender, EventArgs e)
+        {
+            this.panelMain.Visible = true;
+            this.panelStart.Visible = false;
 
+            MockExamUtil mockExamUtil = new MockExamUtil();
+            Init(mockExamUtil.GetMockReading());
+        }
     }
 }
