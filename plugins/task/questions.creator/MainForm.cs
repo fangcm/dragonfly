@@ -36,8 +36,8 @@ namespace Dragonfly.Questions.Creator
                 splitContainerMain.Panel2.Controls.Clear();
                 splitContainerMain.Panel2.Controls.Add(this.panel_exam);
             }
-            txt_exam_title.Text = exam.Properties.Title;
-            num_exam_passmark.Value = (decimal)exam.Properties.Passmark;
+            txt_exam_title.Text = exam.ExamProperties.Title;
+            num_exam_passmark.Value = (decimal)exam.ExamProperties.Passmark;
             IsDirty = false;
         }
 
@@ -59,7 +59,7 @@ namespace Dragonfly.Questions.Creator
             {
                 this.treeViewExam.Nodes.Clear();
                 
-                ExamNode examNode = new ExamNode(exam.Properties);
+                ExamNode examNode = new ExamNode(exam.ExamProperties);
                 treeViewExam.Nodes.Add(examNode);
                 foreach (Reading reading in exam.Readings)
                 {
@@ -81,8 +81,8 @@ namespace Dragonfly.Questions.Creator
                 }
 
 
-                txt_exam_title.Text = exam.Properties.Title;
-                num_exam_passmark.Value = (decimal)exam.Properties.Passmark;
+                txt_exam_title.Text = exam.ExamProperties.Title;
+                num_exam_passmark.Value = (decimal)exam.ExamProperties.Passmark;
 
                 IsDirty = false;
 
@@ -115,7 +115,7 @@ namespace Dragonfly.Questions.Creator
                 {
                     this.exam = new Examination();
                 }
-                this.exam.Properties = examNode.Properties;
+                this.exam.ExamProperties = examNode.ExamProperties;
                 this.exam.Readings.Clear();
                 foreach (ReadingNode readingNode in examNode.Nodes)
                 {
@@ -212,7 +212,7 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.TextChanged -= new System.EventHandler(this.Changed);
                 num_exam_passmark.ValueChanged -= new System.EventHandler(this.Changed);
 
-                Questions.Properties properties = ((ExamNode)treeViewExam.SelectedNode).Properties;
+                ExamProperties properties = ((ExamNode)treeViewExam.SelectedNode).ExamProperties;
                 txt_exam_title.Text = properties.Title;
                 num_exam_passmark.Value = Convert.ToInt32(properties.Passmark);
 
@@ -290,6 +290,7 @@ namespace Dragonfly.Questions.Creator
                         {
                             ctrl.Checked = true;
                         }
+                        ctrl.chkLetter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
                     }
@@ -308,6 +309,7 @@ namespace Dragonfly.Questions.Creator
                         {
                             ctrl.Checked = true;
                         }
+                        ctrl.rdb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
                     }
@@ -509,13 +511,13 @@ namespace Dragonfly.Questions.Creator
             if (treeViewExam.Nodes.Count > 0)
             {
                 ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
-                examNode.Properties.Title = txt_exam_title.Text;
-                examNode.Properties.Passmark = (int)num_exam_passmark.Value;
-                treeViewExam.Nodes[0].Text = examNode.Properties.Title;
+                examNode.ExamProperties.Title = txt_exam_title.Text;
+                examNode.ExamProperties.Passmark = (int)num_exam_passmark.Value;
+                treeViewExam.Nodes[0].Text = examNode.ExamProperties.Title;
             }
             else
             {
-                Questions.Properties properties = new Questions.Properties()
+                ExamProperties properties = new ExamProperties()
                 {
                     Passmark = (int)num_exam_passmark.Value,
                     Title = txt_exam_title.Text,

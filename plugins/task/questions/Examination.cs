@@ -7,8 +7,8 @@ namespace Dragonfly.Questions
     [XmlRootAttribute("Examination")]
     public class Examination
     {
-        [XmlElementAttribute("Properties", IsNullable = false)]
-        public Properties Properties { get; set; }
+        [XmlElementAttribute("ExamProperties", IsNullable = false)]
+        public ExamProperties ExamProperties { get; set; }
 
         [XmlArrayAttribute("Readings")]
         public List<Reading> Readings { get; set; }
@@ -16,7 +16,7 @@ namespace Dragonfly.Questions
         public Examination()
         {
             Readings = new List<Reading>();
-            Properties = new Properties();
+            ExamProperties = new ExamProperties();
         }
 
         public void AddReading(string readingTitle)
@@ -60,8 +60,8 @@ namespace Dragonfly.Questions
         }
     }
 
-    [XmlRootAttribute("Properties")]
-    public class Properties
+    [XmlRootAttribute("ExamProperties")]
+    public class ExamProperties
     {
         [XmlElementAttribute("Title", IsNullable = false)]
         public string Title { get; set; }

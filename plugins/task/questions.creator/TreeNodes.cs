@@ -4,12 +4,12 @@ namespace Dragonfly.Questions.Creator
 {
     public class ExamNode : TreeNode
     {
-        public Dragonfly.Questions.Properties Properties { get; set; }
+        public ExamProperties ExamProperties { get; set; }
 
-        public ExamNode(Dragonfly.Questions.Properties properties)
+        public ExamNode(ExamProperties examProperties)
         {
-            this.Text = properties.Title;
-            this.Properties = properties;
+            this.Text = examProperties.Title;
+            this.ExamProperties = examProperties;
             this.ImageIndex = 0;
             this.SelectedImageIndex = 0;
         }
