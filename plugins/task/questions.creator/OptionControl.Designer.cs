@@ -39,7 +39,7 @@
             this.rdb_letter.AutoSize = true;
             this.rdb_letter.Location = new System.Drawing.Point(9, 9);
             this.rdb_letter.Name = "rdb_letter";
-            this.rdb_letter.Size = new System.Drawing.Size(32, 17);
+            this.rdb_letter.Size = new System.Drawing.Size(36, 19);
             this.rdb_letter.TabIndex = 0;
             this.rdb_letter.Text = "Z";
             this.rdb_letter.UseVisualStyleBackColor = true;
@@ -52,7 +52,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_text.Location = new System.Drawing.Point(46, 8);
             this.txt_text.Name = "txt_text";
-            this.txt_text.Size = new System.Drawing.Size(244, 20);
+            this.txt_text.Size = new System.Drawing.Size(244, 25);
             this.txt_text.TabIndex = 1;
             // 
             // OptionControl
@@ -68,8 +68,7 @@
         }
 
         #endregion
-        
-        private System.Windows.Forms.RadioButton rdb_letter;
         private System.Windows.Forms.TextBox txt_text;
+        public System.Windows.Forms.RadioButton rdb_letter;
     }
 }

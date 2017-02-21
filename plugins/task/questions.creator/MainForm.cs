@@ -351,6 +351,7 @@ namespace Dragonfly.Questions.Creator
                             Letter = (char)(Convert.ToInt32(((OptionsControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
                             Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36))
                         };
+                        ctrl.chkLetter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                     }
                     else
@@ -361,6 +362,7 @@ namespace Dragonfly.Questions.Creator
                             Name = "option0",
                             Letter = 'A'
                         };
+                        ctrl.chkLetter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                     }
                 }
@@ -374,6 +376,7 @@ namespace Dragonfly.Questions.Creator
                             Letter = (char)(Convert.ToInt32(((OptionControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
                             Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36))
                         };
+                        ctrl.rdb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                     }
                     else
@@ -384,6 +387,7 @@ namespace Dragonfly.Questions.Creator
                             Name = "option0",
                             Letter = 'A'
                         };
+                        ctrl.rdb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                     }
                 }

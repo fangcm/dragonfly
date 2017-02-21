@@ -35,9 +35,10 @@
             // chkLetter
             // 
             this.chkLetter.AutoSize = true;
-            this.chkLetter.Location = new System.Drawing.Point(9, 9);
+            this.chkLetter.Location = new System.Drawing.Point(12, 10);
+            this.chkLetter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkLetter.Name = "chkLetter";
-            this.chkLetter.Size = new System.Drawing.Size(33, 17);
+            this.chkLetter.Size = new System.Drawing.Size(37, 19);
             this.chkLetter.TabIndex = 0;
             this.chkLetter.Text = "Z";
             this.chkLetter.UseVisualStyleBackColor = true;
@@ -47,27 +48,28 @@
             this.txtText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtText.Location = new System.Drawing.Point(46, 8);
+            this.txtText.Location = new System.Drawing.Point(61, 9);
+            this.txtText.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtText.Name = "txtText";
-            this.txtText.Size = new System.Drawing.Size(244, 20);
+            this.txtText.Size = new System.Drawing.Size(324, 25);
             this.txtText.TabIndex = 2;
             // 
             // OptionsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.txtText);
             this.Controls.Add(this.chkLetter);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "OptionsControl";
-            this.Size = new System.Drawing.Size(300, 35);
+            this.Size = new System.Drawing.Size(400, 40);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chkLetter;
         private System.Windows.Forms.TextBox txtText;
+        public System.Windows.Forms.CheckBox chkLetter;
     }
 }

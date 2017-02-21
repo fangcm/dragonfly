@@ -22,8 +22,8 @@ namespace Dragonfly.Questions.Notify
 
             this.label_tip.Text = "Please do the exercises and save time .";
         }
-        
-        public void Init(Reading reading)
+
+        private void Init(Reading reading)
         {
             this.reading = reading;
             currentQuestionIndex = 0;
@@ -36,8 +36,6 @@ namespace Dragonfly.Questions.Notify
         {
             userAnswers[currentQuestionIndex] = SelectedAnswer();
 
-            RemoveOptions();
-
             currentQuestionIndex--;
             PrintQuestionToScreen();
         }
@@ -45,15 +43,14 @@ namespace Dragonfly.Questions.Notify
         private void btn_next_Click(object sender, EventArgs e)
         {
             userAnswers[currentQuestionIndex] = SelectedAnswer();
-
-            RemoveOptions();
-
+ 
             currentQuestionIndex++;
             PrintQuestionToScreen();
         }
 
         private void PrintQuestionToScreen()
         {
+            RemoveOptions();
             Question question = reading.Questions[currentQuestionIndex];
             labelQuestionNo.Text = question.No.ToString();
             txt_question.Text = question.Text;
@@ -79,6 +76,7 @@ namespace Dragonfly.Questions.Notify
             }
 
             txt_reading.SetLineHeight(1,0);
+            txt_question.SetLineHeight(1, 0);
         }
 
         private void AddOptions(List<Option> options, bool isMultipleChoice)
@@ -190,8 +188,8 @@ namespace Dragonfly.Questions.Notify
 
         private void btn_start_exam_Click(object sender, EventArgs e)
         {
-            this.panelMain.Visible = true;
             this.panelStart.Visible = false;
+            this.panelMain.Visible = true;
 
             MockExamUtil mockExamUtil = new MockExamUtil();
             Init(mockExamUtil.GetMockReading());
