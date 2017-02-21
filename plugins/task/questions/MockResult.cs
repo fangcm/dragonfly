@@ -20,7 +20,7 @@ namespace Dragonfly.Questions
             ResultProperties = new ResultProperties();
         }
 
-        public void AddPractice(string fileName)
+        public Practice SavePractice(string fileName)
         {
             Practice practice = Practices.FirstOrDefault(s => s.FileName == fileName);
             if (practice == null)
@@ -29,34 +29,42 @@ namespace Dragonfly.Questions
                 practice.FileName = fileName;
                 Practices.Add(practice);
             }
+            return practice;
         }
 
         public void RemovePractice(string fileName)
         {
             Practice practice = Practices.FirstOrDefault(s => s.FileName == fileName);
             if (practice != null)
-                Practices.Remove(practice);
-        }
-
-        public void AddReadingResult(string fileName, ReadingResult readingResult)
-        {
-            Practice practice = Practices.FirstOrDefault(s => s.FileName == fileName);
-            if (practice == null)
             {
-                practice = new Practice();
-                practice.FileName = fileName;
-                Practices.Add(practice);
+                Practices.Remove(practice);
             }
-
-            practice.ReadingResults.Add(readingResult);
         }
 
-        public void RemoveReadingResult(string fileName, ReadingResult readingResult)
+        public void SaveReadingResults(string fileName, ReadingResult readingResult)
+        {
+            Practice practice = SavePractice(fileName);
+            ReadingResult result = practice.ReadingResults.FirstOrDefault(s => s.Title == readingResult.Title);
+            if(result == null)
+            {
+                practice.ReadingResults.Add(readingResult);
+            }else
+            {
+                result.NumberOfQuestions = readingResult.NumberOfQuestions;
+                result.NumberOfCorrectAnswers = readingResult.NumberOfCorrectAnswers;
+            }
+        }
+
+        public void RemoveReadingResult(string fileName, string title)
         {
             Practice practice = Practices.FirstOrDefault(s => s.FileName == fileName);
             if (practice != null)
             {
-                practice.ReadingResults.Remove(readingResult);
+                ReadingResult result = practice.ReadingResults.FirstOrDefault(s => s.Title == title);
+                if (result != null)
+                {
+                    practice.ReadingResults.Remove(result);
+                }
             }
         }
     }
@@ -64,11 +72,14 @@ namespace Dragonfly.Questions
     [XmlRootAttribute("ResultProperties")]
     public class ResultProperties
     {
-        [XmlElementAttribute("Title", IsNullable = false)]
-        public XmlCDataSection Title { get; set; }
+        [XmlElementAttribute("LastFileName")]
+        public string LastFileName { get; set; }
 
-        [XmlAttribute("Passmark")]
-        public double Passmark { get; set; }
+        [XmlAttribute("LasReadingIndex")]
+        public int LasReadingIndex { get; set; }
+
+        [XmlAttribute("LastFileFinishedAll")]
+        public bool LastFileFinishedAll { get; set; }
     }
 
     [XmlRootAttribute("Practice")]

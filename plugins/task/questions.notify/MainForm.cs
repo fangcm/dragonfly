@@ -8,6 +8,7 @@ namespace Dragonfly.Questions.Notify
 {
     public partial class MainForm : Form
     {
+        MockExamUtil mockExamUtil = new MockExamUtil();
         private Reading reading;
         private int currentQuestionIndex;
         private object[] userAnswers = null;
@@ -20,11 +21,16 @@ namespace Dragonfly.Questions.Notify
             this.panelMain.Dock = DockStyle.Fill;
             this.panelStart.Dock = DockStyle.Fill;
 
+            btn_next.Enabled = false;
+            btn_previous.Enabled = false;
+            btn_finish.Enabled = false;
+
             this.label_tip.Text = "Please do the exercises and save time .";
         }
 
         private void Init(Reading reading)
         {
+            btn_finish.Enabled = true;
             this.reading = reading;
             currentQuestionIndex = 0;
             userAnswers = new object[reading.Questions.Count];
@@ -168,22 +174,32 @@ namespace Dragonfly.Questions.Notify
             int numOfCorrectAnswers = 0;
             for (int i = 0; i < reading.Questions.Count; i++)
             {
-                if (userAnswers[i].GetType().IsArray)
+                if (userAnswers[i] != null)
                 {
-                    if (((char[])userAnswers[i]).SequenceEqual(reading.Questions[i].Answers))
+                    if (userAnswers[i].GetType().IsArray)
+                    {
+                        if (((char[])userAnswers[i]).SequenceEqual(reading.Questions[i].Answers))
+                        {
+                            numOfCorrectAnswers++;
+                        }
+                    }
+                    else if ((char)userAnswers[i] == reading.Questions[i].Answer)
                     {
                         numOfCorrectAnswers++;
                     }
-                }
-                else if ((char)userAnswers[i] == reading.Questions[i].Answer)
-                {
-                    numOfCorrectAnswers++;
                 }
             }
 
             this.label_tip.Text = ""+numOfCorrectAnswers.ToString();
             this.panelMain.Visible = false;
             this.panelStart.Visible = true;
+
+            ReadingResult readingResult = new ReadingResult();
+            readingResult.Title = reading.Title;
+            readingResult.NumberOfQuestions = reading.Questions.Count;
+            readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
+
+            mockExamUtil.SaveMockResult(readingResult);
         }
 
         private void btn_start_exam_Click(object sender, EventArgs e)
@@ -191,8 +207,13 @@ namespace Dragonfly.Questions.Notify
             this.panelStart.Visible = false;
             this.panelMain.Visible = true;
 
-            MockExamUtil mockExamUtil = new MockExamUtil();
-            Init(mockExamUtil.GetMockReading());
+            Reading reading = mockExamUtil.GetMockReading();
+            if (reading == null)
+            {
+                return;
+            }
+
+            Init(reading);
         }
     }
 }
