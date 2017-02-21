@@ -21,7 +21,6 @@ namespace Dragonfly.Questions.Notify
             this.panelStart.Dock = DockStyle.Fill;
 
             this.label_tip.Text = "Please do the exercises and save time .";
-            this.label_tip.Left = (this.Width - label_tip.Width) / 2;
         }
         
         public void Init(Reading reading)
@@ -185,7 +184,6 @@ namespace Dragonfly.Questions.Notify
             }
 
             this.label_tip.Text = ""+numOfCorrectAnswers.ToString();
-            this.label_tip.Left = (this.Width - label_tip.Width) / 2;
             this.panelMain.Visible = false;
             this.panelStart.Visible = true;
         }
