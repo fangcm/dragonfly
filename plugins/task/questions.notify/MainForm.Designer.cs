@@ -68,7 +68,7 @@
             this.panelExam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelExam.BackColor = System.Drawing.SystemColors.Info;
+            this.panelExam.BackColor = System.Drawing.Color.Gray;
             this.panelExam.Controls.Add(this.panel1);
             this.panelExam.Controls.Add(this.splitContainerMain);
             this.panelExam.ForeColor = System.Drawing.SystemColors.InfoText;
@@ -82,7 +82,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labelReadingTitle);
             this.panel1.Location = new System.Drawing.Point(5, 4);
@@ -93,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label1.Location = new System.Drawing.Point(12, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -105,7 +105,7 @@
             // 
             this.labelReadingTitle.AutoSize = true;
             this.labelReadingTitle.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelReadingTitle.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.labelReadingTitle.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.labelReadingTitle.Location = new System.Drawing.Point(154, 16);
             this.labelReadingTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelReadingTitle.Name = "labelReadingTitle";
@@ -118,6 +118,7 @@
             this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerMain.BackColor = System.Drawing.Color.DimGray;
             this.splitContainerMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainerMain.ForeColor = System.Drawing.SystemColors.InfoText;
             this.splitContainerMain.Location = new System.Drawing.Point(4, 59);
@@ -133,16 +134,16 @@
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerExam);
             this.splitContainerMain.Panel2MinSize = 125;
             this.splitContainerMain.Size = new System.Drawing.Size(956, 460);
-            this.splitContainerMain.SplitterDistance = 637;
+            this.splitContainerMain.SplitterDistance = 636;
             this.splitContainerMain.SplitterWidth = 5;
             this.splitContainerMain.TabIndex = 5;
             // 
             // splitContainerExam
             // 
-            this.splitContainerExam.BackColor = System.Drawing.SystemColors.Info;
+            this.splitContainerExam.BackColor = System.Drawing.Color.DimGray;
             this.splitContainerExam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerExam.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainerExam.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.splitContainerExam.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.splitContainerExam.Location = new System.Drawing.Point(0, 0);
             this.splitContainerExam.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainerExam.Name = "splitContainerExam";
@@ -150,6 +151,7 @@
             // 
             // splitContainerExam.Panel1
             // 
+            this.splitContainerExam.Panel1.BackColor = System.Drawing.Color.DimGray;
             this.splitContainerExam.Panel1.Controls.Add(this.panel2);
             this.splitContainerExam.Panel1.Controls.Add(this.txt_question);
             // 
@@ -157,8 +159,8 @@
             // 
             this.splitContainerExam.Panel2.Controls.Add(this.flp_options);
             this.splitContainerExam.Panel2MinSize = 80;
-            this.splitContainerExam.Size = new System.Drawing.Size(314, 460);
-            this.splitContainerExam.SplitterDistance = 267;
+            this.splitContainerExam.Size = new System.Drawing.Size(315, 460);
+            this.splitContainerExam.SplitterDistance = 266;
             this.splitContainerExam.SplitterWidth = 5;
             this.splitContainerExam.TabIndex = 0;
             // 
@@ -166,18 +168,19 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.labelQuestionNo);
-            this.panel2.Location = new System.Drawing.Point(4, 1);
+            this.panel2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(310, 52);
+            this.panel2.Size = new System.Drawing.Size(314, 50);
             this.panel2.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label2.Location = new System.Drawing.Point(4, 17);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -189,7 +192,7 @@
             // 
             this.labelQuestionNo.AutoSize = true;
             this.labelQuestionNo.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelQuestionNo.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.labelQuestionNo.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.labelQuestionNo.Location = new System.Drawing.Point(102, 14);
             this.labelQuestionNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestionNo.Name = "labelQuestionNo";
@@ -199,15 +202,15 @@
             // 
             // flp_options
             // 
-            this.flp_options.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.flp_options.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.flp_options.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_options.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flp_options.Font = new System.Drawing.Font("宋体", 14F);
-            this.flp_options.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.flp_options.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.flp_options.Location = new System.Drawing.Point(0, 0);
             this.flp_options.Margin = new System.Windows.Forms.Padding(4);
             this.flp_options.Name = "flp_options";
-            this.flp_options.Size = new System.Drawing.Size(314, 188);
+            this.flp_options.Size = new System.Drawing.Size(315, 189);
             this.flp_options.TabIndex = 0;
             // 
             // btn_next
@@ -252,7 +255,7 @@
             // 
             // panelMain
             // 
-            this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.panelMain.Controls.Add(this.panelExam);
             this.panelMain.Controls.Add(this.btn_finish);
             this.panelMain.Controls.Add(this.btn_previous);
@@ -277,7 +280,7 @@
             // 
             // panelStart
             // 
-            this.panelStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.panelStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.panelStart.Controls.Add(this.label_tip);
             this.panelStart.Controls.Add(this.btn_start_exam);
             this.panelStart.Location = new System.Drawing.Point(27, 47);
@@ -290,6 +293,7 @@
             // 
             this.label_tip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label_tip.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_tip.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label_tip.Location = new System.Drawing.Point(0, 192);
             this.label_tip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_tip.Name = "label_tip";
@@ -302,7 +306,8 @@
             // 
             this.label_clock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_clock.AutoSize = true;
-            this.label_clock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.label_clock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
+            this.label_clock.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label_clock.Location = new System.Drawing.Point(1017, 640);
             this.label_clock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_clock.Name = "label_clock";
@@ -312,17 +317,17 @@
             // 
             // txt_reading
             // 
-            this.txt_reading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.txt_reading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.txt_reading.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_reading.DetectUrls = false;
             this.txt_reading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_reading.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_reading.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.txt_reading.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.txt_reading.Location = new System.Drawing.Point(0, 0);
             this.txt_reading.Margin = new System.Windows.Forms.Padding(4);
             this.txt_reading.Name = "txt_reading";
             this.txt_reading.ReadOnly = true;
-            this.txt_reading.Size = new System.Drawing.Size(637, 460);
+            this.txt_reading.Size = new System.Drawing.Size(636, 460);
             this.txt_reading.TabIndex = 0;
             this.txt_reading.Text = "";
             // 
@@ -331,15 +336,15 @@
             this.txt_question.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_question.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.txt_question.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.txt_question.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_question.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_question.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.txt_question.Location = new System.Drawing.Point(4, 60);
+            this.txt_question.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.txt_question.Location = new System.Drawing.Point(0, 55);
             this.txt_question.Margin = new System.Windows.Forms.Padding(4);
             this.txt_question.Name = "txt_question";
             this.txt_question.ReadOnly = true;
-            this.txt_question.Size = new System.Drawing.Size(308, 204);
+            this.txt_question.Size = new System.Drawing.Size(314, 210);
             this.txt_question.TabIndex = 2;
             this.txt_question.Text = "";
             // 
@@ -347,7 +352,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(237)))), ((int)(((byte)(204)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.ClientSize = new System.Drawing.Size(1139, 681);
             this.Controls.Add(this.label_clock);
             this.Controls.Add(this.panelMain);
