@@ -17,6 +17,16 @@ namespace Dragonfly.Questions
             return (Examination)LoadFromFile(filePath, typeof(Examination));
         }
 
+        public static void SaveMockResultToFile(string filePath, MockResult mockResult)
+        {
+            SaveToFile(filePath, mockResult);
+        }
+
+        public static MockResult LoadMockResultFromFile(string filePath)
+        {
+            return (MockResult)LoadFromFile(filePath, typeof(MockResult));
+        }
+
         public static void SaveToFile(string filePath, object exam)
         {
             if (!string.IsNullOrWhiteSpace(filePath) && exam != null)

@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 
 namespace Dragonfly.Questions
 {
-    [XmlRootAttribute("ExamResult")]
-    public class ExamResult
+    [XmlRootAttribute("MockResult")]
+    public class MockResult
     {
         [XmlElementAttribute("ResultProperties", IsNullable = false)]
         public ResultProperties ResultProperties { get; set; }
@@ -14,7 +14,7 @@ namespace Dragonfly.Questions
         [XmlArrayAttribute("Practices")]
         public List<Practice> Practices { get; set; }
 
-        public ExamResult()
+        public MockResult()
         {
             Practices = new List<Practice>();
             ResultProperties = new ResultProperties();
