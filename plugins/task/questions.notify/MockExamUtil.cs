@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,15 @@ namespace Dragonfly.Questions.Notify
 
         public Reading GetMockReading()
         {
-            exam = Helper.LoadExaminationFromFile("../../../exam1.eqf");
-            currentReadingIndex = 0;
-            return exam.Readings[currentReadingIndex];
+            string[] eqfs = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.eqf", SearchOption.AllDirectories);
+            foreach (string eqf in eqfs)
+            {
+                exam = Helper.LoadExaminationFromFile(eqf);
+                currentReadingIndex = 0;
+                return exam.Readings[currentReadingIndex];
+            }
+
+            return null;
         }
     }
 }
