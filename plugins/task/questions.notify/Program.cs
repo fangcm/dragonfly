@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Task.Notify.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +13,16 @@ namespace Dragonfly.Questions.Notify
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            MainForm mainWindow = new MainForm();
+            bool ok = SealedProcessor.Main(mainWindow, args);
+            if (ok)
+            {
+                Application.Run(mainWindow);
+            }
         }
     }
 }

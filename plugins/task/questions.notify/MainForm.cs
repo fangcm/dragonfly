@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Task.Notify.Common;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,12 +7,24 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Questions.Notify
 {
-    public partial class MainForm : Form
+    public partial class MainForm : LockScreenForm
     {
         MockExamUtil mockExamUtil = new MockExamUtil();
         private Reading reading;
         private int currentQuestionIndex;
         private object[] userAnswers = null;
+
+        public override string ClockText
+        {
+            get
+            {
+                return this.label_clock.Text;
+            }
+            set
+            {
+                this.label_clock.Text = value;
+            }
+        }
 
         public MainForm()
         {
@@ -49,7 +62,7 @@ namespace Dragonfly.Questions.Notify
         private void btn_next_Click(object sender, EventArgs e)
         {
             userAnswers[currentQuestionIndex] = SelectedAnswer();
- 
+
             currentQuestionIndex++;
             PrintQuestionToScreen();
         }
@@ -81,7 +94,7 @@ namespace Dragonfly.Questions.Notify
                 btn_next.Enabled = true;
             }
 
-            txt_reading.SetLineHeight(1,0);
+            txt_reading.SetLineHeight(1, 0);
             txt_question.SetLineHeight(1, 0);
         }
 
@@ -203,6 +216,7 @@ namespace Dragonfly.Questions.Notify
             readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
 
             mockExamUtil.SaveMockResult(readingResult);
+            this.IntervalSeconds -= savingMinutes * 60;
         }
 
         private void btn_start_exam_Click(object sender, EventArgs e)

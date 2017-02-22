@@ -34,9 +34,6 @@ namespace Dragonfly.Task.Notify.Common
             globalHooks = new UserActivityHook(false, true);
             globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
 
-            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
-
-
         }
 
         private void InitializeComponent()
@@ -69,14 +66,22 @@ namespace Dragonfly.Task.Notify.Common
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
+            this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.ResumeLayout(false);
 
+        }
+
+        private void LockScreenForm_Load(object sender, EventArgs e)
+        {
+            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
         }
 
         protected override void Dispose(bool disposing)
         {
             globalHooks.Stop(false, true, false);
             timerTick.Stop();
+
+            System.Diagnostics.Debug.WriteLine("Lock screen: Stop global hooks");
 
             if (disposing && (components != null))
             {
@@ -167,7 +172,7 @@ namespace Dragonfly.Task.Notify.Common
             int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
             int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
 
-            SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 1);
+            SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
 
             TimeSpan leftTime = endDateTime - DateTime.Now;
 
@@ -176,5 +181,6 @@ namespace Dragonfly.Task.Notify.Common
 
             ClockText = time;
         }
+
     }
 }
