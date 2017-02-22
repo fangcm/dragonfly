@@ -124,7 +124,9 @@ namespace Dragonfly.Task.Notify.Common
 
         [DllImport("user32")]
         public static extern bool SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint wFlags);
+int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
 
+int iActulaHeight = Screen.PrimaryScreen.Bounds.Height ;
         private void timerTick_Tick(object sender, EventArgs e)
         {
             if (endDateTime <= DateTime.Now)
