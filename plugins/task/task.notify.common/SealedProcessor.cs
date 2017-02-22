@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Task.Notify.Common
 {
-    public class Executor
+    public class SealedProcessor
     {
         public static void Main(LockScreenForm mainWindow, string[] args)
         {

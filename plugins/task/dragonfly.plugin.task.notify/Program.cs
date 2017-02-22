@@ -13,7 +13,7 @@ namespace Dragonfly.Plugin.Task.Notify
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             NomalLockScreenForm mainWindow = new NomalLockScreenForm();
-            Executor.Main(mainWindow, args);
+            SealedProcessor.Main(mainWindow, args);
             Application.Run(mainWindow);
         }
     }

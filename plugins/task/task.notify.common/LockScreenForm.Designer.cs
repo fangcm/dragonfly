@@ -42,7 +42,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.DarkGray;
             this.ClientSize = new System.Drawing.Size(505, 288);
             this.ControlBox = false;
             this.DoubleBuffered = true;
@@ -54,8 +54,8 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LockScreenForm";
             this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.LockScreenForm_Activated);
             this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LockScreenForm_FormClosing);
