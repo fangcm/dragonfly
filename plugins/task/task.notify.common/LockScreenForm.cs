@@ -42,7 +42,7 @@ namespace Dragonfly.Task.Notify.Common
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timerTick = new Timer(this.components);
+            this.timerTick = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timerTick
@@ -53,14 +53,13 @@ namespace Dragonfly.Task.Notify.Common
             // 
             // LockScreenForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Linen;
-            this.ClientSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(450, 300);
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LockScreenForm";
