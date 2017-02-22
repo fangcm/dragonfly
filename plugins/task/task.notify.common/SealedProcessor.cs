@@ -4,7 +4,7 @@ namespace Dragonfly.Task.Notify.Common
 {
     public class SealedProcessor
     {
-        public static void Main(LockScreenForm mainWindow, string[] args)
+        public static bool Main(LockScreenForm mainWindow, string[] args)
         {
             var arguments = CommandLineArgumentParser.Parse(args);
 
@@ -48,7 +48,7 @@ namespace Dragonfly.Task.Notify.Common
 
             if (bLock == false && cmd == 0)
             {
-                return;
+                return false;
             }
 
             if (bLock && lockMinutes > 0)
@@ -66,7 +66,7 @@ namespace Dragonfly.Task.Notify.Common
                     RestartUtil.ExitWindows(RestartOptions.Hibernate, true);
                     break;
             }
-
+            return true;
         }
     }
 }
