@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelClock = new System.Windows.Forms.Label();
@@ -71,7 +70,7 @@
             this.labelClock.AutoSize = true;
             this.labelClock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelClock.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelClock.ForeColor = System.Drawing.Color.Red;
+            this.labelClock.ForeColor = System.Drawing.Color.DarkRed;
             this.labelClock.Location = new System.Drawing.Point(4, 144);
             this.labelClock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelClock.Name = "labelClock";
@@ -79,10 +78,10 @@
             this.labelClock.TabIndex = 2;
             this.labelClock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LockScreenForm
+            // NomalLockScreenForm
             // 
+            this.ClientSize = new System.Drawing.Size(505, 288);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NomalLockScreenForm";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

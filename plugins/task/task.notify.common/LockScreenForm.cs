@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Task.Notify.Common
 {
-    public abstract partial class LockScreenForm : Form
+    public partial class LockScreenForm : Form
     {
         private UserActivityHook globalHooks;
         private DateTime endDateTime;
@@ -29,8 +29,8 @@ namespace Dragonfly.Task.Notify.Common
 
 
         public int IntervalSeconds { get; set; }
-        public abstract string Description { get; set; }
-        public abstract string ClockText { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string ClockText { get; set; }
 
         private void LockScreenForm_Activated(object sender, EventArgs e)
         {
