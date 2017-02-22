@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Dragonfly.Plugin.Task.Notify
+namespace Dragonfly.Task.Notify.Common
 {
-    public class CommandLineArgument
+    internal class CommandLineArgument
     {
         List<CommandLineArgument> _arguments;
 
@@ -76,7 +76,7 @@ namespace Dragonfly.Plugin.Task.Notify
         }
     }
 
-    public class CommandLineArgumentParser
+    internal class CommandLineArgumentParser
     {
 
         List<CommandLineArgument> _arguments;

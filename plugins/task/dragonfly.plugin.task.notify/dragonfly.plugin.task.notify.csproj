@@ -76,20 +76,17 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLine.cs" />
-    <Compile Include="LockScreenForm.cs">
+    <Compile Include="NomalLockScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LockScreenForm.Designer.cs">
-      <DependentUpon>LockScreenForm.cs</DependentUpon>
+    <Compile Include="NomalLockScreenForm.Designer.cs">
+      <DependentUpon>NomalLockScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LockScreenForm.resx">
-      <DependentUpon>LockScreenForm.cs</DependentUpon>
+    <EmbeddedResource Include="NomalLockScreenForm.resx">
+      <DependentUpon>NomalLockScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="UserActivityHook.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -107,6 +104,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\task.notify.common\task.notify.common.csproj">
+      <Project>{8bb4888f-1da8-41a6-9b53-37a363f27b98}</Project>
+      <Name>task.notify.common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

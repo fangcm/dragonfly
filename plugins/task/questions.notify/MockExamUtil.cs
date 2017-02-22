@@ -9,10 +9,6 @@ namespace Dragonfly.Questions.Notify
 {
     internal class MockExamUtil
     {
-        private string fileName;
-        private Examination exam;
-        private int currentReadingIndex;
-
         public static string WorkingPath
         {
             get
@@ -39,6 +35,10 @@ namespace Dragonfly.Questions.Notify
             get { return Path.Combine(WorkingPath, "mock_result.xml"); }
         }
 
+        public string ExamFileName { get; private set; }
+        public Examination Examination { get; private set; }
+        public int CurrentReadingIndex { get; private set; }
+
         public Reading GetMockReading()
         {
             string[] eqfs1 = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.eqf", SearchOption.AllDirectories);
@@ -52,20 +52,20 @@ namespace Dragonfly.Questions.Notify
                 {
                     return null;
                 }
-                fileName = eqfs.ElementAt(0);
-                exam = Helper.LoadExaminationFromFile(fileName);
-                currentReadingIndex = 0;
-                return exam.Readings[currentReadingIndex];
+                ExamFileName = eqfs.ElementAt(0);
+                Examination = Helper.LoadExaminationFromFile(ExamFileName);
+                CurrentReadingIndex = 0;
+                return Examination.Readings[CurrentReadingIndex];
             }
             else
             {
                 if (!mockResult.ResultProperties.LastFileFinishedAll &&
                     !string.IsNullOrEmpty(mockResult.ResultProperties.LastFileName))
                 {
-                    fileName = mockResult.ResultProperties.LastFileName;
-                    exam = Helper.LoadExaminationFromFile(fileName);
-                    currentReadingIndex = mockResult.ResultProperties.LasReadingIndex + 1;
-                    return exam.Readings[currentReadingIndex];
+                    ExamFileName = mockResult.ResultProperties.LastFileName;
+                    Examination = Helper.LoadExaminationFromFile(ExamFileName);
+                    CurrentReadingIndex = mockResult.ResultProperties.LasReadingIndex + 1;
+                    return Examination.Readings[CurrentReadingIndex];
                 }
             }
 
@@ -76,10 +76,10 @@ namespace Dragonfly.Questions.Notify
                 {
                     continue;
                 }
-                fileName = eqf;
-                exam = Helper.LoadExaminationFromFile(fileName);
-                currentReadingIndex = 0;
-                return exam.Readings[currentReadingIndex];
+                ExamFileName = eqf;
+                Examination = Helper.LoadExaminationFromFile(ExamFileName);
+                CurrentReadingIndex = 0;
+                return Examination.Readings[CurrentReadingIndex];
             }
 
             return null;
@@ -92,11 +92,11 @@ namespace Dragonfly.Questions.Notify
             {
                 mockResult = new MockResult();
             }
-            mockResult.SaveReadingResults(fileName, readingResult);
+            mockResult.SaveReadingResults(ExamFileName, readingResult);
 
-            mockResult.ResultProperties.LasReadingIndex = currentReadingIndex;
-            mockResult.ResultProperties.LastFileName = fileName;
-            mockResult.ResultProperties.LastFileFinishedAll = (currentReadingIndex >= exam.Readings.Count - 1);
+            mockResult.ResultProperties.LasReadingIndex = CurrentReadingIndex;
+            mockResult.ResultProperties.LastFileName = ExamFileName;
+            mockResult.ResultProperties.LastFileFinishedAll = (CurrentReadingIndex >= Examination.Readings.Count - 1);
 
             Helper.SaveMockResultToFile(MockResultFile, mockResult);
         }

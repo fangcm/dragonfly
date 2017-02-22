@@ -110,6 +110,10 @@ namespace Dragonfly.Questions
         [XmlAttribute("NumberOfCorrectAnswers")]
         public int NumberOfCorrectAnswers { get; set; }
 
+        [XmlAttribute("Score")]
+        public int Score { get; set; }
+        
+
     }
 
 

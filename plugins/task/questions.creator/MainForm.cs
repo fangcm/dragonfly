@@ -29,7 +29,7 @@ namespace Dragonfly.Questions.Creator
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeToolStripMenuItem_Click(sender, e);
-            //
+
             this.exam = new Examination();
             if (!splitContainerMain.Panel2.Controls.Contains(this.panel_exam))
             {
@@ -37,11 +37,11 @@ namespace Dragonfly.Questions.Creator
                 splitContainerMain.Panel2.Controls.Add(this.panel_exam);
             }
             txt_exam_title.Text = exam.ExamProperties.Title;
-            num_exam_passmark.Value = (decimal)exam.ExamProperties.Passmark;
+            num_exam_score.Value = exam.ExamProperties.Score;
             IsDirty = false;
         }
 
- 
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.openFileDialogExam.ShowDialog() == DialogResult.OK)
@@ -58,7 +58,7 @@ namespace Dragonfly.Questions.Creator
             if (this.exam != null)
             {
                 this.treeViewExam.Nodes.Clear();
-                
+
                 ExamNode examNode = new ExamNode(exam.ExamProperties);
                 treeViewExam.Nodes.Add(examNode);
                 foreach (Reading reading in exam.Readings)
@@ -80,9 +80,8 @@ namespace Dragonfly.Questions.Creator
                     splitContainerMain.Panel2.Controls.Add(panel_exam);
                 }
 
-
                 txt_exam_title.Text = exam.ExamProperties.Title;
-                num_exam_passmark.Value = (decimal)exam.ExamProperties.Passmark;
+                num_exam_score.Value = exam.ExamProperties.Score;
 
                 IsDirty = false;
 
@@ -103,7 +102,7 @@ namespace Dragonfly.Questions.Creator
             else
             {
                 commit_change();
-                if(treeViewExam.Nodes.Count == 0)
+                if (treeViewExam.Nodes.Count == 0)
                 {
                     MessageBox.Show("No data to save.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     IsDirty = false;
@@ -111,7 +110,7 @@ namespace Dragonfly.Questions.Creator
                 }
 
                 ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
-                if(this.exam == null)
+                if (this.exam == null)
                 {
                     this.exam = new Examination();
                 }
@@ -122,7 +121,7 @@ namespace Dragonfly.Questions.Creator
                     Reading reading = readingNode.Reading;
                     foreach (QuestionNode questionNode in readingNode.Nodes)
                     {
-                        Question question  = questionNode.Question;
+                        Question question = questionNode.Question;
                         reading.Questions.Add(question);
                     }
                     this.exam.Readings.Add(reading);
@@ -210,14 +209,14 @@ namespace Dragonfly.Questions.Creator
                 }
 
                 txt_exam_title.TextChanged -= new System.EventHandler(this.Changed);
-                num_exam_passmark.ValueChanged -= new System.EventHandler(this.Changed);
+                num_exam_score.ValueChanged -= new System.EventHandler(this.Changed);
 
                 ExamProperties properties = ((ExamNode)treeViewExam.SelectedNode).ExamProperties;
                 txt_exam_title.Text = properties.Title;
-                num_exam_passmark.Value = Convert.ToInt32(properties.Passmark);
+                num_exam_score.Value = properties.Score;
 
                 txt_exam_title.TextChanged += new System.EventHandler(this.Changed);
-                num_exam_passmark.ValueChanged += new System.EventHandler(this.Changed);
+                num_exam_score.ValueChanged += new System.EventHandler(this.Changed);
             }
             else if (treeViewExam.SelectedNode.GetType() == typeof(ReadingNode))
             {
@@ -268,7 +267,7 @@ namespace Dragonfly.Questions.Creator
 
                 txt_question_text.TextChanged -= new System.EventHandler(this.Changed);
                 chkMulipleChoice.CheckedChanged -= new System.EventHandler(this.Changed);
-                panel_question_options.ControlAdded -= new  ControlEventHandler(this.OptionsChanged);
+                panel_question_options.ControlAdded -= new ControlEventHandler(this.OptionsChanged);
                 panel_question_options.ControlRemoved -= new ControlEventHandler(this.OptionsChanged);
 
                 txt_question_text.Text = question.Text;
@@ -393,7 +392,7 @@ namespace Dragonfly.Questions.Creator
                         panel_question_options.Controls.Add(ctrl);
                     }
                 }
- 
+
             }
             catch (Exception)
             {
@@ -411,10 +410,10 @@ namespace Dragonfly.Questions.Creator
             {
                 panel_question_options.Controls.Remove(panel_question_options.Controls.OfType<OptionControl>().ElementAt(panel_question_options.Controls.OfType<OptionControl>().Count() - 1));
             }
- 
+
         }
 
-        
+
         private void addReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
@@ -461,7 +460,7 @@ namespace Dragonfly.Questions.Creator
             var readingNode = treeViewExam.SelectedNode.Parent;
 
             readingNode.Nodes.Remove(treeViewExam.SelectedNode);
- 
+
             int i = 1;
             foreach (QuestionNode questionNode in readingNode.Nodes)
             {
@@ -469,7 +468,7 @@ namespace Dragonfly.Questions.Creator
                 questionNode.Text = "Question " + i;
                 i++;
             }
- 
+
             IsDirty = true;
         }
 
@@ -512,14 +511,14 @@ namespace Dragonfly.Questions.Creator
             {
                 ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
                 examNode.ExamProperties.Title = txt_exam_title.Text;
-                examNode.ExamProperties.Passmark = (int)num_exam_passmark.Value;
+                examNode.ExamProperties.Score = Convert.ToInt32(num_exam_score.Value);
                 treeViewExam.Nodes[0].Text = examNode.ExamProperties.Title;
             }
             else
             {
                 ExamProperties properties = new ExamProperties()
                 {
-                    Passmark = (int)num_exam_passmark.Value,
+                    Score = Convert.ToInt32(num_exam_score.Value),
                     Title = txt_exam_title.Text,
                 };
 
@@ -583,7 +582,7 @@ namespace Dragonfly.Questions.Creator
                 }
             }
             question.Text = txt_question_text.Text;
-           
+
         }
 
         private void Changed(object sender, EventArgs e)
@@ -593,7 +592,7 @@ namespace Dragonfly.Questions.Creator
 
         private void chkMulipleChoice_CheckChanged(object sender, EventArgs e)
         {
-            Changed(sender,e);
+            Changed(sender, e);
             panel_question_options.Controls.Clear();
 
         }

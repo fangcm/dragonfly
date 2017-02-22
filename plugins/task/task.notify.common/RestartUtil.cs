@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Dragonfly.Plugin.Task.Notify
+namespace Dragonfly.Task.Notify.Common
 {
     internal enum RestartOptions
     {
@@ -15,17 +15,8 @@ namespace Dragonfly.Plugin.Task.Notify
         Hibernate = -2
     }
 
-    internal class Utils
+    internal class RestartUtil
     {
-        public static LockScreenForm LockScreen(int seconds, string description)
-        {
-
-            LockScreenForm form = new LockScreenForm();
-            form.Description = description;
-            form.IntervalSeconds = seconds;
-            return form;
-        }
-
         public static void ExitWindows(RestartOptions how, bool force)
         {
             try
@@ -55,7 +46,7 @@ namespace Dragonfly.Plugin.Task.Notify
             if (force)
                 how = how | EWX_FORCE;
             if (ExitWindowsEx(how, 0) == 0)
-                throw new PrivilegeException(FormatError(Marshal.GetLastWin32Error())); 
+                throw new PrivilegeException(FormatError(Marshal.GetLastWin32Error()));
         }
 
         private static void EnableToken(string privilege)

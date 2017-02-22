@@ -4,18 +4,18 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Dragonfly.Plugin.Task.Notify
+namespace Dragonfly.Task.Notify.Common
 {
-    internal partial class LockScreenForm : Form
+    public abstract partial class LockScreenForm : Form
     {
         private UserActivityHook globalHooks;
         private DateTime endDateTime;
-        private int intervalSeconds = 30;
 
         public LockScreenForm()
         {
             InitializeComponent();
 
+            IntervalSeconds = 30;
             base.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
             base.Width = Screen.PrimaryScreen.Bounds.Width;
             base.Height = Screen.PrimaryScreen.Bounds.Height;
@@ -28,30 +28,9 @@ namespace Dragonfly.Plugin.Task.Notify
         }
 
 
-        public int IntervalSeconds
-        {
-            get
-            {
-                return this.intervalSeconds;
-            }
-            set
-            {
-                this.intervalSeconds = value;
-                
-            }
-        }
-
-        public string Description
-        {
-            get
-            {
-                return this.labelDescription.Text;
-            }
-            set
-            {
-                this.labelDescription.Text = value;
-            }
-        }
+        public int IntervalSeconds { get; set; }
+        public abstract string Description { get; set; }
+        public abstract string ClockText { get; set; }
 
         private void LockScreenForm_Activated(object sender, EventArgs e)
         {
@@ -82,7 +61,7 @@ namespace Dragonfly.Plugin.Task.Notify
             globalHooks = new UserActivityHook(false, true);
             globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
 
-            endDateTime = DateTime.Now + TimeSpan.FromSeconds(this.intervalSeconds);
+            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
         }
 
         private void GlobalHooks_KeyDown(object sender, KeyEventArgs e)
@@ -162,7 +141,7 @@ namespace Dragonfly.Plugin.Task.Notify
 
             string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
 
-            this.labelClock.Text = time;
+            ClockText = time;
         }
     }
 }

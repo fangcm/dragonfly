@@ -1,6 +1,6 @@
 ﻿namespace Dragonfly.Plugin.Task.Notify
 {
-    partial class LockScreenForm
+    partial class NomalLockScreenForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,18 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timerTick = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelClock = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // timerTick
-            // 
-            this.timerTick.Enabled = true;
-            this.timerTick.Interval = 1;
-            this.timerTick.Tick += new System.EventHandler(this.timerTick_Tick);
             // 
             // tableLayoutPanel1
             // 
@@ -105,11 +98,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LockScreenForm";
             this.TopMost = true;
-            this.Activated += new System.EventHandler(this.LockScreenForm_Activated);
-            this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LockScreenForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LockScreenForm_FormClosed);
-            this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -117,7 +105,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Timer timerTick;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelClock;

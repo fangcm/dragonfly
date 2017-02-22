@@ -25,7 +25,7 @@ namespace Dragonfly.Questions.Notify
             btn_previous.Enabled = false;
             btn_finish.Enabled = false;
 
-            this.label_tip.Text = "Please do the exercises and save time .";
+            this.label_tip.Text = "Please do the exercises and SAVE time .";
         }
 
         private void Init(Reading reading)
@@ -170,12 +170,14 @@ namespace Dragonfly.Questions.Notify
         {
             //Save current answer
             userAnswers[currentQuestionIndex] = SelectedAnswer();
-            //
+
+            int numOfAnswers = 0;
             int numOfCorrectAnswers = 0;
             for (int i = 0; i < reading.Questions.Count; i++)
             {
                 if (userAnswers[i] != null)
                 {
+                    numOfAnswers++;
                     if (userAnswers[i].GetType().IsArray)
                     {
                         if (((char[])userAnswers[i]).SequenceEqual(reading.Questions[i].Answers))
@@ -190,7 +192,8 @@ namespace Dragonfly.Questions.Notify
                 }
             }
 
-            this.label_tip.Text = ""+numOfCorrectAnswers.ToString();
+            int savingMinutes = Convert.ToInt32((decimal)numOfCorrectAnswers / reading.Questions.Count * mockExamUtil.Examination.ExamProperties.Score);
+            this.label_tip.Text = string.Format("You answered {0} questions, {1} correctly, saving {2} minutes .", numOfAnswers, numOfCorrectAnswers, savingMinutes);
             this.panelMain.Visible = false;
             this.panelStart.Visible = true;
 

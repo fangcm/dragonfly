@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Examination xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ExamProperties Passmark="30">
+  <ExamProperties Score="30">
     <Title>2015年中考英语模拟试题</Title>
   </ExamProperties>
   <Readings>

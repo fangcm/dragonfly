@@ -19,7 +19,7 @@ namespace Dragonfly.Questions
             ExamProperties = new ExamProperties();
         }
 
-        public void AddReading(string readingTitle)
+        public Reading SaveReading(string readingTitle)
         {
             Reading reading = Readings.FirstOrDefault(s => s.Title == readingTitle);
             if (reading == null)
@@ -28,13 +28,16 @@ namespace Dragonfly.Questions
                 reading.Title = readingTitle;
                 Readings.Add(reading);
             }
+            return reading;
         }
 
         public void RemoveReading(string readingTitle)
         {
             Reading reading = Readings.FirstOrDefault(s => s.Title == readingTitle);
             if (reading != null)
+            {
                 Readings.Remove(reading);
+            }
         }
 
         public void AddQuestion(string readingTitle, Question question)
@@ -66,8 +69,8 @@ namespace Dragonfly.Questions
         [XmlElementAttribute("Title", IsNullable = false)]
         public string Title { get; set; }
 
-        [XmlAttribute("Passmark")]
-        public double Passmark { get; set; }
+        [XmlAttribute("Score")]
+        public int Score { get; set; }
     }
 
     [XmlRootAttribute("Reading")]
