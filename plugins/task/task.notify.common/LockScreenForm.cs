@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -8,52 +8,58 @@ namespace Dragonfly.Task.Notify.Common
 {
     public class LockScreenForm : Form
     {
-        private System.ComponentModel.IContainer components = null;
-        private UserActivityHook globalHooks;
-        private Timer timerTick;
+        private UserActivityHook globalHooks = null;
+        private System.Timers.Timer timerTick = null;
         private DateTime endDateTime;
 
         public int IntervalSeconds { get; set; }
         public virtual string Description { get; set; }
         public virtual string ClockText { get; set; }
 
+        private bool IsDesignMode { get; set; }
+
         public LockScreenForm()
         {
-            InitializeComponent();
+            IsDesignMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
 
-            IntervalSeconds = 30;
-            base.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
-            base.Width = Screen.PrimaryScreen.Bounds.Width;
-            base.Height = Screen.PrimaryScreen.Bounds.Height;
+            Initialize();
 
 #if DEBUG
             this.ControlBox = true;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
 #endif
 
-            globalHooks = new UserActivityHook(false, true);
-            globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
+            IntervalSeconds = 30;
+            if (!IsDesignMode)
+            {
+                this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
 
+                this.timerTick = new System.Timers.Timer(100);
+                this.timerTick.AutoReset = true;
+                this.timerTick.Elapsed += new System.Timers.ElapsedEventHandler(this.timerTick_Elapsed);
+                this.timerTick.Enabled = true;
+
+                globalHooks = new UserActivityHook(false, true);
+                globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
+            }
         }
 
-        private void InitializeComponent()
+        ~LockScreenForm()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timerTick = new System.Windows.Forms.Timer(this.components);
+            Dispose(false);
+        }
+
+        private void Initialize()
+        {
             this.SuspendLayout();
-            // 
-            // timerTick
-            // 
-            this.timerTick.Enabled = true;
-            this.timerTick.Interval = 1;
-            this.timerTick.Tick += new System.EventHandler(this.timerTick_Tick);
             // 
             // LockScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(450, 300);
+            this.Bounds = Screen.PrimaryScreen.Bounds;
+            //this.ClientSize = new System.Drawing.Size(450, 300);
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -65,10 +71,8 @@ namespace Dragonfly.Task.Notify.Common
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
             this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.ResumeLayout(false);
-
         }
 
         private void LockScreenForm_Load(object sender, EventArgs e)
@@ -76,37 +80,70 @@ namespace Dragonfly.Task.Notify.Common
             endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            globalHooks.Stop(false, true, false);
-            timerTick.Stop();
-
-            System.Diagnostics.Debug.WriteLine("Lock screen: Stop global hooks");
-
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private void LockScreenForm_Deactivate(object sender, EventArgs e)
         {
             this.Activate();
         }
 
+        private void timerTick_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (endDateTime <= DateTime.Now)
+            {
+                this.Close();
+                return;
+            }
+
+            KillTaskmgr();
+
+            int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+            int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
+
+            TimeSpan leftTime = endDateTime - DateTime.Now;
+
+            string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
+
+            ClockText = time;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+
+            if (timerTick != null)
+            {
+                timerTick.Enabled = false;
+                timerTick.Dispose();
+                timerTick = null;
+            }
+            if (globalHooks != null)
+            {
+                globalHooks.KeyDown -= new KeyEventHandler(GlobalHooks_KeyDown);
+                globalHooks.Stop(false, true, false);
+                globalHooks = null;
+            }
+
+            base.Dispose(disposing);
+        }
+
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
-            if ((m.Msg == 0x84) && (m.Result == ((IntPtr)2)))
+            if (!IsDesignMode)
             {
-                m.Result = (IntPtr)1;
-            }
-            if (m.Msg == 0xa3)
-            {
-                m.WParam = IntPtr.Zero;
+                if ((m.Msg == 0x84) && (m.Result == ((IntPtr)2)))
+                {
+                    m.Result = (IntPtr)1;
+                }
+                if (m.Msg == 0xa3)
+                {
+                    m.WParam = IntPtr.Zero;
+                }
             }
         }
+
+        #region win_api
 
         private void GlobalHooks_KeyDown(object sender, KeyEventArgs e)
         {
@@ -159,28 +196,9 @@ namespace Dragonfly.Task.Notify.Common
         [DllImport("user32")]
         public static extern bool SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint wFlags);
 
-        private void timerTick_Tick(object sender, EventArgs e)
-        {
-            if (endDateTime <= DateTime.Now)
-            {
-                this.Close();
-                return;
-            }
-
-            KillTaskmgr();
-
-            int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-            int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
-
-            SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
-
-            TimeSpan leftTime = endDateTime - DateTime.Now;
+        #endregion
 
 
-            string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
-
-            ClockText = time;
-        }
 
     }
 }
