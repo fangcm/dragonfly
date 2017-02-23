@@ -8,7 +8,6 @@ namespace Dragonfly.Task.Notify.Common
 {
     public class LockScreenForm : Form
     {
-        private System.ComponentModel.IContainer components = null;
         private UserActivityHook globalHooks;
         private Timer timerTick;
         private DateTime endDateTime;
@@ -19,33 +18,27 @@ namespace Dragonfly.Task.Notify.Common
 
         public LockScreenForm()
         {
-            InitializeComponent();
-
-            IntervalSeconds = 30;
-            base.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
-            base.Width = Screen.PrimaryScreen.Bounds.Width;
-            base.Height = Screen.PrimaryScreen.Bounds.Height;
-
+            Initialize();
 #if DEBUG
             this.ControlBox = true;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
 #endif
+
+            IntervalSeconds = 30;
 
             globalHooks = new UserActivityHook(false, true);
             globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
 
         }
 
-        private void InitializeComponent()
+        private void Initialize()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timerTick = new System.Windows.Forms.Timer(this.components);
+            this.timerTick = new Timer();
             this.SuspendLayout();
             // 
             // timerTick
             // 
-            this.timerTick.Enabled = true;
-            this.timerTick.Interval = 1;
+            this.timerTick.Interval = 100;
             this.timerTick.Tick += new System.EventHandler(this.timerTick_Tick);
             // 
             // LockScreenForm
@@ -53,6 +46,7 @@ namespace Dragonfly.Task.Notify.Common
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.Bounds = Screen.PrimaryScreen.Bounds;
             this.ClientSize = new System.Drawing.Size(450, 300);
             this.ControlBox = false;
             this.DoubleBuffered = true;
@@ -74,19 +68,19 @@ namespace Dragonfly.Task.Notify.Common
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
             endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
+            this.timerTick.Start();
         }
 
         protected override void Dispose(bool disposing)
         {
-            globalHooks.Stop(false, true, false);
-            timerTick.Stop();
-
-            System.Diagnostics.Debug.WriteLine("Lock screen: Stop global hooks");
-
-            if (disposing && (components != null))
+            if (timerTick != null)
             {
-                components.Dispose();
+                timerTick.Stop();
+                timerTick.Dispose();
+                timerTick = null;
             }
+            globalHooks.Stop(false, true, false);
+
             base.Dispose(disposing);
         }
 
