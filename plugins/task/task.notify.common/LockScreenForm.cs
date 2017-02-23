@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -15,8 +16,12 @@ namespace Dragonfly.Task.Notify.Common
         public virtual string Description { get; set; }
         public virtual string ClockText { get; set; }
 
+        private bool IsDesignMode { get; set; }
+
         public LockScreenForm()
         {
+            IsDesignMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
+
             Initialize();
 
 #if DEBUG
@@ -25,7 +30,7 @@ namespace Dragonfly.Task.Notify.Common
 #endif
 
             IntervalSeconds = 30;
-            if (!DesignMode)
+            if (!IsDesignMode)
             {
                 this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
 
@@ -125,7 +130,7 @@ namespace Dragonfly.Task.Notify.Common
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
-            if (!DesignMode)
+            if (!IsDesignMode)
             {
                 if ((m.Msg == 0x84) && (m.Result == ((IntPtr)2)))
                 {
