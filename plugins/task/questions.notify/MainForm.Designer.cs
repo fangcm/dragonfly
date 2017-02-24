@@ -35,10 +35,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelReadingTitle = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.txt_reading = new Dragonfly.Questions.Notify.RichTextBoxEx();
             this.splitContainerExam = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.labelQuestionNo = new System.Windows.Forms.Label();
+            this.txt_question = new Dragonfly.Questions.Notify.RichTextBoxEx();
             this.flp_options = new System.Windows.Forms.FlowLayoutPanel();
             this.btn_next = new System.Windows.Forms.Button();
             this.imageListBtn = new System.Windows.Forms.ImageList(this.components);
@@ -49,8 +51,6 @@
             this.panelStart = new System.Windows.Forms.Panel();
             this.label_tip = new System.Windows.Forms.Label();
             this.label_clock = new System.Windows.Forms.Label();
-            this.txt_reading = new Dragonfly.Questions.Notify.RichTextBoxEx();
-            this.txt_question = new Dragonfly.Questions.Notify.RichTextBoxEx();
             this.panelExam.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
@@ -138,9 +138,25 @@
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerExam);
             this.splitContainerMain.Panel2MinSize = 125;
             this.splitContainerMain.Size = new System.Drawing.Size(956, 460);
-            this.splitContainerMain.SplitterDistance = 628;
+            this.splitContainerMain.SplitterDistance = 625;
             this.splitContainerMain.SplitterWidth = 5;
             this.splitContainerMain.TabIndex = 5;
+            // 
+            // txt_reading
+            // 
+            this.txt_reading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
+            this.txt_reading.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_reading.DetectUrls = false;
+            this.txt_reading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_reading.Font = new System.Drawing.Font("宋体", 14F);
+            this.txt_reading.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.txt_reading.Location = new System.Drawing.Point(0, 0);
+            this.txt_reading.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_reading.Name = "txt_reading";
+            this.txt_reading.ReadOnly = true;
+            this.txt_reading.Size = new System.Drawing.Size(625, 460);
+            this.txt_reading.TabIndex = 0;
+            this.txt_reading.Text = "";
             // 
             // splitContainerExam
             // 
@@ -163,8 +179,8 @@
             // 
             this.splitContainerExam.Panel2.Controls.Add(this.flp_options);
             this.splitContainerExam.Panel2MinSize = 80;
-            this.splitContainerExam.Size = new System.Drawing.Size(323, 460);
-            this.splitContainerExam.SplitterDistance = 258;
+            this.splitContainerExam.Size = new System.Drawing.Size(326, 460);
+            this.splitContainerExam.SplitterDistance = 255;
             this.splitContainerExam.SplitterWidth = 5;
             this.splitContainerExam.TabIndex = 0;
             // 
@@ -179,7 +195,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(322, 50);
+            this.panel2.Size = new System.Drawing.Size(325, 50);
             this.panel2.TabIndex = 7;
             // 
             // label2
@@ -205,6 +221,23 @@
             this.labelQuestionNo.TabIndex = 1;
             this.labelQuestionNo.Text = "0";
             // 
+            // txt_question
+            // 
+            this.txt_question.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_question.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
+            this.txt_question.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_question.Font = new System.Drawing.Font("宋体", 14F);
+            this.txt_question.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.txt_question.Location = new System.Drawing.Point(0, 55);
+            this.txt_question.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_question.Name = "txt_question";
+            this.txt_question.ReadOnly = true;
+            this.txt_question.Size = new System.Drawing.Size(325, 198);
+            this.txt_question.TabIndex = 2;
+            this.txt_question.Text = "";
+            // 
             // flp_options
             // 
             this.flp_options.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
@@ -215,16 +248,15 @@
             this.flp_options.Location = new System.Drawing.Point(0, 0);
             this.flp_options.Margin = new System.Windows.Forms.Padding(4);
             this.flp_options.Name = "flp_options";
-            this.flp_options.Size = new System.Drawing.Size(323, 197);
+            this.flp_options.Size = new System.Drawing.Size(326, 200);
             this.flp_options.TabIndex = 0;
             // 
             // btn_next
             // 
             this.btn_next.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_next.BackColor = System.Drawing.Color.White;
-            this.btn_next.FlatAppearance.BorderSize = 1;
-            this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
             this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_next.ForeColor = System.Drawing.SystemColors.InfoText;
             this.btn_next.ImageKey = "right.ico";
@@ -242,7 +274,7 @@
             // imageListBtn
             // 
             this.imageListBtn.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListBtn.ImageStream")));
-            this.imageListBtn.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListBtn.TransparentColor = System.Drawing.Color.White;
             this.imageListBtn.Images.SetKeyName(0, "left.ico");
             this.imageListBtn.Images.SetKeyName(1, "right.ico");
             this.imageListBtn.Images.SetKeyName(2, "finish.ico");
@@ -252,12 +284,9 @@
             // 
             this.btn_previous.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_previous.BackColor = System.Drawing.Color.White;
-            this.btn_previous.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btn_previous.FlatAppearance.BorderSize = 0;
-            this.btn_previous.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btn_previous.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.btn_previous.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.btn_previous.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
             this.btn_previous.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_previous.ForeColor = System.Drawing.Color.DarkBlue;
             this.btn_previous.ImageKey = "left.ico";
             this.btn_previous.ImageList = this.imageListBtn;
             this.btn_previous.Location = new System.Drawing.Point(101, 546);
@@ -272,7 +301,6 @@
             // 
             // btn_finish
             // 
-            this.btn_finish.AccessibleDescription = "";
             this.btn_finish.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_finish.BackColor = System.Drawing.Color.White;
             this.btn_finish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
@@ -308,9 +336,10 @@
             // 
             this.btn_start_exam.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_start_exam.BackColor = System.Drawing.Color.White;
-            this.btn_start_exam.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btn_start_exam.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.btn_start_exam.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.btn_start_exam.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
             this.btn_start_exam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_start_exam.ForeColor = System.Drawing.SystemColors.InfoText;
             this.btn_start_exam.ImageKey = "play.ico";
             this.btn_start_exam.ImageList = this.imageListBtn;
             this.btn_start_exam.Location = new System.Drawing.Point(187, 275);
@@ -359,39 +388,6 @@
             this.label_clock.Size = new System.Drawing.Size(55, 15);
             this.label_clock.TabIndex = 7;
             this.label_clock.Text = "label3";
-            // 
-            // txt_reading
-            // 
-            this.txt_reading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
-            this.txt_reading.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_reading.DetectUrls = false;
-            this.txt_reading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_reading.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_reading.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.txt_reading.Location = new System.Drawing.Point(0, 0);
-            this.txt_reading.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_reading.Name = "txt_reading";
-            this.txt_reading.ReadOnly = true;
-            this.txt_reading.Size = new System.Drawing.Size(628, 460);
-            this.txt_reading.TabIndex = 0;
-            this.txt_reading.Text = "";
-            // 
-            // txt_question
-            // 
-            this.txt_question.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_question.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
-            this.txt_question.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_question.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_question.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.txt_question.Location = new System.Drawing.Point(0, 55);
-            this.txt_question.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_question.Name = "txt_question";
-            this.txt_question.ReadOnly = true;
-            this.txt_question.Size = new System.Drawing.Size(322, 201);
-            this.txt_question.TabIndex = 2;
-            this.txt_question.Text = "";
             // 
             // MainForm
             // 
