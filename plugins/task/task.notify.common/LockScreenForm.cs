@@ -8,8 +8,9 @@ namespace Dragonfly.Task.Notify.Common
 {
     public class LockScreenForm : Form
     {
+        private Timer timerTick = null;
+
         private UserActivityHook globalHooks = null;
-        private System.Timers.Timer timerTick = null;
         private DateTime endDateTime;
 
         public int IntervalSeconds { get; set; }
@@ -34,10 +35,10 @@ namespace Dragonfly.Task.Notify.Common
             {
                 this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
 
-                this.timerTick = new System.Timers.Timer(100);
-                this.timerTick.AutoReset = true;
-                this.timerTick.Elapsed += new System.Timers.ElapsedEventHandler(this.timerTick_Elapsed);
-                this.timerTick.Enabled = true;
+                this.timerTick = new Timer();
+                this.timerTick.Enabled = false;
+                this.timerTick.Interval = 100;
+                this.timerTick.Tick += new EventHandler(this.timerTick_Elapsed);
 
                 globalHooks = new UserActivityHook(false, true);
                 globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
@@ -69,7 +70,7 @@ namespace Dragonfly.Task.Notify.Common
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TopMost = true;
+            this.TopMost = IsDesignMode ? false : true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.ResumeLayout(false);
@@ -78,6 +79,7 @@ namespace Dragonfly.Task.Notify.Common
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
             endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
+            timerTick.Start();
         }
 
         private void LockScreenForm_Deactivate(object sender, EventArgs e)
@@ -85,7 +87,12 @@ namespace Dragonfly.Task.Notify.Common
             this.Activate();
         }
 
-        private void timerTick_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void timerTick_Elapsed(object sender, EventArgs e)
+        {
+            RefreshScreen();
+        }
+
+        private void RefreshScreen()
         {
             if (endDateTime <= DateTime.Now)
             {
@@ -97,25 +104,22 @@ namespace Dragonfly.Task.Notify.Common
 
             int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
             int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
-
             SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
 
             TimeSpan leftTime = endDateTime - DateTime.Now;
-
             string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
-
             ClockText = time;
         }
 
         protected override void Dispose(bool disposing)
         {
-
             if (timerTick != null)
             {
-                timerTick.Enabled = false;
+                timerTick.Stop();
                 timerTick.Dispose();
                 timerTick = null;
             }
+
             if (globalHooks != null)
             {
                 globalHooks.KeyDown -= new KeyEventHandler(GlobalHooks_KeyDown);
