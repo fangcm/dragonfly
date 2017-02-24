@@ -216,7 +216,7 @@ namespace Dragonfly.Questions.Notify
             readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
 
             mockExamUtil.SaveMockResult(readingResult);
-            this.IntervalSeconds -= savingMinutes * 60;
+            this.AddIntervalSeconds(0 - savingMinutes * 60);
         }
 
         private void btn_start_exam_Click(object sender, EventArgs e)

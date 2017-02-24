@@ -19,6 +19,12 @@ namespace Dragonfly.Task.Notify.Common
 
         private bool IsDesignMode { get; set; }
 
+        public virtual DateTime AddIntervalSeconds(int addSeconds)
+        {
+            endDateTime += TimeSpan.FromSeconds(IntervalSeconds);
+            return endDateTime;
+        }
+
         public LockScreenForm()
         {
             IsDesignMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
@@ -31,6 +37,8 @@ namespace Dragonfly.Task.Notify.Common
 #endif
 
             IntervalSeconds = 30;
+            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
+
             if (!IsDesignMode)
             {
                 this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
