@@ -79,7 +79,10 @@ namespace Dragonfly.Task.Notify.Common
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
             endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
-            timerTick.Start();
+            if (timerTick != null)
+            {
+                timerTick.Start();
+            }
         }
 
         private void LockScreenForm_Deactivate(object sender, EventArgs e)
