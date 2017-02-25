@@ -45,7 +45,7 @@
             this.btn_next = new System.Windows.Forms.Button();
             this.imageListBtn = new System.Windows.Forms.ImageList(this.components);
             this.btn_previous = new System.Windows.Forms.Button();
-            this.btn_finish = new System.Windows.Forms.Button();
+            this.btn_change = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
             this.btn_start_exam = new System.Windows.Forms.Button();
             this.panelStart = new System.Windows.Forms.Panel();
@@ -138,7 +138,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerExam);
             this.splitContainerMain.Panel2MinSize = 125;
             this.splitContainerMain.Size = new System.Drawing.Size(956, 460);
-            this.splitContainerMain.SplitterDistance = 625;
+            this.splitContainerMain.SplitterDistance = 624;
             this.splitContainerMain.SplitterWidth = 5;
             this.splitContainerMain.TabIndex = 5;
             // 
@@ -154,7 +154,7 @@
             this.txt_reading.Margin = new System.Windows.Forms.Padding(4);
             this.txt_reading.Name = "txt_reading";
             this.txt_reading.ReadOnly = true;
-            this.txt_reading.Size = new System.Drawing.Size(625, 460);
+            this.txt_reading.Size = new System.Drawing.Size(624, 460);
             this.txt_reading.TabIndex = 0;
             this.txt_reading.Text = "";
             // 
@@ -179,8 +179,8 @@
             // 
             this.splitContainerExam.Panel2.Controls.Add(this.flp_options);
             this.splitContainerExam.Panel2MinSize = 80;
-            this.splitContainerExam.Size = new System.Drawing.Size(326, 460);
-            this.splitContainerExam.SplitterDistance = 255;
+            this.splitContainerExam.Size = new System.Drawing.Size(327, 460);
+            this.splitContainerExam.SplitterDistance = 254;
             this.splitContainerExam.SplitterWidth = 5;
             this.splitContainerExam.TabIndex = 0;
             // 
@@ -195,7 +195,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(325, 50);
+            this.panel2.Size = new System.Drawing.Size(326, 50);
             this.panel2.TabIndex = 7;
             // 
             // label2
@@ -234,7 +234,7 @@
             this.txt_question.Margin = new System.Windows.Forms.Padding(4);
             this.txt_question.Name = "txt_question";
             this.txt_question.ReadOnly = true;
-            this.txt_question.Size = new System.Drawing.Size(325, 198);
+            this.txt_question.Size = new System.Drawing.Size(326, 197);
             this.txt_question.TabIndex = 2;
             this.txt_question.Text = "";
             // 
@@ -248,7 +248,7 @@
             this.flp_options.Location = new System.Drawing.Point(0, 0);
             this.flp_options.Margin = new System.Windows.Forms.Padding(4);
             this.flp_options.Name = "flp_options";
-            this.flp_options.Size = new System.Drawing.Size(326, 200);
+            this.flp_options.Size = new System.Drawing.Size(327, 201);
             this.flp_options.TabIndex = 0;
             // 
             // btn_next
@@ -261,7 +261,7 @@
             this.btn_next.ForeColor = System.Drawing.SystemColors.InfoText;
             this.btn_next.ImageKey = "right.ico";
             this.btn_next.ImageList = this.imageListBtn;
-            this.btn_next.Location = new System.Drawing.Point(246, 546);
+            this.btn_next.Location = new System.Drawing.Point(521, 546);
             this.btn_next.Margin = new System.Windows.Forms.Padding(4);
             this.btn_next.Name = "btn_next";
             this.btn_next.Size = new System.Drawing.Size(110, 40);
@@ -289,7 +289,7 @@
             this.btn_previous.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_previous.ImageKey = "left.ico";
             this.btn_previous.ImageList = this.imageListBtn;
-            this.btn_previous.Location = new System.Drawing.Point(101, 546);
+            this.btn_previous.Location = new System.Drawing.Point(377, 546);
             this.btn_previous.Margin = new System.Windows.Forms.Padding(4);
             this.btn_previous.Name = "btn_previous";
             this.btn_previous.Size = new System.Drawing.Size(110, 40);
@@ -299,31 +299,31 @@
             this.btn_previous.UseVisualStyleBackColor = false;
             this.btn_previous.Click += new System.EventHandler(this.btn_previous_Click);
             // 
-            // btn_finish
+            // btn_change
             // 
-            this.btn_finish.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_finish.BackColor = System.Drawing.Color.White;
-            this.btn_finish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
-            this.btn_finish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
-            this.btn_finish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_finish.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btn_finish.ImageKey = "finish.ico";
-            this.btn_finish.ImageList = this.imageListBtn;
-            this.btn_finish.Location = new System.Drawing.Point(391, 546);
-            this.btn_finish.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_finish.Name = "btn_finish";
-            this.btn_finish.Size = new System.Drawing.Size(110, 40);
-            this.btn_finish.TabIndex = 3;
-            this.btn_finish.Text = "Finish";
-            this.btn_finish.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_finish.UseVisualStyleBackColor = false;
-            this.btn_finish.Click += new System.EventHandler(this.btn_finish_Click);
+            this.btn_change.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btn_change.BackColor = System.Drawing.Color.White;
+            this.btn_change.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepPink;
+            this.btn_change.FlatAppearance.MouseOverBackColor = System.Drawing.Color.HotPink;
+            this.btn_change.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_change.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.btn_change.ImageKey = "finish.ico";
+            this.btn_change.ImageList = this.imageListBtn;
+            this.btn_change.Location = new System.Drawing.Point(86, 546);
+            this.btn_change.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_change.Name = "btn_change";
+            this.btn_change.Size = new System.Drawing.Size(110, 40);
+            this.btn_change.TabIndex = 3;
+            this.btn_change.Text = "Change";
+            this.btn_change.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_change.UseVisualStyleBackColor = false;
+            this.btn_change.Click += new System.EventHandler(this.btn_change_Click);
             // 
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(17)))));
             this.panelMain.Controls.Add(this.panelExam);
-            this.panelMain.Controls.Add(this.btn_finish);
+            this.panelMain.Controls.Add(this.btn_change);
             this.panelMain.Controls.Add(this.btn_previous);
             this.panelMain.Controls.Add(this.btn_next);
             this.panelMain.Location = new System.Drawing.Point(73, 15);
@@ -434,7 +434,7 @@
         private System.Windows.Forms.Label labelQuestionNo;
         private RichTextBoxEx txt_reading;
         private RichTextBoxEx txt_question;
-        private System.Windows.Forms.Button btn_finish;
+        private System.Windows.Forms.Button btn_change;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Button btn_start_exam;
         private System.Windows.Forms.Panel panelStart;

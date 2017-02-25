@@ -119,6 +119,7 @@ namespace Dragonfly.Questions.Creator
                 foreach (ReadingNode readingNode in examNode.Nodes)
                 {
                     Reading reading = readingNode.Reading;
+                    reading.Questions.Clear();
                     foreach (QuestionNode questionNode in readingNode.Nodes)
                     {
                         Question question = questionNode.Question;

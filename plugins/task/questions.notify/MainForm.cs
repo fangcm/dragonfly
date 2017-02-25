@@ -29,21 +29,38 @@ namespace Dragonfly.Questions.Notify
         public MainForm()
         {
             InitializeComponent();
+
+#if DEBUG
+            this.IsDebugMode = true;
+#endif
+
             this.panelMain.Visible = false;
             this.panelStart.Visible = true;
             this.panelMain.Dock = DockStyle.Fill;
             this.panelStart.Dock = DockStyle.Fill;
 
-            btn_next.Enabled = false;
-            btn_previous.Enabled = false;
-            btn_finish.Enabled = false;
+            this.label_tip.Text = "Please do exercises and SAVE time .";
+        }
 
-            this.label_tip.Text = "Please do the exercises and SAVE time .";
+        private void btn_start_exam_Click(object sender, EventArgs e)
+        {
+            this.panelStart.Visible = false;
+            this.panelMain.Visible = true;
+
+            Reading reading = mockExamUtil.GetMockReading();
+            if (reading == null)
+            {
+                Clear();
+                return;
+            }
+            this.btn_previous.Enabled = true;
+            this.btn_next.Enabled = true;
+
+            Init(reading);
         }
 
         private void Init(Reading reading)
         {
-            btn_finish.Enabled = true;
             this.reading = reading;
             currentQuestionIndex = 0;
             userAnswers = new object[reading.Questions.Count];
@@ -51,8 +68,27 @@ namespace Dragonfly.Questions.Notify
             PrintQuestionToScreen();
         }
 
+        private void Clear()
+        {
+            this.btn_previous.Enabled = false;
+            this.btn_next.Enabled = false;
+
+            labelReadingTitle.Text = "";
+            txt_reading.Text = "";
+            labelQuestionNo.Text = "";
+            txt_question.Text = "";
+
+            RemoveOptions();
+        }
+
         private void btn_previous_Click(object sender, EventArgs e)
         {
+            if (currentQuestionIndex <= 0)
+            {
+                MessageBox.Show(this, "It's the first question.", "Tips", MessageBoxButtons.OK);
+                return;
+            }
+
             userAnswers[currentQuestionIndex] = SelectedAnswer();
 
             currentQuestionIndex--;
@@ -61,6 +97,16 @@ namespace Dragonfly.Questions.Notify
 
         private void btn_next_Click(object sender, EventArgs e)
         {
+            if (currentQuestionIndex >= reading.Questions.Count - 1)
+            {
+                if(MessageBox.Show(this, "This is the last question,, Do you want to end exercises ?", "Tips",MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    FinishExam();
+                    this.panelMain.Visible = false;
+                    this.panelStart.Visible = true;
+                }
+                return;
+            }
+
             userAnswers[currentQuestionIndex] = SelectedAnswer();
 
             currentQuestionIndex++;
@@ -79,19 +125,6 @@ namespace Dragonfly.Questions.Notify
             {
                 labelReadingTitle.Text = reading.Title;
                 txt_reading.Text = reading.Text;
-                btn_previous.Enabled = false;
-            }
-            else
-            {
-                btn_previous.Enabled = true;
-            }
-            if (currentQuestionIndex == reading.Questions.Count - 1)
-            {
-                btn_next.Enabled = false;
-            }
-            else
-            {
-                btn_next.Enabled = true;
             }
 
             txt_reading.SetLineHeight(1, 0);
@@ -178,8 +211,7 @@ namespace Dragonfly.Questions.Notify
             }
         }
 
-
-        private void btn_finish_Click(object sender, EventArgs e)
+        private void FinishExam()
         {
             //Save current answer
             userAnswers[currentQuestionIndex] = SelectedAnswer();
@@ -205,10 +237,17 @@ namespace Dragonfly.Questions.Notify
                 }
             }
 
-            int savingMinutes = Convert.ToInt32((decimal)numOfCorrectAnswers / reading.Questions.Count * mockExamUtil.Examination.ExamProperties.Score);
-            this.label_tip.Text = string.Format("You answered {0} questions, {1} correctly, saving {2} minutes .", numOfAnswers, numOfCorrectAnswers, savingMinutes);
-            this.panelMain.Visible = false;
-            this.panelStart.Visible = true;
+            decimal temp = numOfCorrectAnswers;
+            if (mockExamUtil.Examination.ExamProperties.Score < 1)
+            {
+                temp = 0;
+            }
+            else
+            {
+                temp = (temp / reading.Questions.Count * mockExamUtil.Examination.ExamProperties.Score);
+            }
+            int savingMinutes = Convert.ToInt32(temp);
+            this.label_tip.Text = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
 
             ReadingResult readingResult = new ReadingResult();
             readingResult.Title = reading.Title;
@@ -219,18 +258,22 @@ namespace Dragonfly.Questions.Notify
             this.AddIntervalSeconds(0 - savingMinutes * 60);
         }
 
-        private void btn_start_exam_Click(object sender, EventArgs e)
+        private void btn_change_Click(object sender, EventArgs e)
         {
-            this.panelStart.Visible = false;
-            this.panelMain.Visible = true;
-
-            Reading reading = mockExamUtil.GetMockReading();
-            if (reading == null)
+            if (reading != null)
             {
-                return;
+                if (MessageBox.Show(this, "Waste 5 minutes to change incomplete exercises, are you sure?", "Tips", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    return;
+                }
+                this.AddIntervalSeconds(300);
             }
+            this.panelMain.Visible = false;
+            this.panelStart.Visible = true;
 
-            Init(reading);
         }
+
+
+
     }
 }

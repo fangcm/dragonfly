@@ -54,7 +54,11 @@ namespace Dragonfly.Questions.Notify
                 }
                 ExamFileName = eqfs.ElementAt(0);
                 Examination = Helper.LoadExaminationFromFile(ExamFileName);
+
                 CurrentReadingIndex = 0;
+                if (Examination.Readings.Count <= CurrentReadingIndex)
+                    return null;
+
                 return Examination.Readings[CurrentReadingIndex];
             }
             else
@@ -64,7 +68,11 @@ namespace Dragonfly.Questions.Notify
                 {
                     ExamFileName = mockResult.ResultProperties.LastFileName;
                     Examination = Helper.LoadExaminationFromFile(ExamFileName);
+
                     CurrentReadingIndex = mockResult.ResultProperties.LasReadingIndex + 1;
+                    if (Examination.Readings.Count <= CurrentReadingIndex)
+                        return null;
+
                     return Examination.Readings[CurrentReadingIndex];
                 }
             }
@@ -72,13 +80,26 @@ namespace Dragonfly.Questions.Notify
             foreach (string eqf in eqfs)
             {
                 Practice practice = mockResult.Practices.FirstOrDefault(s => s.FileName == eqf);
-                if (practice != null)
-                {
-                    continue;
-                }
                 ExamFileName = eqf;
                 Examination = Helper.LoadExaminationFromFile(ExamFileName);
+
+                if (practice != null)
+                {
+                    ReadingResult readingResult = practice.ReadingResults.FirstOrDefault(s => s.NumberOfCorrectAnswers < s.NumberOfQuestions);
+                    if(readingResult != null)
+                    {
+                        Reading reading = Examination.Readings.FirstOrDefault(s => s.Title == readingResult.Title);
+                        if (reading != null)
+                        {
+                            return reading;
+                        }
+                    }
+                    continue;
+                }
                 CurrentReadingIndex = 0;
+                if (Examination.Readings.Count <= CurrentReadingIndex)
+                    return null;
+
                 return Examination.Readings[CurrentReadingIndex];
             }
 
@@ -87,7 +108,7 @@ namespace Dragonfly.Questions.Notify
 
         public void SaveMockResult(ReadingResult readingResult)
         {
-            if(readingResult.NumberOfCorrectAnswers == 0)
+            if (readingResult.NumberOfCorrectAnswers == 0)
             {
                 return;
             }

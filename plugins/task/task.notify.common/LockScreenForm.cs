@@ -18,39 +18,21 @@ namespace Dragonfly.Task.Notify.Common
         public virtual string ClockText { get; set; }
 
         private bool IsDesignMode { get; set; }
+        public bool IsDebugMode { get; set; }
 
         public virtual DateTime AddIntervalSeconds(int addSeconds)
         {
-            endDateTime += TimeSpan.FromSeconds(IntervalSeconds);
+            endDateTime += TimeSpan.FromSeconds(addSeconds);
             return endDateTime;
         }
 
         public LockScreenForm()
         {
             IsDesignMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
+            IsDebugMode = false;
+            IntervalSeconds = 30;
 
             Initialize();
-
-#if DEBUG
-            this.ControlBox = true;
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-#endif
-
-            IntervalSeconds = 30;
-            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
-
-            if (!IsDesignMode)
-            {
-                this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
-
-                this.timerTick = new Timer();
-                this.timerTick.Enabled = false;
-                this.timerTick.Interval = 100;
-                this.timerTick.Tick += new EventHandler(this.timerTick_Elapsed);
-
-                globalHooks = new UserActivityHook(false, true);
-                globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
-            }
         }
 
         ~LockScreenForm()
@@ -68,7 +50,7 @@ namespace Dragonfly.Task.Notify.Common
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.Bounds = Screen.PrimaryScreen.Bounds;
-            //this.ClientSize = new System.Drawing.Size(450, 300);
+            this.ClientSize = Screen.PrimaryScreen.Bounds.Size;
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -86,10 +68,29 @@ namespace Dragonfly.Task.Notify.Common
 
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
-            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
-            if (timerTick != null)
+            if (IsDebugMode)
             {
-                timerTick.Start();
+                this.TopMost = false;
+                this.ControlBox = true;
+                this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            }
+            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
+
+            if (!IsDesignMode)
+            {
+                this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
+
+                this.timerTick = new Timer();
+                this.timerTick.Enabled = false;
+                this.timerTick.Interval = 100;
+                this.timerTick.Tick += new EventHandler(this.timerTick_Elapsed);
+                this.timerTick.Start();
+
+                if (!IsDebugMode)
+                {
+                    globalHooks = new UserActivityHook(false, true);
+                    globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
+                }
             }
         }
 
@@ -111,11 +112,14 @@ namespace Dragonfly.Task.Notify.Common
                 return;
             }
 
-            KillTaskmgr();
+            if (!IsDebugMode)
+            {
+                KillTaskmgr();
 
-            int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-            int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
-            SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
+                int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+                int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
+                SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
+            }
 
             TimeSpan leftTime = endDateTime - DateTime.Now;
             string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
