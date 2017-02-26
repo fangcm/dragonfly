@@ -35,8 +35,8 @@ namespace Dragonfly.Questions.Notify
 #endif
 
             this.panelMain.Visible = false;
-            this.panelStart.Visible = true;
             this.panelMain.Dock = DockStyle.Fill;
+            this.panelStart.Visible = true;
             this.panelStart.Dock = DockStyle.Fill;
 
             this.label_tip.Text = "Please do exercises and SAVE time .";
