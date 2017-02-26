@@ -7,34 +7,53 @@ namespace Dragonfly.Plugin.Task
 {
     internal class JobSetting
     {
-        internal const int NotifyInternalType_None = 0;
+        internal const int LockScreenApp_Basic = 0;
+
+        internal const int NotifyInternalType_None = 0; //无操作
         internal const int NotifyInternalType_ShutDown = 1;
         internal const int NotifyInternalType_Hibernate = 2;
 
         private static JobSetting instance;
         private static readonly object locker = new object();
 
-        private string sSettingsFileName;
+        public string SettingsFileName { get; private set; }
 
-        private string description = "健康是生命之本，保护视力，从娃娃开始！";
-        private int intervalMinutes = 60; //重复间隔
-        private bool isTooLateLockScreen = true;
-        private DateTime tooLateTriggerTime = new DateTime(2017, 2, 15, 22, 0, 0);
-        private int tooLateMinutes = 60;
-        private bool isLockScreen = true;
-        private int lockScreenMinutes = 60;
-        private int notifyInternalType = 0; //无操作
-        private bool isNotifyRunApp = false;
-        private string notifyRunApp = string.Empty;
-        private string notifyRunAppParam = string.Empty;
-        private string notifyRunAppStartpath = string.Empty;
+        public string Description { get; set; }
+        public int IntervalMinutes { get; set; }
+        public bool IsTooLateLockScreen { get; set; }
+        public DateTime TooLateTriggerTime { get; set; }
+        public int TooLateMinutes { get; set; }
+        public bool IsLockScreen { get; set; }
+        public int LockScreenMinutes { get; set; }
+        public int LockScreenApp { get; set; }
+        public int NotifyInternalType { get; set; }
+        public bool IsNotifyRunApp { get; set; }
+        public string NotifyRunApp { get; set; }
+        public string NotifyRunAppParam { get; set; }
+        public string NotifyRunAppStartpath { get; set; }
+        public DateTime LastTriggerTime { get; set; }
 
-        private DateTime lastTriggerTime = DateTime.MinValue; //上次触发时间
 
         private JobSetting()
         {
             string path = AppConfig.WorkingPath;
-            this.sSettingsFileName = Path.Combine(path, "TaskSettings.xml");
+            SettingsFileName = Path.Combine(path, "TaskSettings.xml");
+
+            Description = "健康是生命之本，保护视力，从娃娃开始！";
+            IntervalMinutes = 60; //重复间隔
+            IsTooLateLockScreen = true;
+            TooLateTriggerTime = new DateTime(2017, 2, 15, 22, 0, 0);
+            TooLateMinutes = 60;
+            IsLockScreen = true;
+            LockScreenMinutes = 60;
+            LockScreenApp = LockScreenApp_Basic;
+            NotifyInternalType = NotifyInternalType_None;
+            IsNotifyRunApp = false;
+            NotifyRunApp = string.Empty;
+            NotifyRunAppParam = string.Empty;
+            NotifyRunAppStartpath = string.Empty;
+            LastTriggerTime = DateTime.MinValue; //上次触发时间
+
         }
 
         public static JobSetting GetInstance()
@@ -54,114 +73,37 @@ namespace Dragonfly.Plugin.Task
             return instance;
         }
 
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-
-        public int IntervalMinutes
-        {
-            get { return intervalMinutes; }
-            set { intervalMinutes = value; }
-        }
-
-        public bool IsTooLateLockScreen
-        {
-            get { return isTooLateLockScreen; }
-            set { isTooLateLockScreen = value; }
-        }
-
-        public DateTime TooLateTriggerTime
-        {
-            get { return tooLateTriggerTime; }
-            set { tooLateTriggerTime = value; }
-        }
-
-        public int TooLateMinutes
-        {
-            get { return tooLateMinutes; }
-            set { tooLateMinutes = value; }
-        }
-
-        public bool IsLockScreen
-        {
-            get { return isLockScreen; }
-            set { isLockScreen = value; }
-        }
-
-        public int LockScreenMinutes
-        {
-            get { return lockScreenMinutes; }
-            set { lockScreenMinutes = value; }
-        }
-
-        public int NotifyInternalType
-        {
-            get { return notifyInternalType; }
-            set { notifyInternalType = value; }
-        }
-
-
-        public bool IsNotifyRunApp
-        {
-            get { return isNotifyRunApp; }
-            set { isNotifyRunApp = value; }
-        }
-
-        public string NotifyRunApp
-        {
-            get { return notifyRunApp; }
-            set { notifyRunApp = value; }
-        }
-
-        public string NotifyRunAppParam
-        {
-            get { return notifyRunAppParam; }
-            set { notifyRunAppParam = value; }
-        }
-
-        public string NotifyRunAppStartpath
-        {
-            get { return notifyRunAppStartpath; }
-            set { notifyRunAppStartpath = value; }
-        }
-
-        public DateTime LastTriggerTime
-        {
-            get { return lastTriggerTime; }
-            set { lastTriggerTime = value; }
-        }
-
         public bool Load()
         {
             lock (locker)
             {
                 XmlHelper xmlHelper = new XmlHelper();
-                bool loaded = xmlHelper.Load(sSettingsFileName);
+                bool loaded = xmlHelper.Load(SettingsFileName);
                 if (!loaded)
                 {
-                    lockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", lockScreenMinutes);
-                    intervalMinutes = AppConfig.GetInt("task.IntervalMinutes", intervalMinutes);
-                    isTooLateLockScreen = AppConfig.GetBoolean("task.IsTooLateLockScreen", isTooLateLockScreen);
+                    LockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", LockScreenMinutes);
+                    LockScreenApp = AppConfig.GetInt("task.LockScreenApp", LockScreenApp);
+                    IntervalMinutes = AppConfig.GetInt("task.IntervalMinutes", IntervalMinutes);
+                    IsTooLateLockScreen = AppConfig.GetBoolean("task.IsTooLateLockScreen", IsTooLateLockScreen);
                     return false;
                 }
 
                 XmlNode xmlNode = xmlHelper.Document.SelectSingleNode("/TaskSettings/NotifyJob");
 
-                description = XmlHelper.GetElementText(xmlNode, "Description", description);
-                intervalMinutes = XmlHelper.GetInt(xmlNode, "IntervalMinutes", intervalMinutes);
-                isTooLateLockScreen = XmlHelper.GetBoolean(xmlNode, "IsTooLateLockScreen", isTooLateLockScreen);
-                tooLateTriggerTime = XmlHelper.GetDateTime(xmlNode, "TooLateTriggerTime", tooLateTriggerTime);
-                tooLateMinutes = XmlHelper.GetInt(xmlNode, "TooLateMinutes", tooLateMinutes);
-                isLockScreen = XmlHelper.GetBoolean(xmlNode, "IsLockScreen", isLockScreen);
-                lockScreenMinutes = XmlHelper.GetInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
-                notifyInternalType = XmlHelper.GetInt(xmlNode, "NotifyInternalType", notifyInternalType);
-                isNotifyRunApp = XmlHelper.GetBoolean(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
-                notifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp", notifyRunApp);
-                notifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
-                notifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
-                lastTriggerTime = XmlHelper.GetDateTime(xmlNode, "LastTriggerTime", DateTime.MinValue);
+                Description = XmlHelper.GetElementText(xmlNode, "Description", Description);
+                IntervalMinutes = XmlHelper.GetInt(xmlNode, "IntervalMinutes", IntervalMinutes);
+                IsTooLateLockScreen = XmlHelper.GetBoolean(xmlNode, "IsTooLateLockScreen", IsTooLateLockScreen);
+                TooLateTriggerTime = XmlHelper.GetDateTime(xmlNode, "TooLateTriggerTime", TooLateTriggerTime);
+                TooLateMinutes = XmlHelper.GetInt(xmlNode, "TooLateMinutes", TooLateMinutes);
+                IsLockScreen = XmlHelper.GetBoolean(xmlNode, "IsLockScreen", IsLockScreen);
+                LockScreenMinutes = XmlHelper.GetInt(xmlNode, "LockScreenMinutes", LockScreenMinutes);
+                LockScreenApp = XmlHelper.GetInt(xmlNode, "LockScreenApp", LockScreenApp);
+                NotifyInternalType = XmlHelper.GetInt(xmlNode, "NotifyInternalType", NotifyInternalType);
+                IsNotifyRunApp = XmlHelper.GetBoolean(xmlNode, "IsNotifyRunApp", IsNotifyRunApp);
+                NotifyRunApp = XmlHelper.GetElementText(xmlNode, "NotifyRunApp", NotifyRunApp);
+                NotifyRunAppParam = XmlHelper.GetElementText(xmlNode, "NotifyRunAppParam", NotifyRunAppParam);
+                NotifyRunAppStartpath = XmlHelper.GetElementText(xmlNode, "NotifyRunAppStartpath", NotifyRunAppStartpath);
+                LastTriggerTime = XmlHelper.GetDateTime(xmlNode, "LastTriggerTime", DateTime.MinValue);
 
                 return true;
             }
@@ -178,34 +120,35 @@ namespace Dragonfly.Plugin.Task
                 XmlNode xmlNode = xmlHelper.Document.CreateElement("NotifyJob");
                 xmlRoot.AppendChild(xmlNode);
 
-                XmlHelper.PutElementText(xmlNode, "Description", description);
-                XmlHelper.PutInt(xmlNode, "IntervalMinutes", intervalMinutes);
-                XmlHelper.PutBoolean(xmlNode, "IsTooLateLockScreen", isTooLateLockScreen);
-                XmlHelper.PutDateTime(xmlNode, "TooLateTriggerTime", tooLateTriggerTime);
-                XmlHelper.PutInt(xmlNode, "TooLateMinutes", tooLateMinutes);
-                XmlHelper.PutBoolean(xmlNode, "IsLockScreen", isLockScreen);
-                XmlHelper.PutInt(xmlNode, "LockScreenMinutes", lockScreenMinutes);
-                XmlHelper.PutInt(xmlNode, "NotifyInternalType", notifyInternalType);
-                XmlHelper.PutBoolean(xmlNode, "IsNotifyRunApp", isNotifyRunApp);
-                XmlHelper.PutElementText(xmlNode, "NotifyRunApp", notifyRunApp);
-                XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", notifyRunAppParam);
-                XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", notifyRunAppStartpath);
-                XmlHelper.PutDateTime(xmlNode, "LastTriggerTime", lastTriggerTime);
+                XmlHelper.PutElementText(xmlNode, "Description", Description);
+                XmlHelper.PutInt(xmlNode, "IntervalMinutes", IntervalMinutes);
+                XmlHelper.PutBoolean(xmlNode, "IsTooLateLockScreen", IsTooLateLockScreen);
+                XmlHelper.PutDateTime(xmlNode, "TooLateTriggerTime", TooLateTriggerTime);
+                XmlHelper.PutInt(xmlNode, "TooLateMinutes", TooLateMinutes);
+                XmlHelper.PutBoolean(xmlNode, "IsLockScreen", IsLockScreen);
+                XmlHelper.PutInt(xmlNode, "LockScreenMinutes", LockScreenMinutes);
+                XmlHelper.PutInt(xmlNode, "LockScreenApp", LockScreenApp);
+                XmlHelper.PutInt(xmlNode, "NotifyInternalType", NotifyInternalType);
+                XmlHelper.PutBoolean(xmlNode, "IsNotifyRunApp", IsNotifyRunApp);
+                XmlHelper.PutElementText(xmlNode, "NotifyRunApp", NotifyRunApp);
+                XmlHelper.PutElementText(xmlNode, "NotifyRunAppParam", NotifyRunAppParam);
+                XmlHelper.PutElementText(xmlNode, "NotifyRunAppStartpath", NotifyRunAppStartpath);
+                XmlHelper.PutDateTime(xmlNode, "LastTriggerTime", LastTriggerTime);
 
-                return xmlHelper.Save(sSettingsFileName);
+                return xmlHelper.Save(SettingsFileName);
             }
         }
 
         public int CaculateSchedulerInterval()
         {
-            return intervalMinutes + LockScreenMinutes;
+            return IntervalMinutes + LockScreenMinutes;
         }
 
         public int CaculateRemainingMinutes()
         {
-            if (!DateTime.MinValue.Equals(lastTriggerTime) && lastTriggerTime.AddMinutes(LockScreenMinutes).CompareTo(DateTime.Now) > 0)
+            if (!DateTime.MinValue.Equals(LastTriggerTime) && LastTriggerTime.AddMinutes(LockScreenMinutes).CompareTo(DateTime.Now) > 0)
             {
-                return LockScreenMinutes - Convert.ToInt32((DateTime.Now - lastTriggerTime).TotalMinutes);
+                return LockScreenMinutes - Convert.ToInt32((DateTime.Now - LastTriggerTime).TotalMinutes);
             }
 
             return 0;
@@ -216,10 +159,10 @@ namespace Dragonfly.Plugin.Task
             int remainingMinutes = CaculateRemainingMinutes();
             if (remainingMinutes > 0)
             {
-                return DateTime.Now.AddMinutes(remainingMinutes + intervalMinutes);
+                return DateTime.Now.AddMinutes(remainingMinutes + IntervalMinutes);
             }
 
-            int minutes = intervalMinutes;
+            int minutes = IntervalMinutes;
             if (suspendCount >= 3)
             {
                 minutes /= 3;

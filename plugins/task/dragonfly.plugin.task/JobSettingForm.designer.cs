@@ -62,6 +62,7 @@
             this.checkBoxRunApp = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.checkBoxUseQuestionNotify = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -96,7 +97,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Size = new System.Drawing.Size(611, 457);
-            this.splitContainer1.SplitterDistance = 405;
+            this.splitContainer1.SplitterDistance = 404;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -109,7 +110,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 405);
+            this.tabControl1.Size = new System.Drawing.Size(611, 404);
             this.tabControl1.TabIndex = 0;
             // 
             // SchetabTriggers
@@ -122,7 +123,7 @@
             this.SchetabTriggers.Margin = new System.Windows.Forms.Padding(4);
             this.SchetabTriggers.Name = "SchetabTriggers";
             this.SchetabTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Size = new System.Drawing.Size(603, 376);
+            this.SchetabTriggers.Size = new System.Drawing.Size(603, 375);
             this.SchetabTriggers.TabIndex = 1;
             this.SchetabTriggers.Text = "触发时间";
             this.SchetabTriggers.UseVisualStyleBackColor = true;
@@ -285,6 +286,7 @@
             // 
             // tabPageExecute
             // 
+            this.tabPageExecute.Controls.Add(this.checkBoxUseQuestionNotify);
             this.tabPageExecute.Controls.Add(this.checkBoxLockScreen);
             this.tabPageExecute.Controls.Add(this.labelInternal);
             this.tabPageExecute.Controls.Add(this.numericUpDownLockScreen);
@@ -295,7 +297,7 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 376);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 375);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;
@@ -506,6 +508,17 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
+            // checkBoxUseQuestionNotify
+            // 
+            this.checkBoxUseQuestionNotify.AutoSize = true;
+            this.checkBoxUseQuestionNotify.Location = new System.Drawing.Point(312, 20);
+            this.checkBoxUseQuestionNotify.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxUseQuestionNotify.Name = "checkBoxUseQuestionNotify";
+            this.checkBoxUseQuestionNotify.Size = new System.Drawing.Size(134, 19);
+            this.checkBoxUseQuestionNotify.TabIndex = 7;
+            this.checkBoxUseQuestionNotify.Text = "锁屏时做练习题";
+            this.checkBoxUseQuestionNotify.UseVisualStyleBackColor = true;
+            // 
             // JobSettingForm
             // 
             this.AcceptButton = this.buttonOK;
@@ -581,5 +594,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerTooLate;
         private System.Windows.Forms.NumericUpDown numericUpDownTooLate;
         private System.Windows.Forms.Label labelTooLate2;
+        private System.Windows.Forms.CheckBox checkBoxUseQuestionNotify;
     }
 }

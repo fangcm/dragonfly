@@ -75,6 +75,12 @@ namespace Dragonfly.Plugin.Task
             set { numericUpDownLockScreen.Value = value; }
         }
 
+        public int LockScreenApp
+        {
+            get { return this.checkBoxUseQuestionNotify.Checked ? 1 : 0; }
+            set { this.checkBoxUseQuestionNotify.Checked = (value == 1); }
+        }
+
         public bool IsNotifyRunApp
         {
             get { return this.checkBoxRunApp.Checked; }
@@ -115,6 +121,7 @@ namespace Dragonfly.Plugin.Task
             TooLateMinutes = setting.TooLateMinutes;
             IsLockScreen = setting.IsLockScreen;
             LockScreenMinutes = setting.LockScreenMinutes;
+            LockScreenApp = setting.LockScreenApp;
             NotifyInternalType = setting.NotifyInternalType;
             IsNotifyRunApp = setting.IsNotifyRunApp;
             NotifyRunApp = setting.NotifyRunApp;
@@ -125,6 +132,7 @@ namespace Dragonfly.Plugin.Task
             this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.Data_Changed);
             this.checkBoxLockScreen.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.numericUpDownLockScreen.ValueChanged += new System.EventHandler(this.Data_Changed);
+            this.checkBoxUseQuestionNotify.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonHibernate.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonShutdown.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonNone.CheckedChanged += new System.EventHandler(this.Data_Changed);
@@ -164,6 +172,7 @@ namespace Dragonfly.Plugin.Task
                 setting.TooLateMinutes = TooLateMinutes;
                 setting.IsLockScreen = IsLockScreen;
                 setting.LockScreenMinutes = LockScreenMinutes;
+                setting.LockScreenApp = LockScreenApp;
                 setting.NotifyInternalType = NotifyInternalType;
                 setting.IsNotifyRunApp = IsNotifyRunApp;
                 setting.NotifyRunApp = NotifyRunApp;
