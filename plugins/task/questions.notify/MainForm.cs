@@ -74,9 +74,9 @@ namespace Dragonfly.Questions.Notify
             this.btn_next.Enabled = false;
 
             labelReadingTitle.Text = "";
-            txt_reading.Text = "";
+            txt_reading.Clear();
             labelQuestionNo.Text = "";
-            txt_question.Text = "";
+            txt_question.Clear();
 
             RemoveOptions();
         }
@@ -118,17 +118,22 @@ namespace Dragonfly.Questions.Notify
             RemoveOptions();
             Question question = reading.Questions[currentQuestionIndex];
             labelQuestionNo.Text = question.No.ToString();
+            txt_question.SetLineHeight(1, 0);
             txt_question.Text = question.Text;
             AddOptions(question.Options, question.IsMultipleChoice);
 
             if (currentQuestionIndex == 0)
             {
                 labelReadingTitle.Text = reading.Title;
-                txt_reading.Text = reading.Text;
+
+                txt_reading.Clear();
+                txt_reading.SelectionIndent = 60;
+                txt_reading.SelectionHangingIndent = -40;
+                txt_reading.SelectionRightIndent = 12;
+                txt_reading.SetLineHeight(1, 0);
+                txt_reading.SelectedText = reading.Text;
             }
 
-            txt_reading.SetLineHeight(1, 0);
-            txt_question.SetLineHeight(1, 0);
         }
 
         private void AddOptions(List<Option> options, bool isMultipleChoice)

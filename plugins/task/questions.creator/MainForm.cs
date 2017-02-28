@@ -241,8 +241,13 @@ namespace Dragonfly.Questions.Creator
 
                 Reading reading = ((ReadingNode)treeViewExam.SelectedNode).Reading;
                 txt_reading_title.Text = reading.Title;
-                txt_reading_text.Text = reading.Text;
+
+                txt_reading_text.Clear();
+                txt_reading_text.SelectionIndent = 60;
+                txt_reading_text.SelectionHangingIndent = -40;
+                txt_reading_text.SelectionRightIndent = 12;
                 txt_reading_text.SetLineHeight(1, 0);
+                txt_reading_text.SelectedText = reading.Text;
 
                 txt_reading_title.TextChanged += new System.EventHandler(this.Changed);
                 txt_reading_text.TextChanged += new System.EventHandler(this.Changed);

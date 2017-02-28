@@ -1,359 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Examination xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ExamProperties Score="25">
-    <Title>高一英语阅读理解50篇</Title>
+  <ExamProperties Score="30">
+    <Title>高三阅读理解练习20篇</Title>
   </ExamProperties>
   <Readings>
     <Reading>
-      <Title>Passage 1</Title>
-      <Text><![CDATA[    One day an ant was drinking at a small stream and fell in. She made desperate efforts to reach the side, but made no progress a    t all. The poor ant almost exhausted was still bravely doing her best when a dove saw her. Moved with pity, the bird threw her a blade of grass, which supported her like a raft, and thus the ant reached the bank again. While she was resting and drying herself in the grass, she heard a man come near. He was walking along barefooted with a gun in his hand. As soon as he saw the dove, he wished to kill it. He would certainly have done so, but the ant bit him in the foot just as he raised his gun to fire. He stopped to see what had bit him, and the dove immediately flew away. It was an animal much weaker and smaller than herself that had saved her life. ]]></Text>
+      <Title>A</Title>
+      <Text><![CDATA[As an experienced photojournalist in Nashville, Tennessee, I was hired by USA Today newspaper to photograph a spinal bifida (脊柱畸形) corrective surgical procedure. It was to be performed on a twenty-one week old fetus（胎儿） in uterus（子宫） at Vanderbilt University Medical Center. At that time, in 1999, twenty-one weeks in uterus was the earliest that the surgical team would consider for surgery. The worst possible outcome would be that the surgery would cause premature delivery, and no child born earlier than twenty-three weeks had survived. 
+The tension could be felt in the operating room as the surgery began. A typical C-section incision(切口) was made to access the uterus, which was then lifted out and laid at the junction of the mother's thighs. The entire procedure would take place within the uterus, and no part of the child was to breach the surgical opening. During the procedure, the position of the fetus was adjusted by gently manipulating the outside of the uterus. The entire surgical procedure on the child was completed in one hour and thirteen minutes. When it was over, the surgical team breathed a sigh of relief, as did I. 
+As a doctor asked me what speed of film I was using, out of the corner of my eye I saw the uterus shake, but no one's hands were near it. It was shaking from within. Suddenly, an entire arm thrust out of the opening, then pulled back until just a little hand was showing. The doctor reached over and lifted the hand, which reacted and squeezed the doctor's finger. As if testing for strength, the doctor shook the tiny fist. Samuel held firm. I took the picture! Wow! It happened so fast that the nurse standing next to me asked, "What happened?" "The child reached out," I said. "Oh. They do that all the time," she responded. 
+The surgical opening to the uterus was closed and the uterus was then put back into the mother and the C-section opening was closed.
+It was ten days before I knew if the picture was even in focus. To ensure no digital manipulation of images before they see them, USA Today requires that film be submitted unprocessed. When the photo editor finally phoned me he said, "It's the most incredible picture I've ever seen."
+]]></Text>
       <Questions>
         <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>The ant could not reach the side though _______</Text>
+          <Text>1. In 1999，people believed that it was ________.</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>she cried for help</Text>
+              <Text>possible for a fetus 21 weeks born to survive </Text>
             </Option>
             <Option Alphabet="66">
-              <Text>she asked the dove to save her</Text>
+              <Text>likely for a fetus born 21 weeks to become deformed</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>she tried very hard</Text>
+              <Text>right time for a fetus born 21 weeks to receive an operation</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>she could smell well</Text>
+              <Text>risky for a fetus 21 weeks in uterus to receive an operation</Text>
             </Option>
           </Options>
         </Question>
-        <Question No="2" Answer="0" IsMultipleChoice="false">
-          <Text>The dove saved the ant because _______. </Text>
+        <Question No="1" Answer="0" IsMultipleChoice="false">
+          <Text>2. From the second paragraph, we can see that the surgery was ______.</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>she was the ant's friend</Text>
+              <Text>challenging but successful</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>she took pity on the poor ant</Text>
+              <Text>demanding and unsuccessful</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>the ant was almost exhausted</Text>
+              <Text>simple and short</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>the ant had been struggled in the water for a long time</Text>
+              <Text>long-lasting and difficult</Text>
             </Option>
           </Options>
         </Question>
-        <Question No="3" Answer="0" IsMultipleChoice="false">
-          <Text>The ant succeeded in getting on the bank with the help of _______.</Text>
+        <Question No="1" Answer="0" IsMultipleChoice="false">
+          <Text>3. The underlined “It” in paragraph 3 refers to ________.</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>a leaf</Text>
+              <Text>the shaking of the uterus</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>piece of wood</Text>
+              <Text>the arm of the fetus </Text>
             </Option>
             <Option Alphabet="67">
-              <Text>a blade of grass</Text>
+              <Text>the taking of the picture	</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>a raft</Text>
+              <Text>the head of the fetus</Text>
             </Option>
           </Options>
         </Question>
-        <Question No="4" Answer="0" IsMultipleChoice="false">
-          <Text>Just as the man shot at the dove, _______</Text>
+        <Question No="1" Answer="0" IsMultipleChoice="false">
+          <Text>4. What can we learn about the author?  </Text>
           <Options>
             <Option Alphabet="65">
-              <Text>the dove immediately flew away</Text>
+              <Text>He was an experienced interviewer.</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>the dove hid himself in the grass</Text>
+              <Text>He was a wonderful picture editor.	</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>the ant told the dove to leave at once</Text>
+              <Text>He was an excellent picture journalist.</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>he felt something biting him in the foot</Text>
+              <Text>He was a very famous child doctor. </Text>
             </Option>
           </Options>
         </Question>
-        <Question No="5" Answer="0" IsMultipleChoice="false">
-          <Text>In writing the story, the writer wants to show _______. </Text>
+        <Question No="1" Answer="0" IsMultipleChoice="false">
+          <Text>5. From the editor said in the last paragraph, we know the editor was very ______.</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>how clever the ant was</Text>
+              <Text>disappointed</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>how kind the dove was</Text>
+              <Text>satisfied	</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>how the ant and the dove helped each other</Text>
+              <Text>annoyed	</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>we often need help from others, therefore we should help others as much as we can</Text>
+              <Text>Surprised </Text>
             </Option>
           </Options>
         </Question>
       </Questions>
     </Reading>
     <Reading>
-      <Title>Passage 2</Title>
-      <Text><![CDATA[Johnny Smith was a good math student at a high school. He loved his computer. He came home early every day, then he worked with it till midnight. But Johnny was not a good English student, not good at all. He got an F in his English class. One day after school Johnny joined his computer to the computer in his high school office. The school office computer had the grades of all the students: the math grades, the science grades, the grades in arts and music, and the grades in English. He found his English grade. An F! Johnny changed his English grade from an F to A. Johnny' parents looked at his report card. They were very happy. 
- "An A in English!" said Johnny's Dad. "You're a very clever boy, Johnny." 
- Johnny is a hacker. Hackers know how to take informationfrom other computers and put new information in. Using a modem, they join their computers to other computers  secretly. School headmasters and teachers are worried about hackers. So are the police, for some people even take money from bank computer accountand put it into their own ones. And they never have to leave home to do it! They are called hackers.]]></Text>
+      <Title>B</Title>
+      <Text><![CDATA[         Losing a baby tooth can be fun for a kid. You can put it under your pillow and look forward to finding some money there in the morning. And then you can watch your new permanent(永恒的) tooth grow in its place.
+But if a permanent tooth falls out, that’s a problem. There isn’t another one under the gum(齿龈)that can replace it. Unfortunately, this happens to some older people. And if permanent teeth fall out or need to be pulled, an older person might need dentures.
+Dentures, known as false teeth, are a set of replacement teeth for any teeth that are missing. There are partial dentures, which take the place of only a few teeth and prevent the others from changing position. If all the teeth are gone, the person would need complete dentures, which replace every tooth in the mouth.
+Dentures can cause pains at first and take little time to get adjusted to. They also need special care. They should be brushed daily with a special denture brush and cleanser and soaked（浸泡） in denture solution when not in the mouth.
+Dentures are important for the old because, without teeth, it’s hard to smile, talk, and eat properly. But it can be a little weird if you see someone take out his or her dentures. It can also be strange to see someone, like a grandparent, without dentures in because he or she won’t have any teeth. Try not to make fun of the person because this could cause hurt feelings.
+People usually lose their permanent teeth due to periodontal disease（牙周炎）, or gum disease, which is caused by bacteria that attacks the gums. Diseased gums aren’t strong and healthy, so teeth can get loose and fall out. Older people often have many cavities(洞)that have been filled over the years, and these fillings can weaken over time, leading to more tooth problems.
+]]></Text>
       <Questions>
         <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>Johnny changed his English grade with the computer in _______.</Text>
+          <Text>1．If one of your baby teeth falls out, you______.</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>the classroom</Text>
+              <Text>should have a false tooth fixed in its place </Text>
             </Option>
             <Option Alphabet="66">
-              <Text>the school office </Text>
+              <Text>have to put it under your pillow at once</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>a bank near his house</Text>
+              <Text>will gain a permanent tooth in future	</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>his own house</Text>
+              <Text>can exchange it for some money</Text>
             </Option>
           </Options>
         </Question>
         <Question No="2" Answer="0" IsMultipleChoice="false">
-          <Text>When Johnny's parents saw the report, they were happy because _______.</Text>
+          <Text>2．A person wearing dentures ______.</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>Johnny was good at math</Text>
+              <Text>A．should brush them with a special denture brush every few days</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>Johnny loved computers</Text>
+              <Text>will take a very long time to adjust himself or herself to them</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>Johnny could join one computer to another</Text>
+              <Text>will experience unpleasant feelings at the beginning of fixing them</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>they thought Johnny was not poor in English any longer</Text>
+              <Text>should use denture solution to soak them in his or her mouth</Text>
             </Option>
           </Options>
         </Question>
         <Question No="3" Answer="0" IsMultipleChoice="false">
-          <Text>Who are worried about hackers in the story?</Text>
+          <Text>3．Which of the following is NOT true according to the passage?</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>Johnny's parents.</Text>
+              <Text>A．Partial dentures can prevent the remaining teeth from changing position.</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>School headmasters, teachers and the police.</Text>
+              <Text>Old people will find it hard to smile, talk, and eat properly without teeth.</Text>
             </Option>
             <Option Alphabet="67">
-              <Text>The police. </Text>
+              <Text>A person’s teeth will possibly get loose if diseases strike his gums.</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>School headmasters and teachers.</Text>
+              <Text>It is hard for a person to wear dentures if all his teeth have fallen out.</Text>
             </Option>
           </Options>
         </Question>
         <Question No="4" Answer="0" IsMultipleChoice="false">
-          <Text>What should the hackers know well, do you think, after you read this story? </Text>
+          <Text>4．What does the underlined word “weird” mean in the fifth paragraph?</Text>
           <Options>
             <Option Alphabet="65">
-              <Text>Information.</Text>
+              <Text>A．inconvenient	</Text>
             </Option>
             <Option Alphabet="66">
-              <Text>Back computer accounts.</Text>
+              <Text>excited   </Text>
             </Option>
             <Option Alphabet="67">
-              <Text>Computers.</Text>
+              <Text>uncomfortable  	</Text>
             </Option>
             <Option Alphabet="68">
-              <Text>Grades.</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="5" Answer="0" IsMultipleChoice="false">
-          <Text>The last paragraph is about _______.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>Johnny</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>computers </Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>hackers </Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>moden</Text>
-            </Option>
-          </Options>
-        </Question>
-      </Questions>
-    </Reading>
-    <Reading>
-      <Title>Passage 3</Title>
-      <Text><![CDATA[There was ice on the road, and the doctor's car hit a tree and turned over three times. To his surprise , he was not hurt. He got out of the car and walked to the nearest house. He wanted to telephone the garagefor help. The door was opened by one of his patients. 
- " Oh, Doctor," she said, " I have only just telephoned you. You must have a very fast car. You have got here very quickly indeed. There has been a very bad accidenton the road outside. I saw it through the window. I am sure the driver will need your help." ]]></Text>
-      <Questions>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>Where was the doctor going in his car?</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>We don't know.</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>To a patient's home.</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>To a garage.</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>To his own home.</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="2" Answer="0" IsMultipleChoice="false">
-          <Text>Which of the following was the cause of the accident?</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>Careless driving</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>A tree had fallen across the road.</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>A slipperyroad.</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>There was a thick fog.</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="3" Answer="0" IsMultipleChoice="false">
-          <Text>The doctor went to the house because _______. </Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>he knew one of his patients lived there</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>he had received a call to go there</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>he wanted to use the telephone</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>he was injuredand could walk no further</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="4" Answer="0" IsMultipleChoice="false">
-          <Text>Why did the woman patient telephone the doctor?</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>She needed medical treatment. </Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>She believed somebody else needed a doctor. </Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>To ask how quickly the doctor could come. </Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>To ask whether the doctor was coming on his regular visit. </Text>
-            </Option>
-          </Options>
-        </Question>
-      </Questions>
-    </Reading>
-    <Reading>
-      <Title>Passage 4</Title>
-      <Text><![CDATA[One day a poor man was cutting a big piece of wood near a river. Suddenly his old axe fell into the water. He felt very sad because he lost his only axe. Then all at once a beautiful fairycame out and asked the man what was the matter. 
-"I have lost my axe,"he said."It fell into the water when I was cutting the wood." The fairy showed him a gold axe and asked,"Is this yours?" "No,"said the man. 
-The fairy then showed him a silveraxe and asked again,"Is this yours?""No,"again answered the man. 
-Then she showed him the old axe. 
-"Yes, that is mine,"called out the happy man.
-"I know that well enough,"said the fairy."I only wanted to see if you would tell me the truth, and now I'll give you the gold axe and the silver axe besides your own one."]]></Text>
-      <Questions>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>One day when the man was cutting something, ________</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>he fell into the water</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>his axe dropped into the river</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>his axe fell into a lake</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>he saw a beautiful fairy</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="2" Answer="0" IsMultipleChoice="false">
-          <Text>The man was sad because _________.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>he was poor and had no other axes</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>he could not go on working</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>he liked his axe very much</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>his axe was a gold axe</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="3" Answer="0" IsMultipleChoice="false">
-          <Text>The fairy gave him a gold axe and a silver axe but he didn't take them, because he ______. </Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>did not like them</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>did not know they were made of gold and silver</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>was very rich</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>knew these axes were not his</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="4" Answer="0" IsMultipleChoice="false">
-          <Text>At the end of the story the man had ________</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>only one axe</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>two axes</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>three axes</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>many axes</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="5" Answer="0" IsMultipleChoice="false">
-          <Text>The fairy helped the man because he was ________ man.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>an old</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>a young</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>a poor</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>an honest</Text>
+              <Text>Impolite  </Text>
             </Option>
           </Options>
         </Question>
