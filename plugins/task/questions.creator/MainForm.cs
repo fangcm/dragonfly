@@ -674,5 +674,11 @@ namespace Dragonfly.Questions.Creator
                     break;
             }
         }
+
+        private void toolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConvertTxtToReadingForm form = new ConvertTxtToReadingForm();
+            form.ShowDialog(this);
+        }
     }
 }

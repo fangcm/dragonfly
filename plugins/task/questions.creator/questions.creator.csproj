@@ -36,11 +36,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvertTxtToReadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConvertTxtToReadingForm.Designer.cs">
+      <DependentUpon>ConvertTxtToReadingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +69,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodes.cs" />
+    <EmbeddedResource Include="ConvertTxtToReadingForm.resx">
+      <DependentUpon>ConvertTxtToReadingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
