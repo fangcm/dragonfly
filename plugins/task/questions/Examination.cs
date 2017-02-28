@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Dragonfly.Questions
 {
-    [XmlRootAttribute("Examination")]
+    [XmlRootAttribute("Examination", Namespace = "", IsNullable = false)]
     public class Examination
     {
         [XmlElementAttribute("ExamProperties", IsNullable = false)]
@@ -79,8 +80,22 @@ namespace Dragonfly.Questions
         [XmlElementAttribute("Title", IsNullable = false)]
         public string Title { get; set; }
 
-        [XmlElementAttribute("Text", IsNullable = false)]
+        [XmlIgnore]
         public string Text { get; set; }
+
+        [XmlElementAttribute("Text", IsNullable = false, Type = typeof(XmlCDataSection))]
+        public XmlCDataSection TextCData
+        {
+            get
+            {
+                return new System.Xml.XmlDocument().CreateCDataSection(Text);
+            }
+            set
+            {
+                Text = value.Value;
+            }
+        }
+
 
         [XmlArrayAttribute("Questions")]
         public List<Question> Questions { get; set; }
