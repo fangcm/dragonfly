@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Dragonfly.Questions.Notify
+namespace Dragonfly.Questions
 {
     public class RichTextBoxEx : RichTextBox
     {

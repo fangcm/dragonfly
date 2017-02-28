@@ -42,11 +42,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panelReading = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.txt_reading_text = new System.Windows.Forms.TextBox();
+            this.txt_reading_text = new Dragonfly.Questions.RichTextBoxEx();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_reading_title = new System.Windows.Forms.TextBox();
             this.panel_question = new System.Windows.Forms.Panel();
-            this.txt_question_text = new System.Windows.Forms.TextBox();
+            this.txt_question_text = new Dragonfly.Questions.RichTextBoxEx();
             this.lbl_reading_question = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.chkMulipleChoice = new System.Windows.Forms.CheckBox();
@@ -233,9 +233,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_reading_text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_reading_text.DetectUrls = false;
+            this.txt_reading_text.Font = new System.Drawing.Font("宋体", 14F);
             this.txt_reading_text.Location = new System.Drawing.Point(16, 120);
             this.txt_reading_text.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_reading_text.Multiline = true;
             this.txt_reading_text.Name = "txt_reading_text";
             this.txt_reading_text.Size = new System.Drawing.Size(262, 158);
             this.txt_reading_text.TabIndex = 22;
@@ -282,9 +283,9 @@
             this.txt_question_text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_question_text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_question_text.Font = new System.Drawing.Font("宋体", 14F);
             this.txt_question_text.Location = new System.Drawing.Point(16, 98);
             this.txt_question_text.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_question_text.Multiline = true;
             this.txt_question_text.Name = "txt_question_text";
             this.txt_question_text.Size = new System.Drawing.Size(603, 98);
             this.txt_question_text.TabIndex = 21;
@@ -582,11 +583,11 @@
         private System.Windows.Forms.Panel panel_question_options;
         private System.Windows.Forms.Button btn_remove_option;
         private System.Windows.Forms.Button btn_add_options;
-        private System.Windows.Forms.TextBox txt_question_text;
+        private Dragonfly.Questions.RichTextBoxEx txt_question_text;
         private System.Windows.Forms.Label lbl_reading_question;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txt_reading_text;
+        private Dragonfly.Questions.RichTextBoxEx txt_reading_text;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_reading_title;
     }

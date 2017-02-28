@@ -6,7 +6,7 @@
   <Readings>
     <Reading>
       <Title>Passage 1</Title>
-      <Text>One day an ant was drinking at a small stream and fell in. She made desperate efforts to reach the side, but made no progress at all. The poor ant almost exhausted was still bravely doing her best when a dove saw her. Moved with pity, the bird threw her a blade of grass, which supported her like a raft, and thus the ant reached the bank again. While she was resting and drying herself in the grass, she heard a man come near. He was walking along barefooted with a gun in his hand. As soon as he saw the dove, he wished to kill it. He would certainly have done so, but the ant bit him in the foot just as he raised his gun to fire. He stopped to see what had bit him, and the dove immediately flew away. It was an animal much weaker and smaller than herself that had saved her life. </Text>
+      <Text><![CDATA[    One day an ant was drinking at a small stream and fell in. She made desperate efforts to reach the side, but made no progress a    t all. The poor ant almost exhausted was still bravely doing her best when a dove saw her. Moved with pity, the bird threw her a blade of grass, which supported her like a raft, and thus the ant reached the bank again. While she was resting and drying herself in the grass, she heard a man come near. He was walking along barefooted with a gun in his hand. As soon as he saw the dove, he wished to kill it. He would certainly have done so, but the ant bit him in the foot just as he raised his gun to fire. He stopped to see what had bit him, and the dove immediately flew away. It was an animal much weaker and smaller than herself that had saved her life. ]]></Text>
       <Questions>
         <Question No="1" Answer="0" IsMultipleChoice="false">
           <Text>The ant could not reach the side though _______</Text>
@@ -97,9 +97,9 @@
     </Reading>
     <Reading>
       <Title>Passage 2</Title>
-      <Text>Johnny Smith was a good math student at a high school. He loved his computer. He came home early every day, then he worked with it till midnight. But Johnny was not a good English student, not good at all. He got an F in his English class. One day after school Johnny joined his computer to the computer in his high school office. The school office computer had the grades of all the students: the math grades, the science grades, the grades in arts and music, and the grades in English. He found his English grade. An F! Johnny changed his English grade from an F to A. Johnny' parents looked at his report card. They were very happy. 
+      <Text><![CDATA[Johnny Smith was a good math student at a high school. He loved his computer. He came home early every day, then he worked with it till midnight. But Johnny was not a good English student, not good at all. He got an F in his English class. One day after school Johnny joined his computer to the computer in his high school office. The school office computer had the grades of all the students: the math grades, the science grades, the grades in arts and music, and the grades in English. He found his English grade. An F! Johnny changed his English grade from an F to A. Johnny' parents looked at his report card. They were very happy. 
  "An A in English!" said Johnny's Dad. "You're a very clever boy, Johnny." 
- Johnny is a hacker. Hackers know how to take informationfrom other computers and put new information in. Using a modem, they join their computers to other computers  secretly. School headmasters and teachers are worried about hackers. So are the police, for some people even take money from bank computer accountand put it into their own ones. And they never have to leave home to do it! They are called hackers.</Text>
+ Johnny is a hacker. Hackers know how to take informationfrom other computers and put new information in. Using a modem, they join their computers to other computers  secretly. School headmasters and teachers are worried about hackers. So are the police, for some people even take money from bank computer accountand put it into their own ones. And they never have to leave home to do it! They are called hackers.]]></Text>
       <Questions>
         <Question No="1" Answer="0" IsMultipleChoice="false">
           <Text>Johnny changed his English grade with the computer in _______.</Text>
@@ -190,8 +190,8 @@
     </Reading>
     <Reading>
       <Title>Passage 3</Title>
-      <Text>There was ice on the road, and the doctor's car hit a tree and turned over three times. To his surprise , he was not hurt. He got out of the car and walked to the nearest house. He wanted to telephone the garagefor help. The door was opened by one of his patients. 
- " Oh, Doctor," she said, " I have only just telephoned you. You must have a very fast car. You have got here very quickly indeed. There has been a very bad accidenton the road outside. I saw it through the window. I am sure the driver will need your help." </Text>
+      <Text><![CDATA[There was ice on the road, and the doctor's car hit a tree and turned over three times. To his surprise , he was not hurt. He got out of the car and walked to the nearest house. He wanted to telephone the garagefor help. The door was opened by one of his patients. 
+ " Oh, Doctor," she said, " I have only just telephoned you. You must have a very fast car. You have got here very quickly indeed. There has been a very bad accidenton the road outside. I saw it through the window. I am sure the driver will need your help." ]]></Text>
       <Questions>
         <Question No="1" Answer="0" IsMultipleChoice="false">
           <Text>Where was the doctor going in his car?</Text>
@@ -265,12 +265,12 @@
     </Reading>
     <Reading>
       <Title>Passage 4</Title>
-      <Text>One day a poor man was cutting a big piece of wood near a river. Suddenly his old axe fell into the water. He felt very sad because he lost his only axe. Then all at once a beautiful fairycame out and asked the man what was the matter. 
+      <Text><![CDATA[One day a poor man was cutting a big piece of wood near a river. Suddenly his old axe fell into the water. He felt very sad because he lost his only axe. Then all at once a beautiful fairycame out and asked the man what was the matter. 
 "I have lost my axe,"he said."It fell into the water when I was cutting the wood." The fairy showed him a gold axe and asked,"Is this yours?" "No,"said the man. 
 The fairy then showed him a silveraxe and asked again,"Is this yours?""No,"again answered the man. 
 Then she showed him the old axe. 
-"Yes, that is mine,"called out the happy man. 
-"I know that well enough,"said the fairy."I only wanted to see if you would tell me the truth, and now I'll give you the gold axe and the silver axe besides your own one."</Text>
+"Yes, that is mine,"called out the happy man.
+"I know that well enough,"said the fairy."I only wanted to see if you would tell me the truth, and now I'll give you the gold axe and the silver axe besides your own one."]]></Text>
       <Questions>
         <Question No="1" Answer="0" IsMultipleChoice="false">
           <Text>One day when the man was cutting something, ________</Text>
@@ -358,11 +358,6 @@ Then she showed him the old axe.
           </Options>
         </Question>
       </Questions>
-    </Reading>
-    <Reading>
-      <Title>new reading</Title>
-      <Text />
-      <Questions />
     </Reading>
   </Readings>
 </Examination>
