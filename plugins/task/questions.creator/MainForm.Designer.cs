@@ -71,6 +71,10 @@
             this.delQuestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExam = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogExam = new System.Windows.Forms.SaveFileDialog();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabPageGuiView = new System.Windows.Forms.TabPage();
+            this.tabPageSourceView = new System.Windows.Forms.TabPage();
+            this.txt_exam_source = new Dragonfly.Questions.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -80,13 +84,15 @@
             this.panelReading.SuspendLayout();
             this.panel_question.SuspendLayout();
             this.menuStripMain.SuspendLayout();
+            this.tabControlMain.SuspendLayout();
+            this.tabPageGuiView.SuspendLayout();
+            this.tabPageSourceView.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerMain
             // 
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 28);
-            this.splitContainerMain.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainerMain.Location = new System.Drawing.Point(3, 3);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
@@ -96,9 +102,8 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.panel_exam);
-            this.splitContainerMain.Size = new System.Drawing.Size(1073, 624);
-            this.splitContainerMain.SplitterDistance = 303;
-            this.splitContainerMain.SplitterWidth = 5;
+            this.splitContainerMain.Size = new System.Drawing.Size(791, 465);
+            this.splitContainerMain.SplitterDistance = 223;
             this.splitContainerMain.TabIndex = 0;
             // 
             // treeViewExam
@@ -107,10 +112,9 @@
             this.treeViewExam.ImageIndex = 0;
             this.treeViewExam.ImageList = this.imglstTreeNode;
             this.treeViewExam.Location = new System.Drawing.Point(0, 0);
-            this.treeViewExam.Margin = new System.Windows.Forms.Padding(4);
             this.treeViewExam.Name = "treeViewExam";
             this.treeViewExam.SelectedImageIndex = 0;
-            this.treeViewExam.Size = new System.Drawing.Size(303, 624);
+            this.treeViewExam.Size = new System.Drawing.Size(223, 465);
             this.treeViewExam.TabIndex = 0;
             this.treeViewExam.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewExam_BeforeSelect);
             this.treeViewExam.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewExam_AfterSelect);
@@ -133,18 +137,16 @@
             this.panel_exam.Controls.Add(this.label2);
             this.panel_exam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_exam.Location = new System.Drawing.Point(0, 0);
-            this.panel_exam.Margin = new System.Windows.Forms.Padding(4);
             this.panel_exam.Name = "panel_exam";
-            this.panel_exam.Size = new System.Drawing.Size(765, 624);
+            this.panel_exam.Size = new System.Drawing.Size(564, 465);
             this.panel_exam.TabIndex = 3;
             // 
             // btn_save_properties
             // 
             this.btn_save_properties.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_save_properties.Location = new System.Drawing.Point(263, 180);
-            this.btn_save_properties.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_save_properties.Location = new System.Drawing.Point(192, 127);
             this.btn_save_properties.Name = "btn_save_properties";
-            this.btn_save_properties.Size = new System.Drawing.Size(100, 29);
+            this.btn_save_properties.Size = new System.Drawing.Size(75, 23);
             this.btn_save_properties.TabIndex = 17;
             this.btn_save_properties.Text = "Save";
             this.btn_save_properties.UseVisualStyleBackColor = true;
@@ -154,10 +156,9 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(371, 133);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(273, 89);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(154, 15);
+            this.label9.Size = new System.Drawing.Size(119, 12);
             this.label9.TabIndex = 16;
             this.label9.Text = "(每个reading的分数)";
             // 
@@ -165,10 +166,9 @@
             // 
             this.num_exam_score.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.num_exam_score.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.num_exam_score.Location = new System.Drawing.Point(215, 130);
-            this.num_exam_score.Margin = new System.Windows.Forms.Padding(4);
+            this.num_exam_score.Location = new System.Drawing.Point(156, 87);
             this.num_exam_score.Name = "num_exam_score";
-            this.num_exam_score.Size = new System.Drawing.Size(148, 25);
+            this.num_exam_score.Size = new System.Drawing.Size(111, 21);
             this.num_exam_score.TabIndex = 15;
             this.num_exam_score.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.num_exam_score.ValueChanged += new System.EventHandler(this.Changed);
@@ -176,10 +176,9 @@
             // txt_exam_title
             // 
             this.txt_exam_title.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txt_exam_title.Location = new System.Drawing.Point(215, 82);
-            this.txt_exam_title.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_exam_title.Location = new System.Drawing.Point(156, 49);
             this.txt_exam_title.Name = "txt_exam_title";
-            this.txt_exam_title.Size = new System.Drawing.Size(319, 25);
+            this.txt_exam_title.Size = new System.Drawing.Size(240, 21);
             this.txt_exam_title.TabIndex = 14;
             this.txt_exam_title.TextChanged += new System.EventHandler(this.Changed);
             // 
@@ -187,10 +186,9 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(132, 132);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(94, 89);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 15);
+            this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 13;
             this.label5.Text = "Score:";
             // 
@@ -198,10 +196,9 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(132, 86);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(94, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 12;
             this.label2.Text = "Title:";
             // 
@@ -211,19 +208,17 @@
             this.panelReading.Controls.Add(this.txt_reading_text);
             this.panelReading.Controls.Add(this.label1);
             this.panelReading.Controls.Add(this.txt_reading_title);
-            this.panelReading.Location = new System.Drawing.Point(43, 52);
-            this.panelReading.Margin = new System.Windows.Forms.Padding(4);
+            this.panelReading.Location = new System.Drawing.Point(32, 42);
             this.panelReading.Name = "panelReading";
-            this.panelReading.Size = new System.Drawing.Size(295, 298);
+            this.panelReading.Size = new System.Drawing.Size(221, 238);
             this.panelReading.TabIndex = 0;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 101);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 81);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 15);
+            this.label3.Size = new System.Drawing.Size(83, 12);
             this.label3.TabIndex = 23;
             this.label3.Text = "Reading text:";
             // 
@@ -235,20 +230,19 @@
             this.txt_reading_text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_reading_text.DetectUrls = false;
             this.txt_reading_text.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_reading_text.Location = new System.Drawing.Point(16, 120);
-            this.txt_reading_text.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_reading_text.Location = new System.Drawing.Point(12, 96);
             this.txt_reading_text.Name = "txt_reading_text";
-            this.txt_reading_text.Size = new System.Drawing.Size(262, 158);
+            this.txt_reading_text.Size = new System.Drawing.Size(198, 127);
             this.txt_reading_text.TabIndex = 22;
+            this.txt_reading_text.Text = "";
             this.txt_reading_text.TextChanged += new System.EventHandler(this.Changed);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 42);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 15);
+            this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 16;
             this.label1.Text = "Reading title:";
             // 
@@ -256,10 +250,9 @@
             // 
             this.txt_reading_title.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_reading_title.Location = new System.Drawing.Point(143, 39);
-            this.txt_reading_title.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_reading_title.Location = new System.Drawing.Point(107, 31);
             this.txt_reading_title.Name = "txt_reading_title";
-            this.txt_reading_title.Size = new System.Drawing.Size(135, 25);
+            this.txt_reading_title.Size = new System.Drawing.Size(102, 21);
             this.txt_reading_title.TabIndex = 15;
             this.txt_reading_title.TextChanged += new System.EventHandler(this.Changed);
             // 
@@ -272,10 +265,9 @@
             this.panel_question.Controls.Add(this.panel_question_options);
             this.panel_question.Controls.Add(this.btn_remove_option);
             this.panel_question.Controls.Add(this.btn_add_options);
-            this.panel_question.Location = new System.Drawing.Point(401, 52);
-            this.panel_question.Margin = new System.Windows.Forms.Padding(4);
+            this.panel_question.Location = new System.Drawing.Point(301, 42);
             this.panel_question.Name = "panel_question";
-            this.panel_question.Size = new System.Drawing.Size(636, 530);
+            this.panel_question.Size = new System.Drawing.Size(477, 424);
             this.panel_question.TabIndex = 1;
             // 
             // txt_question_text
@@ -284,40 +276,37 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_question_text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_question_text.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_question_text.Location = new System.Drawing.Point(16, 98);
-            this.txt_question_text.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_question_text.Location = new System.Drawing.Point(12, 78);
             this.txt_question_text.Name = "txt_question_text";
-            this.txt_question_text.Size = new System.Drawing.Size(603, 98);
+            this.txt_question_text.Size = new System.Drawing.Size(453, 79);
             this.txt_question_text.TabIndex = 21;
+            this.txt_question_text.Text = "";
             this.txt_question_text.TextChanged += new System.EventHandler(this.Changed);
             // 
             // lbl_reading_question
             // 
             this.lbl_reading_question.AutoSize = true;
             this.lbl_reading_question.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_reading_question.Location = new System.Drawing.Point(19, 35);
-            this.lbl_reading_question.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_reading_question.Location = new System.Drawing.Point(14, 28);
             this.lbl_reading_question.Name = "lbl_reading_question";
-            this.lbl_reading_question.Size = new System.Drawing.Size(0, 18);
+            this.lbl_reading_question.Size = new System.Drawing.Size(0, 15);
             this.lbl_reading_question.TabIndex = 20;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(19, 71);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(14, 57);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(119, 15);
+            this.label11.Size = new System.Drawing.Size(89, 12);
             this.label11.TabIndex = 19;
             this.label11.Text = "Question Text:";
             // 
             // chkMulipleChoice
             // 
             this.chkMulipleChoice.AutoSize = true;
-            this.chkMulipleChoice.Location = new System.Drawing.Point(16, 204);
-            this.chkMulipleChoice.Margin = new System.Windows.Forms.Padding(4);
+            this.chkMulipleChoice.Location = new System.Drawing.Point(12, 163);
             this.chkMulipleChoice.Name = "chkMulipleChoice";
-            this.chkMulipleChoice.Size = new System.Drawing.Size(293, 19);
+            this.chkMulipleChoice.Size = new System.Drawing.Size(222, 16);
             this.chkMulipleChoice.TabIndex = 17;
             this.chkMulipleChoice.Text = "Is this question multiple choice?";
             this.chkMulipleChoice.UseVisualStyleBackColor = true;
@@ -329,10 +318,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_question_options.AutoScroll = true;
             this.panel_question_options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_question_options.Location = new System.Drawing.Point(16, 232);
-            this.panel_question_options.Margin = new System.Windows.Forms.Padding(4);
+            this.panel_question_options.Location = new System.Drawing.Point(12, 186);
             this.panel_question_options.Name = "panel_question_options";
-            this.panel_question_options.Size = new System.Drawing.Size(485, 212);
+            this.panel_question_options.Size = new System.Drawing.Size(364, 170);
             this.panel_question_options.TabIndex = 14;
             this.panel_question_options.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OptionsChanged);
             this.panel_question_options.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.OptionsChanged);
@@ -341,10 +329,9 @@
             // 
             this.btn_remove_option.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_remove_option.Enabled = false;
-            this.btn_remove_option.Location = new System.Drawing.Point(515, 345);
-            this.btn_remove_option.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_remove_option.Location = new System.Drawing.Point(386, 276);
             this.btn_remove_option.Name = "btn_remove_option";
-            this.btn_remove_option.Size = new System.Drawing.Size(105, 29);
+            this.btn_remove_option.Size = new System.Drawing.Size(79, 23);
             this.btn_remove_option.TabIndex = 16;
             this.btn_remove_option.Text = "Remove";
             this.btn_remove_option.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -354,10 +341,9 @@
             // btn_add_options
             // 
             this.btn_add_options.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_add_options.Location = new System.Drawing.Point(515, 275);
-            this.btn_add_options.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_add_options.Location = new System.Drawing.Point(386, 220);
             this.btn_add_options.Name = "btn_add_options";
-            this.btn_add_options.Size = new System.Drawing.Size(105, 29);
+            this.btn_add_options.Size = new System.Drawing.Size(79, 23);
             this.btn_add_options.TabIndex = 15;
             this.btn_add_options.Text = "Add";
             this.btn_add_options.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -372,8 +358,7 @@
             this.editToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStripMain.Size = new System.Drawing.Size(1073, 28);
+            this.menuStripMain.Size = new System.Drawing.Size(805, 25);
             this.menuStripMain.TabIndex = 1;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -389,7 +374,7 @@
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // newToolStripMenuItem
@@ -398,7 +383,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -408,7 +393,7 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -416,14 +401,14 @@
             // 
             this.closeToolStripMenuItem.Enabled = false;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(152, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -432,7 +417,7 @@
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -440,19 +425,19 @@
             // 
             this.saveAsToolStripMenuItem.Enabled = false;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -465,13 +450,13 @@
             this.addQuestionToolStripMenuItem,
             this.delQuestionToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
             // addReadingToolStripMenuItem
             // 
             this.addReadingToolStripMenuItem.Name = "addReadingToolStripMenuItem";
-            this.addReadingToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.addReadingToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.addReadingToolStripMenuItem.Text = "Add reading";
             this.addReadingToolStripMenuItem.Click += new System.EventHandler(this.addReadingToolStripMenuItem_Click);
             // 
@@ -481,20 +466,20 @@
             this.delReadingToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("delReadingToolStripMenuItem.Image")));
             this.delReadingToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.delReadingToolStripMenuItem.Name = "delReadingToolStripMenuItem";
-            this.delReadingToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.delReadingToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.delReadingToolStripMenuItem.Text = "Delete reading";
             this.delReadingToolStripMenuItem.Click += new System.EventHandler(this.delReadingToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(164, 6);
             // 
             // addQuestionToolStripMenuItem
             // 
             this.addQuestionToolStripMenuItem.Enabled = false;
             this.addQuestionToolStripMenuItem.Name = "addQuestionToolStripMenuItem";
-            this.addQuestionToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.addQuestionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.addQuestionToolStripMenuItem.Text = "Add question";
             this.addQuestionToolStripMenuItem.Click += new System.EventHandler(this.addQuestionToolStripMenuItem_Click);
             // 
@@ -504,7 +489,7 @@
             this.delQuestionToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("delQuestionToolStripMenuItem.Image")));
             this.delQuestionToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.delQuestionToolStripMenuItem.Name = "delQuestionToolStripMenuItem";
-            this.delQuestionToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.delQuestionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.delQuestionToolStripMenuItem.Text = "Delete question";
             this.delQuestionToolStripMenuItem.Click += new System.EventHandler(this.delQuestionToolStripMenuItem_Click);
             // 
@@ -516,16 +501,62 @@
             // 
             this.saveFileDialogExam.Filter = "Examination question file|*.eqf";
             // 
+            // tabControlMain
+            // 
+            this.tabControlMain.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControlMain.Controls.Add(this.tabPageGuiView);
+            this.tabControlMain.Controls.Add(this.tabPageSourceView);
+            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlMain.Location = new System.Drawing.Point(0, 25);
+            this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.SelectedIndex = 0;
+            this.tabControlMain.Size = new System.Drawing.Size(805, 497);
+            this.tabControlMain.TabIndex = 2;
+            this.tabControlMain.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControlMain_Selecting);
+            // 
+            // tabPageGuiView
+            // 
+            this.tabPageGuiView.Controls.Add(this.splitContainerMain);
+            this.tabPageGuiView.Location = new System.Drawing.Point(4, 4);
+            this.tabPageGuiView.Name = "tabPageGuiView";
+            this.tabPageGuiView.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGuiView.Size = new System.Drawing.Size(797, 471);
+            this.tabPageGuiView.TabIndex = 0;
+            this.tabPageGuiView.Text = "图形";
+            this.tabPageGuiView.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSourceView
+            // 
+            this.tabPageSourceView.Controls.Add(this.txt_exam_source);
+            this.tabPageSourceView.Location = new System.Drawing.Point(4, 4);
+            this.tabPageSourceView.Name = "tabPageSourceView";
+            this.tabPageSourceView.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSourceView.Size = new System.Drawing.Size(797, 471);
+            this.tabPageSourceView.TabIndex = 1;
+            this.tabPageSourceView.Text = "文本";
+            this.tabPageSourceView.UseVisualStyleBackColor = true;
+            // 
+            // txt_exam_source
+            // 
+            this.txt_exam_source.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_exam_source.DetectUrls = false;
+            this.txt_exam_source.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_exam_source.Font = new System.Drawing.Font("宋体", 14F);
+            this.txt_exam_source.Location = new System.Drawing.Point(3, 3);
+            this.txt_exam_source.Name = "txt_exam_source";
+            this.txt_exam_source.Size = new System.Drawing.Size(791, 465);
+            this.txt_exam_source.TabIndex = 23;
+            this.txt_exam_source.Text = "";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 652);
-            this.Controls.Add(this.splitContainerMain);
+            this.ClientSize = new System.Drawing.Size(805, 522);
+            this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.menuStripMain);
             this.Controls.Add(this.panelReading);
             this.Controls.Add(this.panel_question);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "题库";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -542,6 +573,9 @@
             this.panel_question.PerformLayout();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
+            this.tabControlMain.ResumeLayout(false);
+            this.tabPageGuiView.ResumeLayout(false);
+            this.tabPageSourceView.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -590,6 +624,10 @@
         private Dragonfly.Questions.RichTextBoxEx txt_reading_text;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_reading_title;
+        private System.Windows.Forms.TabControl tabControlMain;
+        private System.Windows.Forms.TabPage tabPageGuiView;
+        private System.Windows.Forms.TabPage tabPageSourceView;
+        private RichTextBoxEx txt_exam_source;
     }
 }
 

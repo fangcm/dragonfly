@@ -57,8 +57,21 @@ namespace Dragonfly.Questions.Creator
             this.exam = Helper.LoadExaminationFromFile(currentExamFile);
             if (this.exam != null)
             {
-                this.treeViewExam.Nodes.Clear();
+                PopulateExam();
+                IsDirty = false;
+            }
+            else
+            {
+                MessageBox.Show("Sorry, the exam selected is either old or corrupt. If it is an old exam, please upgrade it with the upgrade tool at:\nhttps://sourceforge.net/projects/exam-upgrade-tool/", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
+        }
+
+        private void PopulateExam()
+        {
+            this.treeViewExam.Nodes.Clear();
+            if (this.exam != null)
+            {
                 ExamNode examNode = new ExamNode(exam.ExamProperties);
                 treeViewExam.Nodes.Add(examNode);
                 foreach (Reading reading in exam.Readings)
@@ -83,14 +96,7 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.Text = exam.ExamProperties.Title;
                 num_exam_score.Value = exam.ExamProperties.Score;
 
-                IsDirty = false;
-
             }
-            else
-            {
-                MessageBox.Show("Sorry, the exam selected is either old or corrupt. If it is an old exam, please upgrade it with the upgrade tool at:\nhttps://sourceforge.net/projects/exam-upgrade-tool/", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -109,30 +115,38 @@ namespace Dragonfly.Questions.Creator
                     return;
                 }
 
-                ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
-                if (this.exam == null)
-                {
-                    this.exam = new Examination();
-                }
-                this.exam.ExamProperties = examNode.ExamProperties;
-                this.exam.Readings.Clear();
-                foreach (ReadingNode readingNode in examNode.Nodes)
-                {
-                    Reading reading = readingNode.Reading;
-                    reading.Questions.Clear();
-                    foreach (QuestionNode questionNode in readingNode.Nodes)
-                    {
-                        Question question = questionNode.Question;
-                        reading.Questions.Add(question);
-                    }
-                    this.exam.Readings.Add(reading);
-                }
+                fillExam();
 
                 Helper.SaveExaminationToFile(currentExamFile, this.exam);
                 MessageBox.Show("Exam has been sucessfully saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 IsDirty = false;
             }
 
+        }
+
+        private void fillExam()
+        {
+            if (treeViewExam.Nodes.Count == 0)
+                return;
+
+            ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
+            if (this.exam == null)
+            {
+                this.exam = new Examination();
+            }
+            this.exam.ExamProperties = examNode.ExamProperties;
+            this.exam.Readings.Clear();
+            foreach (ReadingNode readingNode in examNode.Nodes)
+            {
+                Reading reading = readingNode.Reading;
+                reading.Questions.Clear();
+                foreach (QuestionNode questionNode in readingNode.Nodes)
+                {
+                    Question question = questionNode.Question;
+                    reading.Questions.Add(question);
+                }
+                this.exam.Readings.Add(reading);
+            }
         }
 
 
@@ -614,6 +628,50 @@ namespace Dragonfly.Questions.Creator
                     e.Cancel = true;
                 else if (result == DialogResult.Yes)
                     saveToolStripMenuItem_Click(sender, e);
+            }
+        }
+
+        private void tabControlMain_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            switch (tabControlMain.SelectedIndex)
+            {
+                case 0:
+                    if (string.IsNullOrWhiteSpace(txt_exam_source.Text))
+                    {
+                        this.exam = null;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            exam = Helper.LoadExaminationFromString(txt_exam_source.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            e.Cancel = true;
+                            MessageBox.Show("转换文本错误" + ex.Message, "错误", MessageBoxButtons.OK);
+                            return;
+                        }
+                        if (this.exam == null)
+                        {
+                            e.Cancel = true;
+                            MessageBox.Show("转换文本错误", "错误", MessageBoxButtons.OK);
+                            return;
+                        }
+                    }
+                    PopulateExam();
+                    break;
+                case 1:
+                    txt_exam_source.TextChanged -= new System.EventHandler(this.Changed);
+                    commit_change();
+                    fillExam();
+                    txt_exam_source.Clear();
+                    txt_exam_source.SelectionIndent = 20;
+                    txt_exam_source.SelectionRightIndent = 12;
+                    txt_exam_source.SetLineHeight(1, 0);
+                    txt_exam_source.SelectedText = (exam == null) ? "" : Helper.SaveExaminationToString(exam);
+                    txt_exam_source.TextChanged += new System.EventHandler(this.Changed);
+                    break;
             }
         }
     }
