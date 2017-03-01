@@ -13,36 +13,130 @@ namespace Dragonfly.Questions.Creator
 {
     public partial class ConvertTxtToReadingForm : Form
     {
+        private const int ProcessingTitle = 0;
+        private const int ProcessingText = 1;
+        private const int ProcessingQuestion = 2;
+        private const int ProcessingOption = 3;
+
         public ConvertTxtToReadingForm()
         {
             InitializeComponent();
         }
 
-        private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        private Reading translate(string rawText)
         {
-            if(tabControlMain.SelectedIndex == 1)
+            using (StringReader sr = new StringReader(rawText))
             {
-                txt_xmlreading.Clear();
-                txt_xmlreading.SelectionIndent = 20;
-                txt_xmlreading.SelectionRightIndent = 12;
-                txt_xmlreading.SetLineHeight(1, 0);
-                //txt_xmlreading.SelectedText = (exam == null) ? "" : Helper.SaveExaminationToString(exam);
-            }
-        }
+                Reading reading = new Reading();
+                int processingType = ProcessingTitle;
+                bool skipRead = false;
+                string line = null;
 
-        private void abc()
-        {
-            using (StringReader sr = new StringReader(txt_rawtext.Text))
-            {
                 while (true)
                 {
-                    String line = sr.ReadLine();
+                    if (!skipRead)
+                    {
+                        line = sr.ReadLine();
+                    }
+                    skipRead = false;
                     if (line == null)
                     {
                         break;
                     }
+                    switch (processingType)
+                    {
+                        case ProcessingTitle:
+                            string title = line.Trim();
+                            if (!string.IsNullOrWhiteSpace(title))
+                            {
+                                reading.Title = title;
+                                processingType = ProcessingText;
+                            }
+                            break;
+
+                        case ProcessingText:
+                            string content = line.Trim();
+                            if (content.StartsWith("1"))
+                            {
+                                processingType = ProcessingQuestion;
+                                skipRead = true;
+                            }
+                            else
+                            {
+                                reading.Text += line + "\n";
+                            }
+                            break;
+
+                        case ProcessingQuestion:
+                            string question = line.Trim();
+                            if (!string.IsNullOrWhiteSpace(question))
+                            {
+                                if (question.StartsWith("A"))
+                                {
+                                    processingType = ProcessingOption;
+                                    skipRead = true;
+                                }
+                                else
+                                {
+                                    Question q = new Question()
+                                    {
+                                        No = reading.Questions.Count + 1,
+                                        Text = question
+                                    };
+                                    reading.Questions.Add(q);
+                                }
+                            }
+                            break;
+
+                        case ProcessingOption:
+                            string option = line.Trim();
+                            if (!string.IsNullOrWhiteSpace(option))
+                            {
+                                char first = option[0];
+                                if (first >= 'A' && first <= 'G')
+                                {
+                                    int startIdx = 1;
+                                    if (option.Length > 2)
+                                    {
+                                        if (option[1] == '.' || option[1] == '．')
+                                        {
+                                            startIdx++;
+                                        }
+                                    }
+
+                                    Option o = new Option()
+                                    {
+                                        Alphabet = first,
+                                        Text = option.Substring(startIdx).Trim(),
+                                    };
+                                    Question q = reading.Questions.Last();
+                                    q.Options.Add(o);
+                                }
+                                else if (first >= '1' && first <= '9')
+                                {
+                                    processingType = ProcessingQuestion;
+                                    skipRead = true;
+                                }
+                                else
+                                {
+                                    processingType = ProcessingTitle;
+                                    skipRead = true;
+                                }
+                            }
+                            break;
+                    }
                 }
+                return reading;
             }
+        }
+
+        private void tsb_translate_Click(object sender, EventArgs e)
+        {
+            txt_xmlreading.Clear();
+            txt_xmlreading.SetLineHeight(1, 0);
+            txt_xmlreading.SelectAll();
+            Reading reading = translate(txt_rawtext.Text);
+            txt_xmlreading.SelectedText = (reading == null) ? "" : Helper.SaveToString(reading, true);
         }
     }
 }

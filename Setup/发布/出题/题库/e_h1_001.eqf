@@ -1,184 +1,501 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Examination xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ExamProperties Score="30">
-    <Title>高三阅读理解练习20篇</Title>
-  </ExamProperties>
-  <Readings>
-    <Reading>
-      <Title>A</Title>
-      <Text><![CDATA[As an experienced photojournalist in Nashville, Tennessee, I was hired by USA Today newspaper to photograph a spinal bifida (脊柱畸形) corrective surgical procedure. It was to be performed on a twenty-one week old fetus（胎儿） in uterus（子宫） at Vanderbilt University Medical Center. At that time, in 1999, twenty-one weeks in uterus was the earliest that the surgical team would consider for surgery. The worst possible outcome would be that the surgery would cause premature delivery, and no child born earlier than twenty-three weeks had survived. 
+<Examination>
+    <ExamProperties Score="30">
+        <Title>高三阅读理解练习20篇</Title>
+    </ExamProperties>
+    <Readings>
+        <Reading>
+            <Title>A</Title>
+            <Text><![CDATA[As an experienced photojournalist in Nashville, Tennessee, I was hired by USA Today newspaper to photograph a spinal bifida (脊柱畸形) corrective surgical procedure. It was to be performed on a twenty-one week old fetus（胎儿） in uterus（子宫） at Vanderbilt University Medical Center. At that time, in 1999, twenty-one weeks in uterus was the earliest that the surgical team would consider for surgery. The worst possible outcome would be that the surgery would cause premature delivery, and no child born earlier than twenty-three weeks had survived. 
 The tension could be felt in the operating room as the surgery began. A typical C-section incision(切口) was made to access the uterus, which was then lifted out and laid at the junction of the mother's thighs. The entire procedure would take place within the uterus, and no part of the child was to breach the surgical opening. During the procedure, the position of the fetus was adjusted by gently manipulating the outside of the uterus. The entire surgical procedure on the child was completed in one hour and thirteen minutes. When it was over, the surgical team breathed a sigh of relief, as did I. 
 As a doctor asked me what speed of film I was using, out of the corner of my eye I saw the uterus shake, but no one's hands were near it. It was shaking from within. Suddenly, an entire arm thrust out of the opening, then pulled back until just a little hand was showing. The doctor reached over and lifted the hand, which reacted and squeezed the doctor's finger. As if testing for strength, the doctor shook the tiny fist. Samuel held firm. I took the picture! Wow! It happened so fast that the nurse standing next to me asked, "What happened?" "The child reached out," I said. "Oh. They do that all the time," she responded. 
 The surgical opening to the uterus was closed and the uterus was then put back into the mother and the C-section opening was closed.
 It was ten days before I knew if the picture was even in focus. To ensure no digital manipulation of images before they see them, USA Today requires that film be submitted unprocessed. When the photo editor finally phoned me he said, "It's the most incredible picture I've ever seen."
 ]]></Text>
-      <Questions>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>1. In 1999，people believed that it was ________.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>possible for a fetus 21 weeks born to survive </Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>likely for a fetus born 21 weeks to become deformed</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>right time for a fetus born 21 weeks to receive an operation</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>risky for a fetus 21 weeks in uterus to receive an operation</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>2. From the second paragraph, we can see that the surgery was ______.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>challenging but successful</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>demanding and unsuccessful</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>simple and short</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>long-lasting and difficult</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>3. The underlined “It” in paragraph 3 refers to ________.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>the shaking of the uterus</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>the arm of the fetus </Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>the taking of the picture	</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>the head of the fetus</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>4. What can we learn about the author?  </Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>He was an experienced interviewer.</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>He was a wonderful picture editor.	</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>He was an excellent picture journalist.</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>He was a very famous child doctor. </Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>5. From the editor said in the last paragraph, we know the editor was very ______.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>disappointed</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>satisfied	</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>annoyed	</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>Surprised </Text>
-            </Option>
-          </Options>
-        </Question>
-      </Questions>
-    </Reading>
-    <Reading>
-      <Title>B</Title>
-      <Text><![CDATA[         Losing a baby tooth can be fun for a kid. You can put it under your pillow and look forward to finding some money there in the morning. And then you can watch your new permanent(永恒的) tooth grow in its place.
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1. In 1999，people believed that it was ________.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>possible for a fetus 21 weeks born to survive </Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>likely for a fetus born 21 weeks to become deformed</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>right time for a fetus born 21 weeks to receive an operation</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>risky for a fetus 21 weeks in uterus to receive an operation</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2. From the second paragraph, we can see that the surgery was ______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>challenging but successful</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>demanding and unsuccessful</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>simple and short</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>long-lasting and difficult</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>3. The underlined “It” in paragraph 3 refers to ________.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>the shaking of the uterus</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>the arm of the fetus </Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>the taking of the picture	</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>the head of the fetus</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>4. What can we learn about the author?  </Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>He was an experienced interviewer.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>He was a wonderful picture editor.	</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>He was an excellent picture journalist.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>He was a very famous child doctor. </Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="5" Answer="0" IsMultipleChoice="false">
+                    <Text>5. From the editor said in the last paragraph, we know the editor was very ______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>disappointed</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>satisfied	</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>annoyed	</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Surprised </Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>B</Title>
+            <Text><![CDATA[Losing a baby tooth can be fun for a kid. You can put it under your pillow and look forward to finding some money there in the morning. And then you can watch your new permanent(永恒的) tooth grow in its place.
 But if a permanent tooth falls out, that’s a problem. There isn’t another one under the gum(齿龈)that can replace it. Unfortunately, this happens to some older people. And if permanent teeth fall out or need to be pulled, an older person might need dentures.
 Dentures, known as false teeth, are a set of replacement teeth for any teeth that are missing. There are partial dentures, which take the place of only a few teeth and prevent the others from changing position. If all the teeth are gone, the person would need complete dentures, which replace every tooth in the mouth.
 Dentures can cause pains at first and take little time to get adjusted to. They also need special care. They should be brushed daily with a special denture brush and cleanser and soaked（浸泡） in denture solution when not in the mouth.
 Dentures are important for the old because, without teeth, it’s hard to smile, talk, and eat properly. But it can be a little weird if you see someone take out his or her dentures. It can also be strange to see someone, like a grandparent, without dentures in because he or she won’t have any teeth. Try not to make fun of the person because this could cause hurt feelings.
 People usually lose their permanent teeth due to periodontal disease（牙周炎）, or gum disease, which is caused by bacteria that attacks the gums. Diseased gums aren’t strong and healthy, so teeth can get loose and fall out. Older people often have many cavities(洞)that have been filled over the years, and these fillings can weaken over time, leading to more tooth problems.
 ]]></Text>
-      <Questions>
-        <Question No="1" Answer="0" IsMultipleChoice="false">
-          <Text>1．If one of your baby teeth falls out, you______.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>should have a false tooth fixed in its place </Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>have to put it under your pillow at once</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>will gain a permanent tooth in future	</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>can exchange it for some money</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="2" Answer="0" IsMultipleChoice="false">
-          <Text>2．A person wearing dentures ______.</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>A．should brush them with a special denture brush every few days</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>will take a very long time to adjust himself or herself to them</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>will experience unpleasant feelings at the beginning of fixing them</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>should use denture solution to soak them in his or her mouth</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="3" Answer="0" IsMultipleChoice="false">
-          <Text>3．Which of the following is NOT true according to the passage?</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>A．Partial dentures can prevent the remaining teeth from changing position.</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>Old people will find it hard to smile, talk, and eat properly without teeth.</Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>A person’s teeth will possibly get loose if diseases strike his gums.</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>It is hard for a person to wear dentures if all his teeth have fallen out.</Text>
-            </Option>
-          </Options>
-        </Question>
-        <Question No="4" Answer="0" IsMultipleChoice="false">
-          <Text>4．What does the underlined word “weird” mean in the fifth paragraph?</Text>
-          <Options>
-            <Option Alphabet="65">
-              <Text>A．inconvenient	</Text>
-            </Option>
-            <Option Alphabet="66">
-              <Text>excited   </Text>
-            </Option>
-            <Option Alphabet="67">
-              <Text>uncomfortable  	</Text>
-            </Option>
-            <Option Alphabet="68">
-              <Text>Impolite  </Text>
-            </Option>
-          </Options>
-        </Question>
-      </Questions>
-    </Reading>
-  </Readings>
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1．If one of your baby teeth falls out, you______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>should have a false tooth fixed in its place </Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>have to put it under your pillow at once</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>will gain a permanent tooth in future	</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>can exchange it for some money</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2．A person wearing dentures ______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>should brush them with a special denture brush every few days</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>will take a very long time to adjust himself or herself to them</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>will experience unpleasant feelings at the beginning of fixing them</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>should use denture solution to soak them in his or her mouth</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>3．Which of the following is NOT true according to the passage?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Partial dentures can prevent the remaining teeth from changing position.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Old people will find it hard to smile, talk, and eat properly without teeth.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>A person’s teeth will possibly get loose if diseases strike his gums.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>It is hard for a person to wear dentures if all his teeth have fallen out.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>4．What does the underlined word “weird” mean in the fifth paragraph?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>inconvenient	</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>excited   </Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>uncomfortable  	</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Impolite  </Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>C</Title>
+            <Text><![CDATA[One of the world's richest men has taken a close interest in one of man's most basic functions: visiting the toilet．Bill Gates's charitable organization, the Bill and Melinda Gates Foundation, is looking for inventors to design the lop of the future, which, they hope, would improve sanitation for millions of people around the world． So, what's wrong with the traditional flush toilet? Firstly, it wastes a huge amount of potential drinking water．Secondly, they are more likely to cause pollution．This is a real problem in many areas of the developing world, where, according to United Nations estimates, unsafe sanitation causes half of all hospitalizations．Younger people are particularly at risk．Illnesses which cause diarrhea are responsible for the deaths of about 1．5 million children a year．Finally, standard lavatories simply aren't practical in remote areas．The challenge set by Bill Gates was to come up with a latrine which works without running water, electricity or aseptic tank．It also needed to operate for less than 5 cents．28 designs were displayed at the recent fienivenf the Toilet Fair in Seattle, USA．Among them was one which turned human waste into electricity using microwaves, another which converted human waste into charcoal, and yet another which used urine for flushing．But the winner was a solar-powered design which generated hydrogen gas and electricity． The team from the California Institute of Technology （CIT） picked up a prize of $ 100,000.But clearly Bill Gates doesn't feel he's flushing money down the toilet．After the Seattle event he said, "We, couldn't be happier with the response we've gotten," Gates has even pledged $3 70m more to the future toilet project．They hope to field test more, prototypes over the next three years．]]></Text>
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1．Why is Bill Gates paying people to invent new toilets?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Because he wants to test people's sense of creativity．</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Because he wants to improve sanitation for many people．</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Because he thinks the traditional ones are out of fashion．</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Because he can't design this kind of things himself．</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2．Which of the following is NOT a problem with the traditional flush toilet?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>They waste too much water．</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>They might cause diseases．</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>They are not always practical．</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>They are too complicated to use.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>3 The underlined word "latrine" in the third paragraph might have similar meanings to the                                   word "      " in the text．</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>loo</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>sanitation</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>diarrhea</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>prototype</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>4．The team from CIT won the prize because their design         .</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>can change human waste into electricity</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>can turn human waste into charcoal</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>can produce power with solar energy</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>can use urine for flushing,,</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="5" Answer="0" IsMultipleChoice="false">
+                    <Text>5．If someone "flush money down the toilet", they are        .</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>showing-off their wealth</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>being angry with their work conditions</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>wasting money for nothing</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>expressing their great determination</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>D</Title>
+            <Text><![CDATA[On a BA flight from Johannesburg, a middle-aged, well-off white South African Lady has found herself sitting next to a black man. She called a stewardess (女乘务员) over to complain about her seating. “What seems to be the problem, Madam?” asked the stewardess. “Can’t you see?” she said, “You’ve sat me next to a kafir（异教徒）. I can’t possibly sit next to this disgusting man. Find me another seat!” “Please calm down, Madam,” the stewardess replied. “The flight is very full today, but I’ll tell you what I’ll do - I’ll go and check to see if we have any seats available in club or first class.”The woman cocked a snooty（傲慢的） look at the black man beside her. A few minutes later the stewardess returned with the good news, which she delivered to the lady, who could not help but look at the people around her with a smug and self-satisfied grin. “Madam, unfortunately, as I suspected, economy is full. I’ve spoken to the cabin services director, and club is also full. However, we do have one seat in first class.”Before the lady had a chance to answer, the stewardess continued, “It is the most extraordinary to make this kind of upgrade, however, and I have had to get special permission from the captain. But, given the circumstances, the captain felt that it was outrageous（令人不能容忍的） that someone should be forced to sit next to such an obnoxious（讨厌的） person.” Having said that, the stewardess turned to the black man sitting next to the lady, and said, “So if you’d like to get your things, sir, I have your seat ready for you.” At that point, the surrounding passengers stood up and gave an ovation（喝彩） while the black man walked up to the front of the plane. ]]></Text>
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1. Why did the middle-aged lady complain about her seating?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Because her seat was not near a window.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Because she sat next to a black man.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Because she wanted to have a seat in first class.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Because the stewardess didn’t answer her question.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2. The underlined words “an obnoxious person” in Paragraph 5 refers to “__________”.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>the middle-aged lady</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>the black man</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>the stewardess</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>the captain</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>3. From the passage we can infer that _________.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>the middle-aged lady got a seat in first class</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>both the middle-aged lady and the black man got seats in first class</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>neither the middle-aged lady nor the black man got a seat in first class</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>the black man got a seat in first class</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>4. What can we conclude from the passage?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>The white people always prefer seats in first class on a plane.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>More and more passengers travel by plane.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>The black people are still looked down upon by some whites.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Only whites are served well on a plane.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>E</Title>
+            <Text><![CDATA[In Kansas at the turn of the century, Edwin and Amy Earhar doted on （溺爱）their active daughters, Amelia and Muriel. Edwin gave the girls footballs and rifles, while Amy shocked the community by dressing them in gym suits instead of skirts. Edwin's job caused the family to move from town to town, and the girls’ interest in rough sports and shooting rats raised eyebrows wherever they went.    Amelia's parents did not pressure her to reform as she grew older, even when she dabbled（轻率地对待） in the domains of science and automobile mechanics. But in 1920, when she went aloft（在空中） at an air show and returned home determined to learn how to fly, even her liberal Parents hesitated. They soon gave in, however, and within months Amelia was flying a Kinner Airster her mother helped her buy. ]]></Text>
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1. According to the passage, Edwin gave the girls which of the following items?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>An airplane</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Footballs</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>An automobile</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Gym suits</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2. It may be inferred from the passage that, at the turn of the century, it was LEAST common</Text>
+                    <Options />
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>for girls to____.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>wear skirts</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>have doting parents</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>move from town to town</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>play with rifles</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>3. In what way did Amelia's mother help Amelia in her career?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>By helping her to buy a plane</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>by taking her to an air show</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>By pressuring her to become a pilot</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>By giving her flying lessons</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>F</Title>
+            <Text><![CDATA[	I never thought I would have a life-changing experience at Wal-Mart. Although my thoughts were only on speed, the checkout line I was standing in wasn’t moving as quickly as I wanted, and I glanced toward the cashier.There stood a man in his seventies, wearing glasses and a nice smile. I thought, well, he’s an old guy!For the next few minutes I watched him. He greeted every customer before scanning the items. Sure, his words were the usual, “How’s it going?” But he did something different----he actually listened to people. Then he would respond to what they had said and engage them in brief conversation.I thought it was odd. I have grown accustomed to people asking me how I was doing simply out of robotic conversational habit. After a while, you don’t give any thought to the question and just mumble something back. I could say, “I just found out I have six months to live,” and someone would reply, “Have a great day!”But that wasn’t the end.He gave them the change, walked around the counter, and extended his right hand in an act of friendship. He looked the customers in the eyes. “I sure want to thank you for shopping here today,” he told them. “You have a great day. Bye-bye.”The looks on the faces of the customers were priceless. There were smiles and some sheepish grins. All had been touched by his simple gesture and in a place they never expected. They would gather their things and walk out, smiling.Of course, he did the same to me and I got to know his name. Marty.Who was that guy? It was as if Sam Walton had come back from the dead and invaded this old guy’s body.I had never walked away from that shop feeling like that.]]></Text>
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1．The checkout line the writer was standing in moved slower than expected because      .</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>the cashier couldn’t work as fast as others</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>there were some big purchases</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>the cashier did more than scanning the items</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>the writer was not patient enough</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2．According to the writer, when common people ask you “How’s it going?”       .</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>they don’t really care what you may answer</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>they are just practicing their conversation ability</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>they are inquiring about your private information</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>they don’t expect to hear any negative answers</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>3．What was most customers’ reaction to Marty’s behaviors?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>They thought it priceless.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>They were in some way moved.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>They thought it awful and odd.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>They felt somewhat offended.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>4．What can we infer about Sam Walton?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>He might be Marty’s father or grandfather.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>He might be friendly and devoted to Wal-Mary.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>He might have died while working in the market.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>He might have come back from the dead once before.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="5" Answer="0" IsMultipleChoice="false">
+                    <Text>5．What does the writer intend to express through the text?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Our everyday life is always full of surprises.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Most customer enjoy being treated this way.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Being different is a good way of doing business.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>A little positive action can make a big difference.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+    </Readings>
 </Examination>

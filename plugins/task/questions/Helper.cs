@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Dragonfly.Questions
@@ -18,9 +18,9 @@ namespace Dragonfly.Questions
             return (Examination)LoadFromFile(filePath, typeof(Examination));
         }
 
-        public static string SaveExaminationToString(Examination exam)
+        public static string SaveExaminationToString(Examination exam, bool ignoreXmlDecl)
         {
-            return SaveToString(exam);
+            return SaveToString(exam, ignoreXmlDecl);
         }
 
         public static Examination LoadExaminationFromString(string xml)
@@ -38,31 +38,37 @@ namespace Dragonfly.Questions
             return (MockResult)LoadFromFile(filePath, typeof(MockResult));
         }
 
-        public static string SaveToString(object obj)
+        public static string SaveToString(object obj, bool ignoreXmlDecl)
         {
             if (obj == null)
                 return null;
 
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "    ",
+                OmitXmlDeclaration = ignoreXmlDecl ? true : false,
+                Encoding = new UTF8Encoding(false),
+            };
+
             MemoryStream stream = new MemoryStream();
-            XmlSerializer xml = new XmlSerializer(obj.GetType());
-
-            xml.Serialize(stream, obj);
-            stream.Position = 0;
-            StreamReader sr = new StreamReader(stream);
-            string str = sr.ReadToEnd();
-
-            sr.Dispose();
-            stream.Dispose();
-
-            return str;
+            XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
+            using (XmlWriter writer = XmlWriter.Create(stream, settings))
+            {
+                xmlSerializer.Serialize(writer, obj, ns);
+            }
+            return Encoding.UTF8.GetString(stream.ToArray());
         }
 
-        public static object LoadFromString(string xml, Type type)
+        public static object LoadFromString(string xmlString, Type type)
         {
-            using (StringReader sr = new StringReader(xml))
+            
+            using (var reader = new StringReader(xmlString))
             {
-                XmlSerializer xmldes = new XmlSerializer(type);
-                return xmldes.Deserialize(sr);
+XmlSerializer s = new XmlSerializer(type);
+                return s.Deserialize(reader);
             }
         }
 
@@ -70,11 +76,23 @@ namespace Dragonfly.Questions
         {
             if (!string.IsNullOrWhiteSpace(filePath) && obj != null)
             {
-                using (StreamWriter writer = new StreamWriter(filePath))
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
+                XmlWriterSettings settings = new XmlWriterSettings
                 {
-                    XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
-                    xmlSerializer.Serialize(writer, obj);
+                    Indent = true,
+                    IndentChars = "    ",
+                    OmitXmlDeclaration = false,
+                    Encoding = new UTF8Encoding(false),
+                };
+
+
+                XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
+                using (XmlWriter writer = XmlWriter.Create(filePath, settings))
+                {
+                    xmlSerializer.Serialize(writer, obj, ns);
                 }
+
             }
         }
 

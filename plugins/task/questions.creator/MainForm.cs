@@ -666,16 +666,14 @@ namespace Dragonfly.Questions.Creator
                     commit_change();
                     fillExam();
                     txt_exam_source.Clear();
-                    txt_exam_source.SelectionIndent = 20;
-                    txt_exam_source.SelectionRightIndent = 12;
                     txt_exam_source.SetLineHeight(1, 0);
-                    txt_exam_source.SelectedText = (exam == null) ? "" : Helper.SaveExaminationToString(exam);
+                    txt_exam_source.SelectedText = (exam == null) ? "" : Helper.SaveExaminationToString(exam, false);
                     txt_exam_source.TextChanged += new System.EventHandler(this.Changed);
                     break;
             }
         }
 
-        private void toolToolStripMenuItem_Click(object sender, EventArgs e)
+        private void txtToReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConvertTxtToReadingForm form = new ConvertTxtToReadingForm();
             form.ShowDialog(this);

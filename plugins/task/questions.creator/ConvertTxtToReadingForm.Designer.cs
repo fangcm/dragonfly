@@ -28,26 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabPageXmlreading = new System.Windows.Forms.TabPage();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConvertTxtToReadingForm));
             this.txt_xmlreading = new Dragonfly.Questions.RichTextBoxEx();
-            this.tabPageGuiRawtext = new System.Windows.Forms.TabPage();
-            this.tabControlMain = new System.Windows.Forms.TabControl();
             this.txt_rawtext = new Dragonfly.Questions.RichTextBoxEx();
-            this.tabPageXmlreading.SuspendLayout();
-            this.tabPageGuiRawtext.SuspendLayout();
-            this.tabControlMain.SuspendLayout();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.tsb_translate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripMain = new System.Windows.Forms.ToolStrip();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.Panel2.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
+            this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabPageXmlreading
-            // 
-            this.tabPageXmlreading.Controls.Add(this.txt_xmlreading);
-            this.tabPageXmlreading.Location = new System.Drawing.Point(4, 4);
-            this.tabPageXmlreading.Name = "tabPageXmlreading";
-            this.tabPageXmlreading.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageXmlreading.Size = new System.Drawing.Size(750, 457);
-            this.tabPageXmlreading.TabIndex = 1;
-            this.tabPageXmlreading.Text = "题库代码";
-            this.tabPageXmlreading.UseVisualStyleBackColor = true;
             // 
             // txt_xmlreading
             // 
@@ -55,36 +47,13 @@
             this.txt_xmlreading.DetectUrls = false;
             this.txt_xmlreading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_xmlreading.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_xmlreading.Location = new System.Drawing.Point(3, 3);
+            this.txt_xmlreading.Location = new System.Drawing.Point(0, 0);
+            this.txt_xmlreading.Margin = new System.Windows.Forms.Padding(4);
             this.txt_xmlreading.Name = "txt_xmlreading";
             this.txt_xmlreading.ReadOnly = true;
-            this.txt_xmlreading.Size = new System.Drawing.Size(744, 451);
+            this.txt_xmlreading.Size = new System.Drawing.Size(534, 573);
             this.txt_xmlreading.TabIndex = 23;
             this.txt_xmlreading.Text = "";
-            // 
-            // tabPageGuiRawtext
-            // 
-            this.tabPageGuiRawtext.Controls.Add(this.txt_rawtext);
-            this.tabPageGuiRawtext.Location = new System.Drawing.Point(4, 4);
-            this.tabPageGuiRawtext.Name = "tabPageGuiRawtext";
-            this.tabPageGuiRawtext.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGuiRawtext.Size = new System.Drawing.Size(750, 457);
-            this.tabPageGuiRawtext.TabIndex = 0;
-            this.tabPageGuiRawtext.Text = "题库文本";
-            this.tabPageGuiRawtext.UseVisualStyleBackColor = true;
-            // 
-            // tabControlMain
-            // 
-            this.tabControlMain.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControlMain.Controls.Add(this.tabPageGuiRawtext);
-            this.tabControlMain.Controls.Add(this.tabPageXmlreading);
-            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlMain.Location = new System.Drawing.Point(0, 0);
-            this.tabControlMain.Name = "tabControlMain";
-            this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(758, 483);
-            this.tabControlMain.TabIndex = 3;
-            this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
             // txt_rawtext
             // 
@@ -92,34 +61,80 @@
             this.txt_rawtext.DetectUrls = false;
             this.txt_rawtext.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_rawtext.Font = new System.Drawing.Font("宋体", 14F);
-            this.txt_rawtext.Location = new System.Drawing.Point(3, 3);
+            this.txt_rawtext.Location = new System.Drawing.Point(0, 0);
+            this.txt_rawtext.Margin = new System.Windows.Forms.Padding(4);
             this.txt_rawtext.Name = "txt_rawtext";
-            this.txt_rawtext.Size = new System.Drawing.Size(744, 451);
+            this.txt_rawtext.Size = new System.Drawing.Size(465, 573);
             this.txt_rawtext.TabIndex = 24;
             this.txt_rawtext.Text = "";
             // 
+            // splitContainerMain
+            // 
+            this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 27);
+            this.splitContainerMain.Name = "splitContainerMain";
+            // 
+            // splitContainerMain.Panel1
+            // 
+            this.splitContainerMain.Panel1.Controls.Add(this.txt_rawtext);
+            // 
+            // splitContainerMain.Panel2
+            // 
+            this.splitContainerMain.Panel2.Controls.Add(this.txt_xmlreading);
+            this.splitContainerMain.Size = new System.Drawing.Size(1011, 577);
+            this.splitContainerMain.SplitterDistance = 469;
+            this.splitContainerMain.TabIndex = 4;
+            // 
+            // tsb_translate
+            // 
+            this.tsb_translate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsb_translate.Image = ((System.Drawing.Image)(resources.GetObject("tsb_translate.Image")));
+            this.tsb_translate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_translate.Name = "tsb_translate";
+            this.tsb_translate.Size = new System.Drawing.Size(76, 24);
+            this.tsb_translate.Text = "translate";
+            this.tsb_translate.Click += new System.EventHandler(this.tsb_translate_Click);
+            // 
+            // toolStripMain
+            // 
+            this.toolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripMain.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsb_translate});
+            this.toolStripMain.Location = new System.Drawing.Point(0, 0);
+            this.toolStripMain.Name = "toolStripMain";
+            this.toolStripMain.Size = new System.Drawing.Size(1011, 27);
+            this.toolStripMain.TabIndex = 5;
+            this.toolStripMain.Text = "toolStrip1";
+            // 
             // ConvertTxtToReadingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 483);
-            this.Controls.Add(this.tabControlMain);
+            this.ClientSize = new System.Drawing.Size(1011, 604);
+            this.Controls.Add(this.splitContainerMain);
+            this.Controls.Add(this.toolStripMain);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimizeBox = false;
             this.Name = "ConvertTxtToReadingForm";
             this.Text = "Convert Txt To Reading";
-            this.tabPageXmlreading.ResumeLayout(false);
-            this.tabPageGuiRawtext.ResumeLayout(false);
-            this.tabControlMain.ResumeLayout(false);
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
+            this.splitContainerMain.ResumeLayout(false);
+            this.toolStripMain.ResumeLayout(false);
+            this.toolStripMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabPage tabPageXmlreading;
         private RichTextBoxEx txt_xmlreading;
-        private System.Windows.Forms.TabPage tabPageGuiRawtext;
         private RichTextBoxEx txt_rawtext;
-        private System.Windows.Forms.TabControl tabControlMain;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.ToolStripButton tsb_translate;
+        private System.Windows.Forms.ToolStrip toolStripMain;
     }
 }
