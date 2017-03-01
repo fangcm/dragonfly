@@ -44,15 +44,17 @@ namespace Dragonfly.Questions.Notify
 
         private void btn_start_exam_Click(object sender, EventArgs e)
         {
-            this.panelStart.Visible = false;
-            this.panelMain.Visible = true;
-
             Reading reading = mockExamUtil.GetMockReading();
             if (reading == null)
             {
+                MessageBox.Show(this, "试题库里面的题都做完了，没有试题了，请联系出题老师。", "提示", MessageBoxButtons.OK);
                 Clear();
                 return;
             }
+
+            this.panelStart.Visible = false;
+            this.panelMain.Visible = true;
+
             this.btn_previous.Enabled = true;
             this.btn_next.Enabled = true;
 
