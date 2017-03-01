@@ -23,11 +23,14 @@ namespace Dragonfly.Questions.Creator
             InitializeComponent();
         }
 
-        private Reading translate(string rawText)
+        private List<Reading> translate(string rawText)
         {
             using (StringReader sr = new StringReader(rawText))
             {
+                List<Reading> result = new List<Reading>();
                 Reading reading = new Reading();
+                result.Add(reading);
+
                 int processingType = ProcessingTitle;
                 bool skipRead = false;
                 string line = null;
@@ -121,12 +124,15 @@ namespace Dragonfly.Questions.Creator
                                 {
                                     processingType = ProcessingTitle;
                                     skipRead = true;
+
+                                    reading = new Reading();
+                                    result.Add(reading);
                                 }
                             }
                             break;
                     }
                 }
-                return reading;
+                return result;
             }
         }
 
@@ -135,8 +141,8 @@ namespace Dragonfly.Questions.Creator
             txt_xmlreading.Clear();
             txt_xmlreading.SetLineHeight(1, 0);
             txt_xmlreading.SelectAll();
-            Reading reading = translate(txt_rawtext.Text);
-            txt_xmlreading.SelectedText = (reading == null) ? "" : Helper.SaveToString(reading, true);
+            var readings = translate(txt_rawtext.Text);
+            txt_xmlreading.SelectedText = (readings == null) ? "" : Helper.SaveToString(readings, true);
         }
     }
 }
