@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logs>
+  <log date="2017/2/24 21:58:58" type="Trigger">
+    <text>指令:锁屏【120】分钟</text>
+  </log>
+  <log date="2017/2/24 21:58:58" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/24 21:58:58" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/24 22:18:55" type="Suspend">
+    <text>关机</text>
+  </log>
+</logs>

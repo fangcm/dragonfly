@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logs>
+  <log date="2017/2/17 7:59:28" type="Resume">
+    <text>启动初始化</text>
+  </log>
+  <log date="2017/2/17 9:29:13" type="Resume">
+    <text>启动初始化</text>
+  </log>
+  <log date="2017/2/17 10:29:50" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/17 12:31:56" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/17 14:29:20" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/17 16:29:24" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/17 19:34:08" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/17 22:11:17" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/17 22:20:00" type="Trigger">
+    <text>指令:锁屏【60】分钟</text>
+  </log>
+</logs>

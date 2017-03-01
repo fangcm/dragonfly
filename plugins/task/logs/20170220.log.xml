@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logs>
+  <log date="2017/2/20 16:42:47" type="Resume">
+    <text>启动初始化</text>
+  </log>
+  <log date="2017/2/20 18:11:55" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+  <log date="2017/2/20 20:39:49" type="Trigger">
+    <text>指令:锁屏【35】分钟</text>
+  </log>
+</logs>
