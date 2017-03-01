@@ -497,5 +497,100 @@ People usually lose their permanent teeth due to periodontal disease（牙周炎
                 </Question>
             </Questions>
         </Reading>
+        <Reading>
+            <Title>G</Title>
+            <Text><![CDATA[Register(注册) in person: 1782N. Winchester St. Chicago Register by phone Call 264-8833
+Register by mail: Use form given
+Basic Photography
+　　This is an eight-hour course for beginners who want to learn how to use a 35 mm camera. The teacher will cover such areas as kinds of film, light, and lenses. Bring your own 35 mm camera to class.
+　　Course charge: $50.00 Jan. 10, 12, 17, 19 Tues. & Thurs. 6:00 ~ 8: 00p. m.
+　　Marianne Adams is a professional photographer whose photographs appear in many magazines.
+
+Understanding Computers
+　　This twelve-hour course is for people who do not know very much about computers, but who need to learn about them. You will learn what computers are, what they can and can' t do, and how to use them.
+　　Course charge: $75.50 Equipment charge: $10.00 Jan. 14, 21, 28 Sat. 9:00 ~ 11: 50a. m.
+　　Joseph Saimders is Professor of Computer Science at New Urban University. He has over twelve years of experience in the computer field.
+Stop Smoking
+　　Do you want to stop smoking? Have you already tried to stop but failed? Now is the time to stop smoking using the latest methods. You can stop smoking, and this twelve-hour course will help you do it.
+　　Course charge: $30.00 Jan. 4, 11, 18, 25 Mon. 4:00 ~ 7: 00p. m.
+　　Dr. John 'oods is a practicing psychologist (心理学家) who has helped hundreds of people stop smoking.
+Typing
+　　This course on weekday is for those who want to learn to type, as well as those who want to improve their typing. You are tested in the first class and practise at one of eight different skill levels. This allows you to learn at your own speed. Each programme lasts 20 hours. Bring your own paper.
+　　Course charge: $125.00 Material charge: $25.00
+　　Two hours each evening for two weeks.
+　　New classes begin every two weeks.
+　　This course is taught by a number of business education teachers who have successfully taught typing courses before.
+]]></Text>
+            <Questions>
+                <Question No="1" Answer="0" IsMultipleChoice="false">
+                    <Text>1. The word "professional" in this advertisement most probably means "______".</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>spiritual</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>journalist</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>professor</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>experienced</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="0" IsMultipleChoice="false">
+                    <Text>2. The shortest course is_______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Basic Photography</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Understanding Computers</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Stop Smoking</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Typing</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="0" IsMultipleChoice="false">
+                    <Text>3. A course which can do something good for your health will cost _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>$50.00</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>$30.00</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>$10.00</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>$25.00</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="0" IsMultipleChoice="false">
+                    <Text>4. There are typing courses ________</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>on Saturdays and Sundays</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>from Monday to Friday</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>from Monday to Saturday</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>on each day in the week</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
     </Readings>
 </Examination>
