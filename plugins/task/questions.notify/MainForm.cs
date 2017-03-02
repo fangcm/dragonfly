@@ -101,7 +101,7 @@ namespace Dragonfly.Questions.Notify
         {
             if (currentQuestionIndex >= reading.Questions.Count - 1)
             {
-                if(MessageBox.Show(this, "This is the last question,, Do you want to end exercises ?", "Tips",MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                if(MessageBox.Show(this, "This is the last question,  do you want to end exercises ?", "Tips",MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     FinishExam();
                     this.panelMain.Visible = false;
                     this.panelStart.Visible = true;
@@ -255,12 +255,11 @@ namespace Dragonfly.Questions.Notify
             }
 
             int resultScore = Convert.ToInt32(temp);
+            int savingMinutes = resultScore;
+            string tip = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
+
             if (resultScore >= mockExamUtil.Examination.ExamProperties.PassScore)
             {
-                int savingMinutes = resultScore;
-
-                this.label_tip.Text = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
-
                 ReadingResult readingResult = new ReadingResult();
                 readingResult.Title = reading.Title;
                 readingResult.NumberOfQuestions = reading.Questions.Count;
@@ -268,11 +267,14 @@ namespace Dragonfly.Questions.Notify
 
                 mockExamUtil.SaveMockResult(readingResult);
                 this.AddIntervalSeconds(0 - savingMinutes * 60);
+
+                MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);
             }
             else
             {
-                MessageBox.Show(this, "你获得" + resultScore + "分，本题总分是" + mockExamUtil.Examination.ExamProperties.Score +
-                    "，你需要达到至少" + mockExamUtil.Examination.ExamProperties.PassScore + "分才能过关。", "Tips", MessageBoxButtons.OK);
+                tip += "\n你获得" + resultScore + "分，本题总分是" + mockExamUtil.Examination.ExamProperties.Score +
+                    "，你需要达到至少" + mockExamUtil.Examination.ExamProperties.PassScore + "分才能过关。";
+                MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);
             }
         }
 

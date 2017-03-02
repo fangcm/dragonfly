@@ -92,6 +92,13 @@ namespace Dragonfly.Task.Notify.Common
                     globalHooks.KeyDown += new KeyEventHandler(GlobalHooks_KeyDown);
                 }
             }
+
+            if (!IsDebugMode)
+            {
+                int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+                int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
+                SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
+            }
         }
 
         private void LockScreenForm_Deactivate(object sender, EventArgs e)
@@ -115,10 +122,6 @@ namespace Dragonfly.Task.Notify.Common
             if (!IsDebugMode)
             {
                 KillTaskmgr();
-
-                int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-                int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
-                SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
             }
 
             TimeSpan leftTime = endDateTime - DateTime.Now;

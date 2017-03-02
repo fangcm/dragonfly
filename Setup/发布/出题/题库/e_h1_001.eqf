@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Examination>
-    <ExamProperties Score="30" PassScore="0">
+    <ExamProperties Score="30" PassScore="24">
         <Title>高三阅读理解练习20篇</Title>
     </ExamProperties>
     <Readings>
