@@ -38,6 +38,7 @@ namespace Dragonfly.Questions.Creator
             }
             txt_exam_title.Text = exam.ExamProperties.Title;
             num_exam_score.Value = exam.ExamProperties.Score;
+            num_exam_passscore.Value = exam.ExamProperties.PassScore;
             IsDirty = false;
         }
 
@@ -95,7 +96,7 @@ namespace Dragonfly.Questions.Creator
 
                 txt_exam_title.Text = exam.ExamProperties.Title;
                 num_exam_score.Value = exam.ExamProperties.Score;
-
+                num_exam_passscore.Value = exam.ExamProperties.PassScore;
             }
         }
 
@@ -225,13 +226,16 @@ namespace Dragonfly.Questions.Creator
 
                 txt_exam_title.TextChanged -= new System.EventHandler(this.Changed);
                 num_exam_score.ValueChanged -= new System.EventHandler(this.Changed);
+                num_exam_passscore.ValueChanged -= new System.EventHandler(this.Changed);
 
                 ExamProperties properties = ((ExamNode)treeViewExam.SelectedNode).ExamProperties;
                 txt_exam_title.Text = properties.Title;
                 num_exam_score.Value = properties.Score;
+                num_exam_passscore.Value = properties.PassScore;
 
                 txt_exam_title.TextChanged += new System.EventHandler(this.Changed);
                 num_exam_score.ValueChanged += new System.EventHandler(this.Changed);
+                num_exam_passscore.ValueChanged += new System.EventHandler(this.Changed);
             }
             else if (treeViewExam.SelectedNode.GetType() == typeof(ReadingNode))
             {
@@ -533,6 +537,7 @@ namespace Dragonfly.Questions.Creator
                 ExamNode examNode = (ExamNode)treeViewExam.Nodes[0];
                 examNode.ExamProperties.Title = txt_exam_title.Text;
                 examNode.ExamProperties.Score = Convert.ToInt32(num_exam_score.Value);
+                examNode.ExamProperties.PassScore = Convert.ToInt32(num_exam_passscore.Value);
                 treeViewExam.Nodes[0].Text = examNode.ExamProperties.Title;
             }
             else
@@ -540,6 +545,7 @@ namespace Dragonfly.Questions.Creator
                 ExamProperties properties = new ExamProperties()
                 {
                     Score = Convert.ToInt32(num_exam_score.Value),
+                    PassScore = Convert.ToInt32(num_exam_passscore.Value),
                     Title = txt_exam_title.Text,
                 };
 

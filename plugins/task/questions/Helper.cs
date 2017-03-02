@@ -53,22 +53,23 @@ namespace Dragonfly.Questions
                 Encoding = new UTF8Encoding(false),
             };
 
-            MemoryStream stream = new MemoryStream();
             XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
+
+            using (MemoryStream stream = new MemoryStream())
             using (XmlWriter writer = XmlWriter.Create(stream, settings))
             {
                 xmlSerializer.Serialize(writer, obj, ns);
+                return Encoding.UTF8.GetString(stream.ToArray());
             }
-            return Encoding.UTF8.GetString(stream.ToArray());
+
         }
 
         public static object LoadFromString(string xmlString, Type type)
         {
-            
-            using (var reader = new StringReader(xmlString))
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(xmlString)))
             {
-XmlSerializer s = new XmlSerializer(type);
-                return s.Deserialize(reader);
+                XmlSerializer xmlSerializer = new XmlSerializer(type);
+                return xmlSerializer.Deserialize(stream);
             }
         }
 

@@ -72,6 +72,9 @@ namespace Dragonfly.Questions
 
         [XmlAttribute("Score")]
         public int Score { get; set; }
+
+        [XmlAttribute("PassScore")]
+        public int PassScore { get; set; }
     }
 
     [XmlRootAttribute("Reading", Namespace = "")]
