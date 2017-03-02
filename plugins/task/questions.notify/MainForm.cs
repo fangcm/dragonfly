@@ -253,16 +253,27 @@ namespace Dragonfly.Questions.Notify
             {
                 temp = (temp / reading.Questions.Count * mockExamUtil.Examination.ExamProperties.Score);
             }
-            int savingMinutes = Convert.ToInt32(temp);
-            this.label_tip.Text = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
 
-            ReadingResult readingResult = new ReadingResult();
-            readingResult.Title = reading.Title;
-            readingResult.NumberOfQuestions = reading.Questions.Count;
-            readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
+            int resultScore = Convert.ToInt32(temp);
+            if (resultScore >= mockExamUtil.Examination.ExamProperties.PassScore)
+            {
+                int savingMinutes = resultScore;
 
-            mockExamUtil.SaveMockResult(readingResult);
-            this.AddIntervalSeconds(0 - savingMinutes * 60);
+                this.label_tip.Text = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
+
+                ReadingResult readingResult = new ReadingResult();
+                readingResult.Title = reading.Title;
+                readingResult.NumberOfQuestions = reading.Questions.Count;
+                readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
+
+                mockExamUtil.SaveMockResult(readingResult);
+                this.AddIntervalSeconds(0 - savingMinutes * 60);
+            }
+            else
+            {
+                MessageBox.Show(this, "你获得" + resultScore + "分，本题总分是" + mockExamUtil.Examination.ExamProperties.Score +
+                    "，你需要达到至少" + mockExamUtil.Examination.ExamProperties.PassScore + "分才能过关。", "Tips", MessageBoxButtons.OK);
+            }
         }
 
         private void btn_change_Click(object sender, EventArgs e)
