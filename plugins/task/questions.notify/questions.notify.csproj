@@ -116,6 +116,7 @@
   <ItemGroup>
     <Content Include="Resources\finish.ico" />
     <Content Include="Resources\left.ico" />
+    <Content Include="Resources\play.ico" />
     <Content Include="Resources\right.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

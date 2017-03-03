@@ -31,7 +31,7 @@ namespace Dragonfly.Questions.Notify
             InitializeComponent();
 
 #if DEBUG
-            this.IsDebugMode = true;
+            //this.IsDebugMode = true;
 #endif
 
             this.panelMain.Visible = false;
@@ -64,9 +64,9 @@ namespace Dragonfly.Questions.Notify
         private void Init(Reading reading)
         {
             this.reading = reading;
-            currentQuestionIndex = 0;
             userAnswers = new object[reading.Questions.Count];
 
+            currentQuestionIndex = 0;
             PrintQuestionToScreen();
         }
 
@@ -266,9 +266,10 @@ namespace Dragonfly.Questions.Notify
                 readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
 
                 mockExamUtil.SaveMockResult(readingResult);
-                this.AddIntervalSeconds(0 - savingMinutes * 60);
 
                 MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);
+                this.AddIntervalSeconds(0 - savingMinutes * 60);
+
             }
             else
             {
