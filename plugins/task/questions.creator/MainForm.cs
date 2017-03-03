@@ -17,6 +17,10 @@ namespace Dragonfly.Questions.Creator
         {
             InitializeComponent();
 
+            this.DoubleBuffered = true;
+            SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+
             panel_exam.Dock = DockStyle.Fill;
             panelReading.Dock = DockStyle.Fill;
             panel_question.Dock = DockStyle.Fill;
@@ -326,7 +330,9 @@ namespace Dragonfly.Questions.Creator
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
-                            Location = new Point(2, i * 36)
+                            Location = new Point(2, i * 36),
+                            Width = panel_question_options.Width - 30,
+                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         if (question.Answers.Contains(option.Alphabet))
                         {
@@ -345,7 +351,9 @@ namespace Dragonfly.Questions.Creator
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
-                            Location = new Point(2, i * 36)
+                            Location = new Point(2, i * 36),
+                            Width = panel_question_options.Width - 30,
+                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         if (option.Alphabet == question.Answer)
                         {
@@ -367,7 +375,6 @@ namespace Dragonfly.Questions.Creator
                 else
                     btn_remove_option.Enabled = false;
             }
-
         }
 
 
@@ -393,7 +400,9 @@ namespace Dragonfly.Questions.Creator
                         {
                             Name = "option" + (panel_question_options.Controls.Count - 1),
                             Letter = (char)(Convert.ToInt32(((OptionsControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
-                            Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36))
+                            Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36)),
+                            Width = panel_question_options.Width - 30,
+                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         ctrl.chkLetter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
@@ -404,7 +413,9 @@ namespace Dragonfly.Questions.Creator
                         {
                             Location = new Point(2, 2),
                             Name = "option0",
-                            Letter = 'A'
+                            Letter = 'A',
+                            Width = panel_question_options.Width - 30,
+                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         ctrl.chkLetter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
@@ -418,7 +429,9 @@ namespace Dragonfly.Questions.Creator
                         {
                             Name = "option" + (panel_question_options.Controls.Count - 1),
                             Letter = (char)(Convert.ToInt32(((OptionControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
-                            Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36))
+                            Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36)),
+                            Width = panel_question_options.Width - 30,
+                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         ctrl.rdb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
@@ -429,7 +442,9 @@ namespace Dragonfly.Questions.Creator
                         {
                             Location = new Point(2, 2),
                             Name = "option0",
-                            Letter = 'A'
+                            Letter = 'A',
+                            Width = panel_question_options.Width - 30,
+                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         ctrl.rdb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
