@@ -36,7 +36,6 @@
             this.panel_exam = new System.Windows.Forms.Panel();
             this.num_exam_passscore = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.btn_save_properties = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.num_exam_score = new System.Windows.Forms.NumericUpDown();
             this.txt_exam_title = new System.Windows.Forms.TextBox();
@@ -98,7 +97,7 @@
             // 
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerMain.Location = new System.Drawing.Point(4, 4);
-            this.splitContainerMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainerMain.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
@@ -120,7 +119,7 @@
             this.treeViewExam.ImageIndex = 0;
             this.treeViewExam.ImageList = this.imglstTreeNode;
             this.treeViewExam.Location = new System.Drawing.Point(0, 0);
-            this.treeViewExam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeViewExam.Margin = new System.Windows.Forms.Padding(4);
             this.treeViewExam.Name = "treeViewExam";
             this.treeViewExam.SelectedImageIndex = 0;
             this.treeViewExam.Size = new System.Drawing.Size(296, 587);
@@ -140,7 +139,6 @@
             // 
             this.panel_exam.Controls.Add(this.num_exam_passscore);
             this.panel_exam.Controls.Add(this.label4);
-            this.panel_exam.Controls.Add(this.btn_save_properties);
             this.panel_exam.Controls.Add(this.label9);
             this.panel_exam.Controls.Add(this.num_exam_score);
             this.panel_exam.Controls.Add(this.txt_exam_title);
@@ -148,7 +146,7 @@
             this.panel_exam.Controls.Add(this.label2);
             this.panel_exam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_exam.Location = new System.Drawing.Point(0, 0);
-            this.panel_exam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_exam.Margin = new System.Windows.Forms.Padding(4);
             this.panel_exam.Name = "panel_exam";
             this.panel_exam.Size = new System.Drawing.Size(756, 587);
             this.panel_exam.TabIndex = 3;
@@ -158,7 +156,7 @@
             this.num_exam_passscore.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.num_exam_passscore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_exam_passscore.Location = new System.Drawing.Point(210, 161);
-            this.num_exam_passscore.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.num_exam_passscore.Margin = new System.Windows.Forms.Padding(5);
             this.num_exam_passscore.Name = "num_exam_passscore";
             this.num_exam_passscore.Size = new System.Drawing.Size(148, 25);
             this.num_exam_passscore.TabIndex = 19;
@@ -176,18 +174,6 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "Pass Score:";
             // 
-            // btn_save_properties
-            // 
-            this.btn_save_properties.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_save_properties.Location = new System.Drawing.Point(258, 231);
-            this.btn_save_properties.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btn_save_properties.Name = "btn_save_properties";
-            this.btn_save_properties.Size = new System.Drawing.Size(100, 29);
-            this.btn_save_properties.TabIndex = 17;
-            this.btn_save_properties.Text = "Save";
-            this.btn_save_properties.UseVisualStyleBackColor = true;
-            this.btn_save_properties.Click += new System.EventHandler(this.btn_save_properties_Click);
-            // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -204,7 +190,7 @@
             this.num_exam_score.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.num_exam_score.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.num_exam_score.Location = new System.Drawing.Point(210, 112);
-            this.num_exam_score.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.num_exam_score.Margin = new System.Windows.Forms.Padding(4);
             this.num_exam_score.Name = "num_exam_score";
             this.num_exam_score.Size = new System.Drawing.Size(148, 25);
             this.num_exam_score.TabIndex = 15;
@@ -215,7 +201,7 @@
             // 
             this.txt_exam_title.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt_exam_title.Location = new System.Drawing.Point(210, 63);
-            this.txt_exam_title.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_exam_title.Margin = new System.Windows.Forms.Padding(4);
             this.txt_exam_title.Name = "txt_exam_title";
             this.txt_exam_title.Size = new System.Drawing.Size(319, 25);
             this.txt_exam_title.TabIndex = 14;
@@ -250,7 +236,7 @@
             this.panelReading.Controls.Add(this.label1);
             this.panelReading.Controls.Add(this.txt_reading_title);
             this.panelReading.Location = new System.Drawing.Point(43, 52);
-            this.panelReading.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelReading.Margin = new System.Windows.Forms.Padding(4);
             this.panelReading.Name = "panelReading";
             this.panelReading.Size = new System.Drawing.Size(295, 298);
             this.panelReading.TabIndex = 0;
@@ -274,7 +260,7 @@
             this.txt_reading_text.DetectUrls = false;
             this.txt_reading_text.Font = new System.Drawing.Font("宋体", 14F);
             this.txt_reading_text.Location = new System.Drawing.Point(16, 120);
-            this.txt_reading_text.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_reading_text.Margin = new System.Windows.Forms.Padding(4);
             this.txt_reading_text.Name = "txt_reading_text";
             this.txt_reading_text.Size = new System.Drawing.Size(263, 158);
             this.txt_reading_text.TabIndex = 22;
@@ -296,7 +282,7 @@
             this.txt_reading_title.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_reading_title.Location = new System.Drawing.Point(143, 39);
-            this.txt_reading_title.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_reading_title.Margin = new System.Windows.Forms.Padding(4);
             this.txt_reading_title.Name = "txt_reading_title";
             this.txt_reading_title.Size = new System.Drawing.Size(135, 25);
             this.txt_reading_title.TabIndex = 15;
@@ -312,7 +298,7 @@
             this.panel_question.Controls.Add(this.btn_remove_option);
             this.panel_question.Controls.Add(this.btn_add_options);
             this.panel_question.Location = new System.Drawing.Point(401, 52);
-            this.panel_question.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_question.Margin = new System.Windows.Forms.Padding(4);
             this.panel_question.Name = "panel_question";
             this.panel_question.Size = new System.Drawing.Size(636, 530);
             this.panel_question.TabIndex = 1;
@@ -324,7 +310,7 @@
             this.txt_question_text.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_question_text.Font = new System.Drawing.Font("宋体", 14F);
             this.txt_question_text.Location = new System.Drawing.Point(16, 98);
-            this.txt_question_text.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_question_text.Margin = new System.Windows.Forms.Padding(4);
             this.txt_question_text.Name = "txt_question_text";
             this.txt_question_text.Size = new System.Drawing.Size(603, 98);
             this.txt_question_text.TabIndex = 21;
@@ -355,7 +341,7 @@
             // 
             this.chkMulipleChoice.AutoSize = true;
             this.chkMulipleChoice.Location = new System.Drawing.Point(16, 204);
-            this.chkMulipleChoice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkMulipleChoice.Margin = new System.Windows.Forms.Padding(4);
             this.chkMulipleChoice.Name = "chkMulipleChoice";
             this.chkMulipleChoice.Size = new System.Drawing.Size(293, 19);
             this.chkMulipleChoice.TabIndex = 17;
@@ -370,7 +356,7 @@
             this.panel_question_options.AutoScroll = true;
             this.panel_question_options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_question_options.Location = new System.Drawing.Point(16, 232);
-            this.panel_question_options.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_question_options.Margin = new System.Windows.Forms.Padding(4);
             this.panel_question_options.Name = "panel_question_options";
             this.panel_question_options.Size = new System.Drawing.Size(485, 212);
             this.panel_question_options.TabIndex = 14;
@@ -382,7 +368,7 @@
             this.btn_remove_option.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_remove_option.Enabled = false;
             this.btn_remove_option.Location = new System.Drawing.Point(515, 345);
-            this.btn_remove_option.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_remove_option.Margin = new System.Windows.Forms.Padding(4);
             this.btn_remove_option.Name = "btn_remove_option";
             this.btn_remove_option.Size = new System.Drawing.Size(105, 29);
             this.btn_remove_option.TabIndex = 16;
@@ -395,7 +381,7 @@
             // 
             this.btn_add_options.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_add_options.Location = new System.Drawing.Point(515, 275);
-            this.btn_add_options.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_add_options.Margin = new System.Windows.Forms.Padding(4);
             this.btn_add_options.Name = "btn_add_options";
             this.btn_add_options.Size = new System.Drawing.Size(105, 29);
             this.btn_add_options.TabIndex = 15;
@@ -579,7 +565,7 @@
             this.tabControlMain.Controls.Add(this.tabPageSourceView);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 28);
-            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(1073, 624);
@@ -590,9 +576,9 @@
             // 
             this.tabPageGuiView.Controls.Add(this.splitContainerMain);
             this.tabPageGuiView.Location = new System.Drawing.Point(4, 4);
-            this.tabPageGuiView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageGuiView.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageGuiView.Name = "tabPageGuiView";
-            this.tabPageGuiView.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageGuiView.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageGuiView.Size = new System.Drawing.Size(1065, 595);
             this.tabPageGuiView.TabIndex = 0;
             this.tabPageGuiView.Text = "图形";
@@ -602,10 +588,10 @@
             // 
             this.tabPageSourceView.Controls.Add(this.txt_exam_source);
             this.tabPageSourceView.Location = new System.Drawing.Point(4, 4);
-            this.tabPageSourceView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageSourceView.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageSourceView.Name = "tabPageSourceView";
-            this.tabPageSourceView.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPageSourceView.Size = new System.Drawing.Size(1065, 592);
+            this.tabPageSourceView.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageSourceView.Size = new System.Drawing.Size(1065, 595);
             this.tabPageSourceView.TabIndex = 1;
             this.tabPageSourceView.Text = "文本";
             this.tabPageSourceView.UseVisualStyleBackColor = true;
@@ -617,9 +603,9 @@
             this.txt_exam_source.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_exam_source.Font = new System.Drawing.Font("宋体", 14F);
             this.txt_exam_source.Location = new System.Drawing.Point(4, 4);
-            this.txt_exam_source.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_exam_source.Margin = new System.Windows.Forms.Padding(4);
             this.txt_exam_source.Name = "txt_exam_source";
-            this.txt_exam_source.Size = new System.Drawing.Size(1057, 584);
+            this.txt_exam_source.Size = new System.Drawing.Size(1057, 587);
             this.txt_exam_source.TabIndex = 23;
             this.txt_exam_source.Text = "";
             // 
@@ -632,7 +618,7 @@
             this.Controls.Add(this.menuStripMain);
             this.Controls.Add(this.panelReading);
             this.Controls.Add(this.panel_question);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "题库";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -689,7 +675,6 @@
         private System.Windows.Forms.TextBox txt_exam_title;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btn_save_properties;
         private System.Windows.Forms.CheckBox chkMulipleChoice;
         private System.Windows.Forms.Panel panel_question_options;
         private System.Windows.Forms.Button btn_remove_option;

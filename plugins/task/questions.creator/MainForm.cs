@@ -24,21 +24,21 @@ namespace Dragonfly.Questions.Creator
             closeToolStripMenuItem.Enabled = true;
             saveAsToolStripMenuItem.Enabled = true;
             saveToolStripMenuItem.Enabled = true;
+
+            PopulateBlankExam();
+            IsDirty = false;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeToolStripMenuItem_Click(sender, e);
 
-            this.exam = new Examination();
             if (!splitContainerMain.Panel2.Controls.Contains(this.panel_exam))
             {
                 splitContainerMain.Panel2.Controls.Clear();
                 splitContainerMain.Panel2.Controls.Add(this.panel_exam);
             }
-            txt_exam_title.Text = exam.ExamProperties.Title;
-            num_exam_score.Value = exam.ExamProperties.Score;
-            num_exam_passscore.Value = exam.ExamProperties.PassScore;
+            PopulateBlankExam();
             IsDirty = false;
         }
 
@@ -63,7 +63,7 @@ namespace Dragonfly.Questions.Creator
             }
             else
             {
-                MessageBox.Show("Sorry, the exam selected is either old or corrupt. If it is an old exam, please upgrade it with the upgrade tool at:\nhttps://sourceforge.net/projects/exam-upgrade-tool/", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Sorry, the exam selected is either old or corrupt. If it is an old exam, please upgrade it ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -97,6 +97,24 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.Text = exam.ExamProperties.Title;
                 num_exam_score.Value = exam.ExamProperties.Score;
                 num_exam_passscore.Value = exam.ExamProperties.PassScore;
+            }
+            else
+            {
+                PopulateBlankExam();
+            }
+            treeViewExam.SelectedNode = treeViewExam.Nodes[0];
+        }
+
+        private void PopulateBlankExam()
+        {
+            if (this.exam == null)
+            {
+                this.exam = new Examination();
+                txt_exam_title.Text = exam.ExamProperties.Title = "New Title";
+                num_exam_score.Value = exam.ExamProperties.Score = 0;
+                num_exam_passscore.Value = exam.ExamProperties.PassScore = 0;
+
+                save_properties();
             }
         }
 
@@ -265,7 +283,7 @@ namespace Dragonfly.Questions.Creator
                 txt_reading_text.SelectionHangingIndent = -40;
                 txt_reading_text.SelectionRightIndent = 12;
                 txt_reading_text.SetLineHeight(1, 0);
-                txt_reading_text.SelectedText = reading.Text;
+                txt_reading_text.SelectedText = reading.Text ?? "";
 
                 txt_reading_title.TextChanged += new System.EventHandler(this.Changed);
                 txt_reading_text.TextChanged += new System.EventHandler(this.Changed);
@@ -500,11 +518,6 @@ namespace Dragonfly.Questions.Creator
         private void treeViewExam_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             commit_change();
-        }
-
-        private void btn_save_properties_Click(object sender, EventArgs e)
-        {
-            save_properties();
         }
 
         private void commit_change()
