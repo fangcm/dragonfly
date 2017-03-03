@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Dragonfly.Task.Notify.Common
@@ -93,12 +91,6 @@ namespace Dragonfly.Task.Notify.Common
                 }
             }
 
-            if (!IsDebugMode)
-            {
-                int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-                int iActulaHeight = Screen.PrimaryScreen.Bounds.Height;
-                SetWindowPos(base.Handle.ToInt32(), -1, 0, 0, iActulaWidth, iActulaHeight, 0);
-            }
         }
 
         private void LockScreenForm_Deactivate(object sender, EventArgs e)
@@ -121,7 +113,7 @@ namespace Dragonfly.Task.Notify.Common
 
             if (!IsDebugMode)
             {
-                KillTaskmgr();
+                WinApi.ControllingProcess(this.Handle);
             }
 
             TimeSpan leftTime = endDateTime - DateTime.Now;
@@ -165,8 +157,6 @@ namespace Dragonfly.Task.Notify.Common
             }
         }
 
-        #region win_api
-
         private void GlobalHooks_KeyDown(object sender, KeyEventArgs e)
         {
             Keys vkCode = e.KeyData;
@@ -175,11 +165,6 @@ namespace Dragonfly.Task.Notify.Common
             {
                 case Keys.LWin:
                 case Keys.RWin:
-                //case Keys.Delete:
-                case Keys.Tab:
-                case Keys.Escape:
-                case Keys.F4:
-                //case Keys.Shift:
                 case Keys.Control:
                 case Keys.Alt:
                     e.Handled = true;
@@ -193,34 +178,11 @@ namespace Dragonfly.Task.Notify.Common
                     e.Handled = false;
                     break;
             }
-        }
-
-        private void KillTaskmgr()
-        {
-            Process[] processes = Process.GetProcesses();
-            foreach (Process process in processes)
+            if (vkCode >= Keys.F1 && vkCode >= Keys.F15)
             {
-                try
-                {
-                    if (process.ProcessName.ToLower().Trim() == "taskmgr")
-                    {
-                        process.Kill();
-                        break;
-                    }
-                }
-                catch
-                {
-                    break;
-                }
+                e.Handled = true;
             }
         }
-
-        [DllImport("user32")]
-        public static extern bool SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint wFlags);
-
-        #endregion
-
-
 
     }
 }
