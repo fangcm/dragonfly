@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Dragonfly.WaitExec")]
+[assembly: AssemblyTitle("Dragonfly.Updater")]
 [assembly: AssemblyDescription("AutoUpdater")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("fangcm")]
-[assembly: AssemblyProduct("Dragonfly.WaitExec")]
-[assembly: AssemblyCopyright("Copyright © fangcm 2009")]
+[assembly: AssemblyProduct("Dragonfly.Updater")]
+[assembly: AssemblyCopyright("Copyright © fangcm 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

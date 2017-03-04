@@ -7,7 +7,6 @@ namespace Dragonfly.Plugin.Task.Logger
 {
     public abstract class Logger
     {
-        private static readonly string baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static string fileName;
         protected static Logger _default;
         private static ObservableCollection<LoggInfo> loggInfos;

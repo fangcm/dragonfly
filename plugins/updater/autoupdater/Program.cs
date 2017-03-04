@@ -1,47 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 
-namespace Dragonfly.WaitExec
+namespace Dragonfly.Updater
 {
     class Program
     {
-        /// <summary>
-        /// Usage: {this application} {pid to wait for} {command to execute}
-        /// </summary>
-        /// <param name="args"></param>
+        // argument 0 - process ID
+        // argument 1 - full path to EXE file for start app
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            if (args.Length < 2) return;
-
-            int pid = int.Parse(args[0]);
-
-            Mutex waitMutex = new Mutex(true, String.Format(CultureInfo.InvariantCulture,
-                "WaitApplication_{0}", pid));
-
-            waitMutex.WaitOne();
-
             try
             {
-                Process processToWait = Process.GetProcessById(pid);
-                processToWait.WaitForExit();
-            }
-            catch
-            {
-                //return;
-            }
+                if (args.Length != 2)
+                {
+                    throw new Exception("missed parameters");
+                }
 
-            waitMutex.ReleaseMutex();
+                int processId;
+                string appFullName = args[1];
 
-            string arguments = string.Join(" ", args, 2, args.Length - 2);
-            using (Process installUtilProcess = new Process())
+                if (!Int32.TryParse(args[0], out processId) || !File.Exists(appFullName) || Path.GetExtension(appFullName) != ".exe")
+                {
+                    throw new Exception("invalid parameters");
+                }
+
+                var commands = new List<ICommand>
+                {
+                    new KillProcessCommand(processId),
+                    new CopyContentCommand(),
+                    new StartProcessCommand(appFullName)
+                };
+
+                commands.ForEach(x => x.Execute());
+
+            }
+            catch (Exception ex)
             {
-                installUtilProcess.StartInfo.FileName = args[1];
-                installUtilProcess.StartInfo.Arguments = arguments;
-                installUtilProcess.Start();
+                Console.WriteLine(ex);
             }
         }
     }
