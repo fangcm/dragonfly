@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Examination>
+    <ExamProperties Score="30" PassScore="24">
+        <Title>高一英语阅读理解试题（自然类）</Title>
+    </ExamProperties>
+    <Readings>
+        <Reading>
+            <Title>(1)</Title>
+            <Text><![CDATA[
+Put an ice cube from your fridge into a glass of water. You have a piece of string(线) 10 centimeters long. The problem is to take out that piece of ice with the help of the string. But you must not touch the ice with your fingers.
+You may ask your friends to try to do that when you are having dinner together. There is a saltcellar on the table. You must use salt when you carry out this experiment.
+First you put the string across the piece of ice. Then put some salt on the ice. Salt makes ice melt(融化). The ice round the string will begin to melt. But when it melts, it will lose heat. The cold ice cube will make the salt water freeze again.
+After a minute or two you may raise the piece of string and with it you will raise your piece of ice!
+This experiment can be very useful to you. If, for example, there is ice near the door of your house, you must use very much salt to melt all the ice. If you don’t put enough salt, the water will freeze again.
+]]></Text>
+            <Questions>
+                <Question No="1" Answer="68" IsMultipleChoice="false">
+                    <Text>1. We must use _______ when we carry out this experiment.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>fridge</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>some food</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>a table</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>some salt</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="67" IsMultipleChoice="false">
+                    <Text>2. How long will it take to carry out this experiment?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>More than three minutes.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Five minutes or so.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Only one minute or two.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>About ten minutes.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="66" IsMultipleChoice="false">
+                    <Text>3. What is the task of this experiment?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Put the ice cube into the glass of water with the help of the string.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Take out the ice cube in the glass of water with the help of the string.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Take out the ice cube in the glass of water with your fingers.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Put some salt on the ice cube and then put the string across it.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="66" IsMultipleChoice="false">
+                    <Text>4. How many things at least are used in this experiment?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Three.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Four.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Six.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Seven.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="5" Answer="67" IsMultipleChoice="false">
+                    <Text>5. We can learn something about _______ from the passage.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Physics</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>biology</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>chemistry</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>maths</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>(2)</Title>
+            <Text><![CDATA[Bamboo is one of the nature’s most surprising plants. Many people call this plant a tree, but it is a kind of grass.
+Like other kinds of grass, a bamboo plant may be cut very low to the ground, but it will grow back very quickly. A Japanese scientist recorded one bamboo plant that grew almost 1.5 meters in 24 hours! Bamboo grows almost everywhere in the world except Europe. There are more than 1,000 kinds of bamboo that grow around the world on both mountains and plains(平原).
+Not all bamboo looks the same. Some bamboo plants are very thin. They may only grow to be a few centimeters wide while others may grow to more than 30 centimeters across. This plant also comes in different colors, from yellow to black to green.
+Many Asian countries have been using bamboo for hundreds of years. They often use bamboo for building new buildings. As a matter of fact, the cables(绳索) that hold up the hanging bridge across the Min River in Sichuan are made of bamboo. The bridge has been in use for more than 1,000 years, and is still holding strong.
+In Africa, engineers are teaching poor farmers how to find water using bamboo. These African countries need cheap ways to find water because they have no money, and their fields often die from no rain and no water. It seems that bamboo is one of the best things they can use. Bamboo pipes and drills(钻) can help to make the poor thirsty fields to be watered.
+]]></Text>
+            <Questions>
+                <Question No="1" Answer="67" IsMultipleChoice="false">
+                    <Text>1. How is bamboo like grass?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>It is thin and easy to cut.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>It grows everywhere.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>It grows quickly after its cut short.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>It is short and green.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="67" IsMultipleChoice="false">
+                    <Text>2. The sentence “while others may grow to more than 30 centimeters across.” means “Some other bamboo plants may grow to be very _______.”</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>short</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>strong</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>thick</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>tall</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="66" IsMultipleChoice="false">
+                    <Text>3. From the text we know ______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>most people call bamboo plant trees</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>a bamboo plant may grow 4.5 meters in three days</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>the bamboo plant changes its colors when it grows</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>a bridge held by bamboo cable was built thousands of years ago</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="65" IsMultipleChoice="false">
+                    <Text>4. Why did the engineers teach the poor farmers in Africa to make use of bamboo?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Because it is cheap.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Because it is colorful.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Because it drills fast.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Because it is used by Asians.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="5" Answer="68" IsMultipleChoice="false">
+                    <Text>5. Which of the following is NOT true?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>There are many different kinds of bamboo with different colors.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Cables made of bamboo can last for over a thousand years.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Bamboo can be used for buildings, bridges and watering projects(工程).</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>Bamboo plants are able to grow well in any part of the world.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>(3)</Title>
+            <Text><![CDATA[ Can trees talk? Yes-but not in words. Scientists have reasons to believe that trees do communicate with each other. Not long ago, researchers learned some surprising things. First a willow tree(柳树) attacked in the woods by caterpillars(毛毛虫) changed the chemistry of its leaves and made them taste so terrible that the caterpillars got tired of the leaves and stopped eating them. The even more astonishing, the tree sent out a special vapour - a signal causing its neighbours to change the chemistry of their own leaves and make them less tasty. 
+Communication, of course, doesn’t need to be always in words. We can talk to each other by smiling, raising our shoulders and moving our hands. We know that birds and animals use a whole vocabulary of songs, sounds, and movements. Bees dance their signals, flying in certain patterns that tell other bees where to find nectar(花蜜) for honey. So why shouldn’t trees have ways of sending messages?
+]]></Text>
+            <Questions>
+                <Question No="1" Answer="65" IsMultipleChoice="false">
+                    <Text>1. From the passage we know that caterpillars _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>like willow trees</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>enjoy eating fallen leaves</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>can talk to other caterpillars</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>can send out a special vapour</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="65" IsMultipleChoice="false">
+                    <Text>2. Caterpillars will stop eating willow tree leaves which _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>have a chemical change and become tasteless</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>have a pleasant taste</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>are being attacked</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>are communicating</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="68" IsMultipleChoice="false">
+                    <Text>3. According to the passage, bees communicate with each other by _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>talking</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>making unusual sounds</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>singing songs</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>flying certain patterns</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>(4)</Title>
+            <Text><![CDATA[Do you know Australia? Australia is the largest island in the world. It is a little smaller than China. It is in the south of the earth. Australia is big, but its population is not large. The population of Australia is nearly as large as that of Shanghai. 
+The government has made enough laws to fight pollution. The cities in Australia have got little air or water pollution. The sky is blue and the water is clean. You can clearly see fish swimming in the rivers. Plants grow very well. 
+Last month we visited Perth, the biggest city in Western Australia, and went to a wild flowers’ exhibition. There we saw a large number of wild flowers we had never seen before. We had a wonderful time. Perth is famous for its beautiful wild flowers. In spring every year Perth has the wild flowers’ exhibition. After visiting Perth, we spent the day in the countryside. We sat down and had a rest near a path at the foot of a hill. It was quiet and we enjoyed ourselves. Suddenly we heard bells ringing at the top of the hill. What we saw made us pick up all our things and run back to the car as quickly as we could. There were about three hundred sheep coming towards us down the path. 
+Australia is famous for its sheep and kangaroos(袋鼠). After a short drive from any town, you will find yourself in the middle of white sheep. Sheep, sheep, everywhere are sheep. 
+]]></Text>
+            <Questions>
+                <Question No="1" Answer="67" IsMultipleChoice="false">
+                    <Text>1. Australia is _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>the largest country in the world</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>as large as Shanghai</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>not as large as China</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>the largest island in the north of the earth</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="66" IsMultipleChoice="false">
+                    <Text>2. The government had made _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>too enough laws to fight pollution</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>so many laws that it can fight pollution</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>enough laws that it can hardly fight pollution</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>enough laws because the pollution is very serious</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="68" IsMultipleChoice="false">
+                    <Text>3. Which of the following is NOT true？</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Perth is famous for its beautiful wild flowers.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Perth is bigger than any other city in Western Australia.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Perth lies in the west of Australia.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>No other city is larger than Perth in Australia.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="68" IsMultipleChoice="false">
+                    <Text>4. In Perth you may visit a wild flowers’ show in _______.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>October</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>January</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>May</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>July</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="5" Answer="68" IsMultipleChoice="false">
+                    <Text>5. Which of the following is true？</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>Australia is famous for its sheep, kangaroos and wild flowers.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>We ran back to the car because we were in the middle of white sheep.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Three hundred sheep came towards us because they saw us.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>If you go to the countryside in Australia, you will see a large number of white sheep.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+        <Reading>
+            <Title>(5)</Title>
+            <Text><![CDATA[Paracutin was born in Mexico in February, 1943. At the end of one week Paracutin was 500 feet high, and it is now over 9, 000 feet high. Today Paracutin is asleep. 
+What is Paracutin? It was the first volcano(火山) in the world which was seen from its birth right up to the present day. On February 20, 1943, a peasant and his wife set out to work in their corn fields from the Mexican village of Paracutin. They were surprised to find the earth warm under their feet. Suddenly they heard noises deep in the earth and a small hole appeared in their field. In the afternoon there was a sudden loud noise and stones were thrown high in the air. The peasants ran from the field and turned to watch. They saw the birth of a volcano. 
+    Large quantities of stone and lava(岩浆) broke out and a little hill began to form. By evening this hill was 100 feet high and hot ashes(灰烬) were falling on the village. At night the strong light of the hot lava lit up the countryside. The trees near the village were killed and the villagers had to leave their houses. When the village was destroyed, its name was given to the volcano. The news quickly reached Mexico City, far to the east. Many people came to watch the scene. The volcano grew and grew for ten years and hundreds of square miles of forest were destroyed. Then Paracutin went to sleep. 
+]]></Text>
+            <Questions>
+                <Question No="1" Answer="66" IsMultipleChoice="false">
+                    <Text>1. Paracutin was once the name of ________.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>a peasant</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>a village</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>an old mountain</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>a Mexican</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="2" Answer="67" IsMultipleChoice="false">
+                    <Text>2. What was destroyed in the growing up of the volcano?</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>The little hill of stone.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>The villagers living close by.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>The forests and fields round Paracutin.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>The Mexican peasant and his wife.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="3" Answer="65" IsMultipleChoice="false">
+                    <Text>3. In this passage the writer is trying to ________.</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>tell us an interesting happening</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>explain a scientific theory</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>make us believe something</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>make up an interesting story</Text>
+                        </Option>
+                    </Options>
+                </Question>
+                <Question No="4" Answer="65" IsMultipleChoice="false">
+                    <Text>4. What can we learn about volcanoes from this passage？</Text>
+                    <Options>
+                        <Option Alphabet="65">
+                            <Text>New volcanoes may appear in places where people do not expect them to be.</Text>
+                        </Option>
+                        <Option Alphabet="66">
+                            <Text>Volcanoes are always growing.</Text>
+                        </Option>
+                        <Option Alphabet="67">
+                            <Text>Volcanoes are active from time to time.</Text>
+                        </Option>
+                        <Option Alphabet="68">
+                            <Text>New volcanoes are active for only ten years.</Text>
+                        </Option>
+                    </Options>
+                </Question>
+            </Questions>
+        </Reading>
+    </Readings>
+</Examination>
