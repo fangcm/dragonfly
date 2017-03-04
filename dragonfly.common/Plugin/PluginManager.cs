@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Dragonfly.Common.Plugin
@@ -25,6 +26,21 @@ namespace Dragonfly.Common.Plugin
             plugInList.Clear();
 
             string[] plugIns = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.AllDirectories);
+            try
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string pluginPath = Path.Combine(appDataPath, "dragonfly", "plugins");
+                string[] plugInsInDataPath = Directory.GetFiles(pluginPath, "*.dll", SearchOption.AllDirectories);
+                plugIns = (string[])plugIns.Concat(plugInsInDataPath);
+            }
+            catch
+            {
+
+            }
+
+            if (plugIns == null)
+                return;
+
             foreach (string dll in plugIns)
             {
                 try
