@@ -33,7 +33,6 @@ namespace Dragonfly.Common.Plugin
             }
             catch
             {
-
             }
             try
             {
@@ -44,8 +43,19 @@ namespace Dragonfly.Common.Plugin
             }
             catch
             {
-
             }
+#if DEBUG
+            try
+            {
+                string debugPath = @"..\..\plugins\bin\Debug";
+                string debugPluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, debugPath);
+                string[] plugInsInDebugPath = Directory.GetFiles(debugPluginPath, "*.dll", SearchOption.AllDirectories);
+                plugIns.AddRange(plugInsInDebugPath);
+            }
+            catch
+            {
+            }
+#endif
 
             if (plugIns == null || plugIns.Count == 0)
             {
