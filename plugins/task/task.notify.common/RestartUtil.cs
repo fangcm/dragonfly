@@ -104,18 +104,18 @@ namespace Dragonfly.Task.Notify.Common
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
 
-        public struct LUID
+        internal struct LUID
         {
             public int LowPart;
             public int HighPart;
         }
-        public struct LUID_AND_ATTRIBUTES
+        internal struct LUID_AND_ATTRIBUTES
         {
             public LUID pLuid;
             public int Attributes;
         }
 
-        public struct TOKEN_PRIVILEGES
+        internal struct TOKEN_PRIVILEGES
         {
             public int PrivilegeCount;
             public LUID_AND_ATTRIBUTES Privileges;

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Updater
 {
-    class UpdaterPlugin : IPlugin
+    public class UpdaterPlugin : IPlugin
     {
         private static object LockObject = new Object();
         private static int CheckUpDateLock = 0;

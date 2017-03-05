@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Questions.Notify
 {
-    public partial class MainForm : LockScreenForm
+    internal partial class MainForm : LockScreenForm
     {
         MockExamUtil mockExamUtil = new MockExamUtil();
         private Reading reading;

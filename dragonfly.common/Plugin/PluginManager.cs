@@ -25,21 +25,32 @@ namespace Dragonfly.Common.Plugin
         {
             plugInList.Clear();
 
-            string[] plugIns = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.AllDirectories);
+            List<string> plugIns = new List<string>();
+            try
+            {
+                string[] plugInsInExePath = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.AllDirectories);
+                plugIns.AddRange(plugInsInExePath);
+            }
+            catch
+            {
+
+            }
             try
             {
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string pluginPath = Path.Combine(appDataPath, "dragonfly", "plugins");
                 string[] plugInsInDataPath = Directory.GetFiles(pluginPath, "*.dll", SearchOption.AllDirectories);
-                plugIns = (string[])plugIns.Concat(plugInsInDataPath);
+                plugIns.AddRange(plugInsInDataPath);
             }
             catch
             {
 
             }
 
-            if (plugIns == null)
+            if (plugIns == null || plugIns.Count == 0)
+            {
                 return;
+            }
 
             foreach (string dll in plugIns)
             {

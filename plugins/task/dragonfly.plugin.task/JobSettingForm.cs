@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Task
 {
-    public partial class JobSettingForm : Form
+    internal partial class JobSettingForm : Form
     {
         public bool bDataChanged = false;
 

@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Dragonfly.Plugin.Task.Logger
 {
-    public class XmlLogger : Logger
+    internal class XmlLogger : Logger
     {
         public static bool Indent = true;
 

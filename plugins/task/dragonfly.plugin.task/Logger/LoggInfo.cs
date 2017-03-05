@@ -2,7 +2,7 @@
 
 namespace Dragonfly.Plugin.Task.Logger
 {
-    public enum LoggType
+    internal enum LoggType
     {
         Trigger,
         Suspend,
@@ -10,7 +10,7 @@ namespace Dragonfly.Plugin.Task.Logger
         Other
     }
 
-    public class LoggInfo
+    internal class LoggInfo
     {
         public LoggInfo()
         {

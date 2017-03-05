@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Dragonfly.Plugin.Task.Logger
 {
-    public abstract class Logger
+    internal abstract class Logger
     {
         private static string fileName;
         protected static Logger _default;
