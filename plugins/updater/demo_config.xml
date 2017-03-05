@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UpdateConfig>
+  <CopyFiles>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>dragonfly.plugin.updater.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>questions.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>questions.notify.exe</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath>logs</PublishPath>
+      <FileName>20170305.log.xml</FileName>
+    </FileInfo>
+  </CopyFiles>
+  <DeleteFiles>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>e_h1_001.eqf</FileName>
+    </FileInfo>
+  </DeleteFiles>
+</UpdateConfig>
