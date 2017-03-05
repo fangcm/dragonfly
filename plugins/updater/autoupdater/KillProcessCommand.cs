@@ -15,7 +15,13 @@ namespace Dragonfly.Updater
 
         public void Execute()
         {
-            Process.GetProcessById(_processId).Kill();
+            try
+            {
+                Process.GetProcessById(_processId).Kill();
+            }
+            catch
+            {
+            }
 
             Mutex waitMutex = new Mutex(true, string.Format(CultureInfo.InvariantCulture, "WaitApplication_{0}", _processId));
             waitMutex.WaitOne();

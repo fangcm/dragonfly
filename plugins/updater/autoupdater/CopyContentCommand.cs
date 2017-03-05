@@ -17,10 +17,12 @@ namespace Dragonfly.Updater
 
         public void Execute()
         {
+            string updatePath = Path.Combine(WorkingPath, "update");
+            string updateConfig = Path.Combine(updatePath, "config.xml");
+
             try
             {
-                string updatePath = Path.Combine(WorkingPath, "update");
-                string updateConfig = Path.Combine(updatePath, "config.xml");
+
                 if (!File.Exists(updateConfig))
                 {
                     return;
@@ -28,6 +30,8 @@ namespace Dragonfly.Updater
 
                 string pluginPath = Path.Combine(WorkingPath, "plugins");
                 UpdateConfig config = LoadConfig(updateConfig);
+                if (config == null)
+                    return;
 
                 foreach (FileInfo fileInfo in config.CopyFiles)
                 {
@@ -61,13 +65,16 @@ namespace Dragonfly.Updater
                     File.Delete(dstFile);
                 }
 
-                File.Delete(updateConfig);
+
             }
             catch
             {
 
             }
-
+            finally
+            {
+                File.Delete(updateConfig);
+            }
         }
 
         private static UpdateConfig LoadConfig(string file)
