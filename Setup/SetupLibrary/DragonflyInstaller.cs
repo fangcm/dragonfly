@@ -27,7 +27,6 @@ namespace SetupLibrary
             if ("1".Equals(Context.Parameters["PROFILE"]))
             {
                 File.Delete(System.IO.Path.Combine(targetDir, "dragonfly.main.exe.config"));
-                File.Delete(System.IO.Path.Combine(targetDir, "dragonfly.plugin.task.notify.exe.config"));
             }
 
             string mainApp = Path.Combine(targetDir, "dragonfly.main.exe");
