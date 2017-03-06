@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConvertTxtToReadingForm));
-            this.txt_xmlreading = new Dragonfly.Questions.RichTextBoxEx();
-            this.txt_rawtext = new Dragonfly.Questions.RichTextBoxEx();
+            this.txt_xmlreading = new Dragonfly.Questions.Core.RichTextBoxEx();
+            this.txt_rawtext = new Dragonfly.Questions.Core.RichTextBoxEx();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tsb_translate = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
@@ -131,8 +131,8 @@
         }
 
         #endregion
-        private RichTextBoxEx txt_xmlreading;
-        private RichTextBoxEx txt_rawtext;
+        private Dragonfly.Questions.Core.RichTextBoxEx txt_xmlreading;
+        private Dragonfly.Questions.Core.RichTextBoxEx txt_rawtext;
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.ToolStripButton tsb_translate;
         private System.Windows.Forms.ToolStrip toolStripMain;

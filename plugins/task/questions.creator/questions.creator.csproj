@@ -105,9 +105,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\questions\questions.csproj">
+    <ProjectReference Include="..\questions.core\questions.core.csproj">
       <Project>{d9aa2aaf-bf0f-4423-ad84-6ac81783c004}</Project>
-      <Name>questions</Name>
+      <Name>questions.core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
