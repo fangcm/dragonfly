@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dragonfly.Task.Notify.Common
+namespace Dragonfly.Task.Core
 {
     public class SealedProcessor
     {

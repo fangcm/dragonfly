@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.plugin.task.notify", "dragonfly.plugin.task.notify\dragonfly.plugin.task.notify.csproj", "{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple.notify", "dragonfly.plugin.task.notify\simple.notify.csproj", "{CEE429BC-800E-4F64-817B-AE98E0F2DCAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task.notify.common", "task.notify.common\task.notify.common.csproj", "{8BB4888F-1DA8-41A6-9B53-37A363F27B98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task.core", "task.notify.common\task.core.csproj", "{8BB4888F-1DA8-41A6-9B53-37A363F27B98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

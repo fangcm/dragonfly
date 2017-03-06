@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Dragonfly.Task.Notify.Common
+namespace Dragonfly.Task.Core
 {
     internal enum RestartOptions
     {

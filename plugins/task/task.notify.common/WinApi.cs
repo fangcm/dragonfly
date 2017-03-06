@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Dragonfly.Task.Notify.Common
+namespace Dragonfly.Task.Core
 {
     internal class WinApi
     {

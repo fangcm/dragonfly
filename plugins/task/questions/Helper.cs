@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Dragonfly.Questions
+namespace Dragonfly.Questions.Core
 {
     public class Helper
     {

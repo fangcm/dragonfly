@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Dragonfly.Task.Notify.Common
+namespace Dragonfly.Task.Core
 {
     public class LockScreenForm : Form
     {

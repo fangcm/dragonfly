@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Dragonfly.Task.Notify.Common
+namespace Dragonfly.Task.Core
 {
     internal class CommandLineArgument
     {

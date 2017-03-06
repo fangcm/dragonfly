@@ -7,8 +7,8 @@
     <ProjectGuid>{D9AA2AAF-BF0F-4423-AD84-6AC81783C004}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dragonfly.Questions</RootNamespace>
-    <AssemblyName>questions</AssemblyName>
+    <RootNamespace>Dragonfly.Questions.Core</RootNamespace>
+    <AssemblyName>questions.core</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

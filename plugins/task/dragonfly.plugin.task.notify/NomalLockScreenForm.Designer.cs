@@ -1,4 +1,4 @@
-﻿namespace Dragonfly.Plugin.Task.Notify
+﻿namespace Dragonfly.Simple.Notify
 {
     partial class NomalLockScreenForm
     {

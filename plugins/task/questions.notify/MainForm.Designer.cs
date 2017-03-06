@@ -35,9 +35,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelReadingTitle = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.txt_reading = new Dragonfly.Questions.RichTextBoxEx();
+            this.txt_reading = new Dragonfly.Questions.Core.RichTextBoxEx();
             this.splitContainerExam = new System.Windows.Forms.SplitContainer();
-            this.txt_question = new Dragonfly.Questions.RichTextBoxEx();
+            this.txt_question = new Dragonfly.Questions.Core.RichTextBoxEx();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.labelQuestionNo = new System.Windows.Forms.Label();
@@ -430,8 +430,8 @@
         private System.Windows.Forms.FlowLayoutPanel flp_options;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelQuestionNo;
-        private RichTextBoxEx txt_reading;
-        private RichTextBoxEx txt_question;
+        private Dragonfly.Questions.Core.RichTextBoxEx txt_reading;
+        private Dragonfly.Questions.Core.RichTextBoxEx txt_question;
         private System.Windows.Forms.Button btn_change;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Button btn_start_exam;

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Dragonfly.Questions
+namespace Dragonfly.Questions.Core
 {
     [XmlRootAttribute("Examination", Namespace = "", IsNullable = false)]
     public class Examination

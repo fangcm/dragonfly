@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Dragonfly.Task.Notify.Common;
+using Dragonfly.Task.Core;
 
-namespace Dragonfly.Plugin.Task.Notify
+namespace Dragonfly.Simple.Notify
 {
     internal partial class NomalLockScreenForm : LockScreenForm
     {
