@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dragonfly.Plugin.Updater</RootNamespace>
-    <AssemblyName>dragonfly.plugin.updater</AssemblyName>
+    <AssemblyName>plugin.updater</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
