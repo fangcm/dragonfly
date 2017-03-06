@@ -22,8 +22,16 @@ namespace Dragonfly.Common.Utils
                     {
                         return appDataPath;
                     }
-                }            
+                }
                 return path;
+            }
+        }
+
+        public static string PluginsPath
+        {
+            get
+            {
+                return Path.Combine(WorkingPath, "plugins");
             }
         }
 
@@ -88,7 +96,7 @@ namespace Dragonfly.Common.Utils
             {
                 return defaultValue;
             }
-           
+
         }
 
     }

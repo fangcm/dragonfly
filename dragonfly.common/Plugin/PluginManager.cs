@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Common.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace Dragonfly.Common.Plugin
 
         public PluginManager()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += PluginManager.AssemblyResolve;
             LoadPlugIns();
+            AppDomain.CurrentDomain.AssemblyResolve -= PluginManager.AssemblyResolve;
         }
 
         public IPlugin[] PlugIns
@@ -28,16 +31,7 @@ namespace Dragonfly.Common.Plugin
             List<string> plugIns = new List<string>();
             try
             {
-                string[] plugInsInExePath = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.AllDirectories);
-                plugIns.AddRange(plugInsInExePath);
-            }
-            catch
-            {
-            }
-            try
-            {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string pluginPath = Path.Combine(appDataPath, "dragonfly", "plugins");
+                string pluginPath = AppConfig.PluginsPath;
                 string[] plugInsInDataPath = Directory.GetFiles(pluginPath, "*.dll", SearchOption.AllDirectories);
                 plugIns.AddRange(plugInsInDataPath);
             }
@@ -104,6 +98,12 @@ namespace Dragonfly.Common.Plugin
                 {
                 }
             }
+        }
+
+        private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            var assemblyPath = Path.Combine(AppConfig.PluginsPath, new AssemblyName(args.Name).Name + ".dll");
+            return !File.Exists(assemblyPath) ? null : Assembly.LoadFrom(assemblyPath);
         }
 
         public void ClosePlugins()
