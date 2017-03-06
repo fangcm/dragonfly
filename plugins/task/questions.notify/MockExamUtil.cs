@@ -42,52 +42,56 @@ namespace Dragonfly.Questions.Notify
 
         public Reading GetMockReading()
         {
-            string[] eqfs1 = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.eqf", SearchOption.AllDirectories);
-            string[] eqfs2 = Directory.GetFiles(WorkingPath, "*.eqf", SearchOption.AllDirectories);
-            IEnumerable<string> eqfs = eqfs1.Concat(eqfs2);
+            string[] eqfs = Directory.GetFiles(WorkingPath, "*.eqf", SearchOption.AllDirectories);
+            if (eqfs.Count() == 0)
+            {
+                return null;
+            }
 
             MockResult mockResult = Helper.LoadMockResultFromFile(MockResultFile);
-            if (mockResult == null || mockResult.ResultProperties == null)
+
+            if (IsMockResultValid(mockResult))
             {
-                if (eqfs.Count() == 0)
+                //如果有记录，可以接续上一次
+                Reading reading = PickReadingByLastMock(mockResult);
+                if (reading != null)
                 {
-                    return null;
+                    return reading;
                 }
-                ExamFileName = eqfs.ElementAt(0);
-                Examination = Helper.LoadExaminationFromFile(ExamFileName);
-
-                CurrentReadingIndex = 0;
-                if (Examination.Readings.Count <= CurrentReadingIndex)
-                    return null;
-
-                return Examination.Readings[CurrentReadingIndex];
             }
             else
             {
-                if (!mockResult.ResultProperties.LastFileFinishedAll &&
-                    !string.IsNullOrEmpty(mockResult.ResultProperties.LastFileName))
+                //没有做过题
+                foreach (string eqf in eqfs)
                 {
-                    ExamFileName = mockResult.ResultProperties.LastFileName;
+                    CurrentReadingIndex = 0;
+                    ExamFileName = eqf;
                     Examination = Helper.LoadExaminationFromFile(ExamFileName);
 
-                    CurrentReadingIndex = mockResult.ResultProperties.LasReadingIndex + 1;
                     if (Examination.Readings.Count <= CurrentReadingIndex)
-                        return null;
+                        continue;
 
                     return Examination.Readings[CurrentReadingIndex];
                 }
+
+                //没有Reading数大于0的题
+                return null;
             }
 
+            //找没做过的题
+            //Todo
+
+            //从做过的题中，找达到分数的。
             foreach (string eqf in eqfs)
             {
-                Practice practice = mockResult.Practices.FirstOrDefault(s => s.FileName == eqf);
                 ExamFileName = eqf;
+                Practice practice = mockResult.Practices.FirstOrDefault(s => s.FileName == eqf);
                 Examination = Helper.LoadExaminationFromFile(ExamFileName);
 
                 if (practice != null)
                 {
                     ReadingResult readingResult = practice.ReadingResults.FirstOrDefault(s => s.NumberOfCorrectAnswers < s.NumberOfQuestions);
-                    if(readingResult != null)
+                    if (readingResult != null)
                     {
                         Reading reading = Examination.Readings.FirstOrDefault(s => s.Title == readingResult.Title);
                         if (reading != null)
@@ -105,6 +109,40 @@ namespace Dragonfly.Questions.Notify
             }
 
             return null;
+        }
+
+        private bool IsMockResultValid(MockResult mockResult)
+        {
+            if (mockResult == null || mockResult.ResultProperties == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(mockResult.ResultProperties.LastFileName))
+            {
+                return false;
+            }
+ 
+            return true;
+        }
+
+        private Reading PickReadingByLastMock(MockResult mockResult)
+        {
+
+            if (mockResult.ResultProperties.LastFileFinishedAll)
+            {
+                return null;
+            }
+
+            ExamFileName = mockResult.ResultProperties.LastFileName;
+            Examination = Helper.LoadExaminationFromFile(ExamFileName);
+
+            CurrentReadingIndex = mockResult.ResultProperties.LasReadingIndex + 1;
+            if (Examination.Readings.Count <= CurrentReadingIndex)
+                return null;
+
+            return Examination.Readings[CurrentReadingIndex];
+
         }
 
         public void SaveMockResult(ReadingResult readingResult)
