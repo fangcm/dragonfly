@@ -54,10 +54,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="task.notify.common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Setup\SetupNeededFiles\task.notify.common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -96,12 +92,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\questions\questions.core.csproj">
-      <Project>{d9aa2aaf-bf0f-4423-ad84-6ac81783c004}</Project>
-      <Name>questions.core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6 %28x86 和 x64%29</ProductName>
@@ -118,6 +108,16 @@
     <Content Include="Resources\left.ico" />
     <Content Include="Resources\play.ico" />
     <Content Include="Resources\right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\questions.core\questions.core.csproj">
+      <Project>{d9aa2aaf-bf0f-4423-ad84-6ac81783c004}</Project>
+      <Name>questions.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\task.core\task.core.csproj">
+      <Project>{8bb4888f-1da8-41a6-9b53-37a363f27b98}</Project>
+      <Name>task.core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

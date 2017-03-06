@@ -1,8 +1,5 @@
-﻿using Dragonfly.Task.Notify.Common;
+﻿using Dragonfly.Task.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Dragonfly.Questions.Notify

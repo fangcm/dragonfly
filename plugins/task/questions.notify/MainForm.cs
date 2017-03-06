@@ -1,10 +1,9 @@
-﻿using Dragonfly.Task.Notify.Common;
+﻿using Dragonfly.Questions.Core;
+using Dragonfly.Task.Core;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Dragonfly.Questions.Core;
 
 namespace Dragonfly.Questions.Notify
 {
@@ -102,7 +101,8 @@ namespace Dragonfly.Questions.Notify
         {
             if (currentQuestionIndex >= reading.Questions.Count - 1)
             {
-                if(MessageBox.Show(this, "This is the last question,  do you want to end exercises ?", "Tips",MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                if (MessageBox.Show(this, "This is the last question,  do you want to end exercises ?", "Tips", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
                     FinishExam();
                     this.panelMain.Visible = false;
                     this.panelStart.Visible = true;
