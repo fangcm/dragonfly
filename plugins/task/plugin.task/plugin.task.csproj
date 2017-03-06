@@ -106,6 +106,7 @@
     <ProjectReference Include="..\..\..\dragonfly.common\dragonfly.common.csproj">
       <Project>{9a72322c-0ef7-4a3e-bf03-7c4d7b944753}</Project>
       <Name>dragonfly.common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

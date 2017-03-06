@@ -77,7 +77,7 @@ namespace Dragonfly.Plugin.Updater
             string pluginPath = Path.Combine(appDataPath, "dragonfly", "plugins");
 
             Process.Start(
-                Path.Combine(pluginPath, "dragonfly.updater.exe"),
+                Path.Combine(pluginPath, "autoupdater.exe"),
                 String.Format("{0} \"{1}\"", Process.GetCurrentProcess().Id, Process.GetCurrentProcess().MainModule.FileName));
         }
 

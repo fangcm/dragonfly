@@ -1,8 +1,9 @@
-﻿using FluentScheduler;
+﻿using Dragonfly.Common.Utils;
+using FluentScheduler;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
-using System.Windows.Forms;
 
 
 namespace Dragonfly.Plugin.Task
@@ -54,10 +55,10 @@ namespace Dragonfly.Plugin.Task
                 }
                 else
                 {
-                    lockScreenApp = @"\dragonfly.plugin.task.notify.exe";
+                    lockScreenApp = @"\simple.notify.exe";
                 }
-                string notifyRunApp = Application.StartupPath + lockScreenApp;
-                string notifyRunAppStartpath = Application.StartupPath;
+                string notifyRunAppStartpath = AppConfig.PluginsPath;
+                string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
                 string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
             }
