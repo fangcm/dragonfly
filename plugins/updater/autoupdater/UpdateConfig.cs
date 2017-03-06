@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Dragonfly.Updater
 {
     [XmlRootAttribute("UpdateConfig")]
-    internal class UpdateConfig
+    public class UpdateConfig
     {
         [XmlArrayAttribute("CopyFiles")]
         public List<FileInfo> CopyFiles { get; set; }
@@ -14,7 +14,7 @@ namespace Dragonfly.Updater
     }
 
     [XmlRootAttribute("FileInfo")]
-    internal class FileInfo
+    public class FileInfo
     {
         [XmlElementAttribute("PublishPath")]
         public string PublishPath { get; set; }

@@ -67,9 +67,9 @@ namespace Dragonfly.Updater
 
 
             }
-            catch
+            catch(Exception e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
             }
             finally
             {
