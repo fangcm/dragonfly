@@ -13,6 +13,12 @@ namespace Dragonfly.Plugin.Task.Logger
 
         public static Logger Create()
         {
+            string path = Path.Combine(AppConfig.WorkingPath, "logs");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             _default = new XmlLogger();
             return _default;
         }
@@ -30,8 +36,8 @@ namespace Dragonfly.Plugin.Task.Logger
 
         public static string GetLogFilePathName()
         {
-            string path = AppConfig.WorkingPath;
-            return Path.Combine(path, DateTime.Now.ToString("yyyyMMdd") + ".log.xml");
+            string path = Path.Combine(AppConfig.WorkingPath, "logs");
+            return Path.Combine(path, DateTime.Now.ToString("yyyyMMdd") + ".log");
         }
 
         public static ObservableCollection<LoggInfo> LoggInfos
