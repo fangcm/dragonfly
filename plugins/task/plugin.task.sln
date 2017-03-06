@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.common", "..\..\dragonfly.common\dragonfly.common.csproj", "{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task.plugin", "task.plugin\task.plugin.csproj", "{892EC103-467F-41A7-A337-A517406DAD3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plugin.task", "plugin.task\plugin.task.csproj", "{892EC103-467F-41A7-A337-A517406DAD3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
