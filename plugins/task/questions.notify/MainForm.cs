@@ -129,7 +129,7 @@ namespace Dragonfly.Questions.Notify
 
             if (currentQuestionIndex == 0)
             {
-                labelReadingTitle.Text = reading.Title;
+                labelReadingTitle.Text = "(" + mockExamUtil.Examination.ExamProperties.Title + ") , " + reading.Title;
 
                 txt_reading.Clear();
                 txt_reading.SelectionIndent = 60;
