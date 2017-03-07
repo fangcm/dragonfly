@@ -51,11 +51,11 @@ namespace Dragonfly.Plugin.Task
                 string lockScreenApp;
                 if (setting.LockScreenApp == 1)
                 {
-                    lockScreenApp = @"\questions.notify.exe";
+                    lockScreenApp = "questions.notify.exe";
                 }
                 else
                 {
-                    lockScreenApp = @"\simple.notify.exe";
+                    lockScreenApp = "simple.notify.exe";
                 }
                 string notifyRunAppStartpath = AppConfig.PluginsPath;
                 string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);

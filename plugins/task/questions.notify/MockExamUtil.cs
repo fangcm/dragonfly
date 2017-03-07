@@ -136,10 +136,6 @@ namespace Dragonfly.Questions.Notify
 
         public void SaveMockResult(ReadingResult readingResult)
         {
-            if (readingResult.NumberOfCorrectAnswers == 0)
-            {
-                return;
-            }
             MockResult mockResult = Helper.LoadMockResultFromFile(MockResultFile);
             if (mockResult == null)
             {
