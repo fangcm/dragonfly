@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UpdateConfig>
+  <CopyFiles>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>plugin.task.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>questions.core.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>questions.notify.exe</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>task.core</FileName>
+    </FileInfo>
+  </CopyFiles>
+</UpdateConfig>
