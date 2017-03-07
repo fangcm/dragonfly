@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -8,16 +9,12 @@ namespace Dragonfly.Questions.Core
     [XmlRootAttribute("MockResult")]
     public class MockResult
     {
-        [XmlElementAttribute("ResultProperties", IsNullable = false)]
-        public ResultProperties ResultProperties { get; set; }
-
         [XmlArrayAttribute("Practices")]
         public List<Practice> Practices { get; set; }
 
         public MockResult()
         {
             Practices = new List<Practice>();
-            ResultProperties = new ResultProperties();
         }
 
         public Practice SavePractice(string fileName)
@@ -45,10 +42,11 @@ namespace Dragonfly.Questions.Core
         {
             Practice practice = SavePractice(fileName);
             ReadingResult result = practice.ReadingResults.FirstOrDefault(s => s.Title == readingResult.Title);
-            if(result == null)
+            if (result == null)
             {
                 practice.ReadingResults.Add(readingResult);
-            }else
+            }
+            else
             {
                 result.NumberOfQuestions = readingResult.NumberOfQuestions;
                 result.NumberOfCorrectAnswers = readingResult.NumberOfCorrectAnswers;
@@ -67,19 +65,6 @@ namespace Dragonfly.Questions.Core
                 }
             }
         }
-    }
-
-    [XmlRootAttribute("ResultProperties")]
-    public class ResultProperties
-    {
-        [XmlElementAttribute("LastFileName")]
-        public string LastFileName { get; set; }
-
-        [XmlAttribute("LasReadingIndex")]
-        public int LasReadingIndex { get; set; }
-
-        [XmlAttribute("LastFileFinishedAll")]
-        public bool LastFileFinishedAll { get; set; }
     }
 
     [XmlRootAttribute("Practice")]
@@ -112,8 +97,12 @@ namespace Dragonfly.Questions.Core
 
         [XmlAttribute("Score")]
         public int Score { get; set; }
-        
 
+        [XmlAttribute("EndTime")]
+        public DateTime EndTime { get; set; }
+
+        [XmlAttribute("SpendTime")]
+        public int SpendTime { get; set; }
     }
 
 

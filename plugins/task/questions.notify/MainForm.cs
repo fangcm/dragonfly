@@ -11,6 +11,7 @@ namespace Dragonfly.Questions.Notify
     {
         MockExamUtil mockExamUtil = new MockExamUtil();
         private Reading reading;
+        private DateTime startTime;
         private int currentQuestionIndex;
         private object[] userAnswers = null;
 
@@ -63,6 +64,7 @@ namespace Dragonfly.Questions.Notify
 
         private void Init(Reading reading)
         {
+            this.startTime = DateTime.Now;
             this.reading = reading;
             userAnswers = new object[reading.Questions.Count];
 
@@ -257,20 +259,21 @@ namespace Dragonfly.Questions.Notify
 
             int resultScore = Convert.ToInt32(temp);
             int savingMinutes = resultScore;
-            string tip = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
 
+            ReadingResult readingResult = new ReadingResult();
+            readingResult.Title = reading.Title;
+            readingResult.NumberOfQuestions = reading.Questions.Count;
+            readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
+            readingResult.Score = resultScore;
+            readingResult.EndTime = DateTime.Now;
+            readingResult.SpendTime = Convert.ToInt32((DateTime.Now - startTime).TotalSeconds);
+            mockExamUtil.SaveMockResult(readingResult);
+
+            string tip = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
             if (resultScore >= mockExamUtil.Examination.ExamProperties.PassScore)
             {
-                ReadingResult readingResult = new ReadingResult();
-                readingResult.Title = reading.Title;
-                readingResult.NumberOfQuestions = reading.Questions.Count;
-                readingResult.NumberOfCorrectAnswers = numOfCorrectAnswers;
-
-                mockExamUtil.SaveMockResult(readingResult);
-
                 MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);
                 this.AddIntervalSeconds(0 - savingMinutes * 60);
-
             }
             else
             {

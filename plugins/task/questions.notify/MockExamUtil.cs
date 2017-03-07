@@ -36,9 +36,8 @@ namespace Dragonfly.Questions.Notify
             get { return Path.Combine(WorkingPath, "mock_result.xml"); }
         }
 
-        public string ExamFileName { get; private set; }
+        private string ExamFileName { get; set; }
         public Examination Examination { get; private set; }
-        public int CurrentReadingIndex { get; private set; }
 
         public Reading GetMockReading()
         {
@@ -50,99 +49,89 @@ namespace Dragonfly.Questions.Notify
 
             MockResult mockResult = Helper.LoadMockResultFromFile(MockResultFile);
 
-            if (IsMockResultValid(mockResult))
-            {
-                //如果有记录，可以接续上一次
-                Reading reading = PickReadingByLastMock(mockResult);
-                if (reading != null)
-                {
-                    return reading;
-                }
-            }
-            else
-            {
-                //没有做过题
-                foreach (string eqf in eqfs)
-                {
-                    CurrentReadingIndex = 0;
-                    ExamFileName = eqf;
-                    Examination = Helper.LoadExaminationFromFile(ExamFileName);
+            //最早做过未达标的
+            DateTime earlierFailMockTime = DateTime.MaxValue;
+            Reading earlierFailReading = null;
 
-                    if (Examination.Readings.Count <= CurrentReadingIndex)
-                        continue;
+            //最早的已达标未满分的
+            DateTime earlierPassMockTime = DateTime.MaxValue;
+            Reading earlierPassReading = null;
 
-                    return Examination.Readings[CurrentReadingIndex];
-                }
-
-                //没有Reading数大于0的题
-                return null;
-            }
-
-            //找没做过的题
-            //Todo
-
-            //从做过的题中，找达到分数的。
             foreach (string eqf in eqfs)
             {
                 ExamFileName = eqf;
-                Practice practice = mockResult.Practices.FirstOrDefault(s => s.FileName == eqf);
-                Examination = Helper.LoadExaminationFromFile(ExamFileName);
-
-                if (practice != null)
+                Examination = Helper.LoadExaminationFromFile(eqf);
+                if (Examination == null || Examination.Readings == null || Examination.Readings.Count == 0)
                 {
-                    ReadingResult readingResult = practice.ReadingResults.FirstOrDefault(s => s.NumberOfCorrectAnswers < s.NumberOfQuestions);
-                    if (readingResult != null)
-                    {
-                        Reading reading = Examination.Readings.FirstOrDefault(s => s.Title == readingResult.Title);
-                        if (reading != null)
-                        {
-                            return reading;
-                        }
-                    }
                     continue;
                 }
-                CurrentReadingIndex = 0;
-                if (Examination.Readings.Count <= CurrentReadingIndex)
-                    return null;
 
-                return Examination.Readings[CurrentReadingIndex];
+                foreach (Reading reading in Examination.Readings)
+                {
+                    ReadingResult readingResult = findMockResult(mockResult, eqf, reading.Title);
+                    if (readingResult == null)
+                    {
+                        //没做过，就做它吧
+                        return reading;
+                    }
+                    else
+                    {
+                        if (readingResult.Score < Examination.ExamProperties.PassScore)
+                        {
+                            //缓存最早坐过不达标的
+                            if (readingResult.EndTime < earlierFailMockTime)
+                            {
+                                earlierFailMockTime = readingResult.EndTime;
+                                earlierFailReading = reading;
+                            }
+                        }
+                        else
+                        {
+                            //缓存最早坐过达标的没有满分的
+                            if ((readingResult.EndTime < earlierPassMockTime) && (readingResult.NumberOfCorrectAnswers < readingResult.NumberOfQuestions))
+                            {
+                                earlierPassMockTime = readingResult.EndTime;
+                                earlierPassReading = reading;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            if (earlierFailReading != null)
+            {
+                return earlierFailReading;
+            }
+
+            if (earlierPassReading != null)
+            {
+                return earlierPassReading;
             }
 
             return null;
         }
 
-        private bool IsMockResultValid(MockResult mockResult)
+        private ReadingResult findMockResult(MockResult mockResult, string examFileName, string readingTitle)
         {
-            if (mockResult == null || mockResult.ResultProperties == null)
-            {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(mockResult.ResultProperties.LastFileName))
-            {
-                return false;
-            }
- 
-            return true;
-        }
-
-        private Reading PickReadingByLastMock(MockResult mockResult)
-        {
-
-            if (mockResult.ResultProperties.LastFileFinishedAll)
+            if (mockResult == null || mockResult.Practices == null)
             {
                 return null;
             }
 
-            ExamFileName = mockResult.ResultProperties.LastFileName;
-            Examination = Helper.LoadExaminationFromFile(ExamFileName);
-
-            CurrentReadingIndex = mockResult.ResultProperties.LasReadingIndex + 1;
-            if (Examination.Readings.Count <= CurrentReadingIndex)
+            Practice practice = mockResult.Practices.FirstOrDefault(s => s.FileName == examFileName);
+            if (practice == null)
+            {
                 return null;
+            }
 
-            return Examination.Readings[CurrentReadingIndex];
+            ReadingResult readingResult = practice.ReadingResults.FirstOrDefault(s => s.Title == readingTitle);
+            if (readingResult == null)
+            {
+                return null;
+            }
 
+            return readingResult;
         }
 
         public void SaveMockResult(ReadingResult readingResult)
@@ -157,11 +146,6 @@ namespace Dragonfly.Questions.Notify
                 mockResult = new MockResult();
             }
             mockResult.SaveReadingResults(ExamFileName, readingResult);
-
-            mockResult.ResultProperties.LasReadingIndex = CurrentReadingIndex;
-            mockResult.ResultProperties.LastFileName = ExamFileName;
-            mockResult.ResultProperties.LastFileFinishedAll = (CurrentReadingIndex >= Examination.Readings.Count - 1);
-
             Helper.SaveMockResultToFile(MockResultFile, mockResult);
         }
     }
