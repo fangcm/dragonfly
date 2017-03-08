@@ -68,9 +68,7 @@ namespace Dragonfly.Common.Plugin
                     }
                     catch (Exception e)
                     {
-#if DEBUG
                         System.Diagnostics.Debug.WriteLine(e);
-#endif
                         asm = null;
                     }
                     if (asm == null)
@@ -93,9 +91,7 @@ namespace Dragonfly.Common.Plugin
                                 }
                                 catch (Exception e)
                                 {
-#if DEBUG
                                     System.Diagnostics.Debug.WriteLine(e);
-#endif
                                 }
                             }
                         }
@@ -103,9 +99,7 @@ namespace Dragonfly.Common.Plugin
                 }
                 catch (ReflectionTypeLoadException ex)
                 {
-#if DEBUG
                     System.Diagnostics.Debug.WriteLine(ex);
-#endif
                 }
                 catch
                 {

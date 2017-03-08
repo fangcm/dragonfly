@@ -72,11 +72,9 @@ namespace Dragonfly.Plugin.Task
                 {
                     setting = (PluginSetting)XmlHelper.LoadFromFile(SettingsFileName, typeof(PluginSetting));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-#if DEBUG
                     System.Diagnostics.Debug.WriteLine(e);
-#endif
                 }
                 if (setting == null)
                 {
