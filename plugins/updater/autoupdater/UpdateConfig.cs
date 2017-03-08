@@ -3,23 +3,23 @@ using System.Xml.Serialization;
 
 namespace Dragonfly.Updater
 {
-    [XmlRootAttribute("UpdateConfig")]
+    [XmlRoot("UpdateConfig")]
     public class UpdateConfig
     {
-        [XmlArrayAttribute("CopyFiles")]
+        [XmlArray("CopyFiles")]
         public List<FileInfo> CopyFiles { get; set; }
 
-        [XmlArrayAttribute("DeleteFiles")]
+        [XmlArray("DeleteFiles")]
         public List<FileInfo> DeleteFiles { get; set; }
     }
 
-    [XmlRootAttribute("FileInfo")]
+    [XmlRoot("FileInfo")]
     public class FileInfo
     {
-        [XmlElementAttribute("PublishPath")]
+        [XmlElement("PublishPath")]
         public string PublishPath { get; set; }
 
-        [XmlElementAttribute("FileName")]
+        [XmlElement("FileName")]
         public string FileName { get; set; }
     }
 

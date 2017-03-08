@@ -4,21 +4,21 @@ using System.Xml.Serialization;
 
 namespace Dragonfly.Plugin.Task
 {
-    [XmlRootAttribute("TaskSettings", Namespace = "", IsNullable = false)]
+    [XmlRoot("TaskSettings", Namespace = "", IsNullable = false)]
     public class PluginSetting
     {
-        [XmlElementAttribute("NotifyJob")]
+        [XmlElement("NotifyJob")]
         public NotifyJobSetting NotifyJobSetting { get; set; }
 
-        [XmlElementAttribute("Adjustment")]
+        [XmlElement("Adjustment")]
         public AdjustmentSetting AdjustmentSetting { get; set; }
         
     }
 
-    [XmlRootAttribute("NotifyJob")]
+    [XmlRoot("NotifyJob")]
     public class NotifyJobSetting
     {
-        [XmlElementAttribute("Description")]
+        [XmlElement("Description")]
         public string Description { get; set; }
 
         [XmlAttribute("IntervalMinutes")]
@@ -48,26 +48,26 @@ namespace Dragonfly.Plugin.Task
         [XmlAttribute("IsNotifyRunApp")]
         public bool IsNotifyRunApp { get; set; }
 
-        [XmlElementAttribute("NotifyRunApp")]
+        [XmlElement("NotifyRunApp")]
         public string NotifyRunApp { get; set; }
 
-        [XmlElementAttribute("NotifyRunAppParam")]
+        [XmlElement("NotifyRunAppParam")]
         public string NotifyRunAppParam { get; set; }
 
-        [XmlElementAttribute("NotifyRunAppStartpath")]
+        [XmlElement("NotifyRunAppStartpath")]
         public string NotifyRunAppStartpath { get; set; }
 
         [XmlAttribute("LastTriggerTime")]
         public DateTime LastTriggerTime { get; set; }
     }
 
-    [XmlRootAttribute("Adjustment")]
+    [XmlRoot("Adjustment")]
     public class AdjustmentSetting
     {
         [XmlAttribute("IntervalSeconds")]
         public int IntervalSeconds { get; set; }
 
-        [XmlArrayAttribute("Conditions")]
+        [XmlArray("Conditions")]
         public List<AdjustmentCondition> Conditions { get; set; }
 
         public AdjustmentSetting()
@@ -76,14 +76,14 @@ namespace Dragonfly.Plugin.Task
         }
     }
 
-    [XmlRootAttribute("Condition")]
+    [XmlRoot("Condition")]
     public class AdjustmentCondition
     {
         //0 filename, 1 title, 2 processname
         [XmlAttribute("ConditionType")]
         public int ConditionType { get; set; }
 
-        [XmlElementAttribute("ConditionValue")]
+        [XmlElement("ConditionValue")]
         public string ConditionValue { get; set; }
 
         [XmlAttribute("Accumulated")]

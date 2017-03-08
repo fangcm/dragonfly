@@ -6,10 +6,10 @@ using System.Xml.Serialization;
 
 namespace Dragonfly.Questions.Core
 {
-    [XmlRootAttribute("MockResult")]
+    [XmlRoot("MockResult")]
     public class MockResult
     {
-        [XmlArrayAttribute("Practices")]
+        [XmlArray("Practices")]
         public List<Practice> Practices { get; set; }
 
         public MockResult()
@@ -67,13 +67,13 @@ namespace Dragonfly.Questions.Core
         }
     }
 
-    [XmlRootAttribute("Practice")]
+    [XmlRoot("Practice")]
     public class Practice
     {
-        [XmlElementAttribute("FileName", IsNullable = false)]
+        [XmlElement("FileName", IsNullable = false)]
         public string FileName { get; set; }
 
-        [XmlArrayAttribute("ReadingResults")]
+        [XmlArray("ReadingResults")]
         public List<ReadingResult> ReadingResults { get; set; }
 
         public Practice()
@@ -83,10 +83,10 @@ namespace Dragonfly.Questions.Core
 
     }
 
-    [XmlRootAttribute("ReadingResult")]
+    [XmlRoot("ReadingResult")]
     public class ReadingResult
     {
-        [XmlElementAttribute("Title", IsNullable = false)]
+        [XmlElement("Title", IsNullable = false)]
         public string Title { get; set; }
 
         [XmlAttribute("NumberOfQuestions")]

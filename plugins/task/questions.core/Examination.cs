@@ -5,13 +5,13 @@ using System.Xml.Serialization;
 
 namespace Dragonfly.Questions.Core
 {
-    [XmlRootAttribute("Examination", Namespace = "", IsNullable = false)]
+    [XmlRoot("Examination", Namespace = "", IsNullable = false)]
     public class Examination
     {
-        [XmlElementAttribute("ExamProperties", IsNullable = false)]
+        [XmlElement("ExamProperties", IsNullable = false)]
         public ExamProperties ExamProperties { get; set; }
 
-        [XmlArrayAttribute("Readings")]
+        [XmlArray("Readings")]
         public List<Reading> Readings { get; set; }
 
         public Examination()
@@ -64,10 +64,10 @@ namespace Dragonfly.Questions.Core
         }
     }
 
-    [XmlRootAttribute("ExamProperties")]
+    [XmlRoot("ExamProperties")]
     public class ExamProperties
     {
-        [XmlElementAttribute("Title", IsNullable = false)]
+        [XmlElement("Title", IsNullable = false)]
         public string Title { get; set; }
 
         [XmlAttribute("Score")]
@@ -77,16 +77,16 @@ namespace Dragonfly.Questions.Core
         public int PassScore { get; set; }
     }
 
-    [XmlRootAttribute("Reading", Namespace = "")]
+    [XmlRoot("Reading", Namespace = "")]
     public class Reading
     {
-        [XmlElementAttribute("Title", IsNullable = false)]
+        [XmlElement("Title", IsNullable = false)]
         public string Title { get; set; }
 
         [XmlIgnore]
         public string Text { get; set; }
 
-        [XmlElementAttribute("Text", IsNullable = false, Type = typeof(XmlCDataSection))]
+        [XmlElement("Text", IsNullable = false, Type = typeof(XmlCDataSection))]
         public XmlCDataSection TextCData
         {
             get
@@ -100,7 +100,7 @@ namespace Dragonfly.Questions.Core
         }
 
 
-        [XmlArrayAttribute("Questions")]
+        [XmlArray("Questions")]
         public List<Question> Questions { get; set; }
 
         public Reading()
@@ -110,13 +110,13 @@ namespace Dragonfly.Questions.Core
 
     }
 
-    [XmlRootAttribute("Question")]
+    [XmlRoot("Question")]
     public class Question
     {
         [XmlAttribute("No")]
         public int No { get; set; }
 
-        [XmlElementAttribute("Text", IsNullable = false)]
+        [XmlElement("Text", IsNullable = false)]
         public string Text { get; set; }
 
         [XmlAttribute("Answer")]
@@ -125,13 +125,13 @@ namespace Dragonfly.Questions.Core
         [XmlAttribute("IsMultipleChoice")]
         public bool IsMultipleChoice { get; set; }
 
-        [XmlArrayAttribute("Answers")]
+        [XmlArray("Answers")]
         public char[] Answers { get; set; }
 
-        [XmlArrayAttribute("Options")]
+        [XmlArray("Options")]
         public List<Option> Options { get; set; }
 
-        [XmlElementAttribute("Explanation")]
+        [XmlElement("Explanation")]
         public string Explanation { get; set; }
 
         public Question()
@@ -140,13 +140,13 @@ namespace Dragonfly.Questions.Core
         }
     }
 
-    [XmlRootAttribute("Option")]
+    [XmlRoot("Option")]
     public class Option
     {
         [XmlAttribute("Alphabet")]
         public char Alphabet { get; set; }
 
-        [XmlElementAttribute("Text", IsNullable = false)]
+        [XmlElement("Text", IsNullable = false)]
         public string Text { get; set; }
     }
 
