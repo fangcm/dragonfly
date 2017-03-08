@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Dragonfly.Plugin.Task
@@ -8,6 +9,10 @@ namespace Dragonfly.Plugin.Task
     {
         [XmlElementAttribute("NotifyJob")]
         public NotifyJobSetting NotifyJobSetting { get; set; }
+
+        [XmlElementAttribute("Adjustment")]
+        public AdjustmentSetting AdjustmentSetting { get; set; }
+        
     }
 
     [XmlRootAttribute("NotifyJob")]
@@ -55,5 +60,35 @@ namespace Dragonfly.Plugin.Task
         [XmlAttribute("LastTriggerTime")]
         public DateTime LastTriggerTime { get; set; }
     }
-    
+
+    [XmlRootAttribute("Adjustment")]
+    public class AdjustmentSetting
+    {
+        [XmlAttribute("IntervalSeconds")]
+        public int IntervalSeconds { get; set; }
+
+        [XmlArrayAttribute("Conditions")]
+        public List<AdjustmentCondition> Conditions { get; set; }
+
+    }
+
+    [XmlRootAttribute("Condition")]
+    public class AdjustmentCondition
+    {
+        //0 filename, 1 title, 2 processname
+        [XmlAttribute("ConditionType")]
+        public int ConditionType { get; set; }
+
+        [XmlElementAttribute("ConditionValue")]
+        public string ConditionValue { get; set; }
+
+        [XmlAttribute("Accumulated")]
+        public bool Accumulated { get; set; }
+
+        [XmlAttribute("IsIgnoreLock")]
+        public bool IsIgnoreLock { get; set; }
+
+        [XmlAttribute("SpanSeconds")]
+        public int SpanSeconds { get; set; }
+    }
 }

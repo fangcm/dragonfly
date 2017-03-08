@@ -1,0 +1,35 @@
+﻿using Dragonfly.Common.Utils;
+using FluentScheduler;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+
+
+namespace Dragonfly.Plugin.Task
+{
+    internal class AdjustmentJob : IJob
+    {
+        void IJob.Execute()
+        {
+            int adjustmentSeconds = SelfAdjusting.CaculateAdjustmentSeconds();
+            if (adjustmentSeconds <= 0)
+            {
+                return;
+            }
+            foreach (Schedule job in JobManager.AllSchedules)
+            {
+                if (SchedulerRegistry.JOB_NAME_INTERVAL.Equals(job.Name))
+                {
+                    Trace.WriteLine(job.Name + " ," + job.NextRun);
+                }
+            }
+
+        }
+
+
+
+    }
+
+}

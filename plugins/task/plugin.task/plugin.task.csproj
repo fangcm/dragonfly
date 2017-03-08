@@ -60,6 +60,7 @@
     <Compile Include="Logger\LoggInfo.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Logger\XmlLogger .cs" />
+    <Compile Include="AdjustmentJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NotifyJob.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

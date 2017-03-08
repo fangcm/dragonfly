@@ -1,62 +1,141 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Dragonfly.Plugin.Task
 {
     internal class SelfAdjusting
     {
-/*
-        private string GetTitleAndFileName(IntPtr handle, LogType type, out bool isAllowedByTitleAndFileNameFilter)
+        internal static bool IgnoreLockScreen()
         {
-            IntPtr destop = WindowUtils.GetDesktopWindow();
-            if (destop == handle)
+            AdjustmentCondition con = GetAdjustmentCondition();
+            if (con == null || con.Accumulated)
             {
-                isAllowedByTitleAndFileNameFilter = false;
-                return "";
+                //累计的
+                return false;
+            }
+
+            return con.IsIgnoreLock;
+        }
+
+        internal static int CaculateAdjustmentSeconds()
+        {
+            AdjustmentCondition con = GetAdjustmentCondition();
+            if (con == null || !con.Accumulated)
+            {
+                //非累计的
+                return 0;
+            }
+
+            return con.SpanSeconds;
+        }
+
+        private static AdjustmentCondition GetAdjustmentCondition()
+        {
+            SettingHelper helper = SettingHelper.GetInstance();
+            if (helper.PluginSetting == null || helper.PluginSetting.AdjustmentSetting == null ||
+                helper.PluginSetting.AdjustmentSetting.Conditions == null ||
+                helper.PluginSetting.AdjustmentSetting.Conditions.Count == 0)
+            {
+                return null;
+            }
+
+            SelfAdjusting.FullForegroundWindowInfo();
+
+            AdjustmentCondition foregroundWindowCondition = null;
+            List<AdjustmentCondition> conditions = helper.PluginSetting.AdjustmentSetting.Conditions;
+            foreach (AdjustmentCondition con in conditions)
+            {
+                //0 filename, 1 title, 2 processname
+                switch (con.ConditionType)
+                {
+                    case 0:
+                        if (string.Empty.Equals(ForegroundWindowFileName))
+                        {
+                            break;
+                        }
+                        if (ForegroundWindowFileName.EndsWith(con.ConditionValue))
+                        {
+                            foregroundWindowCondition = con;
+                            break;
+                        }
+                        break;
+                    case 1:
+                        if (string.Empty.Equals(ForegroundWindowTitle))
+                        {
+                            break;
+                        }
+                        if (ForegroundWindowTitle.StartsWith(con.ConditionValue))
+                        {
+                            foregroundWindowCondition = con;
+                            break;
+                        }
+                        break;
+                    case 2:
+                        if (string.Empty.Equals(ForegroundWindowProcessName))
+                        {
+                            break;
+                        }
+                        if (ForegroundWindowProcessName.EndsWith(con.ConditionValue))
+                        {
+                            foregroundWindowCondition = con;
+                            break;
+                        }
+                        break;
+
+                }
+                if (foregroundWindowCondition != null)
+                {
+                    break;
+                }
+            }
+            return foregroundWindowCondition;
+        }
+
+        private static string ForegroundWindowTitle { set; get; }
+        private static string ForegroundWindowFileName { set; get; }
+        private static string ForegroundWindowProcessName { set; get; }
+
+        private static void FullForegroundWindowInfo()
+        {
+            IntPtr foregroundWindowHandle = GetForegroundWindow();
+            IntPtr destop = GetDesktopWindow();
+            if (destop == foregroundWindowHandle)
+            {
+                ForegroundWindowTitle = string.Empty;
+                ForegroundWindowFileName = string.Empty;
+                ForegroundWindowProcessName = string.Empty;
+                return;
             }
 
             int processId;
-            WindowUtils.GetWindowThreadProcessId(handle, out processId);
+            GetWindowThreadProcessId(foregroundWindowHandle, out processId);
+
             Process process = Process.GetProcessById(processId);
-            string inputModuleFilename = process.MainModule.FileName;
-            string curModuleFilename = Process.GetCurrentProcess().MainModule.FileName;
-            if (inputModuleFilename == curModuleFilename)
-            {
-                isAllowedByTitleAndFileNameFilter = false;
-                return "";
-            }
+            ForegroundWindowFileName = process.MainModule.FileName;
+            ForegroundWindowTitle = process.MainWindowTitle;
+            ForegroundWindowProcessName = process.ProcessName;
 
-            string windowTitle = WindowUtils.GetWindowText(handle);
-            if (string.IsNullOrEmpty(windowTitle))
-                windowTitle = "[NULL]";
+            Debug.WriteLine("ForegroundWindowFileName:" + ForegroundWindowFileName);
+            Debug.WriteLine("ForegroundWindowTitle:" + ForegroundWindowTitle);
+            Debug.WriteLine("ForegroundWindowProcessName:" + ForegroundWindowProcessName);
 
-            string titleAndFileName = windowTitle + inputModuleFilename;
-            isAllowedByTitleAndFileNameFilter = IsAllowedByTitleAndFileNameFilter(type, titleAndFileName);
-            if (!isAllowedByTitleAndFileNameFilter)
-                return "";
-
-            if (windowPrevHandle.Equals(handle))
-                titleAndFileName = string.Empty;
-            else
-            {
-
-                windowPrevHandle = handle;
-
-                System.DateTime dt = DateTime.Now;
-                string time = dt.ToString("u", DateTimeFormatInfo.InvariantInfo);
-                titleAndFileName = time + " " + titleAndFileName;
-            }
-            return titleAndFileName;
         }
-*/
+
+
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr GetDesktopWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
     }
 
 
-    internal class AdjustmentConfig
-    {
 
-    }
 }

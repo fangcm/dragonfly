@@ -9,6 +9,7 @@ namespace Dragonfly.Plugin.Task
         internal const string JOB_NAME_INTERVAL = "INTERVAL";
         internal const string JOB_NAME_FIX = "FIX";
         internal const string JOB_NAME_TOOLATE = "TOOLATE";
+        internal const string JOB_NAME_ADJUSTMENT = "ADJUSTMENT";
 
         public SchedulerRegistry()
         {
@@ -47,11 +48,13 @@ namespace Dragonfly.Plugin.Task
                     tooLateTriggerTime = tooLateTriggerTime.AddDays(1);
                 }
 
-                Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunOnceAt(tooLateTriggerTime).AndEvery(24).Hours();
+                Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunOnceAt(tooLateTriggerTime).AndEvery(1440).Minutes();
 #if DEBUG
                 LoggerUtil.Log(Logger.LoggType.Other, "job3 tooLateTriggerTime: " + tooLateTriggerTime.ToString("yyyy-MM-dd HH:mm:ss") + ", tooLateMinutes: " + tooLateMinutes);
 #endif
             }
+
+            Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(10).Seconds();
         }
 
         internal static void StartAllTask()
