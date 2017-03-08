@@ -12,9 +12,12 @@ namespace Dragonfly.Plugin.Task
 
         public SchedulerRegistry()
         {
+            SettingHelper helper = SettingHelper.GetInstance();
+            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+
             int suspendCount = LoggerReport.CaculateSuspendCount();
-            DateTime startTime = JobSetting.GetInstance().CaculateFirstTriggerTime(suspendCount);
-            int interval = JobSetting.GetInstance().CaculateSchedulerInterval();
+            DateTime startTime = helper.CaculateFirstTriggerTime(suspendCount);
+            int interval = helper.CaculateSchedulerInterval();
 
             Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(JOB_NAME_INTERVAL).ToRunOnceAt(startTime).AndEvery(interval).Minutes();
 #if DEBUG
@@ -22,7 +25,7 @@ namespace Dragonfly.Plugin.Task
             LoggerUtil.Log(Logger.LoggType.Other, "job1 leftMinutes: " + leftMinutes + ", startTime: " + startTime.ToString("yyyy-MM-dd HH:mm:ss") + ", interval: " + interval);
 #endif
 
-            int remainingMinutes = JobSetting.GetInstance().CaculateRemainingMinutes();
+            int remainingMinutes = helper.CaculateRemainingMinutes();
             if (remainingMinutes > 0)
             {
                 Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = remainingMinutes }).WithName(JOB_NAME_FIX).ToRunNow();
@@ -31,14 +34,14 @@ namespace Dragonfly.Plugin.Task
 #endif
             }
 
-            if (JobSetting.GetInstance().IsTooLateLockScreen)
+            if (setting.IsTooLateLockScreen)
             {
-                int tooLateMinutes = JobSetting.GetInstance().TooLateMinutes;
+                int tooLateMinutes = setting.TooLateMinutes;
 
-                DateTime settingTime = JobSetting.GetInstance().TooLateTriggerTime;
+                DateTime settingTime = setting.TooLateTriggerTime;
                 DateTime now = DateTime.Now;
-                DateTime tooLateTriggerTime = new DateTime(now.Year,now.Month,now.Day,settingTime.Hour,settingTime.Minute,settingTime.Second);
-                if(tooLateTriggerTime < now)
+                DateTime tooLateTriggerTime = new DateTime(now.Year, now.Month, now.Day, settingTime.Hour, settingTime.Minute, settingTime.Second);
+                if (tooLateTriggerTime < now)
                 {
                     Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunNow();
                     tooLateTriggerTime = tooLateTriggerTime.AddDays(1);

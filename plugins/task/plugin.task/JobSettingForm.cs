@@ -44,19 +44,19 @@ namespace Dragonfly.Plugin.Task
                 int ret;
 
                 if (radioButtonHibernate.Checked)
-                    ret = JobSetting.NotifyInternalType_Hibernate;
+                    ret = SettingHelper.NotifyInternalType_Hibernate;
                 else if (radioButtonShutdown.Checked)
-                    ret = JobSetting.NotifyInternalType_ShutDown;
+                    ret = SettingHelper.NotifyInternalType_ShutDown;
                 else
-                    ret = JobSetting.NotifyInternalType_None;
+                    ret = SettingHelper.NotifyInternalType_None;
 
                 return ret;
             }
             set
             {
-                if (value == JobSetting.NotifyInternalType_Hibernate)
+                if (value == SettingHelper.NotifyInternalType_Hibernate)
                     radioButtonHibernate.Checked = true;
-                else if (value == JobSetting.NotifyInternalType_ShutDown)
+                else if (value == SettingHelper.NotifyInternalType_ShutDown)
                     radioButtonShutdown.Checked = true;
                 else
                     radioButtonNone.Checked = true;
@@ -104,15 +104,16 @@ namespace Dragonfly.Plugin.Task
             get { return this.textBoxAppStartpath.Text; }
             set { textBoxAppStartpath.Text = value; }
         }
-        
+
         public JobSettingForm()
         {
             InitializeComponent();
         }
-        
+
         private void TaskSettingsForm_Load(object sender, EventArgs e)
         {
-            JobSetting setting = JobSetting.GetInstance();
+            SettingHelper helper = SettingHelper.GetInstance();
+            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
 
             Description = setting.Description;
             IntervalMinutes = setting.IntervalMinutes;
@@ -158,13 +159,15 @@ namespace Dragonfly.Plugin.Task
             {
                 this.tabControl1.SelectedIndex = 0;
                 this.textBoxDescription.Focus();
-                MessageBox.Show(this,"请输入提醒的内容", "输入错误");
+                MessageBox.Show(this, "请输入提醒的内容", "输入错误");
                 return;
             }
 
-            if(bDataChanged)
+            if (bDataChanged)
             {
-                JobSetting setting = JobSetting.GetInstance();
+                SettingHelper helper = SettingHelper.GetInstance();
+                NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+
                 setting.Description = Description;
                 setting.IntervalMinutes = IntervalMinutes;
                 setting.IsTooLateLockScreen = IsTooLateLockScreen;
@@ -178,7 +181,8 @@ namespace Dragonfly.Plugin.Task
                 setting.NotifyRunApp = NotifyRunApp;
                 setting.NotifyRunAppParam = NotifyRunAppParam;
                 setting.NotifyRunAppStartpath = NotifyRunAppStartpath;
-                setting.Save();
+
+                helper.Save();
             }
 
             this.DialogResult = DialogResult.OK;

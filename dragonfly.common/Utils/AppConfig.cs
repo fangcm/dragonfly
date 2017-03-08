@@ -35,6 +35,14 @@ namespace Dragonfly.Common.Utils
             }
         }
 
+        public static string LogsPath
+        {
+            get
+            {
+                return Path.Combine(WorkingPath, "logs");
+            }
+        }
+
         public static string ReadAppSetting(string key)
         {
             try

@@ -15,12 +15,12 @@ namespace Dragonfly.Plugin.Task
 
         void IJob.Execute()
         {
-
-            JobSetting setting = JobSetting.GetInstance();
+            SettingHelper helper = SettingHelper.GetInstance();
+            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
             if (!IsSpecifyLockScreenMinutes)
             {
                 setting.LastTriggerTime = DateTime.Now;
-                setting.Save();
+                helper.Save();
             }
 
             int lockScreenMinutes = IsSpecifyLockScreenMinutes ? SpecifyLockScreenMinutes : setting.LockScreenMinutes;
@@ -33,10 +33,10 @@ namespace Dragonfly.Plugin.Task
             }
             switch (setting.NotifyInternalType)
             {
-                case JobSetting.NotifyInternalType_Hibernate:
+                case SettingHelper.NotifyInternalType_Hibernate:
                     sb.Append("，自动休眠");
                     break;
-                case JobSetting.NotifyInternalType_ShutDown:
+                case SettingHelper.NotifyInternalType_ShutDown:
                     sb.Append("，自动关机");
                     break;
             }
@@ -46,7 +46,7 @@ namespace Dragonfly.Plugin.Task
             }
             LoggerUtil.Log(Logger.LoggType.Trigger, sb.ToString());
 
-            if (setting.IsLockScreen || setting.NotifyInternalType != JobSetting.NotifyInternalType_None)
+            if (setting.IsLockScreen || setting.NotifyInternalType != SettingHelper.NotifyInternalType_None)
             {
                 string lockScreenApp;
                 if (setting.LockScreenApp == 1)

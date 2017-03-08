@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace Dragonfly.Common.Plugin
@@ -29,15 +28,6 @@ namespace Dragonfly.Common.Plugin
             plugInList.Clear();
 
             List<string> plugIns = new List<string>();
-            try
-            {
-                string pluginPath = AppConfig.PluginsPath;
-                string[] plugInsInDataPath = Directory.GetFiles(pluginPath, "*.dll", SearchOption.AllDirectories);
-                plugIns.AddRange(plugInsInDataPath);
-            }
-            catch
-            {
-            }
 #if DEBUG
             try
             {
@@ -49,6 +39,17 @@ namespace Dragonfly.Common.Plugin
             catch
             {
             }
+#else
+            try
+            {
+                string pluginPath = AppConfig.PluginsPath;
+                string[] plugInsInDataPath = Directory.GetFiles(pluginPath, "*.dll", SearchOption.AllDirectories);
+                plugIns.AddRange(plugInsInDataPath);
+            }
+            catch
+            {
+            }
+
 #endif
 
             if (plugIns == null || plugIns.Count == 0)
@@ -65,8 +66,11 @@ namespace Dragonfly.Common.Plugin
                     {
                         asm = Assembly.LoadFile(dll);
                     }
-                    catch
+                    catch (Exception e)
                     {
+#if DEBUG
+                        System.Diagnostics.Debug.WriteLine(e);
+#endif
                         asm = null;
                     }
                     if (asm == null)
@@ -87,12 +91,21 @@ namespace Dragonfly.Common.Plugin
                                     plugin.Initialize();
                                     plugInList.Add(plugin);
                                 }
-                                catch
+                                catch (Exception e)
                                 {
+#if DEBUG
+                                    System.Diagnostics.Debug.WriteLine(e);
+#endif
                                 }
                             }
                         }
                     }
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+#if DEBUG
+                    System.Diagnostics.Debug.WriteLine(ex);
+#endif
                 }
                 catch
                 {
