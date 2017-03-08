@@ -70,6 +70,10 @@ namespace Dragonfly.Plugin.Task
         [XmlArrayAttribute("Conditions")]
         public List<AdjustmentCondition> Conditions { get; set; }
 
+        public AdjustmentSetting()
+        {
+            Conditions = new List<AdjustmentCondition>();
+        }
     }
 
     [XmlRootAttribute("Condition")]

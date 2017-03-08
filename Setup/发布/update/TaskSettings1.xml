@@ -7,10 +7,11 @@
         <NotifyRunAppStartpath />
     </NotifyJob>
     <Adjustment IntervalSeconds="60">
+        <Description>健康是生命之本，保护视力，从娃娃开始！</Description>
         <Conditions>
-            <AdjustmentCondition ConditionType="2" Accumulated="true" IsIgnoreLock="false" SpanSeconds="50">
-                <ConditionValue>wpp</ConditionValue>
-            </AdjustmentCondition>
+        <Condition ConditionType ="2" Accumulated="true" IsIgnoreLock="true" SpanSeconds="59">
+        	<ConditionValue>wpp</ConditionValue>
+        	</Condition>
         </Conditions>
     </Adjustment>
 </TaskSettings>
