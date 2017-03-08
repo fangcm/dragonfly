@@ -26,6 +26,14 @@ namespace Dragonfly.Plugin.Task
                 }
             }
 
+            SettingHelper helper = SettingHelper.GetInstance();
+            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+
+            DateTime startTime = helper.CaculateFirstTriggerTime(suspendCount);
+            int interval = helper.CaculateSchedulerInterval();
+
+            Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(SchedulerRegistry.JOB_NAME_INTERVAL).ToRunOnceAt(startTime).AndEvery(interval).Minutes();
+
         }
 
 
