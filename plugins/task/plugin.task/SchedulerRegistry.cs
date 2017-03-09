@@ -59,7 +59,7 @@ namespace Dragonfly.Plugin.Task
 #endif
             }
 
-            //Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(10).Seconds();
+            Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(10).Seconds();
         }
 
         internal static void StartAllTask()
@@ -84,5 +84,29 @@ namespace Dragonfly.Plugin.Task
 
         }
 
+        internal static void AdjustingDelaySeconds(int seconds)
+        {
+            foreach (Schedule job in JobManager.AllSchedules)
+            {
+
+            }
+            foreach (Schedule job in JobManager.AllSchedules)
+            {
+                if (SchedulerRegistry.JOB_NAME_INTERVAL.Equals(job.Name))
+                {
+                    Trace.WriteLine(job.Name + " ," + job.NextRun);
+                }
+            }
+
+            SettingHelper helper = SettingHelper.GetInstance();
+            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+
+            //DateTime startTime = helper.CaculateFirstTriggerTime(suspendCount);
+            //int interval = helper.CaculateSchedulerInterval();
+
+            //Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(SchedulerRegistry.JOB_NAME_INTERVAL).ToRunOnceAt(startTime).AndEvery(interval).Minutes();
+            //var expected = DateTime.Now.AddSeconds(12);
+
+        }
     }
 }

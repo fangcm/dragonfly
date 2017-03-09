@@ -93,6 +93,12 @@ namespace Dragonfly.Plugin.Task
             set { this.checkBoxUseQuestionNotify.Checked = (value == 1); }
         }
 
+        public bool IsAppAdjustment
+        {
+            get { return this.checkBoxAdjustment.Checked; }
+            set { this.checkBoxAdjustment.Checked = value; }
+        }
+
         public bool IsNotifyRunApp
         {
             get { return this.checkBoxRunApp.Checked; }
@@ -136,6 +142,7 @@ namespace Dragonfly.Plugin.Task
             LockScreenMinutes = setting.LockScreenMinutes;
             LockScreenApp = setting.LockScreenApp;
             NotifyInternalType = setting.NotifyInternalType;
+            IsAppAdjustment = setting.IsAppAdjustment;
             IsNotifyRunApp = setting.IsNotifyRunApp;
             NotifyRunApp = setting.NotifyRunApp;
             NotifyRunAppParam = setting.NotifyRunAppParam;
@@ -149,6 +156,7 @@ namespace Dragonfly.Plugin.Task
             this.radioButtonHibernate.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonShutdown.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.radioButtonNone.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.checkBoxAdjustment.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.checkBoxRunApp.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxApp.TextChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxAppParam.TextChanged += new System.EventHandler(this.Data_Changed);
@@ -189,6 +197,7 @@ namespace Dragonfly.Plugin.Task
                 setting.LockScreenMinutes = LockScreenMinutes;
                 setting.LockScreenApp = LockScreenApp;
                 setting.NotifyInternalType = NotifyInternalType;
+                setting.IsAppAdjustment = IsAppAdjustment;
                 setting.IsNotifyRunApp = IsNotifyRunApp;
                 setting.NotifyRunApp = NotifyRunApp;
                 setting.NotifyRunAppParam = NotifyRunAppParam;

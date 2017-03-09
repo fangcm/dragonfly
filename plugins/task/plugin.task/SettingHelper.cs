@@ -36,6 +36,7 @@ namespace Dragonfly.Plugin.Task
                     LockScreenMinutes = 60,
                     LockScreenApp = LockScreenApp_Simple,
                     NotifyInternalType = NotifyInternalType_None,
+                    IsAppAdjustment = true,
                     IsNotifyRunApp = false,
                     NotifyRunApp = string.Empty,
                     NotifyRunAppParam = string.Empty,

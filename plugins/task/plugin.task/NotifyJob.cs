@@ -17,8 +17,20 @@ namespace Dragonfly.Plugin.Task
         {
             SettingHelper helper = SettingHelper.GetInstance();
             NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+
+            //只记录定时触发的
             if (!IsSpecifyLockScreenMinutes)
             {
+                //特殊应用调节
+                if (setting.IsAppAdjustment)
+                {
+                    if (SelfAdjusting.IgnoreLockScreen())
+                    {
+                        SchedulerRegistry.AdjustingDelaySeconds(600);
+                        return;
+                    }
+                }
+
                 setting.LastTriggerTime = DateTime.Now;
                 helper.Save();
             }

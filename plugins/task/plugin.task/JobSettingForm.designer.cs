@@ -30,7 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.SchetabTriggers = new System.Windows.Forms.TabPage();
+            this.tabPageTriggers = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.numericUpDownTooLate = new System.Windows.Forms.NumericUpDown();
             this.labelTooLate2 = new System.Windows.Forms.Label();
@@ -63,12 +63,15 @@
             this.checkBoxRunApp = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.tabPageAdjustment = new System.Windows.Forms.TabPage();
+            this.listViewAdjustment = new System.Windows.Forms.ListView();
+            this.checkBoxAdjustment = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.SchetabTriggers.SuspendLayout();
+            this.tabPageTriggers.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooLate)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -77,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLockScreen)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPageAdjustment.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -97,36 +101,37 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Size = new System.Drawing.Size(611, 457);
-            this.splitContainer1.SplitterDistance = 402;
+            this.splitContainer1.SplitterDistance = 401;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.SchetabTriggers);
+            this.tabControl1.Controls.Add(this.tabPageTriggers);
             this.tabControl1.Controls.Add(this.tabPageExecute);
+            this.tabControl1.Controls.Add(this.tabPageAdjustment);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 402);
+            this.tabControl1.Size = new System.Drawing.Size(611, 401);
             this.tabControl1.TabIndex = 0;
             // 
-            // SchetabTriggers
+            // tabPageTriggers
             // 
-            this.SchetabTriggers.Controls.Add(this.groupBox3);
-            this.SchetabTriggers.Controls.Add(this.labelDescription);
-            this.SchetabTriggers.Controls.Add(this.textBoxDescription);
-            this.SchetabTriggers.Controls.Add(this.groupBox1);
-            this.SchetabTriggers.Location = new System.Drawing.Point(4, 25);
-            this.SchetabTriggers.Margin = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Name = "SchetabTriggers";
-            this.SchetabTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Size = new System.Drawing.Size(603, 373);
-            this.SchetabTriggers.TabIndex = 1;
-            this.SchetabTriggers.Text = "触发时间";
-            this.SchetabTriggers.UseVisualStyleBackColor = true;
+            this.tabPageTriggers.Controls.Add(this.groupBox3);
+            this.tabPageTriggers.Controls.Add(this.labelDescription);
+            this.tabPageTriggers.Controls.Add(this.textBoxDescription);
+            this.tabPageTriggers.Controls.Add(this.groupBox1);
+            this.tabPageTriggers.Location = new System.Drawing.Point(4, 25);
+            this.tabPageTriggers.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageTriggers.Name = "tabPageTriggers";
+            this.tabPageTriggers.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageTriggers.Size = new System.Drawing.Size(603, 372);
+            this.tabPageTriggers.TabIndex = 1;
+            this.tabPageTriggers.Text = "触发时间";
+            this.tabPageTriggers.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -287,6 +292,7 @@
             // 
             // tabPageExecute
             // 
+            this.tabPageExecute.Controls.Add(this.checkBoxAdjustment);
             this.tabPageExecute.Controls.Add(this.checkBoxUseQuestionNotify);
             this.tabPageExecute.Controls.Add(this.checkBoxLockScreen);
             this.tabPageExecute.Controls.Add(this.labelInternal);
@@ -298,7 +304,7 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 374);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 372);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;
@@ -310,7 +316,7 @@
             this.checkBoxUseQuestionNotify.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUseQuestionNotify.Name = "checkBoxUseQuestionNotify";
             this.checkBoxUseQuestionNotify.Size = new System.Drawing.Size(134, 19);
-            this.checkBoxUseQuestionNotify.TabIndex = 7;
+            this.checkBoxUseQuestionNotify.TabIndex = 3;
             this.checkBoxUseQuestionNotify.Text = "锁屏时做练习题";
             this.checkBoxUseQuestionNotify.UseVisualStyleBackColor = true;
             // 
@@ -332,7 +338,7 @@
             this.labelInternal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInternal.Name = "labelInternal";
             this.labelInternal.Size = new System.Drawing.Size(82, 15);
-            this.labelInternal.TabIndex = 3;
+            this.labelInternal.TabIndex = 4;
             this.labelInternal.Text = "触发操作：";
             // 
             // numericUpDownLockScreen
@@ -378,7 +384,7 @@
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(417, 59);
-            this.groupBox5.TabIndex = 4;
+            this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             // 
             // radioButtonNone
@@ -425,12 +431,12 @@
             this.groupBox2.Controls.Add(this.labelAppParam);
             this.groupBox2.Controls.Add(this.labelAppStartpath);
             this.groupBox2.Controls.Add(this.textBoxAppParam);
-            this.groupBox2.Location = new System.Drawing.Point(29, 171);
+            this.groupBox2.Location = new System.Drawing.Point(29, 204);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(532, 131);
-            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
             // textBoxApp
@@ -490,11 +496,11 @@
             // checkBoxRunApp
             // 
             this.checkBoxRunApp.AutoSize = true;
-            this.checkBoxRunApp.Location = new System.Drawing.Point(29, 143);
+            this.checkBoxRunApp.Location = new System.Drawing.Point(29, 176);
             this.checkBoxRunApp.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxRunApp.Name = "checkBoxRunApp";
             this.checkBoxRunApp.Size = new System.Drawing.Size(89, 19);
-            this.checkBoxRunApp.TabIndex = 5;
+            this.checkBoxRunApp.TabIndex = 7;
             this.checkBoxRunApp.Text = "运行程序";
             this.checkBoxRunApp.UseVisualStyleBackColor = true;
             // 
@@ -520,6 +526,40 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
+            // tabPageAdjustment
+            // 
+            this.tabPageAdjustment.Controls.Add(this.listViewAdjustment);
+            this.tabPageAdjustment.Location = new System.Drawing.Point(4, 25);
+            this.tabPageAdjustment.Name = "tabPageAdjustment";
+            this.tabPageAdjustment.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAdjustment.Size = new System.Drawing.Size(603, 372);
+            this.tabPageAdjustment.TabIndex = 3;
+            this.tabPageAdjustment.Text = "应用调节";
+            this.tabPageAdjustment.UseVisualStyleBackColor = true;
+            // 
+            // listViewAdjustment
+            // 
+            this.listViewAdjustment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewAdjustment.FullRowSelect = true;
+            this.listViewAdjustment.GridLines = true;
+            this.listViewAdjustment.Location = new System.Drawing.Point(3, 3);
+            this.listViewAdjustment.Name = "listViewAdjustment";
+            this.listViewAdjustment.Size = new System.Drawing.Size(597, 366);
+            this.listViewAdjustment.TabIndex = 0;
+            this.listViewAdjustment.UseCompatibleStateImageBehavior = false;
+            this.listViewAdjustment.View = System.Windows.Forms.View.Details;
+            // 
+            // checkBoxAdjustment
+            // 
+            this.checkBoxAdjustment.AutoSize = true;
+            this.checkBoxAdjustment.Location = new System.Drawing.Point(29, 128);
+            this.checkBoxAdjustment.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxAdjustment.Name = "checkBoxAdjustment";
+            this.checkBoxAdjustment.Size = new System.Drawing.Size(119, 19);
+            this.checkBoxAdjustment.TabIndex = 6;
+            this.checkBoxAdjustment.Text = "启用应用调节";
+            this.checkBoxAdjustment.UseVisualStyleBackColor = true;
+            // 
             // JobSettingForm
             // 
             this.AcceptButton = this.buttonOK;
@@ -540,8 +580,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.SchetabTriggers.ResumeLayout(false);
-            this.SchetabTriggers.PerformLayout();
+            this.tabPageTriggers.ResumeLayout(false);
+            this.tabPageTriggers.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTooLate)).EndInit();
@@ -555,6 +595,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPageAdjustment.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -564,7 +605,7 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage SchetabTriggers;
+        private System.Windows.Forms.TabPage tabPageTriggers;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -595,5 +636,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownTooLate;
         private System.Windows.Forms.Label labelTooLate2;
         private System.Windows.Forms.CheckBox checkBoxUseQuestionNotify;
+        private System.Windows.Forms.TabPage tabPageAdjustment;
+        private System.Windows.Forms.ListView listViewAdjustment;
+        private System.Windows.Forms.CheckBox checkBoxAdjustment;
     }
 }

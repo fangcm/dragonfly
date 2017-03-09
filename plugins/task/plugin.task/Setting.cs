@@ -45,6 +45,9 @@ namespace Dragonfly.Plugin.Task
         [XmlAttribute("NotifyInternalType")]
         public int NotifyInternalType { get; set; }
 
+        [XmlAttribute("IsAppAdjustment")]
+        public bool IsAppAdjustment { get; set; }
+
         [XmlAttribute("IsNotifyRunApp")]
         public bool IsNotifyRunApp { get; set; }
 
@@ -67,7 +70,7 @@ namespace Dragonfly.Plugin.Task
         [XmlAttribute("IntervalSeconds")]
         public int IntervalSeconds { get; set; }
 
-        [XmlArray("Conditions")]
+        [XmlArray("Conditions"), XmlArrayItem("Condition")]
         public List<AdjustmentCondition> Conditions { get; set; }
 
         public AdjustmentSetting()
