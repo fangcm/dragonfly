@@ -25,26 +25,40 @@ namespace Dragonfly.Plugin.Task
             SettingsFileName = Path.Combine(path, "TaskSettings.xml");
             PluginSetting = new PluginSetting()
             {
-                NotifyJobSetting = new NotifyJobSetting()
-                {
-                    Description = "健康是生命之本，保护视力，从娃娃开始！",
-                    IntervalMinutes = 60, //重复间隔
-                    IsTooLateLockScreen = true,
-                    TooLateTriggerTime = "21:00",
-                    TooLateMinutes = 60,
-                    IsLockScreen = true,
-                    LockScreenMinutes = 60,
-                    LockScreenApp = LockScreenApp_Simple,
-                    NotifyInternalType = NotifyInternalType_None,
-                    IsAppAdjustment = true,
-                    IsNotifyRunApp = false,
-                    NotifyRunApp = string.Empty,
-                    NotifyRunAppParam = string.Empty,
-                    NotifyRunAppStartpath = string.Empty,
-                    LastTriggerTime = DateTime.MinValue, //上次触发时间
-                },
+                NotifyJobSetting = DefaultNotifyJobSetting(),
+                AdjustmentSetting = DefaultAdjustmentSetting(),
             };
 
+        }
+
+        private NotifyJobSetting DefaultNotifyJobSetting()
+        {
+            return new NotifyJobSetting()
+            {
+                Description = "健康是生命之本，保护视力，从娃娃开始！",
+                IntervalMinutes = 60, //重复间隔
+                IsTooLateLockScreen = true,
+                TooLateTriggerTime = "21:00",
+                TooLateMinutes = 60,
+                IsLockScreen = true,
+                LockScreenMinutes = 60,
+                LockScreenApp = LockScreenApp_Simple,
+                NotifyInternalType = NotifyInternalType_None,
+                IsAppAdjustment = true,
+                IsNotifyRunApp = false,
+                NotifyRunApp = string.Empty,
+                NotifyRunAppParam = string.Empty,
+                NotifyRunAppStartpath = string.Empty,
+                LastTriggerTime = DateTime.MinValue, //上次触发时间
+            };
+        }
+
+        private AdjustmentSetting DefaultAdjustmentSetting()
+        {
+            return new AdjustmentSetting()
+            {
+                IntervalSeconds = 60,
+            };
         }
 
         public static SettingHelper GetInstance()
@@ -86,7 +100,17 @@ namespace Dragonfly.Plugin.Task
                     return false;
                 }
 
+                if (setting.NotifyJobSetting == null)
+                {
+                    setting.NotifyJobSetting = DefaultNotifyJobSetting();
+                }
+                if (setting.AdjustmentSetting == null)
+                {
+                    setting.AdjustmentSetting = DefaultAdjustmentSetting();
+                }
+
                 PluginSetting = setting;
+
                 return true;
             }
 
@@ -143,10 +167,21 @@ namespace Dragonfly.Plugin.Task
                 }
 
             }
-                        
+
             return ret - PluginSetting.NotifyJobSetting.LockScreenMinutes;
 
         }
+
+        public int CaculateDelaySecondsAtTime(DateTime nextRun)
+        {
+            int ret = Convert.ToInt32((nextRun - DateTime.Now).TotalSeconds);
+            ret -= (PluginSetting.NotifyJobSetting.IntervalMinutes * 60);
+            ret -= (PluginSetting.NotifyJobSetting.LockScreenMinutes * 60);
+
+            return ret;
+
+        }
+
 
 
     }

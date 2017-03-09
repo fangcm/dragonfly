@@ -23,7 +23,7 @@ namespace Dragonfly.Plugin.Task
             listViewMain.Columns.Clear();
             listViewMain.Columns.Add("时间", 150, HorizontalAlignment.Left);
             listViewMain.Columns.Add("事件", 40, HorizontalAlignment.Left);
-            listViewMain.Columns.Add("描述", 300, HorizontalAlignment.Left);
+            listViewMain.Columns.Add("描述", 400, HorizontalAlignment.Left);
 
         }
 

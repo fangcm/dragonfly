@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Task
@@ -130,6 +131,13 @@ namespace Dragonfly.Plugin.Task
 
         private void TaskSettingsForm_Load(object sender, EventArgs e)
         {
+            listViewAdjustment.Columns.Clear();
+            listViewAdjustment.Columns.Add("说明", 110, HorizontalAlignment.Left);
+            listViewAdjustment.Columns.Add("调节方向", 70, HorizontalAlignment.Left);
+            listViewAdjustment.Columns.Add("条件来源", 80, HorizontalAlignment.Left);
+            listViewAdjustment.Columns.Add("条件值", 90, HorizontalAlignment.Left);
+            listViewAdjustment.Columns.Add("秒数", 40, HorizontalAlignment.Left);
+
             SettingHelper helper = SettingHelper.GetInstance();
             NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
 
@@ -147,6 +155,14 @@ namespace Dragonfly.Plugin.Task
             NotifyRunApp = setting.NotifyRunApp;
             NotifyRunAppParam = setting.NotifyRunAppParam;
             NotifyRunAppStartpath = setting.NotifyRunAppStartpath;
+
+            if (helper.PluginSetting.AdjustmentSetting.Conditions != null)
+            {
+                foreach (AdjustmentCondition con in helper.PluginSetting.AdjustmentSetting.Conditions)
+                {
+                    AddAdjustmentCondition(con);
+                }
+            }
 
             this.textBoxDescription.TextChanged += new System.EventHandler(this.Data_Changed);
             this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.Data_Changed);
@@ -203,6 +219,25 @@ namespace Dragonfly.Plugin.Task
                 setting.NotifyRunAppParam = NotifyRunAppParam;
                 setting.NotifyRunAppStartpath = NotifyRunAppStartpath;
 
+                List<AdjustmentCondition> conditions = helper.PluginSetting.AdjustmentSetting.Conditions;
+                if (conditions == null)
+                {
+                    conditions = new List<AdjustmentCondition>();
+                }
+                else
+                {
+                    conditions.Clear();
+                }
+
+                foreach (ListViewItem lvi in listViewAdjustment.Items)
+                {
+                    AdjustmentCondition con = lvi.Tag as AdjustmentCondition;
+                    if (con != null)
+                    {
+                        conditions.Add(con);
+                    }
+                }
+
                 helper.Save();
             }
 
@@ -210,5 +245,70 @@ namespace Dragonfly.Plugin.Task
             this.Close();
         }
 
+        private void tsb_newAdjustment_Click(object sender, EventArgs e)
+        {
+            AdjustmentCondition con = new AdjustmentCondition()
+            {
+                Title = "wps ppt",
+                Accumulated = true,
+                ConditionType = 2,
+                ConditionValue = "wpp",
+                SpanSeconds = 50,
+            };
+
+            AddAdjustmentCondition(con);
+            Data_Changed(sender, e);
+        }
+
+        private void tsb_editAdjustment_Click(object sender, EventArgs e)
+        {
+            Data_Changed(sender, e);
+        }
+
+        private void tsb_deleteAdjustment_Click(object sender, EventArgs e)
+        {
+            if (listViewAdjustment.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(this, "请选择要删除的调节项", "错误");
+                return;
+            }
+            if (MessageBox.Show(this, "确实要删除这些调节项吗？", "提示", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            foreach (ListViewItem lvi in listViewAdjustment.SelectedItems)
+            {
+                int index = lvi.Index;
+                listViewAdjustment.Items.RemoveAt(index);
+            }
+            Data_Changed(sender, e);
+        }
+
+        private void AddAdjustmentCondition(AdjustmentCondition con)
+        {
+            ListViewItem lvi = listViewAdjustment.Items.Add(con.Title);
+            lvi.SubItems.Add(con.Accumulated ? "持续递减" : "锁屏延时");
+
+            string type = string.Empty;
+            //0 filename, 1 title, 2 processname
+            switch (con.ConditionType)
+            {
+                case 0:
+                    type = "文件名";
+                    break;
+                case 1:
+                    type = "窗口标题";
+                    break;
+                case 2:
+                    type = "进程名称";
+                    break;
+
+            }
+            lvi.SubItems.Add(type);
+            lvi.SubItems.Add(con.ConditionValue);
+            lvi.SubItems.Add(con.SpanSeconds.ToString());
+            lvi.Tag = con;
+        }
     }
 }

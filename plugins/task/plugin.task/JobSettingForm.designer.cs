@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JobSettingForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTriggers = new System.Windows.Forms.TabPage();
@@ -44,6 +45,7 @@
             this.labelMinute = new System.Windows.Forms.Label();
             this.labelInterval = new System.Windows.Forms.Label();
             this.tabPageExecute = new System.Windows.Forms.TabPage();
+            this.checkBoxAdjustment = new System.Windows.Forms.CheckBox();
             this.checkBoxUseQuestionNotify = new System.Windows.Forms.CheckBox();
             this.checkBoxLockScreen = new System.Windows.Forms.CheckBox();
             this.labelInternal = new System.Windows.Forms.Label();
@@ -61,11 +63,14 @@
             this.labelAppStartpath = new System.Windows.Forms.Label();
             this.textBoxAppParam = new System.Windows.Forms.TextBox();
             this.checkBoxRunApp = new System.Windows.Forms.CheckBox();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOK = new System.Windows.Forms.Button();
             this.tabPageAdjustment = new System.Windows.Forms.TabPage();
             this.listViewAdjustment = new System.Windows.Forms.ListView();
-            this.checkBoxAdjustment = new System.Windows.Forms.CheckBox();
+            this.toolStripAdjustment = new System.Windows.Forms.ToolStrip();
+            this.tsb_newAdjustment = new System.Windows.Forms.ToolStripButton();
+            this.tsb_editAdjustment = new System.Windows.Forms.ToolStripButton();
+            this.tsb_deleteAdjustment = new System.Windows.Forms.ToolStripButton();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOK = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -81,6 +86,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPageAdjustment.SuspendLayout();
+            this.toolStripAdjustment.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -101,7 +107,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Size = new System.Drawing.Size(611, 457);
-            this.splitContainer1.SplitterDistance = 401;
+            this.splitContainer1.SplitterDistance = 399;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -115,7 +121,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 401);
+            this.tabControl1.Size = new System.Drawing.Size(611, 399);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPageTriggers
@@ -128,7 +134,7 @@
             this.tabPageTriggers.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageTriggers.Name = "tabPageTriggers";
             this.tabPageTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageTriggers.Size = new System.Drawing.Size(603, 372);
+            this.tabPageTriggers.Size = new System.Drawing.Size(603, 370);
             this.tabPageTriggers.TabIndex = 1;
             this.tabPageTriggers.Text = "触发时间";
             this.tabPageTriggers.UseVisualStyleBackColor = true;
@@ -304,10 +310,21 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 372);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 371);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAdjustment
+            // 
+            this.checkBoxAdjustment.AutoSize = true;
+            this.checkBoxAdjustment.Location = new System.Drawing.Point(29, 52);
+            this.checkBoxAdjustment.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxAdjustment.Name = "checkBoxAdjustment";
+            this.checkBoxAdjustment.Size = new System.Drawing.Size(119, 19);
+            this.checkBoxAdjustment.TabIndex = 4;
+            this.checkBoxAdjustment.Text = "启用应用调节";
+            this.checkBoxAdjustment.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseQuestionNotify
             // 
@@ -334,11 +351,11 @@
             // labelInternal
             // 
             this.labelInternal.AutoSize = true;
-            this.labelInternal.Location = new System.Drawing.Point(26, 69);
+            this.labelInternal.Location = new System.Drawing.Point(26, 103);
             this.labelInternal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInternal.Name = "labelInternal";
             this.labelInternal.Size = new System.Drawing.Size(82, 15);
-            this.labelInternal.TabIndex = 4;
+            this.labelInternal.TabIndex = 5;
             this.labelInternal.Text = "触发操作：";
             // 
             // numericUpDownLockScreen
@@ -379,12 +396,12 @@
             this.groupBox5.Controls.Add(this.radioButtonNone);
             this.groupBox5.Controls.Add(this.radioButtonHibernate);
             this.groupBox5.Controls.Add(this.radioButtonShutdown);
-            this.groupBox5.Location = new System.Drawing.Point(144, 52);
+            this.groupBox5.Location = new System.Drawing.Point(144, 86);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(417, 59);
-            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             // 
             // radioButtonNone
@@ -431,7 +448,7 @@
             this.groupBox2.Controls.Add(this.labelAppParam);
             this.groupBox2.Controls.Add(this.labelAppStartpath);
             this.groupBox2.Controls.Add(this.textBoxAppParam);
-            this.groupBox2.Location = new System.Drawing.Point(29, 204);
+            this.groupBox2.Location = new System.Drawing.Point(29, 179);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -496,13 +513,81 @@
             // checkBoxRunApp
             // 
             this.checkBoxRunApp.AutoSize = true;
-            this.checkBoxRunApp.Location = new System.Drawing.Point(29, 176);
+            this.checkBoxRunApp.Location = new System.Drawing.Point(29, 151);
             this.checkBoxRunApp.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxRunApp.Name = "checkBoxRunApp";
             this.checkBoxRunApp.Size = new System.Drawing.Size(89, 19);
             this.checkBoxRunApp.TabIndex = 7;
             this.checkBoxRunApp.Text = "运行程序";
             this.checkBoxRunApp.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAdjustment
+            // 
+            this.tabPageAdjustment.Controls.Add(this.listViewAdjustment);
+            this.tabPageAdjustment.Controls.Add(this.toolStripAdjustment);
+            this.tabPageAdjustment.Location = new System.Drawing.Point(4, 25);
+            this.tabPageAdjustment.Name = "tabPageAdjustment";
+            this.tabPageAdjustment.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAdjustment.Size = new System.Drawing.Size(603, 370);
+            this.tabPageAdjustment.TabIndex = 3;
+            this.tabPageAdjustment.Text = "应用调节";
+            this.tabPageAdjustment.UseVisualStyleBackColor = true;
+            // 
+            // listViewAdjustment
+            // 
+            this.listViewAdjustment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewAdjustment.FullRowSelect = true;
+            this.listViewAdjustment.GridLines = true;
+            this.listViewAdjustment.HideSelection = false;
+            this.listViewAdjustment.Location = new System.Drawing.Point(3, 30);
+            this.listViewAdjustment.Name = "listViewAdjustment";
+            this.listViewAdjustment.Size = new System.Drawing.Size(597, 337);
+            this.listViewAdjustment.TabIndex = 0;
+            this.listViewAdjustment.UseCompatibleStateImageBehavior = false;
+            this.listViewAdjustment.View = System.Windows.Forms.View.Details;
+            // 
+            // toolStripAdjustment
+            // 
+            this.toolStripAdjustment.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripAdjustment.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStripAdjustment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsb_newAdjustment,
+            this.tsb_editAdjustment,
+            this.tsb_deleteAdjustment});
+            this.toolStripAdjustment.Location = new System.Drawing.Point(3, 3);
+            this.toolStripAdjustment.Name = "toolStripAdjustment";
+            this.toolStripAdjustment.Size = new System.Drawing.Size(597, 27);
+            this.toolStripAdjustment.TabIndex = 1;
+            // 
+            // tsb_newAdjustment
+            // 
+            this.tsb_newAdjustment.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsb_newAdjustment.Image = ((System.Drawing.Image)(resources.GetObject("tsb_newAdjustment.Image")));
+            this.tsb_newAdjustment.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_newAdjustment.Name = "tsb_newAdjustment";
+            this.tsb_newAdjustment.Size = new System.Drawing.Size(43, 24);
+            this.tsb_newAdjustment.Text = "新增";
+            this.tsb_newAdjustment.Click += new System.EventHandler(this.tsb_newAdjustment_Click);
+            // 
+            // tsb_editAdjustment
+            // 
+            this.tsb_editAdjustment.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsb_editAdjustment.Image = ((System.Drawing.Image)(resources.GetObject("tsb_editAdjustment.Image")));
+            this.tsb_editAdjustment.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_editAdjustment.Name = "tsb_editAdjustment";
+            this.tsb_editAdjustment.Size = new System.Drawing.Size(43, 24);
+            this.tsb_editAdjustment.Text = "修改";
+            this.tsb_editAdjustment.Click += new System.EventHandler(this.tsb_editAdjustment_Click);
+            // 
+            // tsb_deleteAdjustment
+            // 
+            this.tsb_deleteAdjustment.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsb_deleteAdjustment.Image = ((System.Drawing.Image)(resources.GetObject("tsb_deleteAdjustment.Image")));
+            this.tsb_deleteAdjustment.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_deleteAdjustment.Name = "tsb_deleteAdjustment";
+            this.tsb_deleteAdjustment.Size = new System.Drawing.Size(43, 24);
+            this.tsb_deleteAdjustment.Text = "删除";
+            this.tsb_deleteAdjustment.Click += new System.EventHandler(this.tsb_deleteAdjustment_Click);
             // 
             // buttonCancel
             // 
@@ -525,40 +610,6 @@
             this.buttonOK.Text = "确定";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // tabPageAdjustment
-            // 
-            this.tabPageAdjustment.Controls.Add(this.listViewAdjustment);
-            this.tabPageAdjustment.Location = new System.Drawing.Point(4, 25);
-            this.tabPageAdjustment.Name = "tabPageAdjustment";
-            this.tabPageAdjustment.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAdjustment.Size = new System.Drawing.Size(603, 372);
-            this.tabPageAdjustment.TabIndex = 3;
-            this.tabPageAdjustment.Text = "应用调节";
-            this.tabPageAdjustment.UseVisualStyleBackColor = true;
-            // 
-            // listViewAdjustment
-            // 
-            this.listViewAdjustment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewAdjustment.FullRowSelect = true;
-            this.listViewAdjustment.GridLines = true;
-            this.listViewAdjustment.Location = new System.Drawing.Point(3, 3);
-            this.listViewAdjustment.Name = "listViewAdjustment";
-            this.listViewAdjustment.Size = new System.Drawing.Size(597, 366);
-            this.listViewAdjustment.TabIndex = 0;
-            this.listViewAdjustment.UseCompatibleStateImageBehavior = false;
-            this.listViewAdjustment.View = System.Windows.Forms.View.Details;
-            // 
-            // checkBoxAdjustment
-            // 
-            this.checkBoxAdjustment.AutoSize = true;
-            this.checkBoxAdjustment.Location = new System.Drawing.Point(29, 128);
-            this.checkBoxAdjustment.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBoxAdjustment.Name = "checkBoxAdjustment";
-            this.checkBoxAdjustment.Size = new System.Drawing.Size(119, 19);
-            this.checkBoxAdjustment.TabIndex = 6;
-            this.checkBoxAdjustment.Text = "启用应用调节";
-            this.checkBoxAdjustment.UseVisualStyleBackColor = true;
             // 
             // JobSettingForm
             // 
@@ -596,6 +647,9 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPageAdjustment.ResumeLayout(false);
+            this.tabPageAdjustment.PerformLayout();
+            this.toolStripAdjustment.ResumeLayout(false);
+            this.toolStripAdjustment.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -639,5 +693,9 @@
         private System.Windows.Forms.TabPage tabPageAdjustment;
         private System.Windows.Forms.ListView listViewAdjustment;
         private System.Windows.Forms.CheckBox checkBoxAdjustment;
+        private System.Windows.Forms.ToolStrip toolStripAdjustment;
+        private System.Windows.Forms.ToolStripButton tsb_newAdjustment;
+        private System.Windows.Forms.ToolStripButton tsb_deleteAdjustment;
+        private System.Windows.Forms.ToolStripButton tsb_editAdjustment;
     }
 }

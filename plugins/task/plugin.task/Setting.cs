@@ -82,6 +82,13 @@ namespace Dragonfly.Plugin.Task
     [XmlRoot("Condition")]
     public class AdjustmentCondition
     {
+        [XmlElement("Title")]
+        public string Title { get; set; }
+
+        //持续为每分钟递减N秒，非持续则触发时延后N秒
+        [XmlAttribute("Accumulated")]
+        public bool Accumulated { get; set; }
+
         //0 filename, 1 title, 2 processname
         [XmlAttribute("ConditionType")]
         public int ConditionType { get; set; }
@@ -89,11 +96,6 @@ namespace Dragonfly.Plugin.Task
         [XmlElement("ConditionValue")]
         public string ConditionValue { get; set; }
 
-        [XmlAttribute("Accumulated")]
-        public bool Accumulated { get; set; }
-
-        [XmlAttribute("IsIgnoreLock")]
-        public bool IsIgnoreLock { get; set; }
 
         [XmlAttribute("SpanSeconds")]
         public int SpanSeconds { get; set; }

@@ -59,7 +59,7 @@ namespace Dragonfly.Plugin.Task
 #endif
             }
 
-            Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(10).Seconds();
+            Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(60).Seconds();
         }
 
         internal static void StartAllTask()
@@ -84,29 +84,40 @@ namespace Dragonfly.Plugin.Task
 
         }
 
-        internal static void AdjustingDelaySeconds(int seconds)
+        internal static void AdjustingDelaySeconds(int relativeSeconds)
         {
+#if DEBUG
+            LoggerUtil.Log(Logger.LoggType.Other, "调整触发时间");
             foreach (Schedule job in JobManager.AllSchedules)
             {
-
+                LoggerUtil.Log(Logger.LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
             }
-            foreach (Schedule job in JobManager.AllSchedules)
-            {
-                if (SchedulerRegistry.JOB_NAME_INTERVAL.Equals(job.Name))
-                {
-                    Trace.WriteLine(job.Name + " ," + job.NextRun);
-                }
-            }
+#endif
 
             SettingHelper helper = SettingHelper.GetInstance();
-            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+            int interval = helper.CaculateSchedulerInterval();
 
-            //DateTime startTime = helper.CaculateFirstTriggerTime(suspendCount);
-            //int interval = helper.CaculateSchedulerInterval();
+            Schedule schedule = JobManager.GetSchedule(JOB_NAME_INTERVAL);
+            if (schedule == null)
+            {
+                return;
+            }
 
-            //Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(SchedulerRegistry.JOB_NAME_INTERVAL).ToRunOnceAt(startTime).AndEvery(interval).Minutes();
-            //var expected = DateTime.Now.AddSeconds(12);
+            DateTime nextRunTime = schedule.NextRun.AddSeconds(relativeSeconds);
+            int delaySeconds = helper.CaculateDelaySecondsAtTime(nextRunTime);
+            JobManager.RemoveJob(JOB_NAME_INTERVAL);
 
+
+            JobManager.AddJob<NotifyJob>(s => s.WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delaySeconds).Seconds());
+
+#if DEBUG
+            LoggerUtil.Log(Logger.LoggType.Other, "调整时间后");
+            foreach (Schedule job in JobManager.AllSchedules)
+            {
+                LoggerUtil.Log(Logger.LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
+            }
+            LoggerUtil.Log(Logger.LoggType.Other, "调整完成");
+#endif
         }
     }
 }

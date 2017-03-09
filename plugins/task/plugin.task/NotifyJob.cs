@@ -13,6 +13,11 @@ namespace Dragonfly.Plugin.Task
         public bool IsSpecifyLockScreenMinutes { get; set; }
         public int SpecifyLockScreenMinutes { get; set; }
 
+        internal NotifyJob()
+        {
+            IsSpecifyLockScreenMinutes = false;
+        }
+
         void IJob.Execute()
         {
             SettingHelper helper = SettingHelper.GetInstance();

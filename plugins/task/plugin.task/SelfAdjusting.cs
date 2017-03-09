@@ -16,7 +16,7 @@ namespace Dragonfly.Plugin.Task
                 return false;
             }
 
-            return con.IsIgnoreLock;
+            return true;
         }
 
         internal static int CaculateAdjustmentSeconds()
@@ -38,16 +38,6 @@ namespace Dragonfly.Plugin.Task
                 helper.PluginSetting.AdjustmentSetting.Conditions == null ||
                 helper.PluginSetting.AdjustmentSetting.Conditions.Count == 0)
             {
-                AdjustmentCondition con = new AdjustmentCondition()
-                {
-                    Accumulated = true,
-                      ConditionType=2,
-                       ConditionValue="wpp",
-                        IsIgnoreLock=false,
-                         SpanSeconds=50,
-                };
-                helper.PluginSetting.AdjustmentSetting.Conditions.Add(con);
-                helper.Save();
                 return null;
             }
 
