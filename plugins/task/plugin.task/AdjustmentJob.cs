@@ -7,13 +7,13 @@ namespace Dragonfly.Plugin.Task
     {
         void IJob.Execute()
         {
-            int adjustmentMinutes = 60;// SelfAdjusting.CaculateAdjustmentSeconds();
-            if (adjustmentMinutes <= 0)
+            int adjustmentSeconds = SelfAdjusting.CaculateAdjustmentSeconds();
+            if (adjustmentSeconds <= 0)
             {
                 return;
             }
 
-            SchedulerRegistry.AdjustingDelaySeconds(0 - adjustmentMinutes);
+            SchedulerRegistry.AdjustingDelaySeconds(0 - adjustmentSeconds);
 
         }
 

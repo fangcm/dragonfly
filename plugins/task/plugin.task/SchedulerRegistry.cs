@@ -59,7 +59,7 @@ namespace Dragonfly.Plugin.Task
 #endif
             }
 
-            Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(60).Seconds();
+            Schedule(new AdjustmentJob()).WithName(JOB_NAME_ADJUSTMENT).ToRunEvery(helper.PluginSetting.AdjustmentSetting.IntervalSeconds).Seconds();
         }
 
         internal static void StartAllTask()
