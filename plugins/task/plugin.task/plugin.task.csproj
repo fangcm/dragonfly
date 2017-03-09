@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdjustmentConditionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdjustmentConditionForm.designer.cs">
+      <DependentUpon>AdjustmentConditionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoggerUtil.cs" />
     <Compile Include="Logger\LoggerReport.cs" />
     <Compile Include="Logger\LoggInfo.cs" />
@@ -87,6 +93,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AdjustmentConditionForm.resx">
+      <DependentUpon>AdjustmentConditionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
