@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Windows.Forms.ListViewItem;
 
 namespace Dragonfly.Plugin.Task
 {
@@ -249,19 +250,42 @@ namespace Dragonfly.Plugin.Task
         {
             AdjustmentCondition con = new AdjustmentCondition()
             {
-                Title = "wps ppt",
+                Title = string.Empty,
                 Accumulated = true,
                 ConditionType = 2,
-                ConditionValue = "wpp",
-                SpanSeconds = 50,
+                ConditionValue = string.Empty,
+                SpanSeconds = 60,
             };
 
-            AddAdjustmentCondition(con);
+            AdjustmentConditionForm form = new AdjustmentConditionForm();
+            form.AdjustmentCondition = con;
+            if (form.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            AddAdjustmentCondition(form.AdjustmentCondition);
             Data_Changed(sender, e);
         }
 
         private void tsb_editAdjustment_Click(object sender, EventArgs e)
         {
+            if (listViewAdjustment.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            int index = listViewAdjustment.SelectedItems[0].Index;
+
+            AdjustmentConditionForm form = new AdjustmentConditionForm();
+            form.AdjustmentCondition = listViewAdjustment.Items[index].Tag as AdjustmentCondition;
+            if (form.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            EditAdjustmentCondition(index, form.AdjustmentCondition);
+
             Data_Changed(sender, e);
         }
 
@@ -285,10 +309,23 @@ namespace Dragonfly.Plugin.Task
             Data_Changed(sender, e);
         }
 
+        private void EditAdjustmentCondition(int index, AdjustmentCondition con)
+        {
+            ListViewItem lvi = listViewAdjustment.Items[index];
+            EditListViewItem(lvi, con);
+        }
+
         private void AddAdjustmentCondition(AdjustmentCondition con)
         {
             ListViewItem lvi = listViewAdjustment.Items.Add(con.Title);
-            lvi.SubItems.Add(con.Accumulated ? "持续递减" : "锁屏延时");
+            EditListViewItem(lvi, con);
+        }
+
+        private void EditListViewItem(ListViewItem lvi, AdjustmentCondition con)
+        {
+            lvi.SubItems.Clear();
+            lvi.Text = con.Title;
+            lvi.SubItems.Add(new ListViewSubItem(lvi, con.Accumulated ? "持续递减" : "锁屏延时"));
 
             string type = string.Empty;
             //0 filename, 1 title, 2 processname
@@ -305,10 +342,17 @@ namespace Dragonfly.Plugin.Task
                     break;
 
             }
-            lvi.SubItems.Add(type);
-            lvi.SubItems.Add(con.ConditionValue);
-            lvi.SubItems.Add(con.SpanSeconds.ToString());
+            lvi.SubItems.Add(new ListViewSubItem(lvi, type));
+            lvi.SubItems.Add(new ListViewSubItem(lvi, con.ConditionValue));
+            lvi.SubItems.Add(new ListViewSubItem(lvi, con.SpanSeconds.ToString()));
             lvi.Tag = con;
+        }
+
+        private void listViewAdjustment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool selected = listViewAdjustment.SelectedItems.Count != 0;
+            tsb_editAdjustment.Enabled = selected;
+            tsb_deleteAdjustment.Enabled = selected;
         }
     }
 }

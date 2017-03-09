@@ -8,178 +8,113 @@ namespace Dragonfly.Plugin.Task
     {
         public bool bDataChanged = false;
 
-        public string Description
+        public AdjustmentCondition AdjustmentCondition { get; set; }
+
+        public string Title
         {
-            get { return this.textBoxDescription.Text; }
-            set { this.textBoxDescription.Text = value; }
+            get { return this.txt_title.Text; }
+            set { this.txt_title.Text = value; }
         }
 
-        public int IntervalMinutes
-        {
-            get { return Convert.ToInt32(this.numericUpDownInterval.Value); }
-            set { numericUpDownInterval.Value = value; }
-        }
-
-        public bool IsTooLateLockScreen
-        {
-            get { return this.checkBoxTooLate.Checked; }
-            set { checkBoxTooLate.Checked = value; }
-        }
-
-        public String TooLateTriggerTime
-        {
-            get { return this.dateTimePickerTooLate.Value.ToString("HH:mm"); }
-            set
-            {
-                DateTime settingTime;
-                try
-                {
-                    settingTime = DateTime.ParseExact(value, "HH:mm", null);
-                }
-                catch
-                {
-                    settingTime = DateTime.ParseExact("21:00", "HH:mm", null);
-                }
-                dateTimePickerTooLate.Value = settingTime;
-            }
-        }
-
-        public int TooLateMinutes
-        {
-            get { return Convert.ToInt32(this.numericUpDownTooLate.Value); }
-            set { numericUpDownTooLate.Value = value; }
-        }
-
-        public int NotifyInternalType
+        public bool Accumulated
         {
             get
             {
-                int ret;
-
-                if (radioButtonHibernate.Checked)
-                    ret = SettingHelper.NotifyInternalType_Hibernate;
-                else if (radioButtonShutdown.Checked)
-                    ret = SettingHelper.NotifyInternalType_ShutDown;
+                if (rb_AccumulatedDelay.Checked)
+                {
+                    return false;
+                }
+                else if (rb_AccumulatedDec.Checked)
+                {
+                    return true;
+                }
                 else
-                    ret = SettingHelper.NotifyInternalType_None;
-
-                return ret;
+                {
+                    return true;
+                }
             }
             set
             {
-                if (value == SettingHelper.NotifyInternalType_Hibernate)
-                    radioButtonHibernate.Checked = true;
-                else if (value == SettingHelper.NotifyInternalType_ShutDown)
-                    radioButtonShutdown.Checked = true;
-                else
-                    radioButtonNone.Checked = true;
+                rb_AccumulatedDec.Checked = value;
+                rb_AccumulatedDelay.Checked = !value;
             }
         }
 
-        public bool IsLockScreen
+        public int ConditionType
         {
-            get { return this.checkBoxLockScreen.Checked; }
-            set { checkBoxLockScreen.Checked = value; }
+            get
+            {
+                if (rb_filename.Checked)
+                {
+                    return 0;
+                }
+                else if (rb_title.Checked)
+                {
+                    return 1;
+                }
+                else if (rb_processname.Checked)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                switch (value)
+                {
+                    case 0:
+                        rb_filename.Checked = true;
+                        break;
+                    case 1:
+                        rb_title.Checked = true;
+                        break;
+                    case 2:
+                        rb_processname.Checked = true;
+                        break;
+                    default:
+                        rb_filename.Checked = true;
+                        break;
+                }
+            }
         }
 
-        public int LockScreenMinutes
+        public string ConditionValue
         {
-            get { return Convert.ToInt32(numericUpDownLockScreen.Value); }
-            set { numericUpDownLockScreen.Value = value; }
+            get { return this.txt_conditonValue.Text; }
+            set { txt_conditonValue.Text = value; }
         }
 
-        public int LockScreenApp
+        public int SpanSeconds
         {
-            get { return this.checkBoxUseQuestionNotify.Checked ? 1 : 0; }
-            set { this.checkBoxUseQuestionNotify.Checked = (value == 1); }
+            get { return Convert.ToInt32(num_seconds.Value); }
+            set { num_seconds.Value = value; }
         }
 
-        public bool IsAppAdjustment
-        {
-            get { return this.checkBoxAdjustment.Checked; }
-            set { this.checkBoxAdjustment.Checked = value; }
-        }
-
-        public bool IsNotifyRunApp
-        {
-            get { return this.checkBoxRunApp.Checked; }
-            set { checkBoxRunApp.Checked = value; }
-        }
-
-        public string NotifyRunApp
-        {
-            get { return this.textBoxApp.Text; }
-            set { textBoxApp.Text = value; }
-        }
-
-        public string NotifyRunAppParam
-        {
-            get { return this.textBoxAppParam.Text; }
-            set { textBoxAppParam.Text = value; }
-        }
-
-        public string NotifyRunAppStartpath
-        {
-            get { return this.textBoxAppStartpath.Text; }
-            set { textBoxAppStartpath.Text = value; }
-        }
-
-        public JobSettingForm()
+        public AdjustmentConditionForm()
         {
             InitializeComponent();
         }
 
-        private void TaskSettingsForm_Load(object sender, EventArgs e)
+        private void AdjustmentConditionForm_Load(object sender, EventArgs e)
         {
-            listViewAdjustment.Columns.Clear();
-            listViewAdjustment.Columns.Add("说明", 110, HorizontalAlignment.Left);
-            listViewAdjustment.Columns.Add("调节方向", 70, HorizontalAlignment.Left);
-            listViewAdjustment.Columns.Add("条件来源", 80, HorizontalAlignment.Left);
-            listViewAdjustment.Columns.Add("条件值", 90, HorizontalAlignment.Left);
-            listViewAdjustment.Columns.Add("秒数", 40, HorizontalAlignment.Left);
+            Title = AdjustmentCondition.Title;
+            Accumulated = AdjustmentCondition.Accumulated;
+            ConditionType = AdjustmentCondition.ConditionType;
+            ConditionValue = AdjustmentCondition.ConditionValue;
+            SpanSeconds = AdjustmentCondition.SpanSeconds;
 
-            SettingHelper helper = SettingHelper.GetInstance();
-            NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
+            this.txt_title.TextChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_AccumulatedDelay.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_AccumulatedDec.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_filename.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_title.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_processname.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.txt_conditonValue.TextChanged += new System.EventHandler(this.Data_Changed);
+            this.num_seconds.ValueChanged += new System.EventHandler(this.Data_Changed);
 
-            Description = setting.Description;
-            IntervalMinutes = setting.IntervalMinutes;
-            IsTooLateLockScreen = setting.IsTooLateLockScreen;
-            TooLateTriggerTime = setting.TooLateTriggerTime;
-            TooLateMinutes = setting.TooLateMinutes;
-            IsLockScreen = setting.IsLockScreen;
-            LockScreenMinutes = setting.LockScreenMinutes;
-            LockScreenApp = setting.LockScreenApp;
-            NotifyInternalType = setting.NotifyInternalType;
-            IsAppAdjustment = setting.IsAppAdjustment;
-            IsNotifyRunApp = setting.IsNotifyRunApp;
-            NotifyRunApp = setting.NotifyRunApp;
-            NotifyRunAppParam = setting.NotifyRunAppParam;
-            NotifyRunAppStartpath = setting.NotifyRunAppStartpath;
-
-            if (helper.PluginSetting.AdjustmentSetting.Conditions != null)
-            {
-                foreach (AdjustmentCondition con in helper.PluginSetting.AdjustmentSetting.Conditions)
-                {
-                    AddAdjustmentCondition(con);
-                }
-            }
-
-            this.textBoxDescription.TextChanged += new System.EventHandler(this.Data_Changed);
-            this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.Data_Changed);
-            this.checkBoxLockScreen.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.numericUpDownLockScreen.ValueChanged += new System.EventHandler(this.Data_Changed);
-            this.checkBoxUseQuestionNotify.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.radioButtonHibernate.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.radioButtonShutdown.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.radioButtonNone.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.checkBoxAdjustment.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.checkBoxRunApp.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.textBoxApp.TextChanged += new System.EventHandler(this.Data_Changed);
-            this.textBoxAppParam.TextChanged += new System.EventHandler(this.Data_Changed);
-            this.textBoxAppStartpath.TextChanged += new System.EventHandler(this.Data_Changed);
-            this.checkBoxTooLate.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.numericUpDownTooLate.ValueChanged += new System.EventHandler(this.Data_Changed);
-            this.dateTimePickerTooLate.ValueChanged += new System.EventHandler(this.Data_Changed);
             bDataChanged = false;
         }
 
@@ -191,134 +126,34 @@ namespace Dragonfly.Plugin.Task
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (Description.Length == 0)
+            if (Title.Length == 0)
             {
-                this.tabControl1.SelectedIndex = 0;
-                this.textBoxDescription.Focus();
-                MessageBox.Show(this, "请输入提醒的内容", "输入错误");
+                this.txt_title.Focus();
+                MessageBox.Show(this, "请输入说明", "输入错误");
+                return;
+            }
+
+            if (ConditionValue.Length == 0)
+            {
+                this.txt_conditonValue.Focus();
+                MessageBox.Show(this, "请输入条件值", "输入错误");
                 return;
             }
 
             if (bDataChanged)
             {
-                SettingHelper helper = SettingHelper.GetInstance();
-                NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
-
-                setting.Description = Description;
-                setting.IntervalMinutes = IntervalMinutes;
-                setting.IsTooLateLockScreen = IsTooLateLockScreen;
-                setting.TooLateTriggerTime = TooLateTriggerTime;
-                setting.TooLateMinutes = TooLateMinutes;
-                setting.IsLockScreen = IsLockScreen;
-                setting.LockScreenMinutes = LockScreenMinutes;
-                setting.LockScreenApp = LockScreenApp;
-                setting.NotifyInternalType = NotifyInternalType;
-                setting.IsAppAdjustment = IsAppAdjustment;
-                setting.IsNotifyRunApp = IsNotifyRunApp;
-                setting.NotifyRunApp = NotifyRunApp;
-                setting.NotifyRunAppParam = NotifyRunAppParam;
-                setting.NotifyRunAppStartpath = NotifyRunAppStartpath;
-
-                List<AdjustmentCondition> conditions = helper.PluginSetting.AdjustmentSetting.Conditions;
-                if (conditions == null)
-                {
-                    conditions = new List<AdjustmentCondition>();
-                }
-                else
-                {
-                    conditions.Clear();
-                }
-
-                foreach (ListViewItem lvi in listViewAdjustment.Items)
-                {
-                    AdjustmentCondition con = lvi.Tag as AdjustmentCondition;
-                    if (con != null)
-                    {
-                        conditions.Add(con);
-                    }
-                }
-
-                helper.Save();
+                AdjustmentCondition.Title = Title;
+                AdjustmentCondition.Accumulated = Accumulated;
+                AdjustmentCondition.ConditionType = ConditionType;
+                AdjustmentCondition.ConditionValue = ConditionValue;
+                AdjustmentCondition.SpanSeconds = SpanSeconds;
             }
 
             this.DialogResult = DialogResult.OK;
             this.Close();
-        }
-
-        private void tsb_newAdjustment_Click(object sender, EventArgs e)
-        {
-            AdjustmentCondition con = new AdjustmentCondition()
-            {
-                Title = "wps ppt",
-                Accumulated = true,
-                ConditionType = 2,
-                ConditionValue = "wpp",
-                SpanSeconds = 50,
-            };
-
-            AddAdjustmentCondition(con);
-            Data_Changed(sender, e);
-        }
-
-        private void tsb_editAdjustment_Click(object sender, EventArgs e)
-        {
-            Data_Changed(sender, e);
-        }
-
-        private void tsb_deleteAdjustment_Click(object sender, EventArgs e)
-        {
-            if (listViewAdjustment.SelectedItems.Count == 0)
-            {
-                MessageBox.Show(this, "请选择要删除的调节项", "错误");
-                return;
-            }
-            if (MessageBox.Show(this, "确实要删除这些调节项吗？", "提示", MessageBoxButtons.YesNo) != DialogResult.Yes)
-            {
-                return;
-            }
-
-            foreach (ListViewItem lvi in listViewAdjustment.SelectedItems)
-            {
-                int index = lvi.Index;
-                listViewAdjustment.Items.RemoveAt(index);
-            }
-            Data_Changed(sender, e);
-        }
-
-        private void AddAdjustmentCondition(AdjustmentCondition con)
-        {
-            ListViewItem lvi = listViewAdjustment.Items.Add(con.Title);
-            lvi.SubItems.Add(con.Accumulated ? "持续递减" : "锁屏延时");
-
-            string type = string.Empty;
-            //0 filename, 1 title, 2 processname
-            switch (con.ConditionType)
-            {
-                case 0:
-                    type = "文件名";
-                    break;
-                case 1:
-                    type = "窗口标题";
-                    break;
-                case 2:
-                    type = "进程名称";
-                    break;
-
-            }
-            lvi.SubItems.Add(type);
-            lvi.SubItems.Add(con.ConditionValue);
-            lvi.SubItems.Add(con.SpanSeconds.ToString());
-            lvi.Tag = con;
-        }
-
-        private void labelInterval_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void numericUpDownInterval_ValueChanged(object sender, EventArgs e)
-        {
 
-        }
     }
 }
