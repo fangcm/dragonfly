@@ -28,7 +28,7 @@ namespace Dragonfly.Plugin.Task
         public bool IsTooLateLockScreen { get; set; }
 
         [XmlAttribute("TooLateTriggerTime")]
-        public DateTime TooLateTriggerTime { get; set; }
+        public string TooLateTriggerTime { get; set; }
 
         [XmlAttribute("TooLateMinutes")]
         public int TooLateMinutes { get; set; }

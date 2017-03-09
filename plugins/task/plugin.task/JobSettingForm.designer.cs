@@ -97,7 +97,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Size = new System.Drawing.Size(611, 457);
-            this.splitContainer1.SplitterDistance = 403;
+            this.splitContainer1.SplitterDistance = 402;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -110,7 +110,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(611, 403);
+            this.tabControl1.Size = new System.Drawing.Size(611, 402);
             this.tabControl1.TabIndex = 0;
             // 
             // SchetabTriggers
@@ -123,7 +123,7 @@
             this.SchetabTriggers.Margin = new System.Windows.Forms.Padding(4);
             this.SchetabTriggers.Name = "SchetabTriggers";
             this.SchetabTriggers.Padding = new System.Windows.Forms.Padding(4);
-            this.SchetabTriggers.Size = new System.Drawing.Size(603, 374);
+            this.SchetabTriggers.Size = new System.Drawing.Size(603, 373);
             this.SchetabTriggers.TabIndex = 1;
             this.SchetabTriggers.Text = "触发时间";
             this.SchetabTriggers.UseVisualStyleBackColor = true;
@@ -146,7 +146,7 @@
             // 
             // numericUpDownTooLate
             // 
-            this.numericUpDownTooLate.Location = new System.Drawing.Point(319, 20);
+            this.numericUpDownTooLate.Location = new System.Drawing.Point(301, 20);
             this.numericUpDownTooLate.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownTooLate.Maximum = new decimal(new int[] {
             720,
@@ -159,7 +159,7 @@
             0,
             0});
             this.numericUpDownTooLate.Name = "numericUpDownTooLate";
-            this.numericUpDownTooLate.Size = new System.Drawing.Size(72, 25);
+            this.numericUpDownTooLate.Size = new System.Drawing.Size(60, 25);
             this.numericUpDownTooLate.TabIndex = 3;
             this.numericUpDownTooLate.Value = new decimal(new int[] {
             60,
@@ -170,7 +170,7 @@
             // labelTooLate2
             // 
             this.labelTooLate2.AutoSize = true;
-            this.labelTooLate2.Location = new System.Drawing.Point(399, 26);
+            this.labelTooLate2.Location = new System.Drawing.Point(373, 26);
             this.labelTooLate2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTooLate2.Name = "labelTooLate2";
             this.labelTooLate2.Size = new System.Drawing.Size(37, 15);
@@ -180,7 +180,7 @@
             // labelTooLate1
             // 
             this.labelTooLate1.AutoSize = true;
-            this.labelTooLate1.Location = new System.Drawing.Point(240, 26);
+            this.labelTooLate1.Location = new System.Drawing.Point(223, 26);
             this.labelTooLate1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTooLate1.Name = "labelTooLate1";
             this.labelTooLate1.Size = new System.Drawing.Size(67, 15);
@@ -189,11 +189,12 @@
             // 
             // dateTimePickerTooLate
             // 
-            this.dateTimePickerTooLate.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePickerTooLate.CustomFormat = "HH:mm";
+            this.dateTimePickerTooLate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerTooLate.Location = new System.Drawing.Point(127, 20);
             this.dateTimePickerTooLate.Name = "dateTimePickerTooLate";
             this.dateTimePickerTooLate.ShowUpDown = true;
-            this.dateTimePickerTooLate.Size = new System.Drawing.Size(106, 25);
+            this.dateTimePickerTooLate.Size = new System.Drawing.Size(83, 25);
             this.dateTimePickerTooLate.TabIndex = 1;
             this.dateTimePickerTooLate.Value = new System.DateTime(2017, 2, 15, 22, 0, 0, 0);
             // 
@@ -297,7 +298,7 @@
             this.tabPageExecute.Location = new System.Drawing.Point(4, 25);
             this.tabPageExecute.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageExecute.Name = "tabPageExecute";
-            this.tabPageExecute.Size = new System.Drawing.Size(603, 375);
+            this.tabPageExecute.Size = new System.Drawing.Size(603, 374);
             this.tabPageExecute.TabIndex = 2;
             this.tabPageExecute.Text = "操作";
             this.tabPageExecute.UseVisualStyleBackColor = true;

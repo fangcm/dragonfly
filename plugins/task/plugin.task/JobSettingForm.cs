@@ -25,10 +25,22 @@ namespace Dragonfly.Plugin.Task
             set { checkBoxTooLate.Checked = value; }
         }
 
-        public DateTime TooLateTriggerTime
+        public String TooLateTriggerTime
         {
-            get { return this.dateTimePickerTooLate.Value; }
-            set { dateTimePickerTooLate.Value = value; }
+            get { return this.dateTimePickerTooLate.Value.ToString("HH:mm"); }
+            set
+            {
+                DateTime settingTime;
+                try
+                {
+                    settingTime = DateTime.ParseExact(value, "HH:mm", null);
+                }
+                catch
+                {
+                    settingTime = DateTime.ParseExact("21:00", "HH:mm", null);
+                }
+                dateTimePickerTooLate.Value = settingTime;
+            }
         }
 
         public int TooLateMinutes

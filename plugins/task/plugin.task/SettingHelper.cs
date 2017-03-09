@@ -30,7 +30,7 @@ namespace Dragonfly.Plugin.Task
                     Description = "健康是生命之本，保护视力，从娃娃开始！",
                     IntervalMinutes = 60, //重复间隔
                     IsTooLateLockScreen = true,
-                    TooLateTriggerTime = new DateTime(2017, 2, 15, 21, 0, 0),
+                    TooLateTriggerTime = "21:00",
                     TooLateMinutes = 60,
                     IsLockScreen = true,
                     LockScreenMinutes = 60,
@@ -117,26 +117,33 @@ namespace Dragonfly.Plugin.Task
             if (!DateTime.MinValue.Equals(PluginSetting.NotifyJobSetting.LastTriggerTime) &&
                 PluginSetting.NotifyJobSetting.LastTriggerTime.AddMinutes(PluginSetting.NotifyJobSetting.LockScreenMinutes).CompareTo(DateTime.Now) > 0)
             {
-                return PluginSetting.NotifyJobSetting.LockScreenMinutes - Convert.ToInt32((DateTime.Now - PluginSetting.NotifyJobSetting.LastTriggerTime).TotalMinutes);
+                int remainingMinutes = PluginSetting.NotifyJobSetting.LockScreenMinutes - Convert.ToInt32((DateTime.Now - PluginSetting.NotifyJobSetting.LastTriggerTime).TotalMinutes);
+                return remainingMinutes < 0 ? 0 : remainingMinutes;
             }
 
             return 0;
         }
 
-        public DateTime CaculateFirstTriggerTime(int suspendCount)
+        public int CaculateFirstDelayMinutes(int suspendCount)
         {
+            int ret = 0;
+
             int remainingMinutes = CaculateRemainingMinutes();
             if (remainingMinutes > 0)
             {
-                return DateTime.Now.AddMinutes(remainingMinutes + PluginSetting.NotifyJobSetting.IntervalMinutes);
+                ret = remainingMinutes;
             }
-
-            int minutes = PluginSetting.NotifyJobSetting.IntervalMinutes;
-            if (suspendCount >= 3)
+            else
             {
-                minutes /= 3;
+                if (suspendCount >= 3)
+                {
+                    int minutes = PluginSetting.NotifyJobSetting.IntervalMinutes / suspendCount;
+                    ret = minutes - PluginSetting.NotifyJobSetting.IntervalMinutes;
+                }
+
             }
-            return DateTime.Now.AddMinutes(minutes);
+                        
+            return ret - PluginSetting.NotifyJobSetting.LockScreenMinutes;
 
         }
 
