@@ -1,4 +1,5 @@
-﻿using FluentScheduler;
+﻿using Dragonfly.Common.Utils;
+using FluentScheduler;
 
 
 namespace Dragonfly.Plugin.Task
@@ -14,7 +15,7 @@ namespace Dragonfly.Plugin.Task
             }
 
             SchedulerRegistry.AdjustingDelaySeconds(0 - adjustmentSeconds);
-
+            TraceLog.Instance.WriteLine("AdjustingDelaySeconds:" + adjustmentSeconds);
         }
 
     }

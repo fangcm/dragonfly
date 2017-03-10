@@ -6,24 +6,34 @@ namespace Dragonfly.Common.Utils
 {
     public class AppConfig
     {
+        private static string _workingPath = string.Empty;
+
         public static string WorkingPath
         {
             get
             {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string path = Path.Combine(appDataPath, "dragonfly");
-                if (!Directory.Exists(path))
+                if (string.IsNullOrWhiteSpace(_workingPath))
                 {
-                    try
+                    string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string path = Path.Combine(appDataPath, "dragonfly");
+                    if (Directory.Exists(path))
                     {
-                        Directory.CreateDirectory(path);
+                        _workingPath = path;
                     }
-                    catch
+                    else
                     {
-                        return appDataPath;
+                        try
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        catch
+                        {
+                            _workingPath = appDataPath;
+                        }
                     }
                 }
-                return path;
+                return _workingPath;
+
             }
         }
 
