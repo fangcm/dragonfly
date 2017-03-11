@@ -8,13 +8,41 @@
     </NotifyJob>
     <Adjustment IntervalSeconds="60">
         <Conditions>
-            <Condition Accumulated="true" ConditionType="2" SpanSeconds="60">
-                <Title>QQLive</Title>
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>腾讯视频</Title>
                 <ConditionValue>QQLive.exe</ConditionValue>
             </Condition>
-            <Condition Accumulated="true" ConditionType="2" SpanSeconds="60">
-                <Title>QyFragment</Title>
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>爱奇艺</Title>
                 <ConditionValue>QyFragment.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>爱奇艺</Title>
+                <ConditionValue>QyPlayer.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>爱奇艺</Title>
+                <ConditionValue>QyClient.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>乐视</Title>
+                <ConditionValue>LeTVLoader.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>优酷</Title>
+                <ConditionValue>YoukuDesktop.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="false" ConditionType="0" SpanSeconds="600">
+                <Title>wps演示</Title>
+                <ConditionValue>wpp.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="false" ConditionType="0" SpanSeconds="600">
+                <Title>wps表格</Title>
+                <ConditionValue>et.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="false" ConditionType="0" SpanSeconds="600">
+                <Title>wps文字</Title>
+                <ConditionValue>wps.exe</ConditionValue>
             </Condition>
         </Conditions>
     </Adjustment>
