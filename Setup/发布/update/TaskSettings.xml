@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TaskSettings>
-    <NotifyJob IntervalMinutes="60" IsTooLateLockScreen="true" TooLateTriggerTime="2017-02-15T21:00:00" TooLateMinutes="120" IsLockScreen="true" LockScreenMinutes="59" LockScreenApp="1" NotifyInternalType="0" IsNotifyRunApp="false" LastTriggerTime="0001-01-01T00:00:00">
+    <NotifyJob IntervalMinutes="60" IsTooLateLockScreen="true" TooLateTriggerTime="21:00" TooLateMinutes="120" IsLockScreen="true" LockScreenMinutes="59" LockScreenApp="1" NotifyInternalType="0" IsAppAdjustment="true" IsNotifyRunApp="false" LastTriggerTime="0001-01-01T00:00:00">
         <Description>健康是生命之本，保护视力，从娃娃开始！</Description>
         <NotifyRunApp />
         <NotifyRunAppParam />
@@ -8,9 +8,14 @@
     </NotifyJob>
     <Adjustment IntervalSeconds="60">
         <Conditions>
-            <AdjustmentCondition ConditionType="2" Accumulated="true" IsIgnoreLock="false" SpanSeconds="50">
-                <ConditionValue>wpp</ConditionValue>
-            </AdjustmentCondition>
+            <Condition Accumulated="true" ConditionType="2" SpanSeconds="60">
+                <Title>QQLive</Title>
+                <ConditionValue>QQLive.exe</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="2" SpanSeconds="60">
+                <Title>QyFragment</Title>
+                <ConditionValue>QyFragment.exe</ConditionValue>
+            </Condition>
         </Conditions>
     </Adjustment>
 </TaskSettings>

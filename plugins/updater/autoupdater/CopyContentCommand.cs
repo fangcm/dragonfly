@@ -20,20 +20,19 @@ namespace Dragonfly.Updater
             string updatePath = Path.Combine(WorkingPath, "update");
             string updateConfig = Path.Combine(updatePath, "config.xml");
 
-            try
+            if (!File.Exists(updateConfig))
             {
+                return;
+            }
 
-                if (!File.Exists(updateConfig))
-                {
-                    return;
-                }
+            string pluginPath = Path.Combine(WorkingPath, "plugins");
+            UpdateConfig config = LoadConfig(updateConfig);
+            if (config == null)
+                return;
 
-                string pluginPath = Path.Combine(WorkingPath, "plugins");
-                UpdateConfig config = LoadConfig(updateConfig);
-                if (config == null)
-                    return;
-
-                foreach (FileInfo fileInfo in config.CopyFiles)
+            foreach (FileInfo fileInfo in config.CopyFiles)
+            {
+                try
                 {
                     string dstPath = pluginPath;
                     if (!string.IsNullOrWhiteSpace(fileInfo.PublishPath))
@@ -51,8 +50,14 @@ namespace Dragonfly.Updater
                     File.Copy(srcFile, newFile, true);
                     File.Delete(srcFile);
                 }
+                catch
+                {
+                }
+            }
 
-                foreach (FileInfo fileInfo in config.DeleteFiles)
+            foreach (FileInfo fileInfo in config.DeleteFiles)
+            {
+                try
                 {
                     string dstPath = pluginPath;
                     if (!string.IsNullOrWhiteSpace(fileInfo.PublishPath))
@@ -64,26 +69,29 @@ namespace Dragonfly.Updater
                     File.SetAttributes(dstFile, FileAttributes.Normal);
                     File.Delete(dstFile);
                 }
+                catch
+                {
+                }
+            }
 
+            File.Delete(updateConfig);
 
-            }
-            catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-            }
-            finally
-            {
-                File.Delete(updateConfig);
-            }
         }
 
         private static UpdateConfig LoadConfig(string file)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(UpdateConfig));
-            using (StreamReader sr = new StreamReader(file))
+            try
             {
-                UpdateConfig config = xs.Deserialize(sr) as UpdateConfig;
-                return config;
+                XmlSerializer xs = new XmlSerializer(typeof(UpdateConfig));
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    UpdateConfig config = xs.Deserialize(sr) as UpdateConfig;
+                    return config;
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
 

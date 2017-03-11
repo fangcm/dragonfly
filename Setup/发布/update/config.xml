@@ -3,7 +3,15 @@
   <CopyFiles>
     <FileInfo>
       <PublishPath/>
+      <FileName>FluentScheduler.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
       <FileName>plugin.task.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>plugin.updater.dll</FileName>
     </FileInfo>
     <FileInfo>
       <PublishPath/>
@@ -15,7 +23,11 @@
     </FileInfo>
     <FileInfo>
       <PublishPath/>
-      <FileName>task.core</FileName>
+      <FileName>simple.notify.exe</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
+      <FileName>task.core.dll</FileName>
     </FileInfo>
   </CopyFiles>
 </UpdateConfig>
