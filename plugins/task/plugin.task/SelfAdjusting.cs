@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Common.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -15,7 +16,7 @@ namespace Dragonfly.Plugin.Task
                 //累计的
                 return false;
             }
-
+            TraceLog.info("IgnoreLockScreen:" + con.Title);
             return true;
         }
 
@@ -27,7 +28,7 @@ namespace Dragonfly.Plugin.Task
                 //非累计的
                 return 0;
             }
-
+            TraceLog.info("CaculateAdjustmentSeconds:" + con.Title);
             return con.SpanSeconds;
         }
 

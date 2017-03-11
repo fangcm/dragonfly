@@ -1,6 +1,7 @@
 ﻿using Dragonfly.Common.Plugin;
 using Dragonfly.Common.Utils;
 using Microsoft.Win32;
+using System;
 using System.Windows.Forms;
 
 namespace Dragonfly.Main
@@ -42,8 +43,9 @@ namespace Dragonfly.Main
                 }
 
             }
-            catch
+            catch(Exception e)
             {
+                TraceLog.error(e.Message);
             }
         }
 
@@ -88,6 +90,7 @@ namespace Dragonfly.Main
                 components.Dispose();
             }
             base.Dispose(disposing);
+
         }
 
         private void timer_Tick(object sender, System.EventArgs e)

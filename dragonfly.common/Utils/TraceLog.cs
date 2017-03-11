@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace Dragonfly.Common.Utils
 {
@@ -8,7 +9,7 @@ namespace Dragonfly.Common.Utils
     {
         public static TraceLog _instance = null;
 
-        private TraceSource ts = new TraceSource("dragonfly");
+        private TraceSource ts = new TraceSource("dragonfly",SourceLevels.All);
 
         private TraceLog()
         {
@@ -34,9 +35,8 @@ namespace Dragonfly.Common.Utils
             ts.Switch = sourceSwitch;
 
             string fileName = Path.Combine(AppConfig.LogsPath, DateTime.Now.ToString("yyyyMMdd") + ".trace.log");
-            FileStream logFile = new FileStream(fileName, FileMode.OpenOrCreate);
+            FileStream logFile = new FileStream(fileName, FileMode.Append);
             TextWriterTraceListener logFileListener = new TextWriterTraceListener(logFile);
-            logFileListener.TraceOutputOptions = TraceOptions.DateTime;
 
             ts.Listeners.Add(logFileListener);
         }
@@ -46,22 +46,27 @@ namespace Dragonfly.Common.Utils
             ts.Close();
         }
 
-        public void WriteLine(string line)
+        public static void info(string line)
         {
-            ts.TraceInformation(string.Format("{0} - {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), line));
-            ts.Flush();
+            Instance.ts.TraceInformation(string.Format("{0} - {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), line));
+            Instance.ts.Flush();
         }
 
-        public void WriteLine(string format, params object[] list)
+        public static void info(string format, params object[] list)
         {
-            WriteLine(string.Format(format, list));
+            info(string.Format(format, list));
         }
 
-        public void WriteLine(object obj)
+        public static void info(object obj)
         {
-            WriteLine(obj.ToString());
+            info(obj.ToString());
         }
 
+        public static void error(string line)
+        {
+            Instance.ts.TraceData(TraceEventType.Error,1,string.Format("{0} - {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), line));
+            Instance.ts.Flush();
+        }
 
     }
 }

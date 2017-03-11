@@ -87,9 +87,8 @@ namespace Dragonfly.Main
                 notifyIcon.Visible = false;
                 notifyIcon.Dispose();
 
-                System.Environment.Exit(0);
+                Application.Exit();
             }
-
         }
 
     }

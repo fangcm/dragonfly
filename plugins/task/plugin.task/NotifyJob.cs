@@ -78,6 +78,7 @@ namespace Dragonfly.Plugin.Task
                 string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
                 string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
+                TraceLog.info("lockScreen:" + lockScreenApp + ", minutes:" + lockScreenMinutes);
             }
 
             if (setting.IsNotifyRunApp)

@@ -1,4 +1,5 @@
 ﻿using Dragonfly.Common.Plugin;
+using Dragonfly.Common.Utils;
 using FluentScheduler;
 using Microsoft.Win32;
 using System;
@@ -36,6 +37,7 @@ namespace Dragonfly.Plugin.Task
             }
             LoggerUtil.Init(mainPanel);
             LoggerUtil.Log(Logger.LoggType.Resume, "启动初始化");
+            TraceLog.info("TaskPlugin Initialize");
             pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
 
@@ -76,10 +78,12 @@ namespace Dragonfly.Plugin.Task
             if (e.Mode == PowerModes.Suspend)
             {
                 LoggerUtil.Log(Logger.LoggType.Suspend, "休眠");
+                TraceLog.info("休眠");
             }
             else if (e.Mode == PowerModes.Resume)
             {
                 LoggerUtil.Log(Logger.LoggType.Resume, "唤醒");
+                TraceLog.info("唤醒");
                 StartTask();
             }
         }
@@ -89,10 +93,12 @@ namespace Dragonfly.Plugin.Task
             if (e.Reason == SessionEndReasons.Logoff)
             {
                 LoggerUtil.Log(Logger.LoggType.Suspend, "注销登录");
+                TraceLog.info("注销登录");
             }
             else if (e.Reason == SessionEndReasons.SystemShutdown)
             {
                 LoggerUtil.Log(Logger.LoggType.Suspend, "关机");
+                TraceLog.info("关机");
             }
         }
 
