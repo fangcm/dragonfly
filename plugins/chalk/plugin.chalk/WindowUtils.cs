@@ -1,13 +1,31 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Chalk
 {
     internal static class WindowUtils
     {
+        public static string ForegroundWindowTitle { set; get; }
+        public static string ForegroundWindowProcessName { set; get; }
+
+        public static bool DrawScreen(string filename)
+        {
+            try
+            {
+                Bitmap bmp = WindowUtils.CaptureScreen();
+                bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static Size GetScreenSize()
         {
             int width = GetSystemMetrics(ScreenMetrics.SM_CXSCREEN);
@@ -42,21 +60,25 @@ namespace Dragonfly.Plugin.Chalk
             return bitmap;
         }
 
-        [DllImport("user32.dll")]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-        public static string GetWindowText(IntPtr hWnd)
+        public static void FullForegroundWindowInfo()
         {
-            return GetWindowText(hWnd, 1000);
-        }
+            IntPtr foregroundWindowHandle = GetForegroundWindow();
+            IntPtr destop = GetDesktopWindow();
+            if (destop == foregroundWindowHandle)
+            {
+                ForegroundWindowTitle = string.Empty;
+                ForegroundWindowProcessName = string.Empty;
+                return;
+            }
 
-        public static string GetWindowText(IntPtr hWnd, int nMaxCount)
-        {
-            StringBuilder sb = new StringBuilder(nMaxCount);
-            GetWindowText(hWnd, sb, sb.Capacity);
-            return sb.ToString();
-        }
+            int processId;
+            GetWindowThreadProcessId(foregroundWindowHandle, out processId);
 
+            Process process = Process.GetProcessById(processId);
+            ForegroundWindowTitle = process.MainWindowTitle;
+            ForegroundWindowProcessName = process.ProcessName;
+
+        }
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
@@ -64,12 +86,8 @@ namespace Dragonfly.Plugin.Chalk
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr GetDesktopWindow();
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
-
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
 
         [DllImport("User32.dll", SetLastError = true)]
         public static extern int GetSystemMetrics(ScreenMetrics sm);
@@ -84,7 +102,7 @@ namespace Dragonfly.Plugin.Chalk
         public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight,
             IntPtr hdcSrc, int nXSrc, int nYSrc, TernaryRasterOperations dwRop);
 
-        public enum ScreenMetrics : int
+        internal enum ScreenMetrics : int
         {
             SM_CXSCREEN = 0,
             SM_CYSCREEN = 1,
@@ -128,7 +146,7 @@ namespace Dragonfly.Plugin.Chalk
             SM_CYFIXEDFRAME = SM_CYDLGFRAME
         }
 
-        public enum TernaryRasterOperations : uint
+        internal enum TernaryRasterOperations : uint
         {
             /* Ternary raster operations */
             SRCCOPY = 0x00CC0020, /* dest = source                   */

@@ -68,7 +68,7 @@ namespace Dragonfly.Common.Plugin
                     }
                     catch (Exception e)
                     {
-                        TraceLog.error(e.Message);
+                        Logger.error(e.Message);
                         asm = null;
                     }
                     if (asm == null)
@@ -91,7 +91,7 @@ namespace Dragonfly.Common.Plugin
                                 }
                                 catch (Exception e)
                                 {
-                                    TraceLog.error(e.Message);
+                                    Logger.error(e.Message);
                                 }
                             }
                         }
@@ -99,11 +99,11 @@ namespace Dragonfly.Common.Plugin
                 }
                 catch (ReflectionTypeLoadException ex)
                 {
-                    TraceLog.error(ex.Message);
+                    Logger.error(ex.Message);
                 }
                 catch (Exception e)
                 {
-                    TraceLog.error(e.Message);
+                    Logger.error(e.Message);
                 }
             }
         }

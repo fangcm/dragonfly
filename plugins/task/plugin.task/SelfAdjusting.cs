@@ -16,7 +16,7 @@ namespace Dragonfly.Plugin.Task
                 //累计的
                 return false;
             }
-            TraceLog.info("IgnoreLockScreen:" + con.Title);
+            Logger.info("IgnoreLockScreen:" + con.Title);
             return true;
         }
 
@@ -28,7 +28,7 @@ namespace Dragonfly.Plugin.Task
                 //非累计的
                 return 0;
             }
-            TraceLog.info("CaculateAdjustmentSeconds:" + con.Title);
+            Logger.info("CaculateAdjustmentSeconds:" + con.Title);
             return con.SpanSeconds;
         }
 

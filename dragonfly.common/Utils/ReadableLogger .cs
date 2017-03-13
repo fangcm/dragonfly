@@ -1,24 +1,54 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace Dragonfly.Plugin.Task.Logger
+namespace Dragonfly.Common.Utils
 {
-    internal class XmlLogger : Logger
+    public class ReadableLogger
     {
-        public static bool Indent = true;
+        protected static ReadableLogger _instance;
+        private ObservableCollection<LoggInfo> loggInfos;
 
-        internal XmlLogger() { }
+        public static ReadableLogger Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new ReadableLogger();
+                }
+                return _instance;
+            }
+        }
 
+        public static ObservableCollection<LoggInfo> LoggInfos
+        {
+            get
+            {
+                if (Instance.loggInfos == null)
+                    Instance.loggInfos = Instance.GetLogg();
+                return Instance.loggInfos;
+            }
+        }
 
-        public override void Log(LoggInfo loggInfo)
+        private ReadableLogger() { }
+
+        public void Log(string type, string text, params object[] arg)
+        {
+            LoggInfo loggInfo = new LoggInfo(string.Format(text, arg), type);
+            Log(loggInfo);
+        }
+
+        public void Log(LoggInfo loggInfo)
         {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.ConformanceLevel = ConformanceLevel.Auto;
             settings.Encoding = Encoding.UTF8;
-            settings.Indent = Indent;
-            string filePath = GetLogFilePathName();
+            settings.Indent = true;
+
+            string filePath = Path.Combine(AppConfig.LogsPath, DateTime.Now.ToString("yyyyMMdd") + ".log");
             bool exists = File.Exists(filePath);
             AddToObservable(loggInfo);
             XmlDocument document = new XmlDocument();
@@ -64,16 +94,15 @@ namespace Dragonfly.Plugin.Task.Logger
 
         }
 
-
-        protected override System.Collections.ObjectModel.ObservableCollection<LoggInfo> GetLogg()
+        protected ObservableCollection<LoggInfo> GetLogg()
         {
-            System.Collections.ObjectModel.ObservableCollection<LoggInfo> loggInfos = new System.Collections.ObjectModel.ObservableCollection<LoggInfo>();
+            ObservableCollection<LoggInfo> loggInfos = new ObservableCollection<LoggInfo>();
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreComments = true;
             settings.IgnoreWhitespace = true;
             settings.IgnoreProcessingInstructions = true;
 
-            string filePath = GetLogFilePathName();
+            string filePath = Path.Combine(AppConfig.LogsPath, DateTime.Now.ToString("yyyyMMdd") + ".log");
             bool exists = File.Exists(filePath);
             if (!exists)
             {
@@ -95,13 +124,11 @@ namespace Dragonfly.Plugin.Task.Logger
                 {
                     LoggInfo loggInfo = new LoggInfo();
                     loggInfo.Date = DateTime.Parse(logNode.Attributes["date"].InnerText);
-                    LoggType loggType;
-                    if (!Enum.TryParse<LoggType>(logNode.Attributes["type"].InnerText, out loggType))
-                        continue;
-                    loggInfo.Type = loggType;
+                    loggInfo.Type = logNode.Attributes["type"].InnerText;
                     if (logNode["text"] != null)
+                    {
                         loggInfo.Text = logNode["text"].InnerText;
-
+                    }
                     loggInfos.Add(loggInfo);
                 }
             }
@@ -110,5 +137,36 @@ namespace Dragonfly.Plugin.Task.Logger
             return loggInfos;
         }
 
+        protected static void AddToObservable(LoggInfo loggInfo)
+        {
+            LoggInfos.Add(loggInfo);
+        }
+
     }
+
+    public class LoggInfo
+    {
+        public LoggInfo()
+        {
+            this.Date = DateTime.Now;
+        }
+        public LoggInfo(string Type, string Text)
+        {
+            this.Text = Text;
+            this.Type = Type;
+            this.Date = DateTime.Now;
+        }
+
+        public LoggInfo(DateTime date, string Type, string text)
+            : this(Type, text)
+        {
+            this.Date = date;
+        }
+
+        public string Text { get; set; }
+        public string Type { get; set; }
+        public DateTime Date { get; set; }
+
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using Dragonfly.Common.Utils;
+using Dragonfly.Plugin.Task.Utils;
 using FluentScheduler;
 using System;
 using System.Diagnostics;
@@ -61,7 +62,7 @@ namespace Dragonfly.Plugin.Task
             {
                 sb.Append("，执行外部程序【").Append(setting.NotifyRunApp).Append("】");
             }
-            LoggerUtil.Log(Logger.LoggType.Trigger, sb.ToString());
+            LoggerUtil.Log(LoggType.Trigger, sb.ToString());
 
             if (setting.IsLockScreen || setting.NotifyInternalType != SettingHelper.NotifyInternalType_None)
             {
@@ -78,7 +79,7 @@ namespace Dragonfly.Plugin.Task
                 string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
                 string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-                TraceLog.info("lockScreen:" + lockScreenApp + ", minutes:" + lockScreenMinutes);
+                Logger.info("lockScreen:" + lockScreenApp + ", minutes:" + lockScreenMinutes);
             }
 
             if (setting.IsNotifyRunApp)

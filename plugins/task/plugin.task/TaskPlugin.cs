@@ -1,5 +1,6 @@
 ﻿using Dragonfly.Common.Plugin;
 using Dragonfly.Common.Utils;
+using Dragonfly.Plugin.Task.Utils;
 using FluentScheduler;
 using Microsoft.Win32;
 using System;
@@ -30,14 +31,14 @@ namespace Dragonfly.Plugin.Task
 
         public void Initialize()
         {
-            if(mainPanel == null)
+            if (mainPanel == null)
             {
                 //为了初始化
                 UserControl m = PluginPanel;
             }
             LoggerUtil.Init(mainPanel);
-            LoggerUtil.Log(Logger.LoggType.Resume, "启动初始化");
-            TraceLog.info("TaskPlugin Initialize");
+            LoggerUtil.Log(LoggType.Resume, "启动初始化");
+            Logger.info("TaskPlugin Initialize");
             pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
 
@@ -46,7 +47,7 @@ namespace Dragonfly.Plugin.Task
 
             StartTask();
         }
-        
+
         private void detachEventsHandlers()
         {
             if (pmceh != null) SystemEvents.PowerModeChanged -= this.pmceh;
@@ -77,13 +78,13 @@ namespace Dragonfly.Plugin.Task
         {
             if (e.Mode == PowerModes.Suspend)
             {
-                LoggerUtil.Log(Logger.LoggType.Suspend, "休眠");
-                TraceLog.info("休眠");
+                LoggerUtil.Log(LoggType.Suspend, "休眠");
+                Logger.info("休眠");
             }
             else if (e.Mode == PowerModes.Resume)
             {
-                LoggerUtil.Log(Logger.LoggType.Resume, "唤醒");
-                TraceLog.info("唤醒");
+                LoggerUtil.Log(LoggType.Resume, "唤醒");
+                Logger.info("唤醒");
                 StartTask();
             }
         }
@@ -92,13 +93,13 @@ namespace Dragonfly.Plugin.Task
         {
             if (e.Reason == SessionEndReasons.Logoff)
             {
-                LoggerUtil.Log(Logger.LoggType.Suspend, "注销登录");
-                TraceLog.info("注销登录");
+                LoggerUtil.Log(LoggType.Suspend, "注销登录");
+                Logger.info("注销登录");
             }
             else if (e.Reason == SessionEndReasons.SystemShutdown)
             {
-                LoggerUtil.Log(Logger.LoggType.Suspend, "关机");
-                TraceLog.info("关机");
+                LoggerUtil.Log(LoggType.Suspend, "关机");
+                Logger.info("关机");
             }
         }
 

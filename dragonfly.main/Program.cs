@@ -12,7 +12,7 @@ namespace Dragonfly.Main
         [STAThread]
         static void Main()
         {
-            TraceLog.info("application starting ...");
+            Logger.info("application starting ...");
             if (!SingleApplication.IsAlreadyRunning())
             {
                 Application.EnableVisualStyles();
@@ -24,9 +24,7 @@ namespace Dragonfly.Main
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            TraceLog.info("application exit");
-            TraceLog.Instance.Dispose();
-
+            Logger.info("application exit");
         }
     }
 }

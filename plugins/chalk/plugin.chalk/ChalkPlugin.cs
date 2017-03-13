@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.Chalk
 {
-    class ChalkPlugin : IPlugin
+    public class ChalkPlugin : IPlugin
     {
         private static object LockObject = new Object();
         private static int CheckUpDateLock = 0;
@@ -32,7 +32,7 @@ namespace Dragonfly.Plugin.Chalk
                 }
                 catch (Exception e)
                 {
-                    TraceLog.error(e.Message);
+                    Logger.error(e.Message);
                     ChalkPath = AppConfig.WorkingPath;
                 }
             }
@@ -81,9 +81,34 @@ namespace Dragonfly.Plugin.Chalk
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Logger.logScreen();
+            ChalkPlugin.log();
         }
 
+
+        public static void log()
+        {
+            string logPath = Path.Combine(AppConfig.WorkingPath, "chalk", DateTime.Now.ToString("yyyyMMdd"));
+            if (!Directory.Exists(logPath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(logPath);
+                }
+                catch (Exception e)
+                {
+                    Logger.error(e.Message);
+                    return;
+                }
+            }
+
+            WindowUtils.FullForegroundWindowInfo();
+
+            string fileName = Path.Combine(logPath, "trace.log");
+            Logger.WriteLog(fileName, string.Format("{0} [{1}]", WindowUtils.ForegroundWindowProcessName, WindowUtils.ForegroundWindowTitle));
+
+            string pictureFilename = Path.Combine(logPath, DateTime.Now.ToString("HHmmss") + ".jpg");
+            WindowUtils.DrawScreen(pictureFilename);
+        }
 
     }
 }

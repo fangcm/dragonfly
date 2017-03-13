@@ -1,4 +1,4 @@
-﻿using Dragonfly.Plugin.Task.Logger;
+﻿using Dragonfly.Plugin.Task.Utils;
 using FluentScheduler;
 using System;
 
@@ -22,7 +22,7 @@ namespace Dragonfly.Plugin.Task
 
             Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delayMinutes).Minutes();
 #if DEBUG
-            LoggerUtil.Log(Logger.LoggType.Other, "job1 leftMinutes: " + (interval + delayMinutes) + ", delayMinutes: " + delayMinutes + ", interval: " + interval);
+            LoggerUtil.Log(LoggType.Other, "job1 leftMinutes: " + (interval + delayMinutes) + ", delayMinutes: " + delayMinutes + ", interval: " + interval);
 #endif
 
             int remainingMinutes = helper.CaculateRemainingMinutes();
@@ -30,7 +30,7 @@ namespace Dragonfly.Plugin.Task
             {
                 Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = remainingMinutes }).WithName(JOB_NAME_FIX).ToRunNow();
 #if DEBUG
-                LoggerUtil.Log(Logger.LoggType.Other, "job2 remainingMinutes: " + remainingMinutes);
+                LoggerUtil.Log(LoggType.Other, "job2 remainingMinutes: " + remainingMinutes);
 #endif
             }
 
@@ -55,7 +55,7 @@ namespace Dragonfly.Plugin.Task
 
                 Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunEvery(1).Days().At(settingTime.Hour, settingTime.Minute);
 #if DEBUG
-                LoggerUtil.Log(Logger.LoggType.Other, "job3 tooLateTriggerTime:  at " + setting.TooLateTriggerTime + ", tooLateMinutes: " + tooLateMinutes);
+                LoggerUtil.Log(LoggType.Other, "job3 tooLateTriggerTime:  at " + setting.TooLateTriggerTime + ", tooLateMinutes: " + tooLateMinutes);
 #endif
             }
 
@@ -69,7 +69,7 @@ namespace Dragonfly.Plugin.Task
 #if DEBUG
             foreach (Schedule job in JobManager.AllSchedules)
             {
-                LoggerUtil.Log(Logger.LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
+                LoggerUtil.Log(LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
             }
 #endif
         }
@@ -87,10 +87,10 @@ namespace Dragonfly.Plugin.Task
         internal static void AdjustingDelaySeconds(int relativeSeconds)
         {
 #if DEBUG
-            LoggerUtil.Log(Logger.LoggType.Other, "调整触发时间");
+            LoggerUtil.Log(LoggType.Other, "调整触发时间");
             foreach (Schedule job in JobManager.AllSchedules)
             {
-                LoggerUtil.Log(Logger.LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
+                LoggerUtil.Log(LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
             }
 #endif
 
@@ -111,12 +111,12 @@ namespace Dragonfly.Plugin.Task
             JobManager.AddJob<NotifyJob>(s => s.WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delaySeconds).Seconds());
 
 #if DEBUG
-            LoggerUtil.Log(Logger.LoggType.Other, "调整时间后");
+            LoggerUtil.Log(LoggType.Other, "调整时间后");
             foreach (Schedule job in JobManager.AllSchedules)
             {
-                LoggerUtil.Log(Logger.LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
+                LoggerUtil.Log(LoggType.Other, "job:" + job.Name + ", nextRun: " + job.NextRun.ToString("yyyy-MM-dd HH:mm:ss") + ", disabled: " + job.Disabled);
             }
-            LoggerUtil.Log(Logger.LoggType.Other, "调整完成");
+            LoggerUtil.Log(LoggType.Other, "调整完成");
 #endif
         }
     }

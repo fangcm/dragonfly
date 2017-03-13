@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dragonfly.Common.Utils;
+using System;
 
-namespace Dragonfly.Plugin.Task.Logger
+namespace Dragonfly.Plugin.Task.Utils
 {
     internal class LoggerReport
     {
@@ -18,9 +14,9 @@ namespace Dragonfly.Plugin.Task.Logger
             this.lastTriggerTime = lastTriggerTime;
         }
 
-        public void AddItem(DateTime date, LoggType type)
+        public void AddItem(DateTime date, string type)
         {
-            if (type != LoggType.Suspend && type != LoggType.Resume && type != LoggType.Trigger)
+            if ("Suspend".CompareTo(type) != 0 && "Resume".CompareTo(type) != 0 && "Trigger".CompareTo(type) != 0)
             {
                 return;
             }
@@ -29,13 +25,12 @@ namespace Dragonfly.Plugin.Task.Logger
                 //早于最后的数据忽略
                 return;
             }
-            if (type == LoggType.Trigger)
+            if ("Trigger".CompareTo(type) == 0)
             {
                 SetLastTriggerTime(date);
                 return;
             }
-
-            if (type == LoggType.Suspend)
+            if ("Suspend".CompareTo(type) == 0)
             {
                 suspendCount++;
             }
@@ -45,12 +40,12 @@ namespace Dragonfly.Plugin.Task.Logger
         public static int CaculateSuspendCount()
         {
             LoggerReport loggerReport = new LoggerReport();
-            foreach (LoggInfo loggInfo in Logger.LoggInfos)
+            foreach (LoggInfo loggInfo in ReadableLogger.LoggInfos)
             {
                 loggerReport.AddItem(loggInfo.Date, loggInfo.Type);
             }
             return loggerReport.suspendCount;
         }
-        
+
     }
 }

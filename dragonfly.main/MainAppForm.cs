@@ -45,7 +45,7 @@ namespace Dragonfly.Main
             }
             catch(Exception e)
             {
-                TraceLog.error(e.Message);
+                Logger.error(e.Message);
             }
         }
 
