@@ -37,7 +37,7 @@ namespace Dragonfly.Common.Utils
 
         public void Log(string type, string text, params object[] arg)
         {
-            LoggInfo loggInfo = new LoggInfo(string.Format(text, arg), type);
+            LoggInfo loggInfo = new LoggInfo(type, string.Format(text, arg));
             Log(loggInfo);
         }
 
