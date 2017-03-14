@@ -8,16 +8,16 @@ namespace Dragonfly.Plugin.Task
 {
     internal class SelfAdjusting
     {
-        internal static bool IgnoreLockScreen()
+        internal static AdjustmentCondition TestIgnoreLockScreen()
         {
             AdjustmentCondition con = GetAdjustmentCondition();
             if (con == null || con.Accumulated)
             {
                 //累计的
-                return false;
+                return null;
             }
-            Logger.info("IgnoreLockScreen:" + con.Title);
-            return true;
+
+            return con;
         }
 
         internal static int CaculateAdjustmentSeconds()
@@ -28,7 +28,7 @@ namespace Dragonfly.Plugin.Task
                 //非累计的
                 return 0;
             }
-            Logger.info("CaculateAdjustmentSeconds:" + con.Title);
+            Logger.info("SelfAdjusting", "CaculateAdjustmentSeconds:" + con.Title);
             return con.SpanSeconds;
         }
 

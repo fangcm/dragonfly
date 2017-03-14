@@ -15,7 +15,7 @@ namespace Dragonfly.Plugin.Task
             }
 
             SchedulerRegistry.AdjustingDelaySeconds(0 - adjustmentSeconds);
-            Logger.info("AdjustingDelaySeconds:" + adjustmentSeconds);
+            Logger.info("AdjustmentJob", "adjustmentSeconds:" + adjustmentSeconds);
         }
 
     }

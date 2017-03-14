@@ -5,24 +5,19 @@ namespace Dragonfly.Common.Utils
 {
     public static class Logger
     {
-        public static void info(string info)
+        public static void info(string loggerName, string info)
         {
-            log("INFO {0}", info);
+            log("INFO {0} - {1}", info);
         }
 
-        public static void error(string error)
+        public static void error(string loggerName, string error)
         {
-            log("ERROR {0}", error);
+            log("ERROR {0} - {1}", error);
         }
 
         public static void log(string format, params object[] list)
         {
             log(string.Format(format, list));
-        }
-
-        public static void log(object obj)
-        {
-            log(obj.ToString());
         }
 
         public static void log(string line)

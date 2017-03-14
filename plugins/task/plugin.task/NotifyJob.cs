@@ -21,6 +21,8 @@ namespace Dragonfly.Plugin.Task
 
         void IJob.Execute()
         {
+            Logger.info("NotifyJob"  , "Execute start ...");
+
             SettingHelper helper = SettingHelper.GetInstance();
             NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
 
@@ -32,7 +34,9 @@ namespace Dragonfly.Plugin.Task
                 {
                     if (SelfAdjusting.IgnoreLockScreen())
                     {
+                        Logger.info("SelfAdjusting", "IgnoreLockScreen:" + con.Title);
                         SchedulerRegistry.AdjustingDelaySeconds(600);
+                        Logger.info("NotifyJob", "Adjusting delay, seconds:"+);
                         return;
                     }
                 }

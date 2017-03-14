@@ -29,6 +29,7 @@ namespace Dragonfly.Common.Plugin
 
             List<string> plugIns = new List<string>();
 #if DEBUG
+            Logger.info("PluginManager", "DEBUG mode");
             try
             {
                 string debugPath = @"..\..\plugins\bin\Debug";
@@ -40,6 +41,7 @@ namespace Dragonfly.Common.Plugin
             {
             }
 #else
+            Logger.info("PluginManager", "RELEASE mode");
             try
             {
                 string pluginPath = AppConfig.PluginsPath;
@@ -54,6 +56,7 @@ namespace Dragonfly.Common.Plugin
 
             if (plugIns == null || plugIns.Count == 0)
             {
+                Logger.error("PluginManager", "没有找到plugIn");
                 return;
             }
 
@@ -68,7 +71,7 @@ namespace Dragonfly.Common.Plugin
                     }
                     catch (Exception e)
                     {
-                        Logger.error(e.Message);
+                        Logger.error("PluginManager", "Load dll file error. " + e.Message);
                         asm = null;
                     }
                     if (asm == null)
@@ -91,7 +94,7 @@ namespace Dragonfly.Common.Plugin
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.error(e.Message);
+                                    Logger.error("PluginManager", "Create plugin instance error. " + e.Message);
                                 }
                             }
                         }
@@ -99,11 +102,11 @@ namespace Dragonfly.Common.Plugin
                 }
                 catch (ReflectionTypeLoadException ex)
                 {
-                    Logger.error(ex.Message);
+                    Logger.error("PluginManager", "ReflectionTypeLoadException error. " + ex.Message);
                 }
                 catch (Exception e)
                 {
-                    Logger.error(e.Message);
+                    Logger.error("PluginManager", "Other Exception error. " + e.Message);
                 }
             }
         }
@@ -122,6 +125,7 @@ namespace Dragonfly.Common.Plugin
             }
 
             plugInList.Clear();
+            Logger.info("PluginManager", "Close plugins");
         }
 
     }

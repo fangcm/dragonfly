@@ -12,7 +12,7 @@ namespace Dragonfly.Main
         [STAThread]
         static void Main()
         {
-            Logger.info("application starting ...");
+            Logger.info("Program", "application starting ...");
             if (!SingleApplication.IsAlreadyRunning())
             {
                 Application.EnableVisualStyles();
@@ -24,7 +24,7 @@ namespace Dragonfly.Main
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            Logger.info("application exit");
+            Logger.info("Program", "application exit");
         }
     }
 }

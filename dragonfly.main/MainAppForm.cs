@@ -43,15 +43,15 @@ namespace Dragonfly.Main
                 }
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Logger.error(e.Message);
+                Logger.error("MainAppForm", "Registry Init error . " + e.Message);
             }
         }
 
         private void InitPlugIns()
         {
-            if(pluginManager != null)
+            if (pluginManager != null)
             {
                 return;
             }
