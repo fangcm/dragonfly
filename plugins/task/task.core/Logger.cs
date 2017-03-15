@@ -63,7 +63,7 @@ namespace Dragonfly.Task.Core
             lock (_lockObject)
             {
                 using (var fileStream = new FileStream(filename, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
-                using (var streamWriter = new StreamWriter(fileStream, Encoding.Unicode))
+                using (var streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
                 {
                     try
                     {

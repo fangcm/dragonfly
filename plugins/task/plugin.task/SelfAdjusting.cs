@@ -54,7 +54,7 @@ namespace Dragonfly.Plugin.Task
                         {
                             break;
                         }
-                        if (ForegroundWindowFileName.EndsWith(con.ConditionValue))
+                        if (ForegroundWindowFileName.Contains(con.ConditionValue))
                         {
                             foregroundWindowCondition = con;
                             break;
@@ -65,7 +65,7 @@ namespace Dragonfly.Plugin.Task
                         {
                             break;
                         }
-                        if (ForegroundWindowTitle.StartsWith(con.ConditionValue))
+                        if (ForegroundWindowTitle.Contains(con.ConditionValue))
                         {
                             foregroundWindowCondition = con;
                             break;
@@ -76,7 +76,7 @@ namespace Dragonfly.Plugin.Task
                         {
                             break;
                         }
-                        if (ForegroundWindowProcessName.EndsWith(con.ConditionValue))
+                        if (ForegroundWindowProcessName.Contains(con.ConditionValue))
                         {
                             foregroundWindowCondition = con;
                             break;

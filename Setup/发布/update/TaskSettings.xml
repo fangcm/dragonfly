@@ -48,6 +48,18 @@
                 <Title>wps文字</Title>
                 <ConditionValue>wps.exe</ConditionValue>
             </Condition>
+            <Condition Accumulated="true" ConditionType="1" SpanSeconds="60">
+                <Title>视频</Title>
+                <ConditionValue>视频</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="1" SpanSeconds="60">
+                <Title>电视剧</Title>
+                <ConditionValue>电视剧</ConditionValue>
+            </Condition>
+            <Condition Accumulated="true" ConditionType="1" SpanSeconds="60">
+                <Title>电影</Title>
+                <ConditionValue>电影</ConditionValue>
+            </Condition>
         </Conditions>
     </Adjustment>
 </TaskSettings>
