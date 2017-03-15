@@ -7,6 +7,8 @@ namespace Dragonfly.Common.Utils
     public class AppConfig
     {
         private static string _workingPath = string.Empty;
+        private static string _pluginsPath = string.Empty;
+        private static string _logsPath = string.Empty;
 
         public static string WorkingPath
         {
@@ -15,16 +17,12 @@ namespace Dragonfly.Common.Utils
                 if (string.IsNullOrWhiteSpace(_workingPath))
                 {
                     string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    string path = Path.Combine(appDataPath, "dragonfly");
-                    if (Directory.Exists(path))
-                    {
-                        _workingPath = path;
-                    }
-                    else
+                    _workingPath = Path.Combine(appDataPath, "dragonfly");
+                    if (!Directory.Exists(_workingPath))
                     {
                         try
                         {
-                            Directory.CreateDirectory(path);
+                            Directory.CreateDirectory(_workingPath);
                         }
                         catch
                         {
@@ -41,7 +39,11 @@ namespace Dragonfly.Common.Utils
         {
             get
             {
-                return Path.Combine(WorkingPath, "plugins");
+                if (string.IsNullOrWhiteSpace(_pluginsPath))
+                {
+                    _pluginsPath = Path.Combine(WorkingPath, "plugins");
+                }
+                return _pluginsPath;
             }
         }
 
@@ -49,7 +51,22 @@ namespace Dragonfly.Common.Utils
         {
             get
             {
-                return Path.Combine(WorkingPath, "logs");
+                if (string.IsNullOrWhiteSpace(_logsPath))
+                {
+                    _logsPath = Path.Combine(WorkingPath, "logs");
+                    if (!Directory.Exists(_logsPath))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(_logsPath);
+                        }
+                        catch
+                        {
+                            _logsPath = WorkingPath;
+                        }
+                    }
+                }
+                return _logsPath;
             }
         }
 

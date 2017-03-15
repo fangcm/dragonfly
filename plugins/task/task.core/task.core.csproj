@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="SealedProcessor.cs" />
     <Compile Include="LockScreenForm.cs">
       <SubType>Form</SubType>

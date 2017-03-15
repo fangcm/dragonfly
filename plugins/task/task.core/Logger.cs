@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Dragonfly.Common.Utils
+namespace Dragonfly.Task.Core
 {
     public static class Logger
     {
@@ -33,7 +33,7 @@ namespace Dragonfly.Common.Utils
 
         public static void log(string line)
         {
-            string fileName = Path.Combine(AppConfig.LogsPath, DateTime.Now.ToString("yyyyMMdd") + ".trace.log");
+            string fileName = Path.Combine(Logger.LogsPath, DateTime.Now.ToString("yyyyMMdd") + ".notify.log");
             WriteLog(fileName, line);
         }
 
@@ -43,6 +43,20 @@ namespace Dragonfly.Common.Utils
         }
 
         private static readonly object _lockObject = new object();
+        private static string _workingPath = string.Empty;
+
+        public static string LogsPath
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_workingPath))
+                {
+                    string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    _workingPath = Path.Combine(appDataPath, "dragonfly", "logs");
+                }
+                return _workingPath;
+            }
+        }
 
         public static void WriteLine(string filename, string line)
         {
@@ -65,3 +79,4 @@ namespace Dragonfly.Common.Utils
     }
 
 }
+
