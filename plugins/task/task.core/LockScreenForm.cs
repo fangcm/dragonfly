@@ -20,6 +20,7 @@ namespace Dragonfly.Task.Core
 
         public virtual DateTime AddIntervalSeconds(int addSeconds)
         {
+            Logger.info("LockScreenForm", "AddIntervalSeconds:", addSeconds);
             endDateTime += TimeSpan.FromSeconds(addSeconds);
             return endDateTime;
         }
@@ -72,6 +73,7 @@ namespace Dragonfly.Task.Core
                 this.ControlBox = true;
                 this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             }
+            Logger.info("LockScreenForm", "Start Lock ! interval seconds:", IntervalSeconds);
             endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
 
             if (!IsDesignMode)
@@ -136,6 +138,7 @@ namespace Dragonfly.Task.Core
                 globalHooks.Stop(false, true, false);
                 globalHooks = null;
             }
+            Logger.info("LockScreenForm", "Dispose, disposing:", disposing);
 
             base.Dispose(disposing);
         }

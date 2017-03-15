@@ -54,6 +54,7 @@ namespace Dragonfly.Common.Utils
                     try
                     {
                         streamWriter.WriteLine(line);
+                        streamWriter.Flush();
                     }
                     catch (Exception ex)
                     {

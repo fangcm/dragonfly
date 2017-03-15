@@ -45,7 +45,7 @@ namespace Dragonfly.Task.Core
                     desc = arg.ToString();
                 }
             }
-
+            Logger.info("SealedProcessor", "lock:", bLock, ",lockMinutes:", lockMinutes, ",cmd:", cmd);
             if (bLock == false && cmd == 0)
             {
                 return false;

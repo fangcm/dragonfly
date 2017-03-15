@@ -68,6 +68,7 @@ namespace Dragonfly.Task.Core
                     try
                     {
                         streamWriter.WriteLine(line);
+                        streamWriter.Flush();
                     }
                     catch (Exception ex)
                     {
