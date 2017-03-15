@@ -38,7 +38,7 @@ namespace Dragonfly.Plugin.Task
             }
             LoggerUtil.Init(mainPanel);
             LoggerUtil.Log(LoggType.Resume, "启动初始化");
-            Logger.info("TaskPlugin Initialize");
+            Logger.info("TaskPlugin", "Initialize");
             pmceh = new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
             seeh = new SessionEndedEventHandler(SystemEvents_SessionEnded);
 
@@ -58,6 +58,7 @@ namespace Dragonfly.Plugin.Task
         {
             detachEventsHandlers();
             StopTask();
+            Logger.info("TaskPlugin", "Dispose");
         }
 
         public UserControl PluginPanel
@@ -79,12 +80,12 @@ namespace Dragonfly.Plugin.Task
             if (e.Mode == PowerModes.Suspend)
             {
                 LoggerUtil.Log(LoggType.Suspend, "休眠");
-                Logger.info("休眠");
+                Logger.info("TaskPlugin", "休眠");
             }
             else if (e.Mode == PowerModes.Resume)
             {
                 LoggerUtil.Log(LoggType.Resume, "唤醒");
-                Logger.info("唤醒");
+                Logger.info("TaskPlugin", "唤醒");
                 StartTask();
             }
         }
@@ -94,12 +95,12 @@ namespace Dragonfly.Plugin.Task
             if (e.Reason == SessionEndReasons.Logoff)
             {
                 LoggerUtil.Log(LoggType.Suspend, "注销登录");
-                Logger.info("注销登录");
+                Logger.info("TaskPlugin", "注销登录");
             }
             else if (e.Reason == SessionEndReasons.SystemShutdown)
             {
                 LoggerUtil.Log(LoggType.Suspend, "关机");
-                Logger.info("关机");
+                Logger.info("TaskPlugin", "关机");
             }
         }
 

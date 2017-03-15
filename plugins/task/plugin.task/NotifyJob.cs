@@ -21,7 +21,7 @@ namespace Dragonfly.Plugin.Task
 
         void IJob.Execute()
         {
-            Logger.info("NotifyJob"  , "Execute start ...");
+            Logger.info("NotifyJob", "Execute start ...");
 
             SettingHelper helper = SettingHelper.GetInstance();
             NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
@@ -32,12 +32,16 @@ namespace Dragonfly.Plugin.Task
                 //特殊应用调节
                 if (setting.IsAppAdjustment)
                 {
-                    if (SelfAdjusting.IgnoreLockScreen())
+                    AdjustmentCondition con = SelfAdjusting.CheckTriggeredCondition();
+                    if (con != null)
                     {
-                        Logger.info("SelfAdjusting", "IgnoreLockScreen:" + con.Title);
-                        SchedulerRegistry.AdjustingDelaySeconds(600);
-                        Logger.info("NotifyJob", "Adjusting delay, seconds:"+);
+                        Logger.info("NotifyJob", "CheckTriggeredCondition:", con.Title, ",delaySeconds", con.SpanSeconds);
+                        SchedulerRegistry.AdjustingDelaySeconds(con.SpanSeconds);
                         return;
+                    }
+                    else
+                    {
+                        Logger.info("NotifyJob", "CheckTriggeredCondition: NULL");
                     }
                 }
 
@@ -67,6 +71,7 @@ namespace Dragonfly.Plugin.Task
                 sb.Append("，执行外部程序【").Append(setting.NotifyRunApp).Append("】");
             }
             LoggerUtil.Log(LoggType.Trigger, sb.ToString());
+            Logger.info("NotifyJob", sb.ToString());
 
             if (setting.IsLockScreen || setting.NotifyInternalType != SettingHelper.NotifyInternalType_None)
             {
@@ -83,7 +88,7 @@ namespace Dragonfly.Plugin.Task
                 string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
                 string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-                Logger.info("lockScreen:" + lockScreenApp + ", minutes:" + lockScreenMinutes);
+                Logger.info("NotifyJob", "lockScreen:", lockScreenApp, ", minutes:", lockScreenMinutes);
             }
 
             if (setting.IsNotifyRunApp)

@@ -1,5 +1,4 @@
-﻿using Dragonfly.Common.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -8,7 +7,7 @@ namespace Dragonfly.Plugin.Task
 {
     internal class SelfAdjusting
     {
-        internal static AdjustmentCondition TestIgnoreLockScreen()
+        internal static AdjustmentCondition CheckTriggeredCondition()
         {
             AdjustmentCondition con = GetAdjustmentCondition();
             if (con == null || con.Accumulated)
@@ -20,16 +19,15 @@ namespace Dragonfly.Plugin.Task
             return con;
         }
 
-        internal static int CaculateAdjustmentSeconds()
+        internal static AdjustmentCondition CheckAccumulatedCondition()
         {
             AdjustmentCondition con = GetAdjustmentCondition();
             if (con == null || !con.Accumulated)
             {
                 //非累计的
-                return 0;
+                return null;
             }
-            Logger.info("SelfAdjusting", "CaculateAdjustmentSeconds:" + con.Title);
-            return con.SpanSeconds;
+            return con;
         }
 
         private static AdjustmentCondition GetAdjustmentCondition()

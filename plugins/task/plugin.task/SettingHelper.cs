@@ -89,7 +89,7 @@ namespace Dragonfly.Plugin.Task
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine(e);
+                    Logger.error("SettingHelper", "Load setting:", e.Message);
                 }
                 if (setting == null)
                 {
@@ -125,8 +125,9 @@ namespace Dragonfly.Plugin.Task
                     XmlHelper.SaveToFile(SettingsFileName, PluginSetting);
                     return true;
                 }
-                catch
+                catch (Exception e)
                 {
+                    Logger.error("SettingHelper", "Save setting:", e.Message);
                     return false;
                 }
             }

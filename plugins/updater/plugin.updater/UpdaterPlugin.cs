@@ -1,4 +1,5 @@
 ﻿using Dragonfly.Common.Plugin;
+using Dragonfly.Common.Utils;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -73,6 +74,7 @@ namespace Dragonfly.Plugin.Updater
             {
                 return;
             }
+            Logger.info("UpdaterPlugin","Found update config file.");
 
             string pluginPath = Path.Combine(appDataPath, "dragonfly", "plugins");
 

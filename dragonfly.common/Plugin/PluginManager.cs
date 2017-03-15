@@ -71,7 +71,7 @@ namespace Dragonfly.Common.Plugin
                     }
                     catch (Exception e)
                     {
-                        Logger.error("PluginManager", "Load dll file error. " + e.Message);
+                        Logger.error("PluginManager", "Load dll file error. ", e.Message);
                         asm = null;
                     }
                     if (asm == null)
@@ -94,7 +94,7 @@ namespace Dragonfly.Common.Plugin
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.error("PluginManager", "Create plugin instance error. " + e.Message);
+                                    Logger.error("PluginManager", "Create plugin instance error. " , e.Message);
                                 }
                             }
                         }
@@ -102,11 +102,11 @@ namespace Dragonfly.Common.Plugin
                 }
                 catch (ReflectionTypeLoadException ex)
                 {
-                    Logger.error("PluginManager", "ReflectionTypeLoadException error. " + ex.Message);
+                    Logger.error("PluginManager", "ReflectionTypeLoadException error. " , ex.Message);
                 }
                 catch (Exception e)
                 {
-                    Logger.error("PluginManager", "Other Exception error. " + e.Message);
+                    Logger.error("PluginManager", "Other Exception error. " ,e.Message);
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace Dragonfly.Plugin.Chalk
                 }
                 catch (Exception e)
                 {
-                    Logger.error(e.Message);
+                    Logger.error("ChalkPlugin", "Create directory", ChalkPath, e.Message);
                     ChalkPath = AppConfig.WorkingPath;
                 }
             }
@@ -96,7 +96,7 @@ namespace Dragonfly.Plugin.Chalk
                 }
                 catch (Exception e)
                 {
-                    Logger.error(e.Message);
+                    Logger.error("ChalkPlugin", "CreateDirectory:", logPath, e.Message);
                     return;
                 }
             }

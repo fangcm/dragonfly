@@ -69,7 +69,7 @@ namespace Dragonfly.Plugin.Task.Utils
             LoggType loggType;
             if (!Enum.TryParse<LoggType>(type, out loggType))
             {
-                Logger.error("loggInfo.Type is error, type:" + type);
+                Logger.error("LoggerUtil", "loggInfo.Type is error, type:" , type);
                 return LoggType.Other;
             }
             return loggType;

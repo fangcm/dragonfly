@@ -1,23 +1,34 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Dragonfly.Common.Utils
 {
     public static class Logger
     {
-        public static void info(string loggerName, string info)
+        public static void info(string loggerName, params object[] values)
         {
-            log("INFO {0} - {1}", info);
+            log("INFO {0} - {1}", loggerName, string.Join(" ", values));
         }
 
-        public static void error(string loggerName, string error)
+        public static void error(string loggerName, params object[] values)
         {
-            log("ERROR {0} - {1}", error);
+            log("ERROR {0} - {1}", loggerName, string.Join(" ", values));
         }
 
-        public static void log(string format, params object[] list)
+        public static void debug(string loggerName, params object[] values)
         {
-            log(string.Format(format, list));
+            log("DEBUG {0} - {1}", loggerName, string.Join(" ", values));
+        }
+
+        public static bool isDebugEnabled()
+        {
+            return true;
+        }
+
+        public static void log(string format, params object[] values)
+        {
+            log(string.Format(format, values));
         }
 
         public static void log(string line)
@@ -31,34 +42,27 @@ namespace Dragonfly.Common.Utils
             WriteLine(filename, string.Format("{0} {1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), line));
         }
 
-        public static bool WriteLine(string filename, string line)
+        private static readonly object _lockObject = new object();
+
+        public static void WriteLine(string filename, string line)
         {
-            StreamWriter sw = null;
-            try
+            lock (_lockObject)
             {
-                sw = new StreamWriter(filename, true);
-                sw.WriteLine(line);
-                sw.Flush();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                if (sw != null)
+                using (var fileStream = new FileStream(filename, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                using (var streamWriter = new StreamWriter(fileStream, Encoding.Unicode))
                 {
                     try
                     {
-                        sw.Close();
+                        streamWriter.WriteLine(line);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
                     }
                 }
             }
         }
-
     }
+
+}
 }
