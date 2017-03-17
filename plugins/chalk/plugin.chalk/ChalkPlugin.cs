@@ -1,6 +1,7 @@
 ﻿using Dragonfly.Common.Plugin;
 using Dragonfly.Common.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -11,6 +12,7 @@ namespace Dragonfly.Plugin.Chalk
     {
         private static object LockObject = new Object();
         private static int CheckUpDateLock = 0;
+        private static int elapsedCounter = 0;
         private BackgroundWorker bgWorker;
         private System.Timers.Timer timer;
         private string ChalkPath { set; get; }
@@ -82,6 +84,12 @@ namespace Dragonfly.Plugin.Chalk
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             ChalkPlugin.log();
+
+            elapsedCounter++;
+            if (elapsedCounter % 60 == 0)
+            {
+                ChalkPlugin.ClearLog();
+            }
         }
 
 
@@ -113,5 +121,23 @@ namespace Dragonfly.Plugin.Chalk
             }
         }
 
+        public static void ClearLog()
+        {
+            string chalkPath = Path.Combine(AppConfig.WorkingPath, "chalk");
+            foreach (var logPath in Directory.EnumerateDirectories(chalkPath)) {
+                if (!)
+                {
+                    try
+                    {
+                        Directory.Delete(logPath, true);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.error("ChalkPlugin", "DeleteDirectory:", logPath, e.Message);
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
