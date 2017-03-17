@@ -104,10 +104,13 @@ namespace Dragonfly.Plugin.Chalk
             WindowUtils.FullForegroundWindowInfo();
 
             string fileName = Path.Combine(logPath, "trace.log");
-            Logger.WriteLog(fileName, string.Format("{0} [{1}]", WindowUtils.ForegroundWindowProcessName, WindowUtils.ForegroundWindowTitle));
+            Logger.WriteLog(fileName, string.Format("{0} [{1}] [{2}]", WindowUtils.ForegroundWindowProcessName, WindowUtils.ForegroundWindowFileName, WindowUtils.ForegroundWindowTitle));
 
-            string pictureFilename = Path.Combine(logPath, DateTime.Now.ToString("HHmmss") + ".jpg");
-            WindowUtils.DrawScreen(pictureFilename);
+            if (!string.IsNullOrEmpty(WindowUtils.ForegroundWindowProcessName))
+            {
+                string pictureFilename = Path.Combine(logPath, DateTime.Now.ToString("HHmmss") + ".jpg");
+                WindowUtils.DrawScreen(pictureFilename);
+            }
         }
 
     }

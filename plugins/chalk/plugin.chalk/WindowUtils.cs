@@ -8,8 +8,9 @@ namespace Dragonfly.Plugin.Chalk
 {
     internal static class WindowUtils
     {
-        public static string ForegroundWindowTitle { set; get; }
+        public static string ForegroundWindowFileName { set; get; }
         public static string ForegroundWindowProcessName { set; get; }
+        public static string ForegroundWindowTitle { set; get; }
 
         public static bool DrawScreen(string filename)
         {
@@ -64,10 +65,11 @@ namespace Dragonfly.Plugin.Chalk
         {
             IntPtr foregroundWindowHandle = GetForegroundWindow();
             IntPtr destop = GetDesktopWindow();
-            if (destop == foregroundWindowHandle)
+            if (destop == foregroundWindowHandle || ScreenSaverRunning())
             {
-                ForegroundWindowTitle = string.Empty;
+                ForegroundWindowFileName = string.Empty;
                 ForegroundWindowProcessName = string.Empty;
+                ForegroundWindowTitle = string.Empty;
                 return;
             }
 
@@ -75,9 +77,9 @@ namespace Dragonfly.Plugin.Chalk
             GetWindowThreadProcessId(foregroundWindowHandle, out processId);
 
             Process process = Process.GetProcessById(processId);
-            ForegroundWindowTitle = process.MainWindowTitle;
+            ForegroundWindowFileName = process.MainModule.FileName;
             ForegroundWindowProcessName = process.ProcessName;
-
+            ForegroundWindowTitle = process.MainWindowTitle;
         }
 
         [DllImport("user32.dll")]
@@ -101,6 +103,17 @@ namespace Dragonfly.Plugin.Chalk
         [DllImport("gdi32.dll", SetLastError = true)]
         public static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight,
             IntPtr hdcSrc, int nXSrc, int nYSrc, TernaryRasterOperations dwRop);
+
+        [DllImport("user32", CharSet = CharSet.Auto)]
+        public static extern int SystemParametersInfo(int uiAction, int uiParam, ref bool pvParam, int fWinIni);
+        public const int screensaverrunning = 0x72;
+
+        public static bool ScreenSaverRunning()
+        {
+            bool ret = false;
+            int i = SystemParametersInfo(screensaverrunning, 0, ref ret, 0);
+            return ret;
+        }
 
         internal enum ScreenMetrics : int
         {
