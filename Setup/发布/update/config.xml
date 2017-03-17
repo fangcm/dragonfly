@@ -7,6 +7,10 @@
     </FileInfo>
     <FileInfo>
       <PublishPath/>
+      <FileName>plugin.chalk.dll</FileName>
+    </FileInfo>
+    <FileInfo>
+      <PublishPath/>
       <FileName>plugin.task.dll</FileName>
     </FileInfo>
     <FileInfo>
