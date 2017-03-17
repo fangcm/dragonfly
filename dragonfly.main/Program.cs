@@ -20,6 +20,10 @@ namespace Dragonfly.Main
                 Application.ApplicationExit += Application_ApplicationExit;
                 Application.Run(new CustomApplicationContext());
             }
+            else
+            {
+                Logger.info("Program", "Is AlreadyRunning");
+            }
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)

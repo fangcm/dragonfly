@@ -65,6 +65,9 @@ namespace Dragonfly.Plugin.Task
         {
             StopAllTask();
             JobManager.Initialize(new SchedulerRegistry());
+            JobManager.JobException += (JobExceptionInfo obj) =>
+                Logger.error("SchedulerRegistry", "Schedule JobException, job name:", obj.Name, ",Error:", obj.Exception.Message,
+                            ",InnerException:", obj.Exception.InnerException?.Message ?? string.Empty);
 
             if (Logger.isDebugEnabled())
             {
@@ -87,6 +90,18 @@ namespace Dragonfly.Plugin.Task
 
         internal static void AdjustingDelaySeconds(int relativeSeconds)
         {
+            Schedule schedule = JobManager.GetSchedule(JOB_NAME_INTERVAL);
+            if (schedule == null)
+            {
+                return;
+            }
+            DateTime nextRunTime = schedule.NextRun.AddSeconds(relativeSeconds);
+            if (nextRunTime.CompareTo(DateTime.Now.AddSeconds(30)) <= 0)
+            {
+                Logger.info("SchedulerRegistry", "Time is short. No need to adjust");
+                return;
+            }
+
             if (Logger.isDebugEnabled())
             {
                 Logger.debug("SchedulerRegistry", "Before adjustment");
@@ -97,20 +112,12 @@ namespace Dragonfly.Plugin.Task
             }
 
             SettingHelper helper = SettingHelper.GetInstance();
-            int interval = helper.CaculateSchedulerInterval();
-
-            Schedule schedule = JobManager.GetSchedule(JOB_NAME_INTERVAL);
-            if (schedule == null)
-            {
-                return;
-            }
-
-            DateTime nextRunTime = schedule.NextRun.AddSeconds(relativeSeconds);
             int delaySeconds = helper.CaculateDelaySecondsAtTime(nextRunTime);
+
             JobManager.RemoveJob(JOB_NAME_INTERVAL);
 
-
-            JobManager.AddJob<NotifyJob>(s => s.WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delaySeconds).Seconds());
+            int interval = helper.CaculateSchedulerInterval();
+            JobManager.AddJob(new NotifyJob { IsSpecifyLockScreenMinutes = false },(s) => s.WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delaySeconds).Seconds());
 
             if (Logger.isDebugEnabled())
             {
