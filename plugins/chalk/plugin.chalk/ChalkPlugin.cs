@@ -123,21 +123,31 @@ namespace Dragonfly.Plugin.Chalk
 
         public static void ClearLog()
         {
+            string reserve = DateTime.Now.AddDays(-30).ToString("yyyyMMdd");
+
             string chalkPath = Path.Combine(AppConfig.WorkingPath, "chalk");
-            foreach (var logPath in Directory.EnumerateDirectories(chalkPath)) {
-                if (!)
+            try
+            {
+                DirectoryInfo dir = new DirectoryInfo(chalkPath);
+                if (dir.Exists)
                 {
-                    try
+                    DirectoryInfo[] childs = dir.GetDirectories();
+                    foreach (DirectoryInfo child in childs)
                     {
-                        Directory.Delete(logPath, true);
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.error("ChalkPlugin", "DeleteDirectory:", logPath, e.Message);
-                        return;
+                        if (reserve.CompareTo(child.Name) > 0)
+                        {
+                            child.Delete(true);
+                        }
                     }
                 }
+
             }
+            catch (Exception e)
+            {
+                Logger.error("ChalkPlugin", "DeleteDirectory, ", e.Message);
+                return;
+            }
+
         }
     }
 }
