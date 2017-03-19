@@ -33,6 +33,10 @@
                 <ConditionValue>SHPlayer.exe</ConditionValue>
             </Condition>
             <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
+                <Title>搜狐</Title>
+                <ConditionValue>SHRes.exe</ConditionValue>
+            </Condition>            
+            <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
                 <Title>优酷</Title>
                 <ConditionValue>YoukuDesktop.exe</ConditionValue>
             </Condition>
@@ -60,6 +64,10 @@
                 <Title>电影</Title>
                 <ConditionValue>电影</ConditionValue>
             </Condition>
+            <Condition Accumulated="true" ConditionType="1" SpanSeconds="60">
+                <Title>京东</Title>
+                <ConditionValue>京东</ConditionValue>
+            </Condition>            
         </Conditions>
     </Adjustment>
 </TaskSettings>

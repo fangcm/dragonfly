@@ -100,7 +100,7 @@ namespace Dragonfly.Plugin.Task
             }
             catch (Exception e)
             {
-                Logger.info("NotifyJob", "IJob.Execute error:", e.Message);
+                Logger.info("NotifyJob", "IJob.Execute error:", e.Message, e.StackTrace);
             }
 
         }
@@ -118,8 +118,9 @@ namespace Dragonfly.Plugin.Task
                 myprocess.Start();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.info("NotifyJob", "ExecApp error:", e.Message, e.StackTrace);
                 return false;
             }
         }

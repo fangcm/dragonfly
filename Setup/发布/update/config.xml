@@ -33,5 +33,9 @@
       <PublishPath/>
       <FileName>task.core.dll</FileName>
     </FileInfo>
+    <FileInfo>
+      <PublishPath>..\</PublishPath>
+      <FileName>TaskSettings.xml</FileName>
+    </FileInfo>    
   </CopyFiles>
 </UpdateConfig>

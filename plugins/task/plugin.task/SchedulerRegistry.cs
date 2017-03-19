@@ -66,8 +66,8 @@ namespace Dragonfly.Plugin.Task
             StopAllTask();
             JobManager.Initialize(new SchedulerRegistry());
             JobManager.JobException += (JobExceptionInfo obj) =>
-                Logger.error("SchedulerRegistry", "Schedule JobException, job name:", obj.Name, ",Error:", obj.Exception.Message,
-                            ",InnerException:", obj.Exception.InnerException?.Message ?? string.Empty);
+                Logger.error("SchedulerRegistry", "Schedule JobException, job name:", obj.Name, ",Error:", obj.Exception.Message,obj.Exception.StackTrace,
+                            ",InnerException:", obj.Exception.InnerException?.StackTrace ?? string.Empty);
 
             if (Logger.isDebugEnabled())
             {
