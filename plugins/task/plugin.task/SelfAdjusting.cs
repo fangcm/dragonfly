@@ -9,25 +9,39 @@ namespace Dragonfly.Plugin.Task
     {
         internal static AdjustmentCondition CheckTriggeredCondition()
         {
-            AdjustmentCondition con = GetAdjustmentCondition();
-            if (con == null || con.Accumulated)
+            try
             {
-                //累计的
+                AdjustmentCondition con = GetAdjustmentCondition();
+                if (con == null || con.Accumulated)
+                {
+                    //累计的
+                    return null;
+                }
+
+                return con;
+            }
+            catch
+            {
                 return null;
             }
-
-            return con;
         }
 
         internal static AdjustmentCondition CheckAccumulatedCondition()
         {
-            AdjustmentCondition con = GetAdjustmentCondition();
-            if (con == null || !con.Accumulated)
+            try
             {
-                //非累计的
+                AdjustmentCondition con = GetAdjustmentCondition();
+                if (con == null || !con.Accumulated)
+                {
+                    //非累计的
+                    return null;
+                }
+                return con;
+            }
+            catch
+            {
                 return null;
             }
-            return con;
         }
 
         private static AdjustmentCondition GetAdjustmentCondition()
@@ -112,7 +126,13 @@ namespace Dragonfly.Plugin.Task
             GetWindowThreadProcessId(foregroundWindowHandle, out processId);
 
             Process process = Process.GetProcessById(processId);
-            ForegroundWindowFileName = process.MainModule.FileName;
+            try
+            {
+                ForegroundWindowFileName = process.MainModule.FileName;
+            }
+            catch
+            {
+            }
             ForegroundWindowTitle = process.MainWindowTitle;
             ForegroundWindowProcessName = process.ProcessName;
 
