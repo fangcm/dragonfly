@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MockResult>
+    <Practices>
+        <Practice>
+            <FileName>C:\Users\fannie\AppData\Roaming\dragonfly\e_h1_001.eqf</FileName>
+            <ReadingResults>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="5" Score="30" EndTime="2017-04-06T17:43:06.9434018+08:00" SpendTime="12">
+                    <Title>A</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="4" NumberOfCorrectAnswers="1" Score="8" EndTime="2017-04-06T18:24:33.9720934+08:00" SpendTime="2444">
+                    <Title>B</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="4" Score="24" EndTime="2017-04-06T18:29:58.3321335+08:00" SpendTime="322">
+                    <Title>C</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="4" NumberOfCorrectAnswers="2" Score="15" EndTime="2017-04-06T19:13:24.283965+08:00" SpendTime="133">
+                    <Title>D</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="3" NumberOfCorrectAnswers="1" Score="10" EndTime="2017-04-06T19:13:58.784758+08:00" SpendTime="29">
+                    <Title>E</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="1" Score="6" EndTime="2017-04-06T19:14:12.1268321+08:00" SpendTime="11">
+                    <Title>F</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="4" NumberOfCorrectAnswers="1" Score="8" EndTime="2017-04-06T19:14:21.9953582+08:00" SpendTime="8">
+                    <Title>G</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="4" NumberOfCorrectAnswers="2" Score="15" EndTime="2017-04-06T19:14:29.3620929+08:00" SpendTime="6">
+                    <Title>H</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="2" Score="12" EndTime="2017-04-06T19:14:37.869567+08:00" SpendTime="7">
+                    <Title>I</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="3" Score="18" EndTime="2017-04-06T19:14:47.9170142+08:00" SpendTime="9">
+                    <Title>J</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="4" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:14:56.2141618+08:00" SpendTime="7">
+                    <Title>K</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="2" Score="12" EndTime="2017-04-06T19:15:05.3563986+08:00" SpendTime="8">
+                    <Title>L</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="1" Score="6" EndTime="2017-04-06T19:15:15.247628+08:00" SpendTime="9">
+                    <Title>M</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:15:19.8523798+08:00" SpendTime="3">
+                    <Title>N</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:15:26.5040168+08:00" SpendTime="5">
+                    <Title>O</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:15:31.9605504+08:00" SpendTime="4">
+                    <Title>P</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:15:36.2984052+08:00" SpendTime="3">
+                    <Title>R</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:15:41.2418402+08:00" SpendTime="3">
+                    <Title>S</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:15:47.1985486+08:00" SpendTime="4">
+                    <Title>T</Title>
+                </ReadingResult>
+            </ReadingResults>
+        </Practice>
+        <Practice>
+            <FileName>C:\Users\fannie\AppData\Roaming\dragonfly\e_h1_002.eqf</FileName>
+            <ReadingResults>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:16:08.4960998+08:00" SpendTime="20">
+                    <Title>(A)</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="1" Score="6" EndTime="2017-04-06T19:17:57.64705+08:00" SpendTime="108">
+                    <Title>(B)</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:18:17.17257+08:00" SpendTime="18">
+                    <Title>(C)</Title>
+                </ReadingResult>
+            </ReadingResults>
+        </Practice>
+        <Practice>
+            <FileName>C:\Users\fannie\AppData\Roaming\dragonfly\e_h1_003.eqf</FileName>
+            <ReadingResults>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="3" Score="18" EndTime="2017-04-06T19:20:35.0666967+08:00" SpendTime="136">
+                    <Title>(1)</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:20:53.8839429+08:00" SpendTime="16">
+                    <Title>(2)</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="5" NumberOfCorrectAnswers="0" Score="0" EndTime="2017-04-06T19:20:58.843472+08:00" SpendTime="3">
+                    <Title>(4)</Title>
+                </ReadingResult>
+                <ReadingResult NumberOfQuestions="4" NumberOfCorrectAnswers="4" Score="0" EndTime="2017-04-06T19:21:13.2234408+08:00" SpendTime="13">
+                    <Title>B</Title>
+                </ReadingResult>
+            </ReadingResults>
+        </Practice>
+    </Practices>
+</MockResult>
