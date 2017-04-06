@@ -12,87 +12,87 @@
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="68" IsMultipleChoice="false">
-                    <Text>1.Miss Gogers was teaching her class ___.</Text>
+                    <Text><![CDATA[1.Miss Gogers was teaching her class ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>how to telephone</Text>
+                            <Text><![CDATA[how to telephone]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>about electricity</Text>
+                            <Text><![CDATA[about electricity]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>about time zone(时区)</Text>
+                            <Text><![CDATA[about time zone(时区)]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>about sound</Text>
+                            <Text><![CDATA[about sound]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="67" IsMultipleChoice="false">
-                    <Text>2.Miss Gogers raised this question because she wanted to know whether ___.</Text>
+                    <Text><![CDATA[2.Miss Gogers raised this question because she wanted to know whether ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>it was easy to phone to Los Angeles</Text>
+                            <Text><![CDATA[it was easy to phone to Los Angeles]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>her student could hear her from 75 feet away</Text>
+                            <Text><![CDATA[her student could hear her from 75 feet away]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>her students had grasped her lesson</Text>
+                            <Text><![CDATA[her students had grasped her lesson]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>sound waves were slower than electricity</Text>
+                            <Text><![CDATA[sound waves were slower than electricity]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="66" IsMultipleChoice="false">
-                    <Text>3.Tom thought that electricity was ___.</Text>
+                    <Text><![CDATA[3.Tom thought that electricity was ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>slower than sound waves</Text>
+                            <Text><![CDATA[slower than sound waves]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>faster than sound waves</Text>
+                            <Text><![CDATA[faster than sound waves]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>not so fast as sound waves</Text>
+                            <Text><![CDATA[not so fast as sound waves]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>as fast as sound waves</Text>
+                            <Text><![CDATA[as fast as sound waves]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="65" IsMultipleChoice="false">
-                    <Text>4.Kate thought Tom was wrong because ___.</Text>
+                    <Text><![CDATA[4.Kate thought Tom was wrong because ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>clocks in Los Angeles showed a different time from those in New York</Text>
+                            <Text><![CDATA[clocks in Los Angeles showed a different time from those in New York]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>electricity was slower than sound waves</Text>
+                            <Text><![CDATA[electricity was slower than sound waves]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Tom was not good at physics at all</Text>
+                            <Text><![CDATA[Tom was not good at physics at all]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Tom's answer had nothing to do with sound waves</Text>
+                            <Text><![CDATA[Tom's answer had nothing to do with sound waves]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="5" Answer="65" IsMultipleChoice="false">
-                    <Text>5.Whose answer do you think is correct according to the law of physics:( )</Text>
+                    <Text><![CDATA[5.Whose answer do you think is correct according to the law of physics:( )]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Tom's</Text>
+                            <Text><![CDATA[Tom's]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Kate's</Text>
+                            <Text><![CDATA[Kate's]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Bath A and B</Text>
+                            <Text><![CDATA[Bath A and B]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Neither A nor B</Text>
+                            <Text><![CDATA[Neither A nor B]]></Text>
                         </Option>
                     </Options>
                 </Question>
@@ -110,87 +110,87 @@
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="67" IsMultipleChoice="false">
-                    <Text>1.Mrs Smith treated her little dog quite ___.</Text>
+                    <Text><![CDATA[1.Mrs Smith treated her little dog quite ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>cruelly</Text>
+                            <Text><![CDATA[cruelly]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>fairly</Text>
+                            <Text><![CDATA[fairly]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>kindly</Text>
+                            <Text><![CDATA[kindly]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>friendly</Text>
+                            <Text><![CDATA[friendly]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="66" IsMultipleChoice="false">
-                    <Text>7.It seemed that the dog knew well that the paper Mrs Smith gave it ___.</Text>
+                    <Text><![CDATA[7.It seemed that the dog knew well that the paper Mrs Smith gave it ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>might do it much harm</Text>
+                            <Text><![CDATA[might do it much harm]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>could do it much good</Text>
+                            <Text><![CDATA[could do it much good]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>would help the butcher</Text>
+                            <Text><![CDATA[would help the butcher]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>was worth many pounds</Text>
+                            <Text><![CDATA[was worth many pounds]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="65" IsMultipleChoice="false">
-                    <Text>8.The butcher did not give any meat to the dog ___.</Text>
+                    <Text><![CDATA[8.The butcher did not give any meat to the dog ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>before he felt sure that the words were really written by Mrs Smith</Text>
+                            <Text><![CDATA[before he felt sure that the words were really written by Mrs Smith]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>when he found that the words on the paper were not clear</Text>
+                            <Text><![CDATA[when he found that the words on the paper were not clear]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>because he had sold out all the meat in his shop</Text>
+                            <Text><![CDATA[because he had sold out all the meat in his shop]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>until he was paid enough by Mrs Smith</Text>
+                            <Text><![CDATA[until he was paid enough by Mrs Smith]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="68" IsMultipleChoice="false">
-                    <Text>9.From its experience, the dog found that ___.</Text>
+                    <Text><![CDATA[9.From its experience, the dog found that ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>only the paper with Mrs Smith's words in it could bring it meat</Text>
+                            <Text><![CDATA[only the paper with Mrs Smith's words in it could bring it meat]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>the butcher would give the meat to it whenever he saw it</Text>
+                            <Text><![CDATA[the butcher would give the meat to it whenever he saw it]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Mrs Smith would pay for the meat it got from the butcher</Text>
+                            <Text><![CDATA[Mrs Smith would pay for the meat it got from the butcher]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>a piece of paper could bring it half a pound of meat</Text>
+                            <Text><![CDATA[a piece of paper could bring it half a pound of meat]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="5" Answer="68" IsMultipleChoice="false">
-                    <Text>10.At the end of the story, you'll find that ___.</Text>
+                    <Text><![CDATA[10.At the end of the story, you'll find that ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>the dog was clever enough to write on the paper</Text>
+                            <Text><![CDATA[the dog was clever enough to write on the paper]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>the dog dared not go to the butcher's any more</Text>
+                            <Text><![CDATA[the dog dared not go to the butcher's any more]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>the butcher was told not to give any meat to the dog</Text>
+                            <Text><![CDATA[the butcher was told not to give any meat to the dog]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>the butcher found himself cheated(*act in a way that is not honest)by the clever animal</Text>
+                            <Text><![CDATA[the butcher found himself cheated(*act in a way that is not honest)by the clever animal]]></Text>
                         </Option>
                     </Options>
                 </Question>
@@ -206,87 +206,87 @@
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="66" IsMultipleChoice="false">
-                    <Text>11.The oldest university in the US is ___.</Text>
+                    <Text><![CDATA[11.The oldest university in the US is ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Yale</Text>
+                            <Text><![CDATA[Yale]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Harvard</Text>
+                            <Text><![CDATA[Harvard]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Princeton</Text>
+                            <Text><![CDATA[Princeton]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Columbia</Text>
+                            <Text><![CDATA[Columbia]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="65" IsMultipleChoice="false">
-                    <Text>12.From the second paragraph, we can see that in the early years, ___.</Text>
+                    <Text><![CDATA[12.From the second paragraph, we can see that in the early years, ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>those colleges and universities were the same</Text>
+                            <Text><![CDATA[those colleges and universities were the same]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>people, young or old, might study in the colleges</Text>
+                            <Text><![CDATA[people, young or old, might study in the colleges]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>students studied only some languages and science</Text>
+                            <Text><![CDATA[students studied only some languages and science]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>when the students finished their school, they became lawyers or teachers</Text>
+                            <Text><![CDATA[when the students finished their school, they became lawyers or teachers]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="68" IsMultipleChoice="false">
-                    <Text>13.Modern languages the Harvard taught in 1825 were ___.</Text>
+                    <Text><![CDATA[13.Modern languages the Harvard taught in 1825 were ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Latin and Greek</Text>
+                            <Text><![CDATA[Latin and Greek]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Latin, Green, French and German</Text>
+                            <Text><![CDATA[Latin, Green, French and German]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>American history and German</Text>
+                            <Text><![CDATA[American history and German]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>French and German</Text>
+                            <Text><![CDATA[French and German]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="67" IsMultipleChoice="false">
-                    <Text>14.As knowledge increased, colleges began to teach ___.</Text>
+                    <Text><![CDATA[14.As knowledge increased, colleges began to teach ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>everything that was known</Text>
+                            <Text><![CDATA[everything that was known]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>law and something about medicine</Text>
+                            <Text><![CDATA[law and something about medicine]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>many new subjects</Text>
+                            <Text><![CDATA[many new subjects]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>the subjects that interested students</Text>
+                            <Text><![CDATA[the subjects that interested students]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="5" Answer="67" IsMultipleChoice="false">
-                    <Text>15.On the whole, the passage is about ___.</Text>
+                    <Text><![CDATA[15.On the whole, the passage is about ___.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>how to start a university</Text>
+                            <Text><![CDATA[how to start a university]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>the world-famous colleges in America</Text>
+                            <Text><![CDATA[the world-famous colleges in America]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>how colleges have changed</Text>
+                            <Text><![CDATA[how colleges have changed]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>what kind of lesson each college teaches</Text>
+                            <Text><![CDATA[what kind of lesson each college teaches]]></Text>
                         </Option>
                     </Options>
                 </Question>

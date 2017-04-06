@@ -15,87 +15,87 @@ This experiment can be very useful to you. If, for example, there is ice near th
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="68" IsMultipleChoice="false">
-                    <Text>1. We must use _______ when we carry out this experiment.</Text>
+                    <Text><![CDATA[1. We must use _______ when we carry out this experiment.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>fridge</Text>
+                            <Text><![CDATA[fridge]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>some food</Text>
+                            <Text><![CDATA[some food]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>a table</Text>
+                            <Text><![CDATA[a table]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>some salt</Text>
+                            <Text><![CDATA[some salt]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="67" IsMultipleChoice="false">
-                    <Text>2. How long will it take to carry out this experiment?</Text>
+                    <Text><![CDATA[2. How long will it take to carry out this experiment?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>More than three minutes.</Text>
+                            <Text><![CDATA[More than three minutes.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Five minutes or so.</Text>
+                            <Text><![CDATA[Five minutes or so.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Only one minute or two.</Text>
+                            <Text><![CDATA[Only one minute or two.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>About ten minutes.</Text>
+                            <Text><![CDATA[About ten minutes.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="66" IsMultipleChoice="false">
-                    <Text>3. What is the task of this experiment?</Text>
+                    <Text><![CDATA[3. What is the task of this experiment?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Put the ice cube into the glass of water with the help of the string.</Text>
+                            <Text><![CDATA[Put the ice cube into the glass of water with the help of the string.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Take out the ice cube in the glass of water with the help of the string.</Text>
+                            <Text><![CDATA[Take out the ice cube in the glass of water with the help of the string.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Take out the ice cube in the glass of water with your fingers.</Text>
+                            <Text><![CDATA[Take out the ice cube in the glass of water with your fingers.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Put some salt on the ice cube and then put the string across it.</Text>
+                            <Text><![CDATA[Put some salt on the ice cube and then put the string across it.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="66" IsMultipleChoice="false">
-                    <Text>4. How many things at least are used in this experiment?</Text>
+                    <Text><![CDATA[4. How many things at least are used in this experiment?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Three.</Text>
+                            <Text><![CDATA[Three.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Four.</Text>
+                            <Text><![CDATA[Four.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Six.</Text>
+                            <Text><![CDATA[Six.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Seven.</Text>
+                            <Text><![CDATA[Seven.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="5" Answer="67" IsMultipleChoice="false">
-                    <Text>5. We can learn something about _______ from the passage.</Text>
+                    <Text><![CDATA[5. We can learn something about _______ from the passage.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Physics</Text>
+                            <Text><![CDATA[Physics]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>biology</Text>
+                            <Text><![CDATA[biology]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>chemistry</Text>
+                            <Text><![CDATA[chemistry]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>maths</Text>
+                            <Text><![CDATA[maths]]></Text>
                         </Option>
                     </Options>
                 </Question>
@@ -111,87 +111,87 @@ In Africa, engineers are teaching poor farmers how to find water using bamboo. T
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="67" IsMultipleChoice="false">
-                    <Text>1. How is bamboo like grass?</Text>
+                    <Text><![CDATA[1. How is bamboo like grass?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>It is thin and easy to cut.</Text>
+                            <Text><![CDATA[It is thin and easy to cut.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>It grows everywhere.</Text>
+                            <Text><![CDATA[It grows everywhere.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>It grows quickly after its cut short.</Text>
+                            <Text><![CDATA[It grows quickly after its cut short.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>It is short and green.</Text>
+                            <Text><![CDATA[It is short and green.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="67" IsMultipleChoice="false">
-                    <Text>2. The sentence “while others may grow to more than 30 centimeters across.” means “Some other bamboo plants may grow to be very _______.”</Text>
+                    <Text><![CDATA[2. The sentence “while others may grow to more than 30 centimeters across.” means “Some other bamboo plants may grow to be very _______.”]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>short</Text>
+                            <Text><![CDATA[short]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>strong</Text>
+                            <Text><![CDATA[strong]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>thick</Text>
+                            <Text><![CDATA[thick]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>tall</Text>
+                            <Text><![CDATA[tall]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="66" IsMultipleChoice="false">
-                    <Text>3. From the text we know ______.</Text>
+                    <Text><![CDATA[3. From the text we know ______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>most people call bamboo plant trees</Text>
+                            <Text><![CDATA[most people call bamboo plant trees]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>a bamboo plant may grow 4.5 meters in three days</Text>
+                            <Text><![CDATA[a bamboo plant may grow 4.5 meters in three days]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>the bamboo plant changes its colors when it grows</Text>
+                            <Text><![CDATA[the bamboo plant changes its colors when it grows]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>a bridge held by bamboo cable was built thousands of years ago</Text>
+                            <Text><![CDATA[a bridge held by bamboo cable was built thousands of years ago]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="65" IsMultipleChoice="false">
-                    <Text>4. Why did the engineers teach the poor farmers in Africa to make use of bamboo?</Text>
+                    <Text><![CDATA[4. Why did the engineers teach the poor farmers in Africa to make use of bamboo?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Because it is cheap.</Text>
+                            <Text><![CDATA[Because it is cheap.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Because it is colorful.</Text>
+                            <Text><![CDATA[Because it is colorful.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Because it drills fast.</Text>
+                            <Text><![CDATA[Because it drills fast.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Because it is used by Asians.</Text>
+                            <Text><![CDATA[Because it is used by Asians.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="5" Answer="68" IsMultipleChoice="false">
-                    <Text>5. Which of the following is NOT true?</Text>
+                    <Text><![CDATA[5. Which of the following is NOT true?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>There are many different kinds of bamboo with different colors.</Text>
+                            <Text><![CDATA[There are many different kinds of bamboo with different colors.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Cables made of bamboo can last for over a thousand years.</Text>
+                            <Text><![CDATA[Cables made of bamboo can last for over a thousand years.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Bamboo can be used for buildings, bridges and watering projects(工程).</Text>
+                            <Text><![CDATA[Bamboo can be used for buildings, bridges and watering projects(工程).]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>Bamboo plants are able to grow well in any part of the world.</Text>
+                            <Text><![CDATA[Bamboo plants are able to grow well in any part of the world.]]></Text>
                         </Option>
                     </Options>
                 </Question>
@@ -204,53 +204,53 @@ Communication, of course, doesn’t need to be always in words. We can talk to e
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="65" IsMultipleChoice="false">
-                    <Text>1. From the passage we know that caterpillars _______.</Text>
+                    <Text><![CDATA[1. From the passage we know that caterpillars _______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>like willow trees</Text>
+                            <Text><![CDATA[like willow trees]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>enjoy eating fallen leaves</Text>
+                            <Text><![CDATA[enjoy eating fallen leaves]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>can talk to other caterpillars</Text>
+                            <Text><![CDATA[can talk to other caterpillars]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>can send out a special vapour</Text>
+                            <Text><![CDATA[can send out a special vapour]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="65" IsMultipleChoice="false">
-                    <Text>2. Caterpillars will stop eating willow tree leaves which _______.</Text>
+                    <Text><![CDATA[2. Caterpillars will stop eating willow tree leaves which _______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>have a chemical change and become tasteless</Text>
+                            <Text><![CDATA[have a chemical change and become tasteless]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>have a pleasant taste</Text>
+                            <Text><![CDATA[have a pleasant taste]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>are being attacked</Text>
+                            <Text><![CDATA[are being attacked]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>are communicating</Text>
+                            <Text><![CDATA[are communicating]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="68" IsMultipleChoice="false">
-                    <Text>3. According to the passage, bees communicate with each other by _______.</Text>
+                    <Text><![CDATA[3. According to the passage, bees communicate with each other by _______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>talking</Text>
+                            <Text><![CDATA[talking]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>making unusual sounds</Text>
+                            <Text><![CDATA[making unusual sounds]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>singing songs</Text>
+                            <Text><![CDATA[singing songs]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>flying certain patterns</Text>
+                            <Text><![CDATA[flying certain patterns]]></Text>
                         </Option>
                     </Options>
                 </Question>
@@ -265,87 +265,87 @@ Australia is famous for its sheep and kangaroos(袋鼠). After a short drive fro
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="67" IsMultipleChoice="false">
-                    <Text>1. Australia is _______.</Text>
+                    <Text><![CDATA[1. Australia is _______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>the largest country in the world</Text>
+                            <Text><![CDATA[the largest country in the world]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>as large as Shanghai</Text>
+                            <Text><![CDATA[as large as Shanghai]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>not as large as China</Text>
+                            <Text><![CDATA[not as large as China]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>the largest island in the north of the earth</Text>
+                            <Text><![CDATA[the largest island in the north of the earth]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="66" IsMultipleChoice="false">
-                    <Text>2. The government had made _______.</Text>
+                    <Text><![CDATA[2. The government had made _______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>too enough laws to fight pollution</Text>
+                            <Text><![CDATA[too enough laws to fight pollution]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>so many laws that it can fight pollution</Text>
+                            <Text><![CDATA[so many laws that it can fight pollution]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>enough laws that it can hardly fight pollution</Text>
+                            <Text><![CDATA[enough laws that it can hardly fight pollution]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>enough laws because the pollution is very serious</Text>
+                            <Text><![CDATA[enough laws because the pollution is very serious]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="68" IsMultipleChoice="false">
-                    <Text>3. Which of the following is NOT true？</Text>
+                    <Text><![CDATA[3. Which of the following is NOT true？]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Perth is famous for its beautiful wild flowers.</Text>
+                            <Text><![CDATA[Perth is famous for its beautiful wild flowers.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Perth is bigger than any other city in Western Australia.</Text>
+                            <Text><![CDATA[Perth is bigger than any other city in Western Australia.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Perth lies in the west of Australia.</Text>
+                            <Text><![CDATA[Perth lies in the west of Australia.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>No other city is larger than Perth in Australia.</Text>
+                            <Text><![CDATA[No other city is larger than Perth in Australia.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="68" IsMultipleChoice="false">
-                    <Text>4. In Perth you may visit a wild flowers’ show in _______.</Text>
+                    <Text><![CDATA[4. In Perth you may visit a wild flowers’ show in _______.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>October</Text>
+                            <Text><![CDATA[October]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>January</Text>
+                            <Text><![CDATA[January]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>May</Text>
+                            <Text><![CDATA[May]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>July</Text>
+                            <Text><![CDATA[July]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="5" Answer="68" IsMultipleChoice="false">
-                    <Text>5. Which of the following is true？</Text>
+                    <Text><![CDATA[5. Which of the following is true？]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>Australia is famous for its sheep, kangaroos and wild flowers.</Text>
+                            <Text><![CDATA[Australia is famous for its sheep, kangaroos and wild flowers.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>We ran back to the car because we were in the middle of white sheep.</Text>
+                            <Text><![CDATA[We ran back to the car because we were in the middle of white sheep.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Three hundred sheep came towards us because they saw us.</Text>
+                            <Text><![CDATA[Three hundred sheep came towards us because they saw us.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>If you go to the countryside in Australia, you will see a large number of white sheep.</Text>
+                            <Text><![CDATA[If you go to the countryside in Australia, you will see a large number of white sheep.]]></Text>
                         </Option>
                     </Options>
                 </Question>
@@ -359,70 +359,70 @@ What is Paracutin? It was the first volcano(火山) in the world which was seen 
 ]]></Text>
             <Questions>
                 <Question No="1" Answer="66" IsMultipleChoice="false">
-                    <Text>1. Paracutin was once the name of ________.</Text>
+                    <Text><![CDATA[1. Paracutin was once the name of ________.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>a peasant</Text>
+                            <Text><![CDATA[a peasant]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>a village</Text>
+                            <Text><![CDATA[a village]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>an old mountain</Text>
+                            <Text><![CDATA[an old mountain]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>a Mexican</Text>
+                            <Text><![CDATA[a Mexican]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="2" Answer="67" IsMultipleChoice="false">
-                    <Text>2. What was destroyed in the growing up of the volcano?</Text>
+                    <Text><![CDATA[2. What was destroyed in the growing up of the volcano?]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>The little hill of stone.</Text>
+                            <Text><![CDATA[The little hill of stone.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>The villagers living close by.</Text>
+                            <Text><![CDATA[The villagers living close by.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>The forests and fields round Paracutin.</Text>
+                            <Text><![CDATA[The forests and fields round Paracutin.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>The Mexican peasant and his wife.</Text>
+                            <Text><![CDATA[The Mexican peasant and his wife.]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="3" Answer="65" IsMultipleChoice="false">
-                    <Text>3. In this passage the writer is trying to ________.</Text>
+                    <Text><![CDATA[3. In this passage the writer is trying to ________.]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>tell us an interesting happening</Text>
+                            <Text><![CDATA[tell us an interesting happening]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>explain a scientific theory</Text>
+                            <Text><![CDATA[explain a scientific theory]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>make us believe something</Text>
+                            <Text><![CDATA[make us believe something]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>make up an interesting story</Text>
+                            <Text><![CDATA[make up an interesting story]]></Text>
                         </Option>
                     </Options>
                 </Question>
                 <Question No="4" Answer="65" IsMultipleChoice="false">
-                    <Text>4. What can we learn about volcanoes from this passage？</Text>
+                    <Text><![CDATA[4. What can we learn about volcanoes from this passage？]]></Text>
                     <Options>
                         <Option Alphabet="65">
-                            <Text>New volcanoes may appear in places where people do not expect them to be.</Text>
+                            <Text><![CDATA[New volcanoes may appear in places where people do not expect them to be.]]></Text>
                         </Option>
                         <Option Alphabet="66">
-                            <Text>Volcanoes are always growing.</Text>
+                            <Text><![CDATA[Volcanoes are always growing.]]></Text>
                         </Option>
                         <Option Alphabet="67">
-                            <Text>Volcanoes are active from time to time.</Text>
+                            <Text><![CDATA[Volcanoes are active from time to time.]]></Text>
                         </Option>
                         <Option Alphabet="68">
-                            <Text>New volcanoes are active for only ten years.</Text>
+                            <Text><![CDATA[New volcanoes are active for only ten years.]]></Text>
                         </Option>
                     </Options>
                 </Question>

@@ -91,7 +91,7 @@ namespace Dragonfly.Questions.Core
         {
             get
             {
-                return new System.Xml.XmlDocument().CreateCDataSection(Text);
+                return new XmlDocument().CreateCDataSection(Text);
             }
             set
             {
@@ -116,8 +116,21 @@ namespace Dragonfly.Questions.Core
         [XmlAttribute("No")]
         public int No { get; set; }
 
-        [XmlElement("Text", IsNullable = false)]
+        [XmlIgnore]
         public string Text { get; set; }
+
+        [XmlElement("Text", IsNullable = false, Type = typeof(XmlCDataSection))]
+        public XmlCDataSection TextCData
+        {
+            get
+            {
+                return new XmlDocument().CreateCDataSection(Text);
+            }
+            set
+            {
+                Text = value.Value;
+            }
+        }
 
         [XmlAttribute("Answer")]
         public char Answer { get; set; }
@@ -131,9 +144,6 @@ namespace Dragonfly.Questions.Core
         [XmlArray("Options")]
         public List<Option> Options { get; set; }
 
-        [XmlElement("Explanation")]
-        public string Explanation { get; set; }
-
         public Question()
         {
             Options = new List<Option>();
@@ -146,8 +156,21 @@ namespace Dragonfly.Questions.Core
         [XmlAttribute("Alphabet")]
         public char Alphabet { get; set; }
 
-        [XmlElement("Text", IsNullable = false)]
+        [XmlIgnore]
         public string Text { get; set; }
+
+        [XmlElement("Text", IsNullable = false, Type = typeof(XmlCDataSection))]
+        public XmlCDataSection TextCData
+        {
+            get
+            {
+                return new XmlDocument().CreateCDataSection(Text);
+            }
+            set
+            {
+                Text = value.Value;
+            }
+        }
     }
 
 }

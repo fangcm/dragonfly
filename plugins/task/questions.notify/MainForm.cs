@@ -32,7 +32,7 @@ namespace Dragonfly.Questions.Notify
             InitializeComponent();
 
 #if DEBUG
-            //this.IsDebugMode = true;
+            this.IsDebugMode = true;
 #endif
 
             this.panelMain.Visible = false;
@@ -120,25 +120,47 @@ namespace Dragonfly.Questions.Notify
 
         private void PrintQuestionToScreen()
         {
+            flp_options.SuspendLayout();
+            txt_question.SuspendLayout();
+            txt_reading.SuspendLayout();
+            labelReadingTitle.SuspendLayout();
+
             RemoveOptions();
             Question question = reading.Questions[currentQuestionIndex];
             labelQuestionNo.Text = question.No.ToString();
             txt_question.SetLineHeight(1, 0);
-            txt_question.Text = question.Text;
+            try
+            {
+                txt_question.Rtf = question.Text;
+            }
+            catch
+            {
+                txt_question.Text = question.Text;
+            }
             AddOptions(question.Options, question.IsMultipleChoice);
 
             if (currentQuestionIndex == 0)
             {
                 labelReadingTitle.Text = "(" + mockExamUtil.Examination.ExamProperties.Title + ") , " + reading.Title;
-
                 txt_reading.Clear();
                 txt_reading.SelectionIndent = 60;
                 txt_reading.SelectionHangingIndent = -40;
                 txt_reading.SelectionRightIndent = 12;
                 txt_reading.SetLineHeight(1, 0);
-                txt_reading.SelectedText = reading.Text;
+                try
+                {
+                    txt_reading.SelectedRtf = reading.Text;
+                }
+                catch
+                {
+                    txt_reading.SelectedText = reading.Text;
+                }
             }
 
+            labelReadingTitle.ResumeLayout();
+            txt_reading.ResumeLayout();
+            txt_question.ResumeLayout();
+            flp_options.ResumeLayout();
         }
 
         private void AddOptions(List<Option> options, bool isMultipleChoice)
