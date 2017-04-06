@@ -1,6 +1,5 @@
 ﻿using Dragonfly.Questions.Core;
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -346,7 +345,7 @@ namespace Dragonfly.Questions.Creator
                 {
                     foreach (var option in question.Options)
                     {
-                        OptionsControl ctrl = new OptionsControl()
+                        CheckBoxControl ctrl = new CheckBoxControl()
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
@@ -355,7 +354,7 @@ namespace Dragonfly.Questions.Creator
                         {
                             ctrl.Checked = true;
                         }
-                        ctrl.chk_letter.CheckedChanged += Changed;
+                        ctrl.ck_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
                     }
@@ -364,7 +363,7 @@ namespace Dragonfly.Questions.Creator
                 {
                     foreach (var option in question.Options)
                     {
-                        OptionControl ctrl = new OptionControl()
+                        RadioButtonControl ctrl = new RadioButtonControl()
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
@@ -373,7 +372,7 @@ namespace Dragonfly.Questions.Creator
                         {
                             ctrl.Checked = true;
                         }
-                        ctrl.rdb_letter.CheckedChanged += Changed;
+                        ctrl.rb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
                     }
@@ -413,46 +412,46 @@ namespace Dragonfly.Questions.Creator
             {
                 if (chkMulipleChoice.Checked)
                 {
-                    OptionsControl ctrl;
+                    CheckBoxControl ctrl;
                     if (panel_question_options.Controls.Count > 0)
                     {
-                        ctrl = new OptionsControl()
+                        ctrl = new CheckBoxControl()
                         {
                             Name = "option" + (panel_question_options.Controls.Count - 1),
-                            Letter = (char)(Convert.ToInt32(((OptionsControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
+                            Letter = (char)(Convert.ToInt32(((CheckBoxControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
                         };
                     }
                     else
                     {
-                        ctrl = new OptionsControl()
+                        ctrl = new CheckBoxControl()
                         {
                             Name = "option0",
                             Letter = 'A',
                         };
                     }
-                    ctrl.chk_letter.CheckedChanged += Changed;
+                    ctrl.ck_letter.CheckedChanged += Changed;
                     panel_question_options.Controls.Add(ctrl);
                 }
                 else
                 {
-                    OptionControl ctrl;
+                    RadioButtonControl ctrl;
                     if (panel_question_options.Controls.Count > 0)
                     {
-                        ctrl = new OptionControl()
+                        ctrl = new RadioButtonControl()
                         {
                             Name = "option" + (panel_question_options.Controls.Count - 1),
-                            Letter = (char)(Convert.ToInt32(((OptionControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
+                            Letter = (char)(Convert.ToInt32(((RadioButtonControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
                         };
                     }
                     else
                     {
-                        ctrl = new OptionControl()
+                        ctrl = new RadioButtonControl()
                         {
                             Name = "option0",
                             Letter = 'A',
                         };
                     }
-                    ctrl.rdb_letter.CheckedChanged += Changed;
+                    ctrl.rb_letter.CheckedChanged += Changed;
                     panel_question_options.Controls.Add(ctrl);
                 }
 
@@ -467,11 +466,11 @@ namespace Dragonfly.Questions.Creator
         {
             if (chkMulipleChoice.Checked)
             {
-                panel_question_options.Controls.Remove(panel_question_options.Controls.OfType<OptionsControl>().ElementAt(panel_question_options.Controls.OfType<OptionsControl>().Count() - 1));
+                panel_question_options.Controls.Remove(panel_question_options.Controls.OfType<CheckBoxControl>().ElementAt(panel_question_options.Controls.OfType<CheckBoxControl>().Count() - 1));
             }
             else
             {
-                panel_question_options.Controls.Remove(panel_question_options.Controls.OfType<OptionControl>().ElementAt(panel_question_options.Controls.OfType<OptionControl>().Count() - 1));
+                panel_question_options.Controls.Remove(panel_question_options.Controls.OfType<RadioButtonControl>().ElementAt(panel_question_options.Controls.OfType<RadioButtonControl>().Count() - 1));
             }
 
         }
@@ -606,12 +605,12 @@ namespace Dragonfly.Questions.Creator
             question.IsMultipleChoice = chkMulipleChoice.Checked;
             if (question.IsMultipleChoice)
             {
-                var answerCtrls = panel_question_options.Controls.OfType<OptionsControl>().Where(s => s.Checked);
+                var answerCtrls = panel_question_options.Controls.OfType<CheckBoxControl>().Where(s => s.Checked);
                 question.Answers = answerCtrls.Select(x => x.Letter).ToArray();
             }
             else
             {
-                var answerCtrl = panel_question_options.Controls.OfType<OptionControl>().FirstOrDefault(s => s.Checked);
+                var answerCtrl = panel_question_options.Controls.OfType<RadioButtonControl>().FirstOrDefault(s => s.Checked);
                 question.Answer = answerCtrl == null ? '\0' : answerCtrl.Letter;
             }
 
@@ -619,7 +618,7 @@ namespace Dragonfly.Questions.Creator
             question.Options.Clear();
             if (question.IsMultipleChoice)
             {
-                foreach (var ctrl in panel_question_options.Controls.OfType<OptionsControl>())
+                foreach (var ctrl in panel_question_options.Controls.OfType<CheckBoxControl>())
                 {
                     Option option = new Option()
                     {
@@ -631,7 +630,7 @@ namespace Dragonfly.Questions.Creator
             }
             else
             {
-                foreach (var ctrl in panel_question_options.Controls.OfType<OptionControl>())
+                foreach (var ctrl in panel_question_options.Controls.OfType<RadioButtonControl>())
                 {
                     Option option = new Option()
                     {

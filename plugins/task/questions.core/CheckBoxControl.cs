@@ -2,22 +2,20 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Dragonfly.Questions.Creator
+namespace Dragonfly.Questions.Core
 {
-    public partial class OptionsControl : UserControl
+    public partial class CheckBoxControl : UserControl
     {
-
-        #region Public Properties
         [Browsable(true), DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public char Letter
         {
             get
             {
-                return Convert.ToChar(chk_letter.Text);
+                return Convert.ToChar(ck_letter.Text);
             }
             set
             {
-                chk_letter.Text = value.ToString();
+                ck_letter.Text = value.ToString();
             }
         }
 
@@ -46,15 +44,15 @@ namespace Dragonfly.Questions.Creator
         {
             get
             {
-                return chk_letter.Checked;
+                return ck_letter.Checked;
             }
             set
             {
-                chk_letter.Checked = value;
+                ck_letter.Checked = value;
             }
         }
-        #endregion
-        public OptionsControl()
+
+        public CheckBoxControl()
         {
             InitializeComponent();
             this.txt_text.WordWrap = false;

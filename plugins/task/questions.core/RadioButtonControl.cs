@@ -2,21 +2,20 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Dragonfly.Questions.Creator
+namespace Dragonfly.Questions.Core
 {
-    public partial class OptionControl : UserControl
+    public partial class RadioButtonControl : UserControl
     {
-        #region Public Properties
         [Browsable(true), DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public char Letter
         {
             get
             {
-                return Convert.ToChar(rdb_letter.Text);
+                return Convert.ToChar(rb_letter.Text);
             }
             set
             {
-                rdb_letter.Text = value.ToString();
+                rb_letter.Text = value.ToString();
             }
         }
 
@@ -41,36 +40,63 @@ namespace Dragonfly.Questions.Creator
         }
 
         [Browsable(true), DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category("Appearance")]
+        [DefaultValue(false)]
         public bool Checked
         {
             get
             {
-                return rdb_letter.Checked;
+                return rb_letter.Checked;
             }
             set
             {
-                rdb_letter.Checked = value;
+                rb_letter.Checked = value;
             }
         }
-        #endregion
 
-        public OptionControl()
+        public RadioButtonControl()
         {
             InitializeComponent();
+            this.rb_letter.Parent = this;
             this.txt_text.WordWrap = false;
             this.txt_text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.txt_text.ContentsResized += new ContentsResizedEventHandler(RichTextBox_ContentsResized);
-        }
-
-        private void rdb_letter_Click(object sender, EventArgs e)
-        {
-            rdb_letter.Checked = !rdb_letter.Checked;
         }
 
         private void RichTextBox_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
             this.Height = e.NewRectangle.Height + 6;
             this.Width = e.NewRectangle.Width + 55;
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+            if (radioButton == null)
+                return;
+
+            RadioButtonControl target = radioButton.Parent as RadioButtonControl;
+            if (target == null)
+                return;
+
+            if (target.Checked == false)
+                return;
+
+            Control parentControl = target.Parent;
+            if (parentControl == null)
+                return;
+
+            foreach (Control childControl in parentControl.Controls)
+            {
+                if (childControl is RadioButtonControl)
+                {
+                    if (childControl != this)
+                    {
+                        (childControl as RadioButtonControl).Checked = false;
+                    }
+                }
+            }
+
         }
     }
 }

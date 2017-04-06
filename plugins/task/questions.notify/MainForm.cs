@@ -169,10 +169,10 @@ namespace Dragonfly.Questions.Notify
             {
                 if (isMultipleChoice)
                 {
-                    CheckBox chk = new CheckBox()
+                    CheckBoxControl chk = new CheckBoxControl()
                     {
-                        AutoSize = true,
-                        Text = options[i].Alphabet + ". - " + options[i].Text,
+                        Letter = options[i].Alphabet,
+                        Text = options[i].Text,
                         Name = "chk" + options[i].Alphabet,
                     };
                     if (userAnswers[currentQuestionIndex] != null && ((char[])userAnswers[currentQuestionIndex]).Contains(options[i].Alphabet))
@@ -181,10 +181,10 @@ namespace Dragonfly.Questions.Notify
                 }
                 else
                 {
-                    RadioButton rdb = new RadioButton()
+                    RadioButtonControl rdb = new RadioButtonControl()
                     {
-                        AutoSize = true,
-                        Text = options[i].Alphabet + ". - " + options[i].Text,
+                        Letter = options[i].Alphabet,
+                        Text = options[i].Text,
                         Name = "rdb" + options[i].Alphabet,
                     };
                     if (userAnswers[currentQuestionIndex] != null && (char)userAnswers[currentQuestionIndex] == options[i].Alphabet)
@@ -196,16 +196,16 @@ namespace Dragonfly.Questions.Notify
 
         private void RemoveOptions()
         {
-            for (int j = this.flp_options.Controls.OfType<RadioButton>().Count() - 1; j >= 0; --j)
+            for (int j = this.flp_options.Controls.OfType<RadioButtonControl>().Count() - 1; j >= 0; --j)
             {
-                var controls = this.flp_options.Controls.OfType<RadioButton>();
+                var controls = this.flp_options.Controls.OfType<RadioButtonControl>();
                 var control = controls.ElementAt(j);
                 this.flp_options.Controls.Remove(control);
                 control.Dispose();
             }
-            for (int j = this.flp_options.Controls.OfType<CheckBox>().Count() - 1; j >= 0; --j)
+            for (int j = this.flp_options.Controls.OfType<CheckBoxControl>().Count() - 1; j >= 0; --j)
             {
-                var controls = this.flp_options.Controls.OfType<CheckBox>();
+                var controls = this.flp_options.Controls.OfType<CheckBoxControl>();
                 var control = controls.ElementAt(j);
                 this.flp_options.Controls.Remove(control);
                 control.Dispose();
@@ -219,7 +219,7 @@ namespace Dragonfly.Questions.Notify
             // Determine the question type and return an answer
             if (currentQuestion.IsMultipleChoice)
             {
-                var chks = flp_options.Controls.OfType<CheckBox>().Where(s => s.Checked);
+                var chks = flp_options.Controls.OfType<CheckBoxControl>().Where(s => s.Checked);
                 if (chks == null || chks.Count() == 0)
                 {
                     return new List<char>().ToArray();
@@ -231,7 +231,7 @@ namespace Dragonfly.Questions.Notify
             }
             else
             {
-                var rdb = flp_options.Controls.OfType<RadioButton>().FirstOrDefault(s => s.Checked);
+                var rdb = flp_options.Controls.OfType<RadioButtonControl>().FirstOrDefault(s => s.Checked);
                 if (rdb == null)
                 {
                     return '\0';
