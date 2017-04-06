@@ -13,11 +13,11 @@ namespace Dragonfly.Questions.Creator
         {
             get
             {
-                return Convert.ToChar(chkLetter.Text);
+                return Convert.ToChar(chk_letter.Text);
             }
             set
             {
-                chkLetter.Text = value.ToString();
+                chk_letter.Text = value.ToString();
             }
         }
 
@@ -26,11 +26,18 @@ namespace Dragonfly.Questions.Creator
         {
             get
             {
-                return txtText.Text;
+                return txt_text.Rtf;
             }
             set
             {
-                txtText.Text = value;
+                try
+                {
+                    txt_text.Rtf = value;
+                }
+                catch
+                {
+                    txt_text.Text = value;
+                }
             }
         }
 
@@ -39,17 +46,26 @@ namespace Dragonfly.Questions.Creator
         {
             get
             {
-                return chkLetter.Checked;
+                return chk_letter.Checked;
             }
             set
             {
-                chkLetter.Checked = value;
+                chk_letter.Checked = value;
             }
         }
         #endregion
         public OptionsControl()
         {
             InitializeComponent();
+            this.txt_text.WordWrap = false;
+            this.txt_text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.txt_text.ContentsResized += new ContentsResizedEventHandler(RichTextBox_ContentsResized);
+        }
+
+        private void RichTextBox_ContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            this.Height = e.NewRectangle.Height + 6;
+            this.Width = e.NewRectangle.Width + 55;
         }
     }
 }

@@ -28,48 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chkLetter = new System.Windows.Forms.CheckBox();
-            this.txtText = new System.Windows.Forms.TextBox();
+            this.chk_letter = new System.Windows.Forms.CheckBox();
+            this.txt_text = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // chkLetter
+            // chk_letter
             // 
-            this.chkLetter.AutoSize = true;
-            this.chkLetter.Location = new System.Drawing.Point(12, 10);
-            this.chkLetter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.chkLetter.Name = "chkLetter";
-            this.chkLetter.Size = new System.Drawing.Size(37, 19);
-            this.chkLetter.TabIndex = 0;
-            this.chkLetter.Text = "Z";
-            this.chkLetter.UseVisualStyleBackColor = true;
+            this.chk_letter.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chk_letter.AutoSize = true;
+            this.chk_letter.Location = new System.Drawing.Point(9, 42);
+            this.chk_letter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.chk_letter.Name = "chk_letter";
+            this.chk_letter.Size = new System.Drawing.Size(37, 19);
+            this.chk_letter.TabIndex = 0;
+            this.chk_letter.Text = "Z";
+            this.chk_letter.UseVisualStyleBackColor = true;
             // 
-            // txtText
+            // txt_text
             // 
-            this.txtText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txt_text.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtText.Location = new System.Drawing.Point(61, 9);
-            this.txtText.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtText.Name = "txtText";
-            this.txtText.Size = new System.Drawing.Size(324, 25);
-            this.txtText.TabIndex = 2;
+            this.txt_text.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_text.Location = new System.Drawing.Point(52, 3);
+            this.txt_text.Name = "txt_text";
+            this.txt_text.Size = new System.Drawing.Size(245, 94);
+            this.txt_text.TabIndex = 2;
+            this.txt_text.Text = "";
             // 
             // OptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.txtText);
-            this.Controls.Add(this.chkLetter);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Controls.Add(this.txt_text);
+            this.Controls.Add(this.chk_letter);
+            this.MinimumSize = new System.Drawing.Size(120, 30);
             this.Name = "OptionsControl";
-            this.Size = new System.Drawing.Size(400, 40);
+            this.Size = new System.Drawing.Size(300, 100);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtText;
-        public System.Windows.Forms.CheckBox chkLetter;
+        private System.Windows.Forms.RichTextBox txt_text;
+        public System.Windows.Forms.CheckBox chk_letter;
     }
 }

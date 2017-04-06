@@ -51,7 +51,7 @@
             this.lbl_reading_question = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.chkMulipleChoice = new System.Windows.Forms.CheckBox();
-            this.panel_question_options = new System.Windows.Forms.Panel();
+            this.panel_question_options = new System.Windows.Forms.FlowLayoutPanel();
             this.btn_remove_option = new System.Windows.Forms.Button();
             this.btn_add_options = new System.Windows.Forms.Button();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -351,15 +351,17 @@
             // 
             // panel_question_options
             // 
-            this.panel_question_options.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel_question_options.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_question_options.AutoScroll = true;
             this.panel_question_options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_question_options.Location = new System.Drawing.Point(16, 232);
-            this.panel_question_options.Margin = new System.Windows.Forms.Padding(4);
+            this.panel_question_options.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.panel_question_options.Location = new System.Drawing.Point(16, 230);
             this.panel_question_options.Name = "panel_question_options";
-            this.panel_question_options.Size = new System.Drawing.Size(485, 212);
+            this.panel_question_options.Size = new System.Drawing.Size(485, 281);
             this.panel_question_options.TabIndex = 14;
+            this.panel_question_options.WrapContents = false;
             this.panel_question_options.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OptionsChanged);
             this.panel_question_options.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.OptionsChanged);
             // 
@@ -676,7 +678,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkMulipleChoice;
-        private System.Windows.Forms.Panel panel_question_options;
+        private System.Windows.Forms.FlowLayoutPanel panel_question_options;
         private System.Windows.Forms.Button btn_remove_option;
         private System.Windows.Forms.Button btn_add_options;
         private Dragonfly.Questions.Core.RichTextBoxEx txt_question_text;

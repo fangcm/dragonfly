@@ -230,6 +230,11 @@ namespace Dragonfly.Questions.Creator
 
         private void treeViewExam_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            treeViewExam.SuspendLayout();
+            splitContainerMain.Panel2.SuspendLayout();
+            txt_reading_text.SuspendLayout();
+            panel_question_options.SuspendLayout();
+
             if (treeViewExam.SelectedNode.GetType() == typeof(ExamNode))
             {
                 addQuestionToolStripMenuItem.Enabled = false;
@@ -288,7 +293,14 @@ namespace Dragonfly.Questions.Creator
                 txt_reading_text.SelectionHangingIndent = -40;
                 txt_reading_text.SelectionRightIndent = 12;
                 txt_reading_text.SetLineHeight(1, 0);
-                txt_reading_text.SelectedText = reading.Text ?? "";
+                try
+                {
+                    txt_reading_text.SelectedRtf = reading.Text ?? "";
+                }
+                catch
+                {
+                    txt_reading_text.SelectedText = reading.Text ?? "";
+                }
 
                 txt_reading_title.TextChanged += new System.EventHandler(this.Changed);
                 txt_reading_text.TextChanged += new System.EventHandler(this.Changed);
@@ -318,7 +330,14 @@ namespace Dragonfly.Questions.Creator
                 panel_question_options.ControlAdded -= new ControlEventHandler(this.OptionsChanged);
                 panel_question_options.ControlRemoved -= new ControlEventHandler(this.OptionsChanged);
 
-                txt_question_text.Text = question.Text;
+                try
+                {
+                    txt_question_text.Rtf = question.Text;
+                }
+                catch
+                {
+                    txt_question_text.Text = question.Text;
+                }
                 chkMulipleChoice.Checked = question.IsMultipleChoice;
                 //
                 panel_question_options.Controls.Clear();
@@ -331,15 +350,12 @@ namespace Dragonfly.Questions.Creator
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
-                            Location = new Point(2, i * 36),
-                            Width = panel_question_options.Width - 30,
-                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         if (question.Answers.Contains(option.Alphabet))
                         {
                             ctrl.Checked = true;
                         }
-                        ctrl.chkLetter.CheckedChanged += Changed;
+                        ctrl.chk_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
                     }
@@ -352,9 +368,6 @@ namespace Dragonfly.Questions.Creator
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
-                            Location = new Point(2, i * 36),
-                            Width = panel_question_options.Width - 30,
-                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
                         if (option.Alphabet == question.Answer)
                         {
@@ -376,6 +389,11 @@ namespace Dragonfly.Questions.Creator
                 else
                     btn_remove_option.Enabled = false;
             }
+
+            treeViewExam.ResumeLayout();
+            splitContainerMain.Panel2.ResumeLayout();
+            txt_reading_text.ResumeLayout();
+            panel_question_options.ResumeLayout();
         }
 
 
@@ -395,61 +413,47 @@ namespace Dragonfly.Questions.Creator
             {
                 if (chkMulipleChoice.Checked)
                 {
+                    OptionsControl ctrl;
                     if (panel_question_options.Controls.Count > 0)
                     {
-                        OptionsControl ctrl = new OptionsControl()
+                        ctrl = new OptionsControl()
                         {
                             Name = "option" + (panel_question_options.Controls.Count - 1),
                             Letter = (char)(Convert.ToInt32(((OptionsControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
-                            Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36)),
-                            Width = panel_question_options.Width - 30,
-                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
-                        ctrl.chkLetter.CheckedChanged += Changed;
-                        panel_question_options.Controls.Add(ctrl);
                     }
                     else
                     {
-                        OptionsControl ctrl = new OptionsControl()
+                        ctrl = new OptionsControl()
                         {
-                            Location = new Point(2, 2),
                             Name = "option0",
                             Letter = 'A',
-                            Width = panel_question_options.Width - 30,
-                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
-                        ctrl.chkLetter.CheckedChanged += Changed;
-                        panel_question_options.Controls.Add(ctrl);
                     }
+                    ctrl.chk_letter.CheckedChanged += Changed;
+                    panel_question_options.Controls.Add(ctrl);
                 }
                 else
                 {
+                    OptionControl ctrl;
                     if (panel_question_options.Controls.Count > 0)
                     {
-                        OptionControl ctrl = new OptionControl()
+                        ctrl = new OptionControl()
                         {
                             Name = "option" + (panel_question_options.Controls.Count - 1),
                             Letter = (char)(Convert.ToInt32(((OptionControl)panel_question_options.Controls[panel_question_options.Controls.Count - 1]).Letter) + 1),
-                            Location = new Point(2, 2 + (panel_question_options.Controls.Count * 36)),
-                            Width = panel_question_options.Width - 30,
-                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
-                        ctrl.rdb_letter.CheckedChanged += Changed;
-                        panel_question_options.Controls.Add(ctrl);
                     }
                     else
                     {
-                        OptionControl ctrl = new OptionControl()
+                        ctrl = new OptionControl()
                         {
-                            Location = new Point(2, 2),
                             Name = "option0",
                             Letter = 'A',
-                            Width = panel_question_options.Width - 30,
-                            Anchor = (AnchorStyles.Left | AnchorStyles.Right),
                         };
-                        ctrl.rdb_letter.CheckedChanged += Changed;
-                        panel_question_options.Controls.Add(ctrl);
                     }
+                    ctrl.rdb_letter.CheckedChanged += Changed;
+                    panel_question_options.Controls.Add(ctrl);
                 }
 
             }
@@ -590,7 +594,7 @@ namespace Dragonfly.Questions.Creator
         {
             Reading reading = ((ReadingNode)treeViewExam.SelectedNode).Reading;
             reading.Title = txt_reading_title.Text;
-            reading.Text = txt_reading_text.Text;
+            reading.Text = txt_reading_text.Rtf;
 
             treeViewExam.SelectedNode.Text = reading.Title;
 
@@ -637,7 +641,7 @@ namespace Dragonfly.Questions.Creator
                     question.Options.Add(option);
                 }
             }
-            question.Text = txt_question_text.Text;
+            question.Text = txt_question_text.Rtf;
 
         }
 
