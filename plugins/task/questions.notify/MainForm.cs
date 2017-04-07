@@ -11,15 +11,15 @@ namespace Dragonfly.Questions.Notify
     internal partial class MainForm : LockScreenForm
     {
         private readonly static Color BLACK_THEME_ForeColor = SystemColors.HighlightText;
-        private readonly static Color BLACK_THEME_BackColor = Color.FromArgb(16, 16,17);
+        private readonly static Color BLACK_THEME_BackColor = Color.FromArgb(16, 16, 17);
         private readonly static Color BLACK_THEME_GridColor = Color.DimGray;
         private readonly static Color WHITE_THEME_ForeColor = SystemColors.WindowText;
-        private readonly static Color WHITE_THEME_BackColor = Color.White;
+        private readonly static Color WHITE_THEME_BackColor = Color.Beige;
         private readonly static Color WHITE_THEME_GridColor = Color.DimGray;
 
-        private Color foreColor = SystemColors.WindowText;
-        private Color backColor = Color.White;
-        private Color gridColor = Color.DimGray;
+        private Color foreColor = WHITE_THEME_ForeColor;
+        private Color backColor = WHITE_THEME_BackColor;
+        private Color gridColor = WHITE_THEME_GridColor;
 
         private MockExamUtil mockExamUtil = new MockExamUtil();
         private Reading reading;
@@ -149,7 +149,7 @@ namespace Dragonfly.Questions.Notify
         {
             if (currentQuestionIndex >= reading.Questions.Count - 1)
             {
-                if (MessageBox.Show(this, "This is the last question,  do you want to end exercises ?", "Tips", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(this, "This is the last question,  do you want to end exercises ?\n如果得分不达标，锁屏时间将增加5分钟！！！", "Tips", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     FinishExam();
                     this.panelMain.Visible = false;
@@ -344,11 +344,12 @@ namespace Dragonfly.Questions.Notify
             string tip = string.Format("Answer the {0} questions, the correct {1}, save for {2} minutes.", numOfAnswers, numOfCorrectAnswers, savingMinutes);
             if (resultScore >= mockExamUtil.Examination.ExamProperties.PassScore)
             {
-                MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);
                 this.AddIntervalSeconds(0 - savingMinutes * 60);
+                MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);
             }
             else
             {
+                this.AddIntervalSeconds(5 * 60);
                 tip += "\n你获得" + resultScore + "分，本题总分是" + mockExamUtil.Examination.ExamProperties.Score +
                     "，你需要达到至少" + mockExamUtil.Examination.ExamProperties.PassScore + "分才能过关。";
                 MessageBox.Show(this, tip, "Tips", MessageBoxButtons.OK);

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dragonfly.Questions.Core;
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dragonfly.Questions.Core;
 
 namespace Dragonfly.Questions.Notify
 {
