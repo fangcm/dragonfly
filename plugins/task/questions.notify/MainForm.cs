@@ -14,7 +14,7 @@ namespace Dragonfly.Questions.Notify
         private readonly static Color BLACK_THEME_BackColor = Color.FromArgb(16, 16, 17);
         private readonly static Color BLACK_THEME_GridColor = Color.DimGray;
         private readonly static Color WHITE_THEME_ForeColor = SystemColors.WindowText;
-        private readonly static Color WHITE_THEME_BackColor = Color.Beige;
+        private readonly static Color WHITE_THEME_BackColor = Color.Tan;
         private readonly static Color WHITE_THEME_GridColor = Color.DimGray;
 
         private Color foreColor = WHITE_THEME_ForeColor;
