@@ -72,7 +72,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.RichTextBox txt_text;
         public System.Windows.Forms.RadioButton rb_letter;
+        public System.Windows.Forms.RichTextBox txt_text;
     }
 }

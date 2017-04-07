@@ -74,7 +74,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.RichTextBox txt_text;
         public System.Windows.Forms.CheckBox ck_letter;
+        public System.Windows.Forms.RichTextBox txt_text;
     }
 }

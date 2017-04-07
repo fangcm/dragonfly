@@ -349,11 +349,14 @@ namespace Dragonfly.Questions.Creator
                         {
                             Letter = option.Alphabet,
                             Text = option.Text,
+                            
                         };
                         if (question.Answers.Contains(option.Alphabet))
                         {
                             ctrl.Checked = true;
                         }
+                        ctrl.txt_text.ReadOnly = false;
+                        ctrl.txt_text.TextChanged += Changed;
                         ctrl.ck_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
@@ -372,6 +375,8 @@ namespace Dragonfly.Questions.Creator
                         {
                             ctrl.Checked = true;
                         }
+                        ctrl.txt_text.ReadOnly = false;
+                        ctrl.txt_text.TextChanged += Changed;
                         ctrl.rb_letter.CheckedChanged += Changed;
                         panel_question_options.Controls.Add(ctrl);
                         i++;
@@ -429,6 +434,8 @@ namespace Dragonfly.Questions.Creator
                             Letter = 'A',
                         };
                     }
+                    ctrl.txt_text.ReadOnly = false;
+                    ctrl.txt_text.TextChanged += Changed;
                     ctrl.ck_letter.CheckedChanged += Changed;
                     panel_question_options.Controls.Add(ctrl);
                 }
@@ -451,6 +458,8 @@ namespace Dragonfly.Questions.Creator
                             Letter = 'A',
                         };
                     }
+                    ctrl.txt_text.ReadOnly = false;
+                    ctrl.txt_text.TextChanged += Changed;
                     ctrl.rb_letter.CheckedChanged += Changed;
                     panel_question_options.Controls.Add(ctrl);
                 }
