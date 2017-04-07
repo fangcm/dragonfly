@@ -50,6 +50,9 @@ namespace Dragonfly.Questions.Core
             {
                 result.NumberOfQuestions = readingResult.NumberOfQuestions;
                 result.NumberOfCorrectAnswers = readingResult.NumberOfCorrectAnswers;
+                result.Score = readingResult.Score;
+                result.EndTime = readingResult.EndTime;
+                result.SpendTime = readingResult.SpendTime;
             }
         }
 

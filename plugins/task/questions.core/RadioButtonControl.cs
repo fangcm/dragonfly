@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Dragonfly.Questions.Core
@@ -54,6 +55,34 @@ namespace Dragonfly.Questions.Core
             }
         }
 
+        public override Color ForeColor
+        {
+            get
+            {
+                return base.ForeColor;
+            }
+            set
+            {
+                base.ForeColor = value;
+                this.rb_letter.ForeColor = value;
+                this.txt_text.ForeColor = value;
+            }
+        }
+
+        public override Color BackColor
+        {
+            get
+            {
+                return base.BackColor;
+            }
+            set
+            {
+                base.BackColor = value;
+                this.rb_letter.BackColor = value;
+                this.txt_text.BackColor = value;
+            }
+        }
+
         public RadioButtonControl()
         {
             InitializeComponent();
@@ -67,6 +96,8 @@ namespace Dragonfly.Questions.Core
         {
             this.Height = e.NewRectangle.Height + 6;
             this.Width = e.NewRectangle.Width + 55;
+            this.txt_text.Height = e.NewRectangle.Height;
+            this.txt_text.Width = e.NewRectangle.Width;
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)

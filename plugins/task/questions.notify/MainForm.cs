@@ -2,6 +2,7 @@
 using Dragonfly.Task.Core;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,7 +10,18 @@ namespace Dragonfly.Questions.Notify
 {
     internal partial class MainForm : LockScreenForm
     {
-        MockExamUtil mockExamUtil = new MockExamUtil();
+        private readonly static Color BLACK_THEME_ForeColor = SystemColors.HighlightText;
+        private readonly static Color BLACK_THEME_BackColor = Color.FromArgb(16, 16,17);
+        private readonly static Color BLACK_THEME_GridColor = Color.DimGray;
+        private readonly static Color WHITE_THEME_ForeColor = SystemColors.WindowText;
+        private readonly static Color WHITE_THEME_BackColor = Color.White;
+        private readonly static Color WHITE_THEME_GridColor = Color.DimGray;
+
+        private Color foreColor = SystemColors.WindowText;
+        private Color backColor = Color.White;
+        private Color gridColor = Color.DimGray;
+
+        private MockExamUtil mockExamUtil = new MockExamUtil();
         private Reading reading;
         private DateTime startTime;
         private int currentQuestionIndex;
@@ -31,6 +43,9 @@ namespace Dragonfly.Questions.Notify
         {
             InitializeComponent();
 
+            setThemeColor(WHITE_THEME_ForeColor, WHITE_THEME_BackColor, WHITE_THEME_GridColor);
+
+
 #if DEBUG
             this.IsDebugMode = true;
 #endif
@@ -41,6 +56,37 @@ namespace Dragonfly.Questions.Notify
             this.panelStart.Dock = DockStyle.Fill;
 
             this.label_tip.Text = "Please do exercises and SAVE time .";
+        }
+
+        private void setThemeColor(Color foreColor, Color backColor, Color gridColor)
+        {
+            this.foreColor = foreColor;
+            this.backColor = backColor;
+            this.gridColor = gridColor;
+
+            this.label1.ForeColor = foreColor;
+            this.label2.ForeColor = foreColor;
+            this.labelQuestionNo.ForeColor = foreColor;
+            this.labelReadingTitle.ForeColor = foreColor;
+            this.label_tip.ForeColor = foreColor;
+            this.label_clock.ForeColor = foreColor;
+
+            this.splitContainerMain.BackColor = gridColor;
+            this.splitContainerExam.BackColor = gridColor;
+            this.splitContainerExam.Panel1.BackColor = gridColor;
+            this.panelExam.BackColor = gridColor;
+
+            this.panel1.BackColor = backColor;
+            this.panel2.BackColor = backColor;
+            this.panelMain.BackColor = backColor;
+            this.panelStart.BackColor = backColor;
+            this.flp_options.BackColor = backColor;
+
+            this.txt_reading.BackColor = backColor;
+            this.txt_reading.ForeColor = foreColor;
+            this.txt_question.BackColor = backColor;
+            this.txt_question.ForeColor = foreColor;
+            this.BackColor = backColor;
         }
 
         private void btn_start_exam_Click(object sender, EventArgs e)
@@ -174,6 +220,8 @@ namespace Dragonfly.Questions.Notify
                         Letter = options[i].Alphabet,
                         Text = options[i].Text,
                         Name = "chk" + options[i].Alphabet,
+                        BackColor = backColor,
+                        ForeColor = foreColor,
                     };
                     if (userAnswers[currentQuestionIndex] != null && ((char[])userAnswers[currentQuestionIndex]).Contains(options[i].Alphabet))
                         chk.Checked = true;
@@ -186,6 +234,8 @@ namespace Dragonfly.Questions.Notify
                         Letter = options[i].Alphabet,
                         Text = options[i].Text,
                         Name = "rdb" + options[i].Alphabet,
+                        BackColor = backColor,
+                        ForeColor = foreColor,
                     };
                     if (userAnswers[currentQuestionIndex] != null && (char)userAnswers[currentQuestionIndex] == options[i].Alphabet)
                         rdb.Checked = true;

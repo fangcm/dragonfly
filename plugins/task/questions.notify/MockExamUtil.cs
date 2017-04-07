@@ -52,10 +52,14 @@ namespace Dragonfly.Questions.Notify
             //最早做过未达标的
             DateTime earlierFailMockTime = DateTime.MaxValue;
             Reading earlierFailReading = null;
+            string earlierFailFileName = null;
+            Examination earlierFailExam = null;
 
             //最早的已达标未满分的
             DateTime earlierPassMockTime = DateTime.MaxValue;
             Reading earlierPassReading = null;
+            string earlierPassFileName = null;
+            Examination earlierPassExam = null;
 
             foreach (string eqf in eqfs)
             {
@@ -83,6 +87,8 @@ namespace Dragonfly.Questions.Notify
                             {
                                 earlierFailMockTime = readingResult.EndTime;
                                 earlierFailReading = reading;
+                                earlierFailFileName = eqf;
+                                earlierFailExam = Examination;
                             }
                         }
                         else
@@ -92,6 +98,8 @@ namespace Dragonfly.Questions.Notify
                             {
                                 earlierPassMockTime = readingResult.EndTime;
                                 earlierPassReading = reading;
+                                earlierPassFileName = eqf;
+                                earlierPassExam = Examination;
                             }
                         }
                     }
@@ -101,11 +109,15 @@ namespace Dragonfly.Questions.Notify
 
             if (earlierFailReading != null)
             {
+                ExamFileName = earlierFailFileName;
+                Examination = earlierFailExam;
                 return earlierFailReading;
             }
 
             if (earlierPassReading != null)
             {
+                ExamFileName = earlierPassFileName;
+                Examination = earlierPassExam;
                 return earlierPassReading;
             }
 
