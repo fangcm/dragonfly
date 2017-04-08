@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TaskSettings>
-    <NotifyJob IntervalMinutes="60" IsTooLateLockScreen="true" TooLateTriggerTime="21:00" TooLateMinutes="120" IsLockScreen="true" LockScreenMinutes="59" LockScreenApp="1" NotifyInternalType="0" IsAppAdjustment="true" IsNotifyRunApp="false" LastTriggerTime="0001-01-01T00:00:00">
+    <NotifyJob IntervalMinutes="60" IsTooLateLockScreen="true" TooLateTriggerTime="21:00" TooLateMinutes="120" IsLockScreen="true" LockScreenMinutes="59" LockScreenApp="1" NotifyInternalType="0" IsAppAdjustment="true" IsNotifyRunApp="false" LastTriggerTime="2017-04-08T10:30:44.8117402+08:00">
         <Description>健康是生命之本，保护视力，从娃娃开始！</Description>
         <NotifyRunApp />
         <NotifyRunAppParam />
@@ -35,7 +35,7 @@
             <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
                 <Title>搜狐</Title>
                 <ConditionValue>SHRes.exe</ConditionValue>
-            </Condition>            
+            </Condition>
             <Condition Accumulated="true" ConditionType="0" SpanSeconds="60">
                 <Title>优酷</Title>
                 <ConditionValue>YoukuDesktop.exe</ConditionValue>
@@ -67,7 +67,7 @@
             <Condition Accumulated="true" ConditionType="1" SpanSeconds="60">
                 <Title>京东</Title>
                 <ConditionValue>京东</ConditionValue>
-            </Condition>            
+            </Condition>
         </Conditions>
     </Adjustment>
 </TaskSettings>

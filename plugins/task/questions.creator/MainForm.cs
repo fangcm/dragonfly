@@ -101,6 +101,8 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.Text = exam.ExamProperties.Title;
                 num_exam_score.Value = exam.ExamProperties.Score;
                 num_exam_passscore.Value = exam.ExamProperties.PassScore;
+                checkBox_hideReadingPanel.Checked = exam.ExamProperties.HideReadingPanel;
+                comboBox_colorTheme.SelectedIndex = exam.ExamProperties.ColorTheme;
             }
             else
             {
@@ -117,6 +119,8 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.Text = exam.ExamProperties.Title = "New Title";
                 num_exam_score.Value = exam.ExamProperties.Score = 0;
                 num_exam_passscore.Value = exam.ExamProperties.PassScore = 0;
+                checkBox_hideReadingPanel.Checked = exam.ExamProperties.HideReadingPanel=false;
+                comboBox_colorTheme.SelectedIndex = exam.ExamProperties.ColorTheme = 0;
 
                 save_properties();
             }
@@ -254,15 +258,21 @@ namespace Dragonfly.Questions.Creator
                 txt_exam_title.TextChanged -= new System.EventHandler(this.Changed);
                 num_exam_score.ValueChanged -= new System.EventHandler(this.Changed);
                 num_exam_passscore.ValueChanged -= new System.EventHandler(this.Changed);
+                checkBox_hideReadingPanel.CheckedChanged -= new System.EventHandler(this.Changed);
+                comboBox_colorTheme.SelectedIndexChanged -= new System.EventHandler(this.Changed);
 
                 ExamProperties properties = ((ExamNode)treeViewExam.SelectedNode).ExamProperties;
                 txt_exam_title.Text = properties.Title;
                 num_exam_score.Value = properties.Score;
                 num_exam_passscore.Value = properties.PassScore;
+                checkBox_hideReadingPanel.Checked = properties.HideReadingPanel;
+                comboBox_colorTheme.SelectedIndex = properties.ColorTheme;
 
                 txt_exam_title.TextChanged += new System.EventHandler(this.Changed);
                 num_exam_score.ValueChanged += new System.EventHandler(this.Changed);
                 num_exam_passscore.ValueChanged += new System.EventHandler(this.Changed);
+                checkBox_hideReadingPanel.CheckedChanged += new System.EventHandler(this.Changed);
+                comboBox_colorTheme.SelectedIndexChanged += new System.EventHandler(this.Changed);
             }
             else if (treeViewExam.SelectedNode.GetType() == typeof(ReadingNode))
             {
@@ -579,6 +589,8 @@ namespace Dragonfly.Questions.Creator
                 examNode.ExamProperties.Title = txt_exam_title.Text;
                 examNode.ExamProperties.Score = Convert.ToInt32(num_exam_score.Value);
                 examNode.ExamProperties.PassScore = Convert.ToInt32(num_exam_passscore.Value);
+                examNode.ExamProperties.HideReadingPanel = checkBox_hideReadingPanel.Checked;
+                examNode.ExamProperties.ColorTheme = comboBox_colorTheme.SelectedIndex;
                 treeViewExam.Nodes[0].Text = examNode.ExamProperties.Title;
             }
             else
@@ -588,6 +600,8 @@ namespace Dragonfly.Questions.Creator
                     Score = Convert.ToInt32(num_exam_score.Value),
                     PassScore = Convert.ToInt32(num_exam_passscore.Value),
                     Title = txt_exam_title.Text,
+                    HideReadingPanel = checkBox_hideReadingPanel.Checked,
+                    ColorTheme = comboBox_colorTheme.SelectedIndex,
                 };
 
                 ExamNode examNode = new ExamNode(properties);

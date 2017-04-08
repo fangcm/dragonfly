@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Examination>
-    <ExamProperties Score="30" PassScore="24">
+    <ExamProperties Score="30" PassScore="24" ColorTheme="1">
         <Title>高一英语阅读理解试题（自然类）</Title>
     </ExamProperties>
     <Readings>
