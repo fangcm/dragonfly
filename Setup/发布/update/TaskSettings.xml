@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TaskSettings>
-    <NotifyJob IntervalMinutes="60" IsTooLateLockScreen="true" TooLateTriggerTime="21:00" TooLateMinutes="120" IsLockScreen="true" LockScreenMinutes="59" LockScreenApp="1" NotifyInternalType="0" IsAppAdjustment="true" IsNotifyRunApp="false" LastTriggerTime="2017-04-08T16:32:09.8374916+08:00">
+    <NotifyJob IntervalMinutes="60" IsTooLateLockScreen="true" TooLateTriggerTime="21:00" TooLateMinutes="120" IsLockScreen="true" LockScreenMinutes="59" LockScreenApp="1" NotifyInternalType="0" IsAppAdjustment="true" IsNotifyRunApp="false">
         <Description>健康是生命之本，保护视力，从娃娃开始！</Description>
         <NotifyRunApp />
         <NotifyRunAppParam />
