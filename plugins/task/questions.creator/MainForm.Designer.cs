@@ -337,7 +337,7 @@
             this.txt_question_text.Font = new System.Drawing.Font("宋体", 14F);
             this.txt_question_text.Location = new System.Drawing.Point(12, 78);
             this.txt_question_text.Name = "txt_question_text";
-            this.txt_question_text.Size = new System.Drawing.Size(453, 79);
+            this.txt_question_text.Size = new System.Drawing.Size(453, 128);
             this.txt_question_text.TabIndex = 21;
             this.txt_question_text.Text = "";
             this.txt_question_text.TextChanged += new System.EventHandler(this.Changed);
@@ -363,7 +363,7 @@
             // chkMulipleChoice
             // 
             this.chkMulipleChoice.AutoSize = true;
-            this.chkMulipleChoice.Location = new System.Drawing.Point(12, 163);
+            this.chkMulipleChoice.Location = new System.Drawing.Point(11, 212);
             this.chkMulipleChoice.Name = "chkMulipleChoice";
             this.chkMulipleChoice.Size = new System.Drawing.Size(222, 16);
             this.chkMulipleChoice.TabIndex = 17;
@@ -379,10 +379,10 @@
             this.panel_question_options.AutoScroll = true;
             this.panel_question_options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_question_options.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panel_question_options.Location = new System.Drawing.Point(12, 184);
+            this.panel_question_options.Location = new System.Drawing.Point(12, 233);
             this.panel_question_options.Margin = new System.Windows.Forms.Padding(2);
             this.panel_question_options.Name = "panel_question_options";
-            this.panel_question_options.Size = new System.Drawing.Size(364, 225);
+            this.panel_question_options.Size = new System.Drawing.Size(364, 176);
             this.panel_question_options.TabIndex = 14;
             this.panel_question_options.WrapContents = false;
             this.panel_question_options.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OptionsChanged);
@@ -404,7 +404,7 @@
             // btn_add_options
             // 
             this.btn_add_options.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_add_options.Location = new System.Drawing.Point(386, 220);
+            this.btn_add_options.Location = new System.Drawing.Point(386, 233);
             this.btn_add_options.Name = "btn_add_options";
             this.btn_add_options.Size = new System.Drawing.Size(79, 23);
             this.btn_add_options.TabIndex = 15;
