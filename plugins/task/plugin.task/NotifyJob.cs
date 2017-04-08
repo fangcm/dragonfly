@@ -47,8 +47,6 @@ namespace Dragonfly.Plugin.Task
                         }
                     }
 
-                    setting.LastTriggerTime = DateTime.Now;
-                    helper.Save();
                 }
 
                 int lockScreenMinutes = IsSpecifyLockScreenMinutes ? SpecifyLockScreenMinutes : setting.LockScreenMinutes;

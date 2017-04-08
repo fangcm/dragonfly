@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Dragonfly.Common.Utils;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace Dragonfly.Plugin.Task
@@ -12,7 +14,7 @@ namespace Dragonfly.Plugin.Task
 
         [XmlElement("Adjustment")]
         public AdjustmentSetting AdjustmentSetting { get; set; }
-        
+
     }
 
     [XmlRoot("NotifyJob")]
@@ -59,9 +61,6 @@ namespace Dragonfly.Plugin.Task
 
         [XmlElement("NotifyRunAppStartpath")]
         public string NotifyRunAppStartpath { get; set; }
-
-        [XmlAttribute("LastTriggerTime")]
-        public DateTime LastTriggerTime { get; set; }
     }
 
     [XmlRoot("Adjustment")]
@@ -99,5 +98,26 @@ namespace Dragonfly.Plugin.Task
 
         [XmlAttribute("SpanSeconds")]
         public int SpanSeconds { get; set; }
+    }
+
+    [XmlRoot("NotifySetting", Namespace = "", IsNullable = false)]
+    public class NotifySetting
+    {
+        [XmlAttribute("LastTriggerTime")]
+        public DateTime LastTriggerTime { get; set; }
+
+        [XmlAttribute("EndTriggerTime")]
+        public DateTime EndTriggerTime { get; set; }
+
+        public static NotifySetting LoadFromFile()
+        {
+            return (NotifySetting)XmlHelper.LoadFromFile(NotifySetting.GetNotifySettingFile(), typeof(NotifySetting));
+        }
+
+        public static string GetNotifySettingFile()
+        {
+            return Path.Combine(AppConfig.WorkingPath, "notify_setting.xml");
+        }
+
     }
 }

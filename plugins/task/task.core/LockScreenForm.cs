@@ -9,7 +9,7 @@ namespace Dragonfly.Task.Core
         private Timer timerTick = null;
 
         private UserActivityHook globalHooks = null;
-        private DateTime endDateTime;
+        private NotifySetting notifySetting;
 
         public int IntervalSeconds { get; set; }
         public virtual string Description { get; set; }
@@ -21,8 +21,9 @@ namespace Dragonfly.Task.Core
         public virtual DateTime AddIntervalSeconds(int addSeconds)
         {
             Logger.info("LockScreenForm", "AddIntervalSeconds:", addSeconds);
-            endDateTime += TimeSpan.FromSeconds(addSeconds);
-            return endDateTime;
+            notifySetting.EndTriggerTime += TimeSpan.FromSeconds(addSeconds);
+            NotifySetting.SaveToFile(notifySetting);
+            return notifySetting.EndTriggerTime;
         }
 
         public LockScreenForm()
@@ -32,6 +33,8 @@ namespace Dragonfly.Task.Core
             IntervalSeconds = 30;
 
             Initialize();
+
+            notifySetting = new NotifySetting();
         }
 
         ~LockScreenForm()
@@ -74,7 +77,10 @@ namespace Dragonfly.Task.Core
                 this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             }
             Logger.info("LockScreenForm", "Start Lock ! interval seconds:", IntervalSeconds);
-            endDateTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
+
+            notifySetting.LastTriggerTime = DateTime.Now;
+            notifySetting.EndTriggerTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
+            NotifySetting.SaveToFile(notifySetting);
 
             if (!IsDesignMode)
             {
@@ -107,8 +113,10 @@ namespace Dragonfly.Task.Core
 
         private void RefreshScreen()
         {
-            if (endDateTime <= DateTime.Now)
+            if (notifySetting.EndTriggerTime <= DateTime.Now)
             {
+                notifySetting.EndTriggerTime = DateTime.Now;
+                NotifySetting.SaveToFile(notifySetting);
                 this.Close();
                 return;
             }
@@ -118,7 +126,7 @@ namespace Dragonfly.Task.Core
                 WinApi.ControllingProcess(this.Handle);
             }
 
-            TimeSpan leftTime = endDateTime - DateTime.Now;
+            TimeSpan leftTime = notifySetting.EndTriggerTime - DateTime.Now;
             string time = string.Format("{0}:{1}:{2}", leftTime.Hours.ToString("00"), leftTime.Minutes.ToString("00"), leftTime.Seconds.ToString("00"));
             ClockText = time;
         }

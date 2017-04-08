@@ -49,7 +49,6 @@ namespace Dragonfly.Plugin.Task
                 NotifyRunApp = string.Empty,
                 NotifyRunAppParam = string.Empty,
                 NotifyRunAppStartpath = string.Empty,
-                LastTriggerTime = DateTime.MinValue, //上次触发时间
             };
         }
 
@@ -140,14 +139,14 @@ namespace Dragonfly.Plugin.Task
 
         public int CaculateRemainingMinutes()
         {
-            if (!DateTime.MinValue.Equals(PluginSetting.NotifyJobSetting.LastTriggerTime) &&
-                PluginSetting.NotifyJobSetting.LastTriggerTime.AddMinutes(PluginSetting.NotifyJobSetting.LockScreenMinutes).CompareTo(DateTime.Now) > 0)
+            NotifySetting notifySetting = NotifySetting.LoadFromFile();
+            if (notifySetting == null || notifySetting.EndTriggerTime == null || DateTime.MinValue.Equals(notifySetting.EndTriggerTime)
+                || notifySetting.EndTriggerTime.CompareTo(DateTime.Now) <= 0)
             {
-                int remainingMinutes = PluginSetting.NotifyJobSetting.LockScreenMinutes - Convert.ToInt32((DateTime.Now - PluginSetting.NotifyJobSetting.LastTriggerTime).TotalMinutes);
-                return remainingMinutes < 0 ? 0 : remainingMinutes;
+                return 0;
             }
-
-            return 0;
+            int remainingMinutes = Convert.ToInt32((notifySetting.EndTriggerTime - DateTime.Now).TotalMinutes);
+            return remainingMinutes < 0 ? 0 : remainingMinutes;
         }
 
         public int CaculateFirstDelayMinutes(int suspendCount)

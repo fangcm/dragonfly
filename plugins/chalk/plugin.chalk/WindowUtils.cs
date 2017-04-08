@@ -77,7 +77,13 @@ namespace Dragonfly.Plugin.Chalk
             GetWindowThreadProcessId(foregroundWindowHandle, out processId);
 
             Process process = Process.GetProcessById(processId);
-            ForegroundWindowFileName = process.MainModule.FileName;
+            try
+            {
+                ForegroundWindowFileName = process.MainModule.FileName;
+            }
+            catch
+            {
+            }
             ForegroundWindowProcessName = process.ProcessName;
             ForegroundWindowTitle = process.MainWindowTitle;
         }
