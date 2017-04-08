@@ -105,6 +105,17 @@ namespace Dragonfly.Questions.Notify
             this.btn_previous.Enabled = true;
             this.btn_next.Enabled = true;
 
+            if (mockExamUtil.Examination.ExamProperties.ColorTheme == 1)
+            {
+                setThemeColor(BLACK_THEME_ForeColor, BLACK_THEME_BackColor, BLACK_THEME_GridColor);
+            }
+            else
+            {
+                setThemeColor(WHITE_THEME_ForeColor, WHITE_THEME_BackColor, WHITE_THEME_GridColor);
+            }
+
+            this.splitContainerMain.Panel1Collapsed = mockExamUtil.Examination.ExamProperties.HideReadingPanel;
+
             Init(reading);
         }
 
@@ -276,7 +287,7 @@ namespace Dragonfly.Questions.Notify
                 }
                 else
                 {
-                    return chks.Select(s => Convert.ToChar(s.Text.Substring(0, 1))).ToArray();
+                    return chks.Select(s => Convert.ToChar(s.ck_letter.Text)).ToArray();
                 }
             }
             else
@@ -288,7 +299,7 @@ namespace Dragonfly.Questions.Notify
                 }
                 else
                 {
-                    return Convert.ToChar(rdb.Text.Substring(0, 1));
+                    return Convert.ToChar(rdb.rb_letter.Text);
                 }
             }
         }

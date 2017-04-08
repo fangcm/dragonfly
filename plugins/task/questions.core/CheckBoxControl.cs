@@ -91,10 +91,12 @@ namespace Dragonfly.Questions.Core
 
         private void RichTextBox_ContentsResized(object sender, ContentsResizedEventArgs e)
         {
-            this.Height = e.NewRectangle.Height + 6;
-            this.Width = e.NewRectangle.Width + 55;
-            this.txt_text.Height = e.NewRectangle.Height;
-            this.txt_text.Width = e.NewRectangle.Width;
+            int w = Math.Max(e.NewRectangle.Width, 50);
+            int h = Math.Max(e.NewRectangle.Height, 16);
+            this.Height = h + 6;
+            this.Width = w + 55;
+            this.txt_text.Height = h;
+            this.txt_text.Width = w;
         }
     }
 }

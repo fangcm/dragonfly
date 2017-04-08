@@ -75,6 +75,12 @@ namespace Dragonfly.Questions.Core
 
         [XmlAttribute("PassScore")]
         public int PassScore { get; set; }
+
+        [XmlAttribute("ColorTheme")]
+        public int ColorTheme { get; set; }
+
+        [XmlAttribute("HideReadingPanel")]
+        public bool HideReadingPanel { get; set; }
     }
 
     [XmlRoot("Reading", Namespace = "")]
