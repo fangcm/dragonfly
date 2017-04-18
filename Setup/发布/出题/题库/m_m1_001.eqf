@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Examination>
-    <ExamProperties Score="32" PassScore="32" ColorTheme="0" HideReadingPanel="true">
+    <ExamProperties Score="32" PassScore="24" ColorTheme="0" HideReadingPanel="true">
         <Title>《全等三角形》单元复习</Title>
     </ExamProperties>
     <Readings>
