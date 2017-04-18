@@ -47,7 +47,8 @@ namespace Dragonfly.Plugin.Task
                     settingTime = DateTime.ParseExact("21:00", "HH:mm", null);
                 }
 
-                if (settingTime < DateTime.Now)
+                DateTime now = DateTime.Now;
+                if (settingTime < now  && settingTime.DayOfYear == now.DayOfYear)
                 {
                     Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunNow();
                 }
