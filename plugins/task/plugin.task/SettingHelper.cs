@@ -1,5 +1,6 @@
 ﻿using Dragonfly.Common.Utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Dragonfly.Plugin.Task
@@ -137,39 +138,28 @@ namespace Dragonfly.Plugin.Task
             return PluginSetting.NotifyJobSetting.IntervalMinutes + PluginSetting.NotifyJobSetting.LockScreenMinutes;
         }
 
-        public int CaculateRemainingMinutes()
+        public Dictionary<string, int> CaculateRemainingMinutes()
         {
+            Dictionary<string, int> ret = new Dictionary<string, int>();
+
+            int remainingMinutes = 0;
             NotifySetting notifySetting = NotifySetting.LoadFromFile();
-            if (notifySetting == null || notifySetting.EndTriggerTime == null || DateTime.MinValue.Equals(notifySetting.EndTriggerTime)
-                || notifySetting.EndTriggerTime.CompareTo(DateTime.Now) <= 0)
+            if (notifySetting != null && notifySetting.EndTriggerTime != null && !DateTime.MinValue.Equals(notifySetting.EndTriggerTime)
+                && notifySetting.EndTriggerTime.CompareTo(DateTime.Now) > 0)
             {
-                return 0;
+                remainingMinutes = Convert.ToInt32((notifySetting.EndTriggerTime - DateTime.Now).TotalMinutes);
             }
-            int remainingMinutes = Convert.ToInt32((notifySetting.EndTriggerTime - DateTime.Now).TotalMinutes);
-            return remainingMinutes < 0 ? 0 : remainingMinutes;
-        }
+            ret.Add("remainingMinutes", remainingMinutes);
 
-        public int CaculateFirstDelayMinutes(int suspendCount)
-        {
-            int ret = 0;
-
-            int remainingMinutes = CaculateRemainingMinutes();
-            if (remainingMinutes > 0)
+            int delayMinutes = remainingMinutes;
+            if (remainingMinutes == 0)
             {
-                ret = remainingMinutes;
+                delayMinutes = 30;
             }
-            else
-            {
-                if (suspendCount >= 3)
-                {
-                    int minutes = PluginSetting.NotifyJobSetting.IntervalMinutes / suspendCount;
-                    ret = minutes - PluginSetting.NotifyJobSetting.IntervalMinutes;
-                }
+            delayMinutes -= CaculateSchedulerInterval();
+            ret.Add("delayMinutes", delayMinutes);
 
-            }
-
-            return ret - PluginSetting.NotifyJobSetting.LockScreenMinutes;
-
+            return ret;
         }
 
         public int CaculateDelaySecondsAtTime(DateTime nextRun)

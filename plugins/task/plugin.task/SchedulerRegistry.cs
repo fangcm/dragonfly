@@ -2,6 +2,7 @@
 using Dragonfly.Plugin.Task.Utils;
 using FluentScheduler;
 using System;
+using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.Task
 {
@@ -17,15 +18,15 @@ namespace Dragonfly.Plugin.Task
             SettingHelper helper = SettingHelper.GetInstance();
             NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
 
-            int suspendCount = LoggerReport.CaculateSuspendCount();
-            int delayMinutes = helper.CaculateFirstDelayMinutes(suspendCount);
-            int interval = helper.CaculateSchedulerInterval();
+            Dictionary<string, int> lastMinutes = helper.CaculateRemainingMinutes();
+            int delayMinutes = lastMinutes["delayMinutes"];
+            int remainingMinutes = lastMinutes["remainingMinutes"];
 
+            int interval = helper.CaculateSchedulerInterval();
             Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = false }).WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delayMinutes).Minutes();
 
             Logger.debug("SchedulerRegistry", "job", JOB_NAME_INTERVAL, " leftMinutes: ", (interval + delayMinutes), ", delayMinutes: ", delayMinutes, ", interval: ", interval);
 
-            int remainingMinutes = helper.CaculateRemainingMinutes();
             if (remainingMinutes > 0)
             {
                 Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = remainingMinutes }).WithName(JOB_NAME_FIX).ToRunNow();
@@ -48,7 +49,7 @@ namespace Dragonfly.Plugin.Task
                 }
 
                 DateTime now = DateTime.Now;
-                if (settingTime < now  && settingTime.DayOfYear == now.DayOfYear)
+                if (settingTime < now && settingTime.DayOfYear == now.DayOfYear)
                 {
                     Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunNow();
                 }
@@ -67,7 +68,7 @@ namespace Dragonfly.Plugin.Task
             StopAllTask();
             JobManager.Initialize(new SchedulerRegistry());
             JobManager.JobException += (JobExceptionInfo obj) =>
-                Logger.error("SchedulerRegistry", "Schedule JobException, job name:", obj.Name, ",Error:", obj.Exception.Message,obj.Exception.StackTrace,
+                Logger.error("SchedulerRegistry", "Schedule JobException, job name:", obj.Name, ",Error:", obj.Exception.Message, obj.Exception.StackTrace,
                             ",InnerException:", obj.Exception.InnerException?.StackTrace ?? string.Empty);
 
             if (Logger.isDebugEnabled())
@@ -118,7 +119,7 @@ namespace Dragonfly.Plugin.Task
             JobManager.RemoveJob(JOB_NAME_INTERVAL);
 
             int interval = helper.CaculateSchedulerInterval();
-            JobManager.AddJob(new NotifyJob { IsSpecifyLockScreenMinutes = false },(s) => s.WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delaySeconds).Seconds());
+            JobManager.AddJob(new NotifyJob { IsSpecifyLockScreenMinutes = false }, (s) => s.WithName(JOB_NAME_INTERVAL).ToRunEvery(interval).Minutes().DelayFor(delaySeconds).Seconds());
 
             if (Logger.isDebugEnabled())
             {
