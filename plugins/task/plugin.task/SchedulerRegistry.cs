@@ -38,23 +38,28 @@ namespace Dragonfly.Plugin.Task
             {
                 int tooLateMinutes = setting.TooLateMinutes;
 
-                DateTime settingTime;
+                DateTime now = DateTime.Now;
+                int nowHour = now.Hour;
+                int nowMinute = now.Minute;
+                int tooLateSettingHour = 21;
+                int tooLateSettingMinute = 0;
                 try
                 {
-                    settingTime = DateTime.ParseExact(setting.TooLateTriggerTime, "HH:mm", null);
+                    DateTime settingTime = DateTime.ParseExact(setting.TooLateTriggerTime, "HH:mm", null);
+                    tooLateSettingHour = settingTime.Hour;
+                    tooLateSettingMinute = settingTime.Minute;
                 }
                 catch
                 {
-                    settingTime = DateTime.ParseExact("21:00", "HH:mm", null);
                 }
 
-                DateTime now = DateTime.Now;
-                if (settingTime < now && settingTime.DayOfYear == now.DayOfYear)
+
+                if (tooLateSettingHour * 100 + tooLateSettingMinute < nowHour * 100 + nowMinute)
                 {
                     Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunNow();
                 }
 
-                Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunEvery(1).Days().At(settingTime.Hour, settingTime.Minute);
+                Schedule(new NotifyJob { IsSpecifyLockScreenMinutes = true, SpecifyLockScreenMinutes = tooLateMinutes }).WithName(JOB_NAME_TOOLATE).ToRunEvery(1).Days().At(tooLateSettingHour, tooLateSettingMinute);
 
                 Logger.debug("SchedulerRegistry", "job", JOB_NAME_TOOLATE, " tooLateTriggerTime:  at ", setting.TooLateTriggerTime, ", tooLateMinutes: ", tooLateMinutes);
 
