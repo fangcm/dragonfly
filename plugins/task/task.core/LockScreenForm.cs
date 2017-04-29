@@ -30,6 +30,7 @@ namespace Dragonfly.Task.Core
         {
             IsDesignMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
             IsDebugMode = false;
+
             IntervalSeconds = 30;
 
             Initialize();

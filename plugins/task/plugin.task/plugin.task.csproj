@@ -61,6 +61,7 @@
     <Compile Include="AdjustmentConditionForm.designer.cs">
       <DependentUpon>AdjustmentConditionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RecoveryJob.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
     <Compile Include="AdjustmentJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -89,6 +89,9 @@ namespace Dragonfly.Plugin.Task
                     string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
                     ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
                     Logger.info("NotifyJob", "lockScreen:", lockScreenApp, ", minutes:", lockScreenMinutes);
+
+                    JobManager.AddJob(new RecoveryJob(), (s) => s.WithName("RECOVERY").ToRunEvery(1).Seconds());
+
                 }
 
                 if (setting.IsNotifyRunApp)
@@ -103,7 +106,7 @@ namespace Dragonfly.Plugin.Task
 
         }
 
-        private bool ExecApp(string app, string appParam, string appStartpath)
+        public static bool ExecApp(string app, string appParam, string appStartpath)
         {
             try
             {

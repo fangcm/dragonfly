@@ -29,6 +29,22 @@ namespace Dragonfly.Task.Core
                     lockMinutes = Convert.ToInt32(arg.ToString());
                 }
             }
+            if (arguments.Has("-recovery"))
+            {
+                var arg = arguments.Get("-recovery").Next;
+                if (arg != null)
+                {
+                    NotifySetting setting = NotifySetting.LoadFromFile();
+                    if (setting != null && setting.EndTriggerTime != null)
+                    {
+                        DateTime now = DateTime.Now;
+                        if (now.CompareTo(setting.EndTriggerTime) < 0)
+                        {
+                            lockMinutes = Convert.ToInt32((setting.EndTriggerTime - now).TotalMinutes);
+                        }
+                    }
+                }
+            }
             if (arguments.Has("-cmd"))
             {
                 var arg = arguments.Get("-cmd").Next;
