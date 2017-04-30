@@ -44,6 +44,7 @@ namespace Dragonfly.Task.Core
                         }
                     }
                 }
+                Logger.info("SealedProcessor", "recovery:" + lockMinutes);
             }
             if (arguments.Has("-cmd"))
             {

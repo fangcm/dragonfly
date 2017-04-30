@@ -77,6 +77,11 @@ namespace Dragonfly.Task.Core
                 this.ControlBox = true;
                 this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             }
+            else
+            {
+                WinApi.SetWindowToolwindowAndTopMost(this.Handle);
+            }
+
             Logger.info("LockScreenForm", "Start Lock ! interval seconds:", IntervalSeconds);
 
             notifySetting.LastTriggerTime = DateTime.Now;

@@ -36,6 +36,11 @@ namespace Dragonfly.Task.Core
             SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
         }
 
+        public static void SetWindowToolwindowAndTopMost(IntPtr hWnd)
+        {
+            SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_TOPMOST | WS_EX_TOOLWINDOW);
+        }
+
         public static bool CheckIsForegroundProcessId()
         {
             IntPtr foregroundProcessId;
@@ -64,5 +69,15 @@ namespace Dragonfly.Task.Core
 
         [DllImport("user32.dll")]
         public static extern Int32 GetWindowThreadProcessId(IntPtr hWnd, out IntPtr lpdwProcessId);
+
+        private const int GWL_EXSTYLE = (-20);
+        private const int WS_EX_TOPMOST = 0x00000008;
+        private const int WS_EX_TOOLWINDOW = 0x00000080;
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        public static extern int GetWindowLong(IntPtr hwnd, int nIndex);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
     }
 }

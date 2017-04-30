@@ -13,9 +13,11 @@ namespace Dragonfly.Plugin.Task
     {
         void IJob.Execute()
         {
+            Logger.debug("RecoveryJob", "Execute");
             try
             {
                 bool notifyRunning = IsNotifyProgramRunning();
+                Logger.debug("RecoveryJob", "notifyRunning:" + notifyRunning);
                 if (notifyRunning)
                 {
                     return;
@@ -53,19 +55,24 @@ namespace Dragonfly.Plugin.Task
                         string notifyRunAppStartpath = AppConfig.PluginsPath;
                         string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
                         string notifyRunAppParam = string.Format("-lock true -recovery true -cmd {0} -desc \"{1}\"", setting.NotifyInternalType, setting.Description);
+                        Logger.info("RecoveryJob", "notifyRunApp:", notifyRunApp);
+                        Logger.info("RecoveryJob", "notifyRunAppParam:", notifyRunAppParam);
+                        Logger.info("RecoveryJob", "notifyRunAppStartpath:", notifyRunAppStartpath);
                         NotifyJob.ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
+
                         Logger.info("RecoveryJob", "lockScreen:", lockScreenApp);
                     }
                 }
                 else
                 {
                     JobManager.RemoveJob("RECOVERY");
+                    Logger.info("RecoveryJob", "RemoveJob RECOVERY");
                 }
 
             }
             catch (Exception e)
             {
-                Logger.info("NotifyJob", "IJob.Execute error:", e.Message, e.StackTrace);
+                Logger.info("RecoveryJob", "IJob.Execute error:", e.Message, e.StackTrace);
             }
 
         }
