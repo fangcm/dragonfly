@@ -27,36 +27,15 @@ namespace Dragonfly.Plugin.Task
 
                 SettingHelper helper = SettingHelper.GetInstance();
                 NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
-                Logger.info("NotifyJob", "IsSpecifyLockScreenMinutes:", IsSpecifyLockScreenMinutes, ",IsAppAdjustment:", setting.IsAppAdjustment);
-                //只记录定时触发的
-                if (!IsSpecifyLockScreenMinutes)
-                {
-                    //特殊应用调节
-                    if (setting.IsAppAdjustment)
-                    {
-                        AdjustmentCondition con = SelfAdjusting.CheckTriggeredCondition();
-                        if (con != null)
-                        {
-                            Logger.info("NotifyJob", "CheckTriggeredCondition:", con.Title, ",delaySeconds", con.SpanSeconds);
-                            SchedulerRegistry.AdjustingDelaySeconds(con.SpanSeconds);
-                            return;
-                        }
-                        else
-                        {
-                            Logger.info("NotifyJob", "CheckTriggeredCondition: NULL");
-                        }
-                    }
+                Logger.info("NotifyJob", "IsSpecifyLockScreenMinutes:", IsSpecifyLockScreenMinutes);
 
-                }
 
                 int lockScreenMinutes = IsSpecifyLockScreenMinutes ? SpecifyLockScreenMinutes : setting.LockScreenMinutes;
 
                 StringBuilder sb = new StringBuilder();
-                sb.Append("指令:");
-                if (setting.IsLockScreen)
-                {
-                    sb.Append("锁屏【").Append(lockScreenMinutes).Append("】分钟");
-                }
+                sb.Append("指令:锁屏【").Append(lockScreenMinutes).Append("】分钟");
+
+
                 switch (setting.NotifyInternalType)
                 {
                     case SettingHelper.NotifyInternalType_Hibernate:
@@ -66,10 +45,7 @@ namespace Dragonfly.Plugin.Task
                         sb.Append("，自动关机");
                         break;
                 }
-                if (setting.IsNotifyRunApp)
-                {
-                    sb.Append("，执行外部程序【").Append(setting.NotifyRunApp).Append("】");
-                }
+
                 LoggerUtil.Log(LoggType.Trigger, sb.ToString());
                 Logger.info("NotifyJob", sb.ToString());
 
@@ -94,10 +70,6 @@ namespace Dragonfly.Plugin.Task
 
                 }
 
-                if (setting.IsNotifyRunApp)
-                {
-                    ExecApp(setting.NotifyRunApp, setting.NotifyRunAppParam, setting.NotifyRunAppStartpath);
-                }
             }
             catch (Exception e)
             {
