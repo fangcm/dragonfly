@@ -10,9 +10,9 @@ namespace Dragonfly.Plugin.Task
         internal const int LockScreenApp_Simple = 0;
         internal const int LockScreenApp_Question = 1;
 
-        internal const int NotifyInternalType_None = 0; //无操作
-        internal const int NotifyInternalType_ShutDown = 1;
-        internal const int NotifyInternalType_Hibernate = 2;
+        internal const int LockScreenType_Odd = 0; //奇数开始锁
+        internal const int LockScreenType_Even = 1; //偶数开始锁
+        internal const int LockScreenType_Ten = 2; //每小时锁十分钟
 
         private static SettingHelper instance;
         private static readonly object locker = new object();
@@ -27,7 +27,6 @@ namespace Dragonfly.Plugin.Task
             PluginSetting = new PluginSetting()
             {
                 NotifyJobSetting = DefaultNotifyJobSetting(),
-                AdjustmentSetting = DefaultAdjustmentSetting(),
             };
 
         }
@@ -36,28 +35,11 @@ namespace Dragonfly.Plugin.Task
         {
             return new NotifyJobSetting()
             {
-                Description = "健康是生命之本，保护视力，从娃娃开始！",
-                IntervalMinutes = 60, //重复间隔
                 IsTooLateLockScreen = true,
                 TooLateTriggerTime = "21:00",
-                TooLateMinutes = 60,
-                IsLockScreen = true,
-                LockScreenMinutes = 60,
+                TooLateMinutes = 120,
                 LockScreenApp = LockScreenApp_Simple,
-                NotifyInternalType = NotifyInternalType_None,
-                IsAppAdjustment = true,
-                IsNotifyRunApp = false,
-                NotifyRunApp = string.Empty,
-                NotifyRunAppParam = string.Empty,
-                NotifyRunAppStartpath = string.Empty,
-            };
-        }
-
-        private AdjustmentSetting DefaultAdjustmentSetting()
-        {
-            return new AdjustmentSetting()
-            {
-                IntervalSeconds = 60,
+                LockScreenType = LockScreenType_Odd,
             };
         }
 
@@ -68,7 +50,6 @@ namespace Dragonfly.Plugin.Task
                 lock (locker)
                 {
                     if (instance == null)
-
                     {
                         instance = new SettingHelper();
                         instance.Load();
@@ -93,9 +74,8 @@ namespace Dragonfly.Plugin.Task
                 }
                 if (setting == null)
                 {
-                    PluginSetting.NotifyJobSetting.LockScreenMinutes = AppConfig.GetInt("task.LockScreenMinutes", PluginSetting.NotifyJobSetting.LockScreenMinutes);
                     PluginSetting.NotifyJobSetting.LockScreenApp = AppConfig.GetInt("task.LockScreenApp", PluginSetting.NotifyJobSetting.LockScreenApp);
-                    PluginSetting.NotifyJobSetting.IntervalMinutes = AppConfig.GetInt("task.IntervalMinutes", PluginSetting.NotifyJobSetting.IntervalMinutes);
+                    PluginSetting.NotifyJobSetting.LockScreenType = AppConfig.GetInt("task.LockScreenType", PluginSetting.NotifyJobSetting.LockScreenType);
                     PluginSetting.NotifyJobSetting.IsTooLateLockScreen = AppConfig.GetBoolean("task.IsTooLateLockScreen", PluginSetting.NotifyJobSetting.IsTooLateLockScreen);
                     return false;
                 }
@@ -103,10 +83,6 @@ namespace Dragonfly.Plugin.Task
                 if (setting.NotifyJobSetting == null)
                 {
                     setting.NotifyJobSetting = DefaultNotifyJobSetting();
-                }
-                if (setting.AdjustmentSetting == null)
-                {
-                    setting.AdjustmentSetting = DefaultAdjustmentSetting();
                 }
 
                 PluginSetting = setting;
@@ -135,7 +111,14 @@ namespace Dragonfly.Plugin.Task
 
         public int CaculateSchedulerInterval()
         {
-            return PluginSetting.NotifyJobSetting.IntervalMinutes + PluginSetting.NotifyJobSetting.LockScreenMinutes;
+            if (PluginSetting.NotifyJobSetting.LockScreenType == LockScreenType_Ten)
+            {
+                return 60;
+            }
+            else
+            {
+                return 120;
+            }
         }
 
         public Dictionary<string, int> CaculateRemainingMinutes()
