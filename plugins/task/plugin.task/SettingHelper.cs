@@ -109,57 +109,69 @@ namespace Dragonfly.Plugin.Task
             }
         }
 
-        public int CaculateSchedulerInterval()
-        {
-            if (PluginSetting.NotifyJobSetting.LockScreenType == LockScreenType_Ten)
-            {
-                return 60;
-            }
-            else
-            {
-                return 120;
-            }
-        }
-
         public Dictionary<string, int> CaculateRemainingMinutes()
         {
             Dictionary<string, int> ret = new Dictionary<string, int>();
             NotifySetting notifySetting = NotifySetting.LoadFromFile();
 
-            int delayMinutes = 0;
+            DateTime now = DateTime.Now;
+
             int remainingMinutes = 0;
             if (notifySetting != null && notifySetting.EndTriggerTime != null && !DateTime.MinValue.Equals(notifySetting.EndTriggerTime))
             {
-                remainingMinutes = Convert.ToInt32((notifySetting.EndTriggerTime - DateTime.Now).TotalMinutes);
+                remainingMinutes = Convert.ToInt32((notifySetting.EndTriggerTime - now).TotalMinutes);
+            }
+
+            if (remainingMinutes <= 0)
+            {
+                switch (PluginSetting.NotifyJobSetting.LockScreenType)
+                {
+                    case LockScreenType_Odd: //奇数开始锁
+                        if ((now.Hour & 1) == 0)
+                        {
+                            remainingMinutes = 60 - now.Minute;
+                        }
+                        break;
+                    case LockScreenType_Even: //偶数开始锁
+                        if ((now.Hour & 1) != 0)
+                        {
+                            remainingMinutes = 60 - now.Minute;
+                        }
+                        break;
+                    case LockScreenType_Ten: //每小时锁十分钟
+                        if (now.Minute >= 50)
+                        {
+                            remainingMinutes = (60 - now.Minute);
+                        }
+                        break;
+                }
                 if (remainingMinutes < 0)
-                { //非正锁屏中
-                    if (remainingMinutes > 0 - PluginSetting.NotifyJobSetting.IntervalMinutes)
-                    { //上次退出锁屏在周期内，继续本周期
-                        delayMinutes = remainingMinutes;
-                    }
+                {
                     remainingMinutes = 0;
                 }
             }
-
             ret.Add("remainingMinutes", remainingMinutes);
 
-            delayMinutes -= PluginSetting.NotifyJobSetting.LockScreenMinutes;
+            int lockMinutes;
+            int interval;
+            if (PluginSetting.NotifyJobSetting.LockScreenType == LockScreenType_Ten)
+            {
+                interval = 60;
+                lockMinutes = 10;
+            }
+            else
+            {
+                interval = 120;
+                lockMinutes = 60;
+            }
+            ret.Add("interval", interval);
+            ret.Add("lockMinutes", lockMinutes);
+
+            int delayMinutes = remainingMinutes - lockMinutes;
             ret.Add("delayMinutes", delayMinutes);
 
             return ret;
         }
-
-        public int CaculateDelaySecondsAtTime(DateTime nextRun)
-        {
-            int ret = Convert.ToInt32((nextRun - DateTime.Now).TotalSeconds);
-            ret -= (PluginSetting.NotifyJobSetting.IntervalMinutes * 60);
-            ret -= (PluginSetting.NotifyJobSetting.LockScreenMinutes * 60);
-
-            return ret;
-
-        }
-
-
 
     }
 }

@@ -4,7 +4,6 @@ using FluentScheduler;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 
 namespace Dragonfly.Plugin.Task
@@ -27,48 +26,43 @@ namespace Dragonfly.Plugin.Task
 
                 SettingHelper helper = SettingHelper.GetInstance();
                 NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
-                Logger.info("NotifyJob", "IsSpecifyLockScreenMinutes:", IsSpecifyLockScreenMinutes);
 
-
-                int lockScreenMinutes = IsSpecifyLockScreenMinutes ? SpecifyLockScreenMinutes : setting.LockScreenMinutes;
-
-                StringBuilder sb = new StringBuilder();
-                sb.Append("指令:锁屏【").Append(lockScreenMinutes).Append("】分钟");
-
-
-                switch (setting.NotifyInternalType)
+                int lockScreenMinutes;
+                if (IsSpecifyLockScreenMinutes)
                 {
-                    case SettingHelper.NotifyInternalType_Hibernate:
-                        sb.Append("，自动休眠");
-                        break;
-                    case SettingHelper.NotifyInternalType_ShutDown:
-                        sb.Append("，自动关机");
-                        break;
+                    lockScreenMinutes = SpecifyLockScreenMinutes;
                 }
-
-                LoggerUtil.Log(LoggType.Trigger, sb.ToString());
-                Logger.info("NotifyJob", sb.ToString());
-
-                if (setting.IsLockScreen || setting.NotifyInternalType != SettingHelper.NotifyInternalType_None)
+                else
                 {
-                    string lockScreenApp;
-                    if (setting.LockScreenApp == 1)
+                    if (setting.LockScreenType == SettingHelper.LockScreenType_Ten)
                     {
-                        lockScreenApp = "questions.notify.exe";
+                        lockScreenMinutes = 10;
                     }
                     else
                     {
-                        lockScreenApp = "simple.notify.exe";
+                        lockScreenMinutes = 60;
                     }
-                    string notifyRunAppStartpath = AppConfig.PluginsPath;
-                    string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
-                    string notifyRunAppParam = string.Format("-lock {0} -lockminutes {1} -cmd {2} -desc \"{3}\"", setting.IsLockScreen, lockScreenMinutes, setting.NotifyInternalType, setting.Description);
-                    ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
-                    Logger.info("NotifyJob", "lockScreen:", lockScreenApp, ", minutes:", lockScreenMinutes);
-
-                    JobManager.AddJob(new RecoveryJob(), (s) => s.WithName("RECOVERY").ToRunEvery(1).Seconds());
-
                 }
+                Logger.info("NotifyJob", "IsSpecifyLockScreenMinutes:", IsSpecifyLockScreenMinutes, "lockScreenMinutes:", lockScreenMinutes);
+                LoggerUtil.Log(LoggType.Trigger, "指令:锁屏【" + lockScreenMinutes + "】分钟");
+
+                string lockScreenApp;
+                if (setting.LockScreenApp == 1)
+                {
+                    lockScreenApp = "questions.notify.exe";
+                }
+                else
+                {
+                    lockScreenApp = "simple.notify.exe";
+                }
+                string notifyRunAppStartpath = AppConfig.PluginsPath;
+                string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
+                string notifyRunAppParam = string.Format("-lockminutes {1}", lockScreenMinutes);
+                ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
+                Logger.info("NotifyJob", "lockScreen:", lockScreenApp, ", minutes:", lockScreenMinutes);
+
+                JobManager.AddJob(new RecoveryJob(), (s) => s.WithName("RECOVERY").ToRunEvery(1).Seconds());
+
 
             }
             catch (Exception e)

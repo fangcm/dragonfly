@@ -1,10 +1,8 @@
 ﻿using Dragonfly.Common.Utils;
-using Dragonfly.Plugin.Task.Utils;
 using FluentScheduler;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 
 namespace Dragonfly.Plugin.Task
@@ -41,27 +39,27 @@ namespace Dragonfly.Plugin.Task
 
                     SettingHelper helper = SettingHelper.GetInstance();
                     NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
-                    if (setting.IsLockScreen || setting.NotifyInternalType != SettingHelper.NotifyInternalType_None)
-                    {
-                        string lockScreenApp;
-                        if (setting.LockScreenApp == 1)
-                        {
-                            lockScreenApp = "questions.notify.exe";
-                        }
-                        else
-                        {
-                            lockScreenApp = "simple.notify.exe";
-                        }
-                        string notifyRunAppStartpath = AppConfig.PluginsPath;
-                        string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
-                        string notifyRunAppParam = string.Format("-lock true -recovery true -cmd {0} -desc \"{1}\"", setting.NotifyInternalType, setting.Description);
-                        Logger.info("RecoveryJob", "notifyRunApp:", notifyRunApp);
-                        Logger.info("RecoveryJob", "notifyRunAppParam:", notifyRunAppParam);
-                        Logger.info("RecoveryJob", "notifyRunAppStartpath:", notifyRunAppStartpath);
-                        NotifyJob.ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
 
-                        Logger.info("RecoveryJob", "lockScreen:", lockScreenApp);
+
+                    string lockScreenApp;
+                    if (setting.LockScreenApp == 1)
+                    {
+                        lockScreenApp = "questions.notify.exe";
                     }
+                    else
+                    {
+                        lockScreenApp = "simple.notify.exe";
+                    }
+                    string notifyRunAppStartpath = AppConfig.PluginsPath;
+                    string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
+                    string notifyRunAppParam = string.Format("-recovery true");
+                    Logger.info("RecoveryJob", "notifyRunApp:", notifyRunApp);
+                    Logger.info("RecoveryJob", "notifyRunAppParam:", notifyRunAppParam);
+                    Logger.info("RecoveryJob", "notifyRunAppStartpath:", notifyRunAppStartpath);
+                    NotifyJob.ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
+
+                    Logger.info("RecoveryJob", "lockScreen:", lockScreenApp);
+
                 }
                 else
                 {
