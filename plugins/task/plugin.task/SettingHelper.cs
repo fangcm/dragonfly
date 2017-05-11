@@ -127,13 +127,13 @@ namespace Dragonfly.Plugin.Task
                 switch (PluginSetting.NotifyJobSetting.LockScreenType)
                 {
                     case LockScreenType_Odd: //奇数开始锁
-                        if ((now.Hour & 1) == 0)
+                        if ((now.Hour & 1) != 0)
                         {
                             remainingMinutes = 60 - now.Minute;
                         }
                         break;
                     case LockScreenType_Even: //偶数开始锁
-                        if ((now.Hour & 1) != 0)
+                        if ((now.Hour & 1) == 0)
                         {
                             remainingMinutes = 60 - now.Minute;
                         }

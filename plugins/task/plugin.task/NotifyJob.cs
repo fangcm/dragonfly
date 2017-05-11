@@ -57,7 +57,7 @@ namespace Dragonfly.Plugin.Task
                 }
                 string notifyRunAppStartpath = AppConfig.PluginsPath;
                 string notifyRunApp = Path.Combine(notifyRunAppStartpath, lockScreenApp);
-                string notifyRunAppParam = string.Format("-lockminutes {1}", lockScreenMinutes);
+                string notifyRunAppParam = string.Format("-lockminutes {0}", lockScreenMinutes);
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
                 Logger.info("NotifyJob", "lockScreen:", lockScreenApp, ", minutes:", lockScreenMinutes);
 
