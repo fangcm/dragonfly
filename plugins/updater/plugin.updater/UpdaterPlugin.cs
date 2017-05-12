@@ -27,7 +27,7 @@ namespace Dragonfly.Plugin.Updater
             this.bgWorker = new BackgroundWorker();
             this.bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
 
-            timer = new System.Timers.Timer(600000);
+            timer = new System.Timers.Timer(300000);
 #if DEBUG
             timer.Interval = 3000;
 #endif
