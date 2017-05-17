@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -11,6 +12,7 @@ namespace Dragonfly.Plugin.Updater
 {
     public class UpdaterPlugin : IPlugin
     {
+        private readonly string downloadPrefix = @"https://github.com/fangcm/dragonfly/raw/master/Setup/deploy/";
         private static object LockObject = new Object();
         private static int CheckUpDateLock = 0;
         private BackgroundWorker bgWorker;
@@ -68,21 +70,64 @@ namespace Dragonfly.Plugin.Updater
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            processDeployUpdate();
+            processAutoUpdate();
+        }
+
+        private void processAutoUpdate()
+        {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string updateConfig = Path.Combine(appDataPath, "dragonfly", "update", "config.xml");
             if (!File.Exists(updateConfig))
             {
                 return;
             }
-            Logger.info("UpdaterPlugin","Found update config file.");
+            Logger.info("UpdaterPlugin", "Found update config file.");
 
             string pluginPath = Path.Combine(appDataPath, "dragonfly", "plugins");
 
             Process.Start(
                 Path.Combine(pluginPath, "autoupdater.exe"),
-                String.Format("{0} \"{1}\"", Process.GetCurrentProcess().Id, Process.GetCurrentProcess().MainModule.FileName));
+                string.Format("{0} \"{1}\"", Process.GetCurrentProcess().Id, Process.GetCurrentProcess().MainModule.FileName));
+
         }
 
+        private void processDeployUpdate()
+        {
+            string deployDesc = Downloader.DownloadToString(downloadPrefix + "deploy.xml");
+            Logger.info("deployDesc", deployDesc);
+            DeployConfig deployConfig = XmlHelper.LoadFromString(deployDesc, typeof(DeployConfig)) as DeployConfig;
+            if (deployConfig == null)
+            {
+                return;
+            }
 
+            DateTime lastDeployTime = DateTime.MinValue;
+            DeployConfig savedConfig = XmlHelper.LoadFromFile(deployDesc, typeof(DeployConfig)) as DeployConfig;
+            if (savedConfig != null)
+            {
+                lastDeployTime = savedConfig.LastDeployTime;
+            }
+
+            if (lastDeployTime.CompareTo(deployConfig.LastDeployTime) >= 0)
+            {
+                return;
+            }
+
+            string localFile = Path.Combine(AppConfig.WorkingPath, "update", deployConfig.LastDeployFileName);
+            if (Downloader.DownloadFileToLocal(downloadPrefix + deployConfig.LastDeployFileName, localFile))
+            {
+                ExtractToDirectory(localFile, Path.Combine(AppConfig.WorkingPath, "update"));
+            }
+
+        }
+
+        private void ExtractToDirectory(string zipFile, string extractPath)
+        {
+            using (ZipArchive Archive = ZipFile.Open(zipFile, ZipArchiveMode.Read))
+            {
+                Archive.ExtractToDirectory(extractPath);
+            }
+        }
     }
 }
