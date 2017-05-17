@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deploy>
-	<Last DeployTime="2017-05-15 18:51:00">
-		<FileName>update_01.zip</FileName>
-	</Last>
+	<LastDeployTime>2017-05-15 18:51:00</LastDeployTime>
+	<LastDeployFileName>update_01.zip</LastDeployFileName>
 </Deploy>
