@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Dragonfly.Plugin.Updater
 {
@@ -17,6 +19,7 @@ namespace Dragonfly.Plugin.Updater
         private static int CheckUpDateLock = 0;
         private BackgroundWorker bgWorker;
         private System.Timers.Timer timer;
+        private static int timerCounter = 0;
 
         public string Name { get { return "DragonflyUpdater"; } }
         public string Caption { get { return "升级器"; } }
@@ -52,6 +55,7 @@ namespace Dragonfly.Plugin.Updater
                 else return;
             }
 
+            timerCounter++;
             Start();
             // 解锁更新检查锁
             lock (LockObject)
@@ -70,7 +74,10 @@ namespace Dragonfly.Plugin.Updater
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            processDeployUpdate();
+            if (timerCounter % 24 == 1)
+            {
+                processDeployUpdate();
+            }
             processAutoUpdate();
         }
 
@@ -96,14 +103,27 @@ namespace Dragonfly.Plugin.Updater
         {
             string deployDesc = Downloader.DownloadToString(downloadPrefix + "deploy.xml");
             Logger.info("deployDesc", deployDesc);
-            DeployConfig deployConfig = XmlHelper.LoadFromString(deployDesc, typeof(DeployConfig)) as DeployConfig;
+            DeployConfig deployConfig = null;
+            try
+            {
+                using (TextReader stream = new StringReader(deployDesc))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(DeployConfig));
+                    deployConfig = xmlSerializer.Deserialize(stream) as DeployConfig;
+                }
+            }
+            catch
+            { }
+
             if (deployConfig == null)
             {
                 return;
             }
 
+            string localDeployFile = Path.Combine(AppConfig.WorkingPath, "deploy.xml");
+
             DateTime lastDeployTime = DateTime.MinValue;
-            DeployConfig savedConfig = XmlHelper.LoadFromFile(deployDesc, typeof(DeployConfig)) as DeployConfig;
+            DeployConfig savedConfig = XmlHelper.LoadFromFile(localDeployFile, typeof(DeployConfig)) as DeployConfig;
             if (savedConfig != null)
             {
                 lastDeployTime = savedConfig.LastDeployTime;
@@ -114,19 +134,43 @@ namespace Dragonfly.Plugin.Updater
                 return;
             }
 
-            string localFile = Path.Combine(AppConfig.WorkingPath, "update", deployConfig.LastDeployFileName);
-            if (Downloader.DownloadFileToLocal(downloadPrefix + deployConfig.LastDeployFileName, localFile))
+            string localUpdateFile = Path.Combine(AppConfig.WorkingPath, "update", deployConfig.LastDeployFileName);
+            if (Downloader.DownloadFileToLocal(downloadPrefix + deployConfig.LastDeployFileName, localUpdateFile))
             {
-                ExtractToDirectory(localFile, Path.Combine(AppConfig.WorkingPath, "update"));
+                ExtractToDirectory(localUpdateFile, Path.Combine(AppConfig.WorkingPath, "update"));
             }
+            try
+            {
+                File.Delete(localUpdateFile);
+            }
+            catch
+            { }
 
+            XmlHelper.SaveToFile(localDeployFile, deployConfig);
         }
 
         private void ExtractToDirectory(string zipFile, string extractPath)
         {
-            using (ZipArchive Archive = ZipFile.Open(zipFile, ZipArchiveMode.Read))
+            if (!Directory.Exists(extractPath))
             {
-                Archive.ExtractToDirectory(extractPath);
+                Directory.CreateDirectory(extractPath);
+            }
+            using (ZipArchive archive = ZipFile.OpenRead(zipFile))
+            {
+                foreach (ZipArchiveEntry file in archive.Entries)
+                {
+                    string completeFileName = Path.Combine(extractPath, file.FullName);
+                    if (file.Name == "")
+                    {
+                        string dPath = Path.GetDirectoryName(completeFileName);
+                        if (!Directory.Exists(dPath))
+                        {
+                            Directory.CreateDirectory(dPath);
+                        }
+                        continue;
+                    }
+                    file.ExtractToFile(completeFileName, true);
+                }
             }
         }
     }
