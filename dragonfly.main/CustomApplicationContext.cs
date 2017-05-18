@@ -48,39 +48,28 @@ namespace Dragonfly.Main
         {
             if (!mainAppForm.Visible)
             {
-                if (!AppConfig.GetBoolean("HidePasswordDialog", false))
+                if (passCheck())
                 {
-                    if (passwordDialog == null || passwordDialog.IsDisposed)
-                    {
-                        passwordDialog = new PasswordBox();
-                        passwordDialog.ResetPassword();
-                        if (passwordDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            mainAppForm.Show();
-                            mainAppForm.Activate();
-                        }
-                        passwordDialog.Dispose();
-
-                    }
-                    else
-                    {
-                        passwordDialog.ResetPassword();
-                        passwordDialog.Activate();
-                    }
-                    return;
-
+                    mainAppForm.Show();
+                    mainAppForm.Activate();
                 }
                 else
                 {
-                    mainAppForm.Show();
+                    return;
                 }
             }
-
-            mainAppForm.Activate();
+            else
+            {
+                mainAppForm.Activate();
+            }
         }
 
         void ExitApp_Click(object sender, EventArgs e)
         {
+            if (!passCheck())
+            {
+                return;
+            }
             DialogResult result = MessageBox.Show("确实要退出［蜻蜓］软件吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (result == DialogResult.Yes)
             {
@@ -91,5 +80,29 @@ namespace Dragonfly.Main
             }
         }
 
+        private bool passCheck()
+        {
+            if (!AppConfig.GetBoolean("HidePasswordDialog", false))
+            {
+                if (passwordDialog == null || passwordDialog.IsDisposed)
+                {
+                    passwordDialog = new PasswordBox();
+                    passwordDialog.ResetPassword();
+                    DialogResult result = passwordDialog.ShowDialog();
+                    passwordDialog.Dispose();
+                    if (result == DialogResult.OK)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    passwordDialog.ResetPassword();
+                    passwordDialog.Activate();
+                }
+                return false;
+            }
+            return true;
+        }
     }
 }
