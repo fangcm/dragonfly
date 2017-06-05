@@ -61,7 +61,7 @@ namespace Dragonfly.Plugin.Task
                 ExecApp(notifyRunApp, notifyRunAppParam, notifyRunAppStartpath);
                 Logger.info("NotifyJob", "lockScreen:", lockScreenApp, ", minutes:", lockScreenMinutes);
 
-                JobManager.AddJob(new RecoveryJob(), (s) => s.WithName("RECOVERY").ToRunEvery(1).Seconds());
+                JobManager.AddJob(new RecoveryJob(), (s) => s.WithName("RECOVERY").ToRunEvery(10).Seconds());
 
 
             }

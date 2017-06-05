@@ -15,11 +15,11 @@ namespace Dragonfly.Plugin.Task
             try
             {
                 bool notifyRunning = IsNotifyProgramRunning();
-                Logger.debug("RecoveryJob", "notifyRunning:" + notifyRunning);
                 if (notifyRunning)
                 {
                     return;
                 }
+                Logger.debug("RecoveryJob", "notifyRunning:" + notifyRunning);
 
                 bool needRecovery = false;
                 NotifySetting notifySetting = NotifySetting.LoadFromFile();
