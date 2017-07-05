@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("dragonfly.service")]
+[assembly: AssemblyTitle("keep.alive")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("dragonfly.service")]
+[assembly: AssemblyProduct("keep.alive")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("34ca0e78-c42b-422b-97ff-4d0dce6c01a1")]
+[assembly: Guid("c5e15a26-e971-4800-a5ba-c0e2df6bd6f9")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
