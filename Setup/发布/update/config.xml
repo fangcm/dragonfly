@@ -34,6 +34,10 @@
       <FileName>task.core.dll</FileName>
     </FileInfo>
     <FileInfo>
+      <PublishPath/>
+      <FileName>lock.mp3</FileName>
+    </FileInfo>
+    <FileInfo>
       <PublishPath>..\</PublishPath>
       <FileName>TaskSettings.xml</FileName>
     </FileInfo>    
