@@ -6,8 +6,6 @@ namespace Dragonfly.Task.Core
     {
         public static bool Main(LockScreenForm mainWindow, string[] args)
         {
-            WinApi.SetForegroundWindowMinimize();
-
             var arguments = CommandLineArgumentParser.Parse(args);
 
             int lockMinutes = 0;
