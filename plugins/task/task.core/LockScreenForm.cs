@@ -7,6 +7,7 @@ namespace Dragonfly.Task.Core
     public class LockScreenForm : Form
     {
         private Timer timerTick = null;
+        private bool designMode = false;
 
         private UserActivityHook globalHooks = null;
         private NotifySetting notifySetting;
@@ -15,7 +16,7 @@ namespace Dragonfly.Task.Core
         public virtual string Description { get; set; }
         public virtual string ClockText { get; set; }
 
-        private bool IsDesignMode { get; set; }
+        public SecondaryScreenForm SecondaryScreen { get; set; }
         public bool IsDebugMode { get; set; }
 
         public virtual DateTime AddIntervalSeconds(int addSeconds)
@@ -28,10 +29,16 @@ namespace Dragonfly.Task.Core
 
         public LockScreenForm()
         {
-            IsDesignMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
+            designMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
             IsDebugMode = false;
-
             IntervalSeconds = 30;
+
+            if (!designMode && SecondaryScreen == null)
+            {
+                SecondaryScreen = new SecondaryScreenForm();
+                SecondaryScreen.Show(this);
+            }
+
 
             Initialize();
 
@@ -63,7 +70,7 @@ namespace Dragonfly.Task.Core
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TopMost = IsDesignMode ? false : true;
+            this.TopMost = designMode ? false : true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.ResumeLayout(false);
@@ -88,7 +95,7 @@ namespace Dragonfly.Task.Core
             notifySetting.EndTriggerTime = DateTime.Now + TimeSpan.FromSeconds(IntervalSeconds);
             NotifySetting.SaveToFile(notifySetting);
 
-            if (!IsDesignMode)
+            if (!designMode)
             {
                 this.Deactivate += new System.EventHandler(this.LockScreenForm_Deactivate);
 
@@ -121,6 +128,12 @@ namespace Dragonfly.Task.Core
         {
             if (notifySetting.EndTriggerTime <= DateTime.Now)
             {
+                if (SecondaryScreen != null)
+                {
+                    SecondaryScreen.Close();
+                    SecondaryScreen = null;
+                }
+
                 notifySetting.EndTriggerTime = DateTime.Now;
                 NotifySetting.SaveToFile(notifySetting);
                 this.Close();
@@ -139,6 +152,12 @@ namespace Dragonfly.Task.Core
 
         protected override void Dispose(bool disposing)
         {
+            if (SecondaryScreen != null)
+            {
+                SecondaryScreen.Close();
+                SecondaryScreen = null;
+            }
+
             if (timerTick != null)
             {
                 timerTick.Stop();
@@ -161,7 +180,7 @@ namespace Dragonfly.Task.Core
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
-            if (!IsDesignMode)
+            if (!designMode)
             {
                 if ((m.Msg == 0x84) && (m.Result == ((IntPtr)2)))
                 {
