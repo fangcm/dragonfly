@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CopyContentCommand.cs" />
+    <Compile Include="RestartUtil.cs" />
     <Compile Include="UpdateConfig.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="KillProcessCommand.cs" />

@@ -74,6 +74,37 @@ namespace Dragonfly.Updater
                 }
             }
 
+            foreach (CommandInfo commandInfo in config.Commands)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(commandInfo.FileName))
+                    {
+                        continue;
+                    }
+
+                    if ("Hibernate".Equals(commandInfo.FileName))
+                    {
+                        RestartUtil.ExitWindows(RestartOptions.Hibernate, true);
+                    }
+                    else if ("ShutDown".Equals(commandInfo.FileName))
+                    {
+                        RestartUtil.ExitWindows(RestartOptions.ShutDown, true);
+                    }
+                    else if ("Reboot".Equals(commandInfo.FileName))
+                    {
+                        RestartUtil.ExitWindows(RestartOptions.Reboot, true);
+                    }
+                    else
+                    {
+                        RestartUtil.ExecApp(commandInfo.FileName, commandInfo.Param, commandInfo.Startpath);
+                    }
+                }
+                catch
+                {
+                }
+            }
+
             File.Delete(updateConfig);
 
         }
@@ -94,6 +125,7 @@ namespace Dragonfly.Updater
                 return null;
             }
         }
+
 
     }
 }

@@ -11,6 +11,9 @@ namespace Dragonfly.Updater
 
         [XmlArray("DeleteFiles")]
         public List<FileInfo> DeleteFiles { get; set; }
+
+        [XmlArray("Commands")]
+        public List<CommandInfo> Commands { get; set; }
     }
 
     [XmlRoot("FileInfo")]
@@ -21,6 +24,19 @@ namespace Dragonfly.Updater
 
         [XmlElement("FileName")]
         public string FileName { get; set; }
+    }
+
+    [XmlRoot("CommandInfo")]
+    public class CommandInfo
+    {
+        [XmlElement("FileName")]
+        public string FileName { get; set; }
+
+        [XmlElement("Param")]
+        public string Param { get; set; }
+
+        [XmlElement("Startpath")]
+        public string Startpath { get; set; }
     }
 
 }
