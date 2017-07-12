@@ -15,7 +15,7 @@ namespace Dragonfly.Main
             MenuItem menuShowMainForm = new MenuItem("［蜻蜓］工具...", new EventHandler(ShowMainForm_Click));
 
             MenuItem[] menus = null;
-            if (AppConfig.GetBoolean("MenuExit", false))
+            if (AppConfig.GetBoolean("MenuExit", true))
             {
                 MenuItem menuExit = new MenuItem("退出", new EventHandler(ExitApp_Click));
                 menus = new MenuItem[] { menuShowMainForm, menuExit };

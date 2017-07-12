@@ -28,6 +28,7 @@ namespace Dragonfly.Common.Plugin
             plugInList.Clear();
 
             List<string> plugIns = new List<string>();
+/*
 #if DEBUG
             Logger.info("PluginManager", "DEBUG mode");
             try
@@ -41,6 +42,7 @@ namespace Dragonfly.Common.Plugin
             {
             }
 #else
+*/
             Logger.info("PluginManager", "RELEASE mode");
             try
             {
@@ -52,7 +54,7 @@ namespace Dragonfly.Common.Plugin
             {
             }
 
-#endif
+// #endif
 
             if (plugIns == null || plugIns.Count == 0)
             {
