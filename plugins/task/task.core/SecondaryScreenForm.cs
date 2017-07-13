@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Dragonfly.Task.Core
 {
@@ -29,14 +30,20 @@ namespace Dragonfly.Task.Core
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            //this.Load += new System.EventHandler(this.LockScreenForm_Load);
+            this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.ResumeLayout(false);
         }
-/*
+
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
-            WinApi.MoveToTopMost(this.Handle);
+            //WinApi.MoveToTopMost(this.Handle);
+            if (Screen.AllScreens.Length != 1)
+            {
+                this.Top = 0;
+                this.Left = Screen.AllScreens[0].Bounds.Width;
+                this.Size = new System.Drawing.Size(Screen.AllScreens[1].Bounds.Width, Screen.AllScreens[1].Bounds.Height);
+            }
         }
-*/
+
     }
 }
