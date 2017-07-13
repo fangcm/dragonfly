@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Dragonfly.Task.Core
 {
@@ -31,14 +29,14 @@ namespace Dragonfly.Task.Core
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.LockScreenForm_Load);
+            //this.Load += new System.EventHandler(this.LockScreenForm_Load);
             this.ResumeLayout(false);
         }
-
+/*
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
             WinApi.MoveToTopMost(this.Handle);
         }
-
+*/
     }
 }
