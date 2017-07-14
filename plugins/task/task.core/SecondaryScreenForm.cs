@@ -12,13 +12,23 @@ namespace Dragonfly.Task.Core
 
         private void Initialize()
         {
+            Screen screen;
+            if (Screen.AllScreens.Length > 1)
+            {
+                screen = Screen.AllScreens[1];
+            }
+            else
+            {
+                screen = Screen.PrimaryScreen;
+            }
+
             this.SuspendLayout();
 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.Bounds = Screen.PrimaryScreen.Bounds;
-            this.ClientSize = Screen.PrimaryScreen.Bounds.Size;
+            this.Bounds = screen.Bounds;
+            this.ClientSize = screen.Bounds.Size;
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -37,12 +47,6 @@ namespace Dragonfly.Task.Core
         private void LockScreenForm_Load(object sender, EventArgs e)
         {
             //WinApi.MoveToTopMost(this.Handle);
-            if (Screen.AllScreens.Length != 1)
-            {
-                this.Top = 0;
-                this.Left = Screen.AllScreens[0].Bounds.Width;
-                this.Size = new System.Drawing.Size(Screen.AllScreens[1].Bounds.Width, Screen.AllScreens[1].Bounds.Height);
-            }
         }
 
     }
