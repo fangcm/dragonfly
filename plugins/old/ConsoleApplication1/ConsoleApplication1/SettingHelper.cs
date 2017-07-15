@@ -86,6 +86,7 @@ namespace Dragonfly.Plugin.Task
                 }
 
                 PluginSetting = setting;
+                PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_Ten;
 
                 return true;
             }
@@ -121,53 +122,53 @@ namespace Dragonfly.Plugin.Task
             int lockMinutes = 60;
             int delayMinutes = 0;
 
-            if (notifySetting != null && notifySetting.EndTriggerTime != null && !DateTime.MinValue.Equals(notifySetting.EndTriggerTime))
-            {
-                remainingMinutes = Convert.ToInt32((notifySetting.EndTriggerTime - now).TotalMinutes);
-                if (remainingMinutes < 0)
-                {
-                    remainingMinutes = 0;
-                }
-            }
-
             switch (PluginSetting.NotifyJobSetting.LockScreenType)
             {
                 case LockScreenType_Odd: //奇数开始锁
                     if ((now.Hour & 1) == 0)
                     {
                         remainingMinutes = 0;
-                        delayMinutes = 0 - lockMinutes - now.Minute;
+                        delayMinutes = 0 - 60 - now.Minute;
                     }
                     else
                     {
                         remainingMinutes = 60 - now.Minute;
-                        delayMinutes = 60 - lockMinutes - now.Minute;
+                        delayMinutes = 0 - now.Minute;
                     }
                     break;
                 case LockScreenType_Even: //偶数开始锁
                     if ((now.Hour & 1) == 0)
                     {
                         remainingMinutes = 60 - now.Minute;
-                        delayMinutes = 60 - lockMinutes - now.Minute;
+                        delayMinutes = 0 - now.Minute;
                     }
                     else
                     {
                         remainingMinutes = 0;
-                        delayMinutes = 0 - lockMinutes - now.Minute;
+                        delayMinutes = 0 - 60 - now.Minute;
                     }
                     break;
                 case LockScreenType_Ten: //每小时锁十分钟
                     interval = 60;
                     lockMinutes = 10;
-                    if (now.Minute >= 50)
+                    int start = 30;
+                    if (now.Minute >= start && now.Minute < start + lockMinutes)
                     {
-                        remainingMinutes = 60 - now.Minute;
-                        delayMinutes = 60 - lockMinutes + now.Minute;
+                        remainingMinutes = lockMinutes - (now.Minute - start);
+                        delayMinutes = 0 - (now.Minute - start);
                     }
                     else
                     {
                         remainingMinutes = 0;
-                        delayMinutes = 0 - lockMinutes - now.Minute;
+                        if (start > now.Minute)
+                        {
+                            delayMinutes = now.Minute - start - interval;
+                        }
+                        else
+                        {
+                            delayMinutes = start - now.Minute;
+                        }
+
                     }
                     break;
             }
