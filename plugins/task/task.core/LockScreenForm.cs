@@ -36,7 +36,7 @@ namespace Dragonfly.Task.Core
             if (!designMode && SecondaryScreen == null)
             {
                 SecondaryScreen = new SecondaryScreenForm();
-                SecondaryScreen.Show(this);
+                SecondaryScreen.Show();
             }
 
 

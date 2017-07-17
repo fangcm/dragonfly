@@ -162,7 +162,7 @@ namespace Dragonfly.Plugin.Task
                         remainingMinutes = 0;
                         if (start > now.Minute)
                         {
-                            delayMinutes = now.Minute - start - interval;
+                            delayMinutes = start - now.Minute - 60;
                         }
                         else
                         {

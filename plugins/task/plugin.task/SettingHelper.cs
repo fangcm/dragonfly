@@ -159,13 +159,10 @@ namespace Dragonfly.Plugin.Task
                     else
                     {
                         remainingMinutes = 0;
+                        delayMinutes = start - now.Minute;
                         if (start > now.Minute)
                         {
-                            delayMinutes = now.Minute - start;
-                        }
-                        else
-                        {
-                            delayMinutes = start - now.Minute;
+                            delayMinutes -= 60;
                         }
 
                     }
