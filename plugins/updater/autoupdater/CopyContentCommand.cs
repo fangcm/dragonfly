@@ -30,11 +30,21 @@ namespace Dragonfly.Updater
             if (config == null)
                 return;
 
+            ExecuteCommand(config, updatePath, "before");
+            ExecuteCopy(config, updatePath, pluginPath);
+            ExecuteDelete(config, pluginPath);
+            ExecuteCommand(config, updatePath, "after");
+
+            File.Delete(updateConfig);
+
+        }
+
+        public void ExecuteCopy(UpdateConfig config, string updatePath, string dstPath)
+        {
             foreach (FileInfo fileInfo in config.CopyFiles)
             {
                 try
                 {
-                    string dstPath = pluginPath;
                     if (!string.IsNullOrWhiteSpace(fileInfo.PublishPath))
                     {
                         dstPath = Path.Combine(dstPath, fileInfo.PublishPath);
@@ -54,12 +64,13 @@ namespace Dragonfly.Updater
                 {
                 }
             }
-
+        }
+        public void ExecuteDelete(UpdateConfig config, string dstPath)
+        {
             foreach (FileInfo fileInfo in config.DeleteFiles)
             {
                 try
                 {
-                    string dstPath = pluginPath;
                     if (!string.IsNullOrWhiteSpace(fileInfo.PublishPath))
                     {
                         dstPath = Path.Combine(dstPath, fileInfo.PublishPath);
@@ -74,12 +85,26 @@ namespace Dragonfly.Updater
                 }
             }
 
+        }
+        public void ExecuteCommand(UpdateConfig config, string dstPath, string type)
+        {
             foreach (CommandInfo commandInfo in config.Commands)
             {
                 try
                 {
+                    if (!type.Equals(commandInfo.Type, StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
                     if (string.IsNullOrWhiteSpace(commandInfo.FileName))
                     {
+                        if (!string.IsNullOrWhiteSpace(commandInfo.Param))
+                        {
+                            string info;
+                            RestartUtil.RunCmd(commandInfo.Param, out info);
+                            Console.WriteLine(info);
+                        }
                         continue;
                     }
 
@@ -97,15 +122,18 @@ namespace Dragonfly.Updater
                     }
                     else
                     {
-                        RestartUtil.ExecApp(commandInfo.FileName, commandInfo.Param, commandInfo.Startpath);
+                        if (!string.IsNullOrWhiteSpace(commandInfo.Startpath))
+                        {
+                            dstPath = Path.Combine(dstPath, commandInfo.Startpath);
+                        }
+
+                        RestartUtil.ExecApp(commandInfo.FileName, commandInfo.Param, dstPath);
                     }
                 }
                 catch
                 {
                 }
             }
-
-            File.Delete(updateConfig);
 
         }
 

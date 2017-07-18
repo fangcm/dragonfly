@@ -29,6 +29,9 @@ namespace Dragonfly.Updater
     [XmlRoot("CommandInfo")]
     public class CommandInfo
     {
+        [XmlElement("Type")]
+        public string Type { get; set; }
+
         [XmlElement("FileName")]
         public string FileName { get; set; }
 
