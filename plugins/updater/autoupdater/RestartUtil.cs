@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -17,28 +18,47 @@ namespace Dragonfly.Updater
 
     internal class RestartUtil
     {
-        public static void RunCmd(string cmd, out string output)
+        public static void RunCmd(string workingDir, string commandText)
         {
-            cmd = cmd.Trim().TrimEnd('&') + "&exit";
-            //说明：不管命令是否成功均执行exit命令，否则当调用ReadToEnd()方法时，会处于假死状态
             using (Process p = new Process())
             {
-                p.StartInfo.FileName = @"C:\Windows\System32\cmd.exe";
+                p.StartInfo.FileName = "cmd.exe";
                 p.StartInfo.UseShellExecute = false;        //是否使用操作系统shell启动
                 p.StartInfo.RedirectStandardInput = true;   //接受来自调用程序的输入信息
                 p.StartInfo.RedirectStandardOutput = true;  //由调用程序获取输出信息
                 p.StartInfo.RedirectStandardError = true;   //重定向标准错误输出
                 p.StartInfo.CreateNoWindow = true;          //不显示程序窗口
+                p.StartInfo.WorkingDirectory = workingDir;
+                p.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
+                p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
                 p.Start();//启动程序
+                p.BeginErrorReadLine();
+                p.BeginOutputReadLine();
 
-                //向cmd窗口写入命令
-                p.StandardInput.WriteLine(cmd);
                 p.StandardInput.AutoFlush = true;
+                string[] cmds = commandText.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string cmd in cmds)
+                {
+                    p.StandardInput.WriteLine(cmd);
+                }
+                //p.StandardInput.WriteLine("exit");
 
-                //获取cmd窗口的输出信息
-                output = p.StandardOutput.ReadToEnd();
-                p.WaitForExit();//等待程序执行完退出进程
+                p.WaitForExit();
                 p.Close();
+            }
+        }
+
+        private static void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+                Debug.WriteLine(e.Data);
+        }
+
+        private static void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Debug.WriteLine(e.Data);
             }
         }
 

@@ -97,13 +97,17 @@ namespace Dragonfly.Updater
                         continue;
                     }
 
+                    if (!string.IsNullOrWhiteSpace(commandInfo.Startpath))
+                    {
+                        dstPath = Path.Combine(dstPath, commandInfo.Startpath);
+                    }
+
+
                     if (string.IsNullOrWhiteSpace(commandInfo.FileName))
                     {
                         if (!string.IsNullOrWhiteSpace(commandInfo.Param))
                         {
-                            string info;
-                            RestartUtil.RunCmd(commandInfo.Param, out info);
-                            Console.WriteLine(info);
+                            RestartUtil.RunCmd(dstPath, commandInfo.Param);
                         }
                         continue;
                     }
@@ -122,11 +126,6 @@ namespace Dragonfly.Updater
                     }
                     else
                     {
-                        if (!string.IsNullOrWhiteSpace(commandInfo.Startpath))
-                        {
-                            dstPath = Path.Combine(dstPath, commandInfo.Startpath);
-                        }
-
                         RestartUtil.ExecApp(commandInfo.FileName, commandInfo.Param, dstPath);
                     }
                 }
