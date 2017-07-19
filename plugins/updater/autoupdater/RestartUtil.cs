@@ -41,7 +41,7 @@ namespace Dragonfly.Updater
                 {
                     p.StandardInput.WriteLine(cmd);
                 }
-                //p.StandardInput.WriteLine("exit");
+                p.StandardInput.WriteLine("exit");
 
                 p.WaitForExit();
                 p.Close();

@@ -76,6 +76,7 @@ icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:e
       <Type>after</Type>
       <FileName></FileName>
       <Param>
+takeown /f %APPDATA%\dragonfly\plugins\* /r /d y
 icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:d 
 
 icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g system

@@ -57,26 +57,28 @@ taskkill /f /im dragonfly.plugin.task.notify.exe
       <Type>after</Type>
       <FileName></FileName>
       <Param>
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:d
+takeown /f %APPDATA%\dragonfly\plugins\* /r /d y
+icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:d
 
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g system
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r system:RX  /T /L /C /Q
+icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g system
+icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r system:RX  /T /L /C /Q
 
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g Administrators
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r Administrators:RX  /T /L /C /Q
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g %USERNAME%
-c:\windows\system32\icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r %USERNAME%:RX  /T /L /C /Q
+icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g Administrators
+icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r Administrators:RX  /T /L /C /Q
+icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g %USERNAME%
+icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r %USERNAME%:RX  /T /L /C /Q
 
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /inheritance:d
+takeown /f %ProgramFiles%\dragonfly\* /r /d y
+icacls.exe %ProgramFiles%\dragonfly\  /inheritance:d
 
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /remove:g system
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /grant:r system:RX  /T /L /C /Q
+icacls.exe %ProgramFiles%\dragonfly\  /remove:g system
+icacls.exe %ProgramFiles%\dragonfly\  /grant:r system:RX  /T /L /C /Q
 
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /remove:g Administrators
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /grant:r Administrators:RX  /T /L /C /Q
+icacls.exe %ProgramFiles%\dragonfly\  /remove:g Administrators
+icacls.exe %ProgramFiles%\dragonfly\  /grant:r Administrators:RX  /T /L /C /Q
 
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /remove:g %USERNAME%
-c:\windows\system32\icacls.exe %ProgramFiles%\dragonfly\  /grant:r %USERNAME%:RX  /T /L /C /Q
+icacls.exe %ProgramFiles%\dragonfly\  /remove:g %USERNAME%
+icacls.exe %ProgramFiles%\dragonfly\  /grant:r %USERNAME%:RX  /T /L /C /Q
 
       </Param>
       <Startpath></Startpath>
