@@ -42,33 +42,25 @@
       <FileName>TaskSettings.xml</FileName>
     </FileInfo>
   </CopyFiles>
-  <!--
   <DeleteFiles>
     <FileInfo>
       <PublishPath/>
       <FileName>lock.mp3</FileName>
     </FileInfo>
   </DeleteFiles>
-  -->
   <Commands>
     <CommandInfo>
       <Type>before</Type>
       <FileName></FileName>
       <Param>
-taskkill /f /im simple.notify.exe
-taskkill /f /im questions.notify.exe
-taskkill /f /im dragonfly.plugin.task.notify.exe
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /remove system
-icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r system:F  /T /L /C /Q
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /remove Administrators
-icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r Administrators:F  /T /L /C /Q
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /remove %USERNAME%
-icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r %USERNAME%:F  /T /L /C /Q
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:e
+echo "taskkill 1" >> "%APPDATA%\dragonfly\logs\update.log"
+taskkill /f /im simple.notify.exe >> "%APPDATA%\dragonfly\logs\update.log"
+echo "taskkill 2" >> "%APPDATA%\dragonfly\logs\update.log"
+taskkill /f /im questions.notify.exe >> "%APPDATA%\dragonfly\logs\update.log"
+echo "taskkill 3" >> "%APPDATA%\dragonfly\logs\update.log"
+taskkill /f /im dragonfly.plugin.task.notify.exe >> "%APPDATA%\dragonfly\logs\update.log"
+echo %USERNAME% >> "%APPDATA%\dragonfly\logs\update.log"
+icacls.exe "%APPDATA%\dragonfly\plugins\*" /grant:r system:(F) Administrators:(F) %USERNAME%:(F) /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
       </Param>
       <Startpath></Startpath>
     </CommandInfo>    
@@ -76,17 +68,10 @@ icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:e
       <Type>after</Type>
       <FileName></FileName>
       <Param>
-takeown /f %APPDATA%\dragonfly\plugins\* /r /d y
-icacls.exe %APPDATA%\dragonfly\plugins\  /inheritance:d 
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g system
-icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r system:RX  /T /L /C /Q
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g Administrators
-icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r Administrators:RX  /T /L /C /Q
-
-icacls.exe %APPDATA%\dragonfly\plugins\  /remove:g %USERNAME%
-icacls.exe %APPDATA%\dragonfly\plugins\  /grant:r %USERNAME%:RX  /T /L /C /Q
+echo "setowner %USERNAME%" >> "%APPDATA%\dragonfly\logs\update.log"
+icacls.exe "%APPDATA%\dragonfly\plugins\*" /setowner %USERNAME% /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
+echo "grant" >> "%APPDATA%\dragonfly\logs\update.log"
+icacls.exe "%APPDATA%\dragonfly\plugins\*" /inheritance:r /grant:r system:(WO,RX) Administrators:(WO,RX) %USERNAME%:(WO,RX) /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
       </Param>
       <Startpath></Startpath>
     </CommandInfo>    
