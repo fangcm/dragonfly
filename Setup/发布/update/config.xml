@@ -42,25 +42,24 @@
       <FileName>TaskSettings.xml</FileName>
     </FileInfo>
   </CopyFiles>
+<!--  
   <DeleteFiles>
     <FileInfo>
       <PublishPath/>
       <FileName>lock.mp3</FileName>
     </FileInfo>
   </DeleteFiles>
+-->
   <Commands>
     <CommandInfo>
       <Type>before</Type>
       <FileName></FileName>
       <Param>
-echo "taskkill 1" >> "%APPDATA%\dragonfly\logs\update.log"
-taskkill /f /im simple.notify.exe >> "%APPDATA%\dragonfly\logs\update.log"
-echo "taskkill 2" >> "%APPDATA%\dragonfly\logs\update.log"
-taskkill /f /im questions.notify.exe >> "%APPDATA%\dragonfly\logs\update.log"
-echo "taskkill 3" >> "%APPDATA%\dragonfly\logs\update.log"
-taskkill /f /im dragonfly.plugin.task.notify.exe >> "%APPDATA%\dragonfly\logs\update.log"
-echo %USERNAME% >> "%APPDATA%\dragonfly\logs\update.log"
-icacls.exe "%APPDATA%\dragonfly\plugins\*" /grant:r system:(F) Administrators:(F) %USERNAME%:(F) /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
+taskkill /f /im simple.notify.exe
+taskkill /f /im questions.notify.exe
+taskkill /f /im dragonfly.plugin.task.notify.exe
+echo before grant F (user=%USERNAME%) >> "%APPDATA%\dragonfly\logs\update.log"
+icacls.exe "%APPDATA%\dragonfly\plugins\*" /grant:r system:(WDAC,F) Administrators:(WDAC,F) %USERNAME%:(WDAC,F) /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
       </Param>
       <Startpath></Startpath>
     </CommandInfo>    
@@ -68,10 +67,10 @@ icacls.exe "%APPDATA%\dragonfly\plugins\*" /grant:r system:(F) Administrators:(F
       <Type>after</Type>
       <FileName></FileName>
       <Param>
-echo "setowner %USERNAME%" >> "%APPDATA%\dragonfly\logs\update.log"
+echo "after setowner %USERNAME%" >> "%APPDATA%\dragonfly\logs\update.log"
 icacls.exe "%APPDATA%\dragonfly\plugins\*" /setowner %USERNAME% /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
-echo "grant" >> "%APPDATA%\dragonfly\logs\update.log"
-icacls.exe "%APPDATA%\dragonfly\plugins\*" /inheritance:r /grant:r system:(WO,RX) Administrators:(WO,RX) %USERNAME%:(WO,RX) /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
+echo "after grant RX" >> "%APPDATA%\dragonfly\logs\update.log"
+icacls.exe "%APPDATA%\dragonfly\plugins\*" /inheritance:r /grant:r system:(WDAC,RX) Administrators:(WDAC,RX) %USERNAME%:(WDAC,RX) /T /L /C /Q >> "%APPDATA%\dragonfly\logs\update.log"
       </Param>
       <Startpath></Startpath>
     </CommandInfo>    
