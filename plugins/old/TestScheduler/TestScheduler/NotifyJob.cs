@@ -67,7 +67,25 @@ namespace Dragonfly.Plugin.Task
 
         }
 
-     
+        public static bool ExecApp(string app, string appParam, string appStartpath)
+        {
+            try
+            {
+                Process myprocess = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo(app, appParam);
+                startInfo.WindowStyle = ProcessWindowStyle.Normal;
+                startInfo.WorkingDirectory = appStartpath;
+                myprocess.StartInfo = startInfo;
+                myprocess.StartInfo.UseShellExecute = false;
+                myprocess.Start();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.info("NotifyJob", "ExecApp error:", e.Message, e.StackTrace);
+                return false;
+            }
+        }
 
     }
 

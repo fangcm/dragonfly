@@ -151,7 +151,7 @@ namespace Dragonfly.Plugin.Task
                 case LockScreenType_Ten: //每小时锁十分钟
                     interval = 60;
                     lockMinutes = 10;
-                    int start = 30;
+                    int start = 40;
                     if (now.Minute >= start && now.Minute < start + lockMinutes)
                     {
                         remainingMinutes = lockMinutes - (now.Minute - start);
@@ -160,13 +160,10 @@ namespace Dragonfly.Plugin.Task
                     else
                     {
                         remainingMinutes = 0;
+                        delayMinutes = start - now.Minute;
                         if (start > now.Minute)
                         {
-                            delayMinutes = start - now.Minute - 60;
-                        }
-                        else
-                        {
-                            delayMinutes = start - now.Minute;
+                            delayMinutes -= 60;
                         }
 
                     }
