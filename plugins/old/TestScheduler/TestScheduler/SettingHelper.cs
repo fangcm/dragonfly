@@ -10,9 +10,10 @@ namespace Dragonfly.Plugin.Task
         internal const int LockScreenApp_Simple = 0;
         internal const int LockScreenApp_Question = 1;
 
-        internal const int LockScreenType_Odd = 0; //奇数开始锁
-        internal const int LockScreenType_Even = 1; //偶数开始锁
+        internal const int LockScreenType_Odd = 0; //奇数开始锁一个小时
+        internal const int LockScreenType_Even = 1; //偶数开始锁一个小时
         internal const int LockScreenType_Ten = 2; //每小时锁十分钟
+        internal const int LockScreenType_HalfHour = 3; //每小时锁30分钟
 
         private static SettingHelper instance;
         private static readonly object locker = new object();
@@ -36,7 +37,7 @@ namespace Dragonfly.Plugin.Task
             return new NotifyJobSetting()
             {
                 IsTooLateLockScreen = true,
-                TooLateTriggerTime = "21:00",
+                TooLateTriggerTime = "21:30",
                 TooLateMinutes = 120,
                 LockScreenApp = LockScreenApp_Simple,
                 LockScreenType = LockScreenType_Odd,
@@ -75,7 +76,7 @@ namespace Dragonfly.Plugin.Task
                 if (setting == null)
                 {
                     PluginSetting.NotifyJobSetting.LockScreenApp = 0;
-                    PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_Ten;
+                    PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_HalfHour;
                     PluginSetting.NotifyJobSetting.IsTooLateLockScreen = true;
                     return false;
                 }
@@ -86,7 +87,7 @@ namespace Dragonfly.Plugin.Task
                 }
 
                 PluginSetting = setting;
-                PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_Ten;
+                PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_HalfHour;
 
                 return true;
             }
@@ -122,6 +123,8 @@ namespace Dragonfly.Plugin.Task
             int lockMinutes = 60;
             int delayMinutes = 0;
 
+            int start; //起始时间点
+
             switch (PluginSetting.NotifyJobSetting.LockScreenType)
             {
                 case LockScreenType_Odd: //奇数开始锁
@@ -151,7 +154,28 @@ namespace Dragonfly.Plugin.Task
                 case LockScreenType_Ten: //每小时锁十分钟
                     interval = 60;
                     lockMinutes = 10;
-                    int start = 40;
+                    start = 40;
+                    if (now.Minute >= start && now.Minute < start + lockMinutes)
+                    {
+                        remainingMinutes = lockMinutes - (now.Minute - start);
+                        delayMinutes = 0 - (now.Minute - start);
+                    }
+                    else
+                    {
+                        remainingMinutes = 0;
+                        delayMinutes = start - now.Minute;
+                        if (start > now.Minute)
+                        {
+                            delayMinutes -= 60;
+                        }
+
+                    }
+                    break;
+
+                case LockScreenType_HalfHour: //每小时锁30分钟
+                    interval = 60;
+                    lockMinutes = 30;
+                    start = 20;
                     if (now.Minute >= start && now.Minute < start + lockMinutes)
                     {
                         remainingMinutes = lockMinutes - (now.Minute - start);
