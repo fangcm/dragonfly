@@ -87,7 +87,6 @@ namespace Dragonfly.Plugin.Task
                 }
 
                 PluginSetting = setting;
-                PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_HalfHour;
 
                 return true;
             }
