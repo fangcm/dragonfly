@@ -27,22 +27,32 @@ namespace Dragonfly.Plugin.Task
                 SettingHelper helper = SettingHelper.GetInstance();
                 NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
 
-                int lockScreenMinutes;
+                //判断起始时间
+                DateTime now = DateTime.Now;
+                int nowHour = now.Hour;
+                int nowMinute = now.Minute;
+                int startTimeSettingHour = 10;
+                int startTimeSettingMinute = 0;
+                try
+                {
+                    DateTime settingTime = DateTime.ParseExact(setting.StartTime, "HH:mm", null);
+                    startTimeSettingHour = settingTime.Hour;
+                    startTimeSettingMinute = settingTime.Minute;
+                }
+                catch
+                {
+                }
+                if (startTimeSettingHour * 100 + startTimeSettingMinute < nowHour * 100 + nowMinute)
+                {
+                    return;
+                }
+
+                int lockScreenMinutes = setting.LockScreenDuration;
                 if (IsSpecifyLockScreenMinutes)
                 {
                     lockScreenMinutes = SpecifyLockScreenMinutes;
                 }
-                else
-                {
-                    if (setting.LockScreenType == SettingHelper.LockScreenType_Ten)
-                    {
-                        lockScreenMinutes = 10;
-                    }
-                    else
-                    {
-                        lockScreenMinutes = 60;
-                    }
-                }
+
                 Logger.info("NotifyJob", "IsSpecifyLockScreenMinutes:", IsSpecifyLockScreenMinutes, "lockScreenMinutes:", lockScreenMinutes);
                 LoggerUtil.Log(LoggType.Trigger, "指令:锁屏【" + lockScreenMinutes + "】分钟");
 

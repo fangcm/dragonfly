@@ -43,23 +43,19 @@ namespace Dragonfly.Plugin.Task
             {
                 int ret;
 
-                if (rb_odd.Checked)
-                    ret = SettingHelper.LockScreenType_Odd;
-                else if (rb_even.Checked)
-                    ret = SettingHelper.LockScreenType_Even;
+                if (rb_twohour.Checked)
+                    ret = SettingHelper.LockScreenType_TwoHour;
                 else
-                    ret = SettingHelper.LockScreenType_Ten;
+                    ret = SettingHelper.LockScreenType_OneHour;
 
                 return ret;
             }
             set
             {
-                if (value == SettingHelper.LockScreenType_Odd)
-                    rb_odd.Checked = true;
-                else if (value == SettingHelper.LockScreenType_Even)
-                    rb_even.Checked = true;
+                if (value == SettingHelper.LockScreenType_TwoHour)
+                    rb_twohour.Checked = true;
                 else
-                    rb_ten.Checked = true;
+                    rb_onehour.Checked = true;
             }
         }
 
@@ -67,6 +63,30 @@ namespace Dragonfly.Plugin.Task
         {
             get { return this.checkBoxUseQuestionNotify.Checked ? 1 : 0; }
             set { this.checkBoxUseQuestionNotify.Checked = (value == 1); }
+        }
+
+        public string StartTime
+        {
+            get { return this.dateTimePickerStartTime.Value.ToString("HH:mm"); }
+            set
+            {
+                DateTime settingTime;
+                try
+                {
+                    settingTime = DateTime.ParseExact(value, "HH:mm", null);
+                }
+                catch
+                {
+                    settingTime = DateTime.ParseExact("10:00", "HH:mm", null);
+                }
+                dateTimePickerStartTime.Value = settingTime;
+            }
+        }
+
+        public int LockScreenDuration
+        {
+            get { return Convert.ToInt32(this.numericUpDownDuration.Value); }
+            set { numericUpDownDuration.Value = value; }
         }
 
         public JobSettingForm()
@@ -78,20 +98,23 @@ namespace Dragonfly.Plugin.Task
         {
             SettingHelper helper = SettingHelper.GetInstance();
             NotifyJobSetting setting = helper.PluginSetting.NotifyJobSetting;
-            
+
             IsTooLateLockScreen = setting.IsTooLateLockScreen;
             TooLateTriggerTime = setting.TooLateTriggerTime;
             TooLateMinutes = setting.TooLateMinutes;
             LockScreenApp = setting.LockScreenApp;
             LockScreenType = setting.LockScreenType;
-            
+            LockScreenDuration = setting.LockScreenDuration;
+            StartTime = setting.StartTime;
+
             this.checkBoxUseQuestionNotify.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.rb_odd.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.rb_even.CheckedChanged += new System.EventHandler(this.Data_Changed);
-            this.rb_ten.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_onehour.CheckedChanged += new System.EventHandler(this.Data_Changed);
+            this.rb_twohour.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.checkBoxTooLate.CheckedChanged += new System.EventHandler(this.Data_Changed);
             this.numericUpDownTooLate.ValueChanged += new System.EventHandler(this.Data_Changed);
             this.dateTimePickerTooLate.ValueChanged += new System.EventHandler(this.Data_Changed);
+            this.numericUpDownDuration.ValueChanged += new System.EventHandler(this.Data_Changed);
+            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.Data_Changed);
             bDataChanged = false;
         }
 
@@ -113,6 +136,8 @@ namespace Dragonfly.Plugin.Task
                 setting.TooLateMinutes = TooLateMinutes;
                 setting.LockScreenApp = LockScreenApp;
                 setting.LockScreenType = LockScreenType;
+                setting.LockScreenDuration = LockScreenDuration;
+                setting.StartTime = StartTime;
 
                 helper.Save();
             }

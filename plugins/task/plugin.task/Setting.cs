@@ -30,6 +30,12 @@ namespace Dragonfly.Plugin.Task
 
         [XmlAttribute("LockScreenType")]
         public int LockScreenType { get; set; }
+
+        [XmlAttribute("LockScreenDuration")]
+        public int LockScreenDuration { get; set; }
+
+        [XmlAttribute("StartTime")]
+        public string StartTime { get; set; }
     }
 
 

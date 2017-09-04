@@ -10,10 +10,8 @@ namespace Dragonfly.Plugin.Task
         internal const int LockScreenApp_Simple = 0;
         internal const int LockScreenApp_Question = 1;
 
-        internal const int LockScreenType_Odd = 0; //奇数开始锁一个小时
-        internal const int LockScreenType_Even = 1; //偶数开始锁一个小时
-        internal const int LockScreenType_Ten = 2; //每小时锁十分钟
-        internal const int LockScreenType_HalfHour = 3; //每小时锁30分钟
+        internal const int LockScreenType_OneHour = 1; //周期为1个小时
+        internal const int LockScreenType_TwoHour = 2; //周期为2个小时
 
         private static SettingHelper instance;
         private static readonly object locker = new object();
@@ -40,7 +38,9 @@ namespace Dragonfly.Plugin.Task
                 TooLateTriggerTime = "21:30",
                 TooLateMinutes = 120,
                 LockScreenApp = LockScreenApp_Simple,
-                LockScreenType = LockScreenType_Odd,
+                LockScreenType = LockScreenType_OneHour,
+                LockScreenDuration = 30,
+                StartTime = "10:00"
             };
         }
 
@@ -60,7 +60,7 @@ namespace Dragonfly.Plugin.Task
             return instance;
         }
 
-        public bool Load()
+        public void Load()
         {
             lock (locker)
             {
@@ -78,17 +78,34 @@ namespace Dragonfly.Plugin.Task
                     PluginSetting.NotifyJobSetting.LockScreenApp = AppConfig.GetInt("task.LockScreenApp", PluginSetting.NotifyJobSetting.LockScreenApp);
                     PluginSetting.NotifyJobSetting.LockScreenType = AppConfig.GetInt("task.LockScreenType", PluginSetting.NotifyJobSetting.LockScreenType);
                     PluginSetting.NotifyJobSetting.IsTooLateLockScreen = AppConfig.GetBoolean("task.IsTooLateLockScreen", PluginSetting.NotifyJobSetting.IsTooLateLockScreen);
-                    return false;
                 }
-
-                if (setting.NotifyJobSetting == null)
+                else
                 {
-                    setting.NotifyJobSetting = DefaultNotifyJobSetting();
+
+                    if (setting.NotifyJobSetting == null)
+                    {
+                        setting.NotifyJobSetting = DefaultNotifyJobSetting();
+                    }
+                    PluginSetting = setting;
                 }
 
-                PluginSetting = setting;
-
-                return true;
+                if (PluginSetting.NotifyJobSetting.LockScreenType == LockScreenType_OneHour)
+                {
+                    if (PluginSetting.NotifyJobSetting.LockScreenDuration > 30 ||
+                        PluginSetting.NotifyJobSetting.LockScreenDuration < 1)
+                    {
+                        PluginSetting.NotifyJobSetting.LockScreenDuration = 30;
+                    }
+                }
+                else if (PluginSetting.NotifyJobSetting.LockScreenType == LockScreenType_TwoHour)
+                {
+                    PluginSetting.NotifyJobSetting.LockScreenDuration = 60;
+                }
+                else
+                {
+                    PluginSetting.NotifyJobSetting.LockScreenType = LockScreenType_OneHour;
+                    PluginSetting.NotifyJobSetting.LockScreenDuration = 30;
+                }
             }
 
         }
@@ -117,43 +134,21 @@ namespace Dragonfly.Plugin.Task
 
             DateTime now = DateTime.Now;
 
+            int interval;
+            int lockMinutes;
+            int start; //起始时间点
+
             int remainingMinutes = 0;
-            int interval = 120;
-            int lockMinutes = 60;
             int delayMinutes = 0;
 
-            int start; //起始时间点
 
             switch (PluginSetting.NotifyJobSetting.LockScreenType)
             {
-                case LockScreenType_Odd: //奇数开始锁
-                    if ((now.Hour & 1) == 0)
-                    {
-                        remainingMinutes = 0;
-                        delayMinutes = 0 - 60 - now.Minute;
-                    }
-                    else
-                    {
-                        remainingMinutes = 60 - now.Minute;
-                        delayMinutes = 0 - now.Minute;
-                    }
-                    break;
-                case LockScreenType_Even: //偶数开始锁
-                    if ((now.Hour & 1) == 0)
-                    {
-                        remainingMinutes = 60 - now.Minute;
-                        delayMinutes = 0 - now.Minute;
-                    }
-                    else
-                    {
-                        remainingMinutes = 0;
-                        delayMinutes = 0 - 60 - now.Minute;
-                    }
-                    break;
-                case LockScreenType_Ten: //每小时锁十分钟
+                case LockScreenType_OneHour: //周期为1小时
+                default:
                     interval = 60;
-                    lockMinutes = 10;
-                    start = 40;
+                    lockMinutes = PluginSetting.NotifyJobSetting.LockScreenDuration;
+                    start = 50 - lockMinutes;
                     if (now.Minute >= start && now.Minute < start + lockMinutes)
                     {
                         remainingMinutes = lockMinutes - (now.Minute - start);
@@ -171,26 +166,21 @@ namespace Dragonfly.Plugin.Task
                     }
                     break;
 
-                case LockScreenType_HalfHour: //每小时锁30分钟
-                    interval = 60;
-                    lockMinutes = 30;
-                    start = 20;
-                    if (now.Minute >= start && now.Minute < start + lockMinutes)
+                case LockScreenType_TwoHour: //周期为1小时,奇数或偶数开始锁
+                    interval = 120;
+                    lockMinutes = 60;
+                    if ((now.Hour & 1) == (PluginSetting.NotifyJobSetting.LockScreenDuration & 1))
                     {
-                        remainingMinutes = lockMinutes - (now.Minute - start);
-                        delayMinutes = 0 - (now.Minute - start);
+                        remainingMinutes = 0;
+                        delayMinutes = 0 - 60 - now.Minute;
                     }
                     else
                     {
-                        remainingMinutes = 0;
-                        delayMinutes = start - now.Minute;
-                        if (start > now.Minute)
-                        {
-                            delayMinutes -= 60;
-                        }
-
+                        remainingMinutes = 60 - now.Minute;
+                        delayMinutes = 0 - now.Minute;
                     }
                     break;
+
             }
 
             ret.Add("remainingMinutes", remainingMinutes);
