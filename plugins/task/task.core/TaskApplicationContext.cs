@@ -1,10 +1,40 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Dragonfly.Task.Core
 {
-    public class SealedProcessor
+    public class TaskApplicationContext : ApplicationContext
     {
-        public static bool Main(LockScreenForm mainWindow, string[] args)
+        private LockScreenForm mainWindow = null;
+        private SecondaryScreenForm secondaryScreen = null;
+        private int lockMinutes = 0;
+
+        public TaskApplicationContext(LockScreenForm mainWindow, string[] args)
+        {
+            ParseArgs(args);
+
+            if (secondaryScreen == null)
+            {
+                secondaryScreen = new SecondaryScreenForm();
+                secondaryScreen.Show();
+            }
+
+            this.mainWindow = mainWindow;
+            if (this.mainWindow != null)
+            {
+                this.mainWindow.Description = "健康是生命之本，保护视力，从娃娃开始！";
+                if (lockMinutes > 0)
+                {
+                    this.mainWindow.IntervalSeconds = lockMinutes * 60;
+                }
+
+                this.mainWindow.FormClosed += MainWindow_FormClosed;
+                this.mainWindow.Show();
+            }
+
+        }
+
+        private void ParseArgs(string[] args)
         {
             var arguments = CommandLineArgumentParser.Parse(args);
 
@@ -36,15 +66,16 @@ namespace Dragonfly.Task.Core
                 Logger.info("SealedProcessor", "recovery:" + lockMinutes);
             }
 
+            this.lockMinutes = lockMinutes;
+
             Logger.info("SealedProcessor", "lockMinutes:", lockMinutes);
 
-            if (lockMinutes > 0)
-            {
-                mainWindow.Description = "健康是生命之本，保护视力，从娃娃开始！";
-                mainWindow.IntervalSeconds = lockMinutes * 60;
-            }
-
-            return true;
         }
+
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ExitThread();
+        }
+
     }
 }

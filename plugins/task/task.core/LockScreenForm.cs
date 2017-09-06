@@ -16,7 +16,6 @@ namespace Dragonfly.Task.Core
         public virtual string Description { get; set; }
         public virtual string ClockText { get; set; }
 
-        public SecondaryScreenForm SecondaryScreen { get; set; }
         public bool IsDebugMode { get; set; }
 
         public virtual DateTime AddIntervalSeconds(int addSeconds)
@@ -31,14 +30,7 @@ namespace Dragonfly.Task.Core
         {
             designMode = (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null || LicenseManager.UsageMode == LicenseUsageMode.Designtime);
             IsDebugMode = false;
-            IntervalSeconds = 30;
-
-            if (!designMode && SecondaryScreen == null)
-            {
-                SecondaryScreen = new SecondaryScreenForm();
-                SecondaryScreen.Show();
-            }
-
+            IntervalSeconds = 10;
 
             Initialize();
 
@@ -128,12 +120,6 @@ namespace Dragonfly.Task.Core
         {
             if (notifySetting.EndTriggerTime <= DateTime.Now)
             {
-                if (SecondaryScreen != null)
-                {
-                    SecondaryScreen.Close();
-                    SecondaryScreen = null;
-                }
-
                 notifySetting.EndTriggerTime = DateTime.Now;
                 NotifySetting.SaveToFile(notifySetting);
                 this.Close();
@@ -152,12 +138,6 @@ namespace Dragonfly.Task.Core
 
         protected override void Dispose(bool disposing)
         {
-            if (SecondaryScreen != null)
-            {
-                SecondaryScreen.Close();
-                SecondaryScreen = null;
-            }
-
             if (timerTick != null)
             {
                 timerTick.Stop();

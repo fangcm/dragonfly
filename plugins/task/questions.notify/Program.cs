@@ -15,11 +15,8 @@ namespace Dragonfly.Questions.Notify
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm mainWindow = new MainForm();
-            bool ok = SealedProcessor.Main(mainWindow, args);
-            if (ok)
-            {
-                Application.Run(mainWindow);
-            }
+            TaskApplicationContext context = new TaskApplicationContext(mainWindow, args);
+            Application.Run(context);
         }
     }
 }

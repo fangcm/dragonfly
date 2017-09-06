@@ -13,11 +13,8 @@ namespace Dragonfly.Simple.Notify
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             NomalLockScreenForm mainWindow = new NomalLockScreenForm();
-            bool ok = SealedProcessor.Main(mainWindow, args);
-            if (ok)
-            {
-                Application.Run(mainWindow);
-            }
+            TaskApplicationContext context = new TaskApplicationContext(mainWindow, args);
+            Application.Run(context);
         }
     }
 }

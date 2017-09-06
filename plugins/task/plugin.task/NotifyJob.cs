@@ -42,8 +42,9 @@ namespace Dragonfly.Plugin.Task
                 catch
                 {
                 }
-                if (startTimeSettingHour * 100 + startTimeSettingMinute < nowHour * 100 + nowMinute)
+                if (startTimeSettingHour * 100 + startTimeSettingMinute > nowHour * 100 + nowMinute)
                 {
+                    Logger.info("NotifyJob", "Ignore this time, setting StartTime :" + setting.StartTime);
                     return;
                 }
 
