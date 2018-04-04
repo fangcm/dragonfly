@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.IO;
 
 namespace Dragonfly.Monitor
 {
     public class AppConfig
     {
+        private const string regKeyFolders = @"HKEY_USERS\<SID>\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders";
+        private const string regValueAppData = @"AppData";
+
         private static string _workingPath = string.Empty;
         private static string _pluginsPath = string.Empty;
         private static string _logsPath = string.Empty;
@@ -15,7 +19,9 @@ namespace Dragonfly.Monitor
             {
                 if (string.IsNullOrWhiteSpace(_workingPath))
                 {
-                    string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    System.Security.Principal.WindowsIdentity currentUser = System.Security.Principal.WindowsIdentity.GetCurrent();
+                    string sid = currentUser.User.ToString();
+                    string appDataPath = Registry.GetValue(regKeyFolders.Replace("<SID>", sid), regValueAppData, null) as string;
                     _workingPath = Path.Combine(appDataPath, "dragonfly");
                     if (!Directory.Exists(_workingPath))
                     {

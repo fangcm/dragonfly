@@ -92,7 +92,8 @@ namespace Dragonfly.Monitor
             {
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string appDataPath1 = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                string appDataPath2 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string appDataPath2 = (Environment.UserName);
+                string a = "";
             }
             catch (Exception ex)
             {
