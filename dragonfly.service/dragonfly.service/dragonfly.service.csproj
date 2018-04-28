@@ -7,8 +7,8 @@
     <ProjectGuid>{1F46829F-809D-4D82-87A9-729575975546}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dragonfly.Monitor</RootNamespace>
-    <AssemblyName>dragonfly.monitor</AssemblyName>
+    <RootNamespace>Dragonfly.Service</RootNamespace>
+    <AssemblyName>dragonfly.service</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
