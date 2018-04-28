@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Configuration.Install;
 using System.ServiceProcess;
 
-namespace Dragonfly.Monitor
+namespace Dragonfly.Service
 {
     [RunInstaller(true)]
     public class ProjectInstaller : Installer

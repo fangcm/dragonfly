@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Dragonfly.Monitor
+namespace Dragonfly.Service
 {
     public class AppConfig
     {

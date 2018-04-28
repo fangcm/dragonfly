@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-namespace Dragonfly.Monitor
+namespace Dragonfly.Service
 {
     static class Program
     {

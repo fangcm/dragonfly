@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace Dragonfly.Monitor
+namespace Dragonfly.Service
 {
     public class MainService : ServiceBase
     {
@@ -38,13 +38,13 @@ namespace Dragonfly.Monitor
 
         protected override void OnStart(string[] args)
         {
-            Logger.info("Monitor", "OnStart");
+            Logger.info("Service", "OnStart");
             timer.Start();
         }
 
         protected override void OnStop()
         {
-            Logger.info("Monitor", "OnStop");
+            Logger.info("Service", "OnStop");
             timer.Stop();
             if (worker != null) { 
                 worker.CancelAsync();
@@ -79,7 +79,7 @@ namespace Dragonfly.Monitor
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Logger.info("Monitor", "Worker_DoWork");
+            Logger.info("Service", "Worker_DoWork");
             BackgroundWorker localWorker = sender as BackgroundWorker;
             if (localWorker.CancellationPending)
             {

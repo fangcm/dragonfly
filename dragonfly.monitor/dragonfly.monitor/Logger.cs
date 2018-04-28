@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Dragonfly.Monitor
+namespace Dragonfly.Service
 {
     public static class Logger
     {
