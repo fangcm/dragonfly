@@ -1,35 +1,28 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Dragonfly.Service
 {
-    public class ProcessStarter : IDisposable
+    public class ProcessStarter
     {
         private string processPath_ = string.Empty;
-        private string processName_ = string.Empty;
         private string arguments_ = string.Empty;
         private WinApi.PROCESS_INFORMATION processInfo_;
-
 
         public ProcessStarter()
         {
 
         }
 
-        public ProcessStarter(string processName, string fullExeName)
+        public ProcessStarter(string fullExeName)
         {
-            processName_ = processName;
             processPath_ = fullExeName;
         }
-        public ProcessStarter(string processName, string fullExeName, string arguments)
+        public ProcessStarter(string fullExeName, string arguments)
         {
-            processName_ = processName;
             processPath_ = fullExeName;
             arguments_ = arguments;
         }
-
-
 
         public void Run()
         {
@@ -67,33 +60,6 @@ namespace Dragonfly.Service
             WinApi.CloseHandle(primaryToken);
         }
 
-        public void Stop()
-        {
-            Process[] processes = Process.GetProcesses();
-            foreach (Process current in processes)
-            {
-                if (current.ProcessName == processName_)
-                {
-                    current.Kill();
-                }
-            }
-        }
-
-        public int WaitForExit()
-        {
-            WinApi.WaitForSingleObject(processInfo_.hProcess, WinApi.INFINITE);
-            int errorcode = WinApi.GetLastError();
-            return errorcode;
-        }
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-        }
-
-        #endregion
-
         public string ProcessPath
         {
             get
@@ -103,18 +69,6 @@ namespace Dragonfly.Service
             set
             {
                 processPath_ = value;
-            }
-        }
-
-        public string ProcessName
-        {
-            get
-            {
-                return processName_;
-            }
-            set
-            {
-                processName_ = value;
             }
         }
 

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.ServiceProcess;
 using System.Timers;
 
@@ -50,7 +53,6 @@ namespace Dragonfly.Service
 
         private void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Logger.info("Service", "Worker_DoWork");
             BackgroundWorker localWorker = sender as BackgroundWorker;
             if (localWorker.CancellationPending)
             {
@@ -61,18 +63,65 @@ namespace Dragonfly.Service
 
             try
             {
+                if(IsDragonflyMainProgramRunning())
+                {
+                    return;
+                }
+
                 string appDataPath = WinApi.GetCurrentUserApplicationDataFolderPath();
-                string a = "";
+                string dragonfly = Path.Combine(appDataPath, "dragonfly", "plugins", "dragonfly.main.exe");
+                if (!File.Exists(dragonfly))
+                {
+                    foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+                    {
+                        Logger.error("Service", " {0} value = {1}", de.Key, de.Value);
+                    }
+
+
+                    string programFiles = Environment.GetEnvironmentVariable("ProgramW6432 ");
+                    dragonfly = Path.Combine(programFiles, "dragonfly", "dragonfly.main.exe");
+                    if (!File.Exists(dragonfly))
+                    {
+                        programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                        dragonfly = Path.Combine(programFiles, "dragonfly", "dragonfly.main.exe");
+                        if (!File.Exists(dragonfly))
+                        {
+                            return;
+                        }
+                    }
+                }
+                ProcessStarter starter = new ProcessStarter(dragonfly);
+                starter.Run();
             }
             catch (Exception ex)
             {
+                Logger.error("Service", "worker_DoWork error.",ex.Message);
 
             }
-            finally
-            {
-
-            }
-
+          
         }
+
+        private bool IsDragonflyMainProgramRunning()
+        {
+            bool found = false;
+            Process[] processes = Process.GetProcesses();
+            foreach (Process process in processes)
+            {
+                try
+                {
+                    if (process.MainModule.FileName.ToLower().EndsWith("dragonfly.main.exe"))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            return found;
+        }
+
     }
 }
