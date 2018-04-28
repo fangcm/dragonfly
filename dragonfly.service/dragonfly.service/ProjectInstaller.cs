@@ -6,9 +6,9 @@ using System.ServiceProcess;
 namespace Dragonfly.Service
 {
     [RunInstaller(true)]
-    public class ProjectInstaller : Installer
+    public partial class ProjectInstaller : Installer
     {
-        private const string DefaultServiceName = "DM Manager";
+        private const string DefaultServiceName = "DS Manager";
         private const string ServiceNameSwitch = "ServiceName";
         private ServiceProcessInstaller serviceProcessInstaller;
         private ServiceInstaller serviceInstaller;
@@ -16,10 +16,7 @@ namespace Dragonfly.Service
         public ProjectInstaller()
         {
             InitializeComponent();
-        }
 
-        private void InitializeComponent()
-        {
             serviceProcessInstaller = new ServiceProcessInstaller();
             serviceProcessInstaller.Account = ServiceAccount.LocalSystem;
 
@@ -32,6 +29,7 @@ namespace Dragonfly.Service
                     serviceProcessInstaller,
                     serviceInstaller
                 });
+
         }
 
         protected override void OnBeforeInstall(IDictionary stateSaver)
@@ -44,7 +42,10 @@ namespace Dragonfly.Service
 
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
-            SetServiceName(ServiceName(savedState));
+            if (savedState != null)
+            {
+                SetServiceName(ServiceName(savedState));
+            }
             base.OnBeforeUninstall(savedState);
         }
 
@@ -68,5 +69,4 @@ namespace Dragonfly.Service
         }
 
     }
-
 }

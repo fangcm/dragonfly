@@ -1,39 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace Dragonfly.Service
 {
-    public class MainService : ServiceBase
+    partial class MainService : ServiceBase
     {
         private readonly Timer timer = new Timer();
-        private readonly BackgroundWorker worker = new BackgroundWorker();
-
         public MainService()
         {
             InitializeComponent();
 
-        }
-
-        private void InitializeComponent()
-        {
-            this.ServiceName = "MainService";
             this.CanShutdown = true;
             this.CanStop = true;
 
             timer.Interval = 2000;
-            timer.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
-
-            worker.WorkerSupportsCancellation = true;
-            worker.WorkerReportsProgress = false;
-            worker.DoWork += new DoWorkEventHandler(Worker_DoWork);
+            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
         }
 
         protected override void OnStart(string[] args)
@@ -46,7 +29,8 @@ namespace Dragonfly.Service
         {
             Logger.info("Service", "OnStop");
             timer.Stop();
-            if (worker != null) { 
+            if (worker != null)
+            {
                 worker.CancelAsync();
             }
             while (true)
@@ -56,20 +40,7 @@ namespace Dragonfly.Service
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (worker != null)
-            {
-                worker.CancelAsync();
-            }
-            if (disposing)
-            {
-                timer.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (!worker.IsBusy)
             {
@@ -77,7 +48,7 @@ namespace Dragonfly.Service
             }
         }
 
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        private void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Logger.info("Service", "Worker_DoWork");
             BackgroundWorker localWorker = sender as BackgroundWorker;
@@ -90,9 +61,7 @@ namespace Dragonfly.Service
 
             try
             {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string appDataPath1 = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                string appDataPath2 = (Environment.UserName);
+                string appDataPath = WinApi.GetCurrentUserApplicationDataFolderPath();
                 string a = "";
             }
             catch (Exception ex)
@@ -103,9 +72,7 @@ namespace Dragonfly.Service
             {
 
             }
+
         }
-
     }
-
-
 }

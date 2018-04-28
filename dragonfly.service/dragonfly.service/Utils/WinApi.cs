@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
-using System.IO;
 using System.Security.Principal;
 
 namespace Dragonfly.Service
 {
-    public class ProcessStarter : IDisposable
+    internal class WinApi
     {
-        #region Import Section
-
         private static uint STANDARD_RIGHTS_REQUIRED = 0x000F0000;
         private static uint STANDARD_RIGHTS_READ = 0x00020000;
         private static uint TOKEN_ASSIGN_PRIMARY = 0x0001;
@@ -26,16 +20,16 @@ namespace Dragonfly.Service
         private static uint TOKEN_READ = (STANDARD_RIGHTS_READ | TOKEN_QUERY);
         private static uint TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT | TOKEN_ADJUST_SESSIONID);
 
-        private const uint NORMAL_PRIORITY_CLASS = 0x0020;
+        internal const uint NORMAL_PRIORITY_CLASS = 0x0020;
 
-        private const uint CREATE_UNICODE_ENVIRONMENT = 0x00000400;
+        internal const uint CREATE_UNICODE_ENVIRONMENT = 0x00000400;
 
 
         private const uint MAX_PATH = 260;
 
-        private const uint CREATE_NO_WINDOW = 0x08000000;
+        internal const uint CREATE_NO_WINDOW = 0x08000000;
 
-        private const uint INFINITE = 0xFFFFFFFF;
+        internal const uint INFINITE = 0xFFFFFFFF;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_ATTRIBUTES
@@ -123,66 +117,51 @@ namespace Dragonfly.Service
         static extern bool WTSQueryUserToken(int sessionId, out IntPtr tokenHandle);
 
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public extern static bool DuplicateTokenEx(IntPtr existingToken, uint desiredAccess, IntPtr tokenAttributes, SECURITY_IMPERSONATION_LEVEL impersonationLevel, TOKEN_TYPE tokenType, out IntPtr newToken);
+        internal extern static bool DuplicateTokenEx(IntPtr existingToken, uint desiredAccess, IntPtr tokenAttributes, SECURITY_IMPERSONATION_LEVEL impersonationLevel, TOKEN_TYPE tokenType, out IntPtr newToken);
 
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool CreateProcessAsUser(IntPtr token, string applicationName, string commandLine, ref SECURITY_ATTRIBUTES processAttributes, ref SECURITY_ATTRIBUTES threadAttributes, bool inheritHandles, uint creationFlags, IntPtr environment, string currentDirectory, ref STARTUPINFO startupInfo, out PROCESS_INFORMATION processInformation);
+        internal static extern bool CreateProcessAsUser(IntPtr token, string applicationName, string commandLine, ref SECURITY_ATTRIBUTES processAttributes, ref SECURITY_ATTRIBUTES threadAttributes, bool inheritHandles, uint creationFlags, IntPtr environment, string currentDirectory, ref STARTUPINFO startupInfo, out PROCESS_INFORMATION processInformation);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool CloseHandle(IntPtr handle);
+        internal static extern bool CloseHandle(IntPtr handle);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern int GetLastError();
+        internal static extern int GetLastError();
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern int WaitForSingleObject(IntPtr token, uint timeInterval);
+        internal static extern int WaitForSingleObject(IntPtr token, uint timeInterval);
 
         [DllImport("wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern int WTSEnumerateSessions(System.IntPtr hServer, int Reserved, int Version, ref System.IntPtr ppSessionInfo, ref int pCount);
 
         [DllImport("userenv.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool CreateEnvironmentBlock(out IntPtr lpEnvironment, IntPtr hToken, bool bInherit);
+        internal static extern bool CreateEnvironmentBlock(out IntPtr lpEnvironment, IntPtr hToken, bool bInherit);
 
         [DllImport("wtsapi32.dll", ExactSpelling = true, SetLastError = false)]
-        public static extern void WTSFreeMemory(IntPtr memory);
+        static extern void WTSFreeMemory(IntPtr memory);
 
         [DllImport("userenv.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool DestroyEnvironmentBlock(IntPtr lpEnvironment);
+        internal static extern bool DestroyEnvironmentBlock(IntPtr lpEnvironment);
 
-        #endregion
 
-        public ProcessStarter()
-        {
 
-        }
 
-        public ProcessStarter(string processName, string fullExeName)
-        {
-            processName_ = processName;
-            processPath_ = fullExeName;
-        }
-        public ProcessStarter(string processName, string fullExeName, string arguments)
-        {
-            processName_ = processName;
-            processPath_ = fullExeName;
-            arguments_ = arguments;
-        }
-
-        public static void a()
+        public static string GetCurrentUserApplicationDataFolderPath()
         {
             // Get token of the current user 
-            IntPtr currentUserToken = ProcessStarter.GetCurrentUserToken();
+            IntPtr currentUserToken = GetCurrentUserToken();
             // Get user ID by the token
             WindowsIdentity currentUserId = new WindowsIdentity(currentUserToken);
             // Perform impersonation 
             WindowsImpersonationContext impersonatedUser = currentUserId.Impersonate();
             // Get path to the "My Documents" 
-            String myDocumentsPath =
-              Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             // Make everything as it was 
             impersonatedUser.Undo();
+            return path;
         }
+
         public static IntPtr GetCurrentUserToken()
         {
             IntPtr currentToken = IntPtr.Zero;
@@ -230,106 +209,6 @@ namespace Dragonfly.Service
             return primaryToken;
         }
 
-        public void Run()
-        {
 
-            IntPtr primaryToken = GetCurrentUserToken();
-            if (primaryToken == IntPtr.Zero)
-            {
-                return;
-            }
-            STARTUPINFO StartupInfo = new STARTUPINFO();
-            processInfo_ = new PROCESS_INFORMATION();
-            StartupInfo.cb = Marshal.SizeOf(StartupInfo);
-
-            SECURITY_ATTRIBUTES Security1 = new SECURITY_ATTRIBUTES();
-            SECURITY_ATTRIBUTES Security2 = new SECURITY_ATTRIBUTES();
-
-            string command = "\"" + processPath_ + "\"";
-            if ((arguments_ != null) && (arguments_.Length != 0))
-            {
-                command += " " + arguments_;
-            }
-
-            IntPtr lpEnvironment = IntPtr.Zero;
-            bool resultEnv = CreateEnvironmentBlock(out lpEnvironment, primaryToken, false);
-            if (resultEnv != true)
-            {
-                int nError = GetLastError();
-            }
-
-            CreateProcessAsUser(primaryToken, null, command, ref Security1, ref Security2, false, CREATE_NO_WINDOW | NORMAL_PRIORITY_CLASS | CREATE_UNICODE_ENVIRONMENT, lpEnvironment, null, ref StartupInfo, out processInfo_);
-
-            DestroyEnvironmentBlock(lpEnvironment);
-            CloseHandle(primaryToken);
-        }
-
-        public void Stop()
-        {
-            Process[] processes = Process.GetProcesses();
-            foreach (Process current in processes)
-            {
-                if (current.ProcessName == processName_)
-                {
-                    current.Kill();
-                }
-            }
-        }
-
-        public int WaitForExit()
-        {
-            WaitForSingleObject(processInfo_.hProcess, INFINITE);
-            int errorcode = GetLastError();
-            return errorcode;
-        }
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-        }
-
-        #endregion
-
-        private string processPath_ = string.Empty;
-        private string processName_ = string.Empty;
-        private string arguments_ = string.Empty;
-        private PROCESS_INFORMATION processInfo_;
-
-        public string ProcessPath
-        {
-            get
-            {
-                return processPath_;
-            }
-            set
-            {
-                processPath_ = value;
-            }
-        }
-
-        public string ProcessName
-        {
-            get
-            {
-                return processName_;
-            }
-            set
-            {
-                processName_ = value;
-            }
-        }
-
-        public string Arguments
-        {
-            get
-            {
-                return arguments_;
-            }
-            set
-            {
-                arguments_ = value;
-            }
-        }
     }
 }
