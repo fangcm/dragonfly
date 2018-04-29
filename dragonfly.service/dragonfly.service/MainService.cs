@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -11,14 +10,21 @@ namespace Dragonfly.Service
     partial class MainService : ServiceBase
     {
         private readonly Timer timer = new Timer();
+        private int ticks = 0;
+
         public MainService()
         {
             InitializeComponent();
-
+#if DEBUG
             this.CanShutdown = true;
             this.CanStop = true;
+            timer.Interval = 6000;
+#else
+            this.CanShutdown = false;
+            this.CanStop = false;
+            timer.Interval = 60000;
+#endif
 
-            timer.Interval = 2000;
             timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
         }
 
@@ -53,6 +59,8 @@ namespace Dragonfly.Service
 
         private void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            ticks++;
+
             BackgroundWorker localWorker = sender as BackgroundWorker;
             if (localWorker.CancellationPending)
             {
@@ -63,42 +71,24 @@ namespace Dragonfly.Service
 
             try
             {
-                if(IsDragonflyMainProgramRunning())
+                if (IsDragonflyMainProgramRunning())
                 {
                     return;
                 }
 
                 string appDataPath = WinApi.GetCurrentUserApplicationDataFolderPath();
-                string dragonfly = Path.Combine(appDataPath, "dragonfly", "plugins", "dragonfly.main.exe");
-                if (!File.Exists(dragonfly))
+                if (RunDragonflyMainProcess(appDataPath))
                 {
-                    foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-                    {
-                        Logger.error("Service", " {0} value = {1}", de.Key, de.Value);
-                    }
-
-
-                    string programFiles = Environment.GetEnvironmentVariable("ProgramW6432 ");
-                    dragonfly = Path.Combine(programFiles, "dragonfly", "dragonfly.main.exe");
-                    if (!File.Exists(dragonfly))
-                    {
-                        programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-                        dragonfly = Path.Combine(programFiles, "dragonfly", "dragonfly.main.exe");
-                        if (!File.Exists(dragonfly))
-                        {
-                            return;
-                        }
-                    }
+                    return;
                 }
-                ProcessStarter starter = new ProcessStarter(dragonfly);
-                starter.Run();
+
+                RunNotifyProcess(appDataPath);
             }
             catch (Exception ex)
             {
-                Logger.error("Service", "worker_DoWork error.",ex.Message);
-
+                Logger.error("Service", "worker_DoWork error.", ex.Message);
             }
-          
+
         }
 
         private bool IsDragonflyMainProgramRunning()
@@ -109,7 +99,7 @@ namespace Dragonfly.Service
             {
                 try
                 {
-                    if (process.MainModule.FileName.ToLower().EndsWith("dragonfly.main.exe"))
+                    if (process.ProcessName.ToLower().EndsWith("dragonfly.main"))
                     {
                         found = true;
                         break;
@@ -123,5 +113,38 @@ namespace Dragonfly.Service
             return found;
         }
 
+        private bool RunDragonflyMainProcess(string appDataPath)
+        {
+            string dragonfly = Path.Combine(appDataPath, "dragonfly", "plugins", "dragonfly.main.exe");
+            if (!File.Exists(dragonfly))
+            {
+                string programFiles = Environment.GetEnvironmentVariable("ProgramW6432");
+                dragonfly = Path.Combine(programFiles, "dragonfly", "dragonfly.main.exe");
+                if (!File.Exists(dragonfly))
+                {
+                    programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                    dragonfly = Path.Combine(programFiles, "dragonfly", "dragonfly.main.exe");
+                    if (!File.Exists(dragonfly))
+                    {
+                        return false;
+                    }
+                }
+            }
+            ProcessStarter starter = new ProcessStarter(dragonfly);
+            starter.Run();
+            return true;
+        }
+
+        private bool RunNotifyProcess(string appDataPath)
+        {
+            string notify = Path.Combine(appDataPath, "dragonfly", "plugins", "simple.notify.exe");
+            if (!File.Exists(notify))
+            {
+                return false;
+            }
+            ProcessStarter starter = new ProcessStarter(notify, "-lockminutes 10");
+            starter.Run();
+            return true;
+        }
     }
 }
