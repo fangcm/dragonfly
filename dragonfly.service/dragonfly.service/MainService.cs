@@ -18,7 +18,7 @@ namespace Dragonfly.Service
 #if DEBUG
             this.CanShutdown = true;
             this.CanStop = true;
-            timer.Interval = 6000;
+            timer.Interval = 60000;
 #else
             this.CanShutdown = false;
             this.CanStop = false;
@@ -82,7 +82,10 @@ namespace Dragonfly.Service
                     return;
                 }
 
-                RunNotifyProcess(appDataPath);
+                if (ticks % 60 == 40)
+                {
+                    RunNotifyProcess(appDataPath);
+                }
             }
             catch (Exception ex)
             {
