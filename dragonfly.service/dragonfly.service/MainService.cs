@@ -25,13 +25,11 @@ namespace Dragonfly.Service
 
         protected override void OnStart(string[] args)
         {
-            Logger.info("Service", "OnStart");
             timer.Start();
         }
 
         protected override void OnStop()
         {
-            Logger.info("Service", "OnStop");
             timer.Stop();
             if (worker != null)
             {
@@ -82,9 +80,8 @@ namespace Dragonfly.Service
                     RunNotifyProcess(appDataPath);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Logger.error("Service", "worker_DoWork error.", ex.Message);
             }
 
         }

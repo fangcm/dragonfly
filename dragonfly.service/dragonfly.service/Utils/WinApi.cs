@@ -151,6 +151,10 @@ namespace Dragonfly.Service
         {
             // Get token of the current user 
             IntPtr currentUserToken = GetCurrentUserToken();
+            if(currentUserToken == IntPtr.Zero)
+            {
+                return string.Empty;
+            }
             // Get user ID by the token
             WindowsIdentity currentUserId = new WindowsIdentity(currentUserToken);
             // Perform impersonation 
@@ -175,8 +179,11 @@ namespace Dragonfly.Service
             IntPtr pSessionInfo = IntPtr.Zero;
             int dwCount = 0;
 
-            WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount);
-
+            int retVal = WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount);
+            if (retVal == 0)
+            {
+                return IntPtr.Zero;
+            } 
             Int32 dataSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
 
             Int32 current = (int)pSessionInfo;
