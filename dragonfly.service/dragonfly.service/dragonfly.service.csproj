@@ -36,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
@@ -56,10 +57,10 @@
     </Compile>
     <Compile Include="Utils\AppConfig.cs" />
     <Compile Include="Utils\ProcessStarter.cs" />
+    <Compile Include="Utils\ServiceHelper.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\SelfInstaller.cs" />
     <Compile Include="Utils\WinApi.cs" />
   </ItemGroup>
   <ItemGroup>

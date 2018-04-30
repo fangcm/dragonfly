@@ -15,15 +15,10 @@ namespace Dragonfly.Service
         public MainService()
         {
             InitializeComponent();
-#if DEBUG
+
             this.CanShutdown = true;
             this.CanStop = true;
             timer.Interval = 60000;
-#else
-            this.CanShutdown = false;
-            this.CanStop = false;
-            timer.Interval = 60000;
-#endif
 
             timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
         }

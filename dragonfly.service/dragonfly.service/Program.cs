@@ -1,4 +1,5 @@
-﻿using System.ServiceProcess;
+﻿using System.Reflection;
+using System.ServiceProcess;
 
 namespace Dragonfly.Service
 {
@@ -18,20 +19,18 @@ namespace Dragonfly.Service
                         break;
                     case "install":
                     case "i":
-                        SelfInstaller.InstallMe();
+                        string _exePath = Assembly.GetExecutingAssembly().Location;
+                        ServiceHelper.Install("dsmanager", "dsmanager", _exePath, "", ServiceStartType.Auto, ServiceAccount.LocalService, null);
                         break;
                     case "uninstall":
                     case "u":
-                        SelfInstaller.UninstallMe();
+                        ServiceHelper.Uninstall("dsmanager");
                         break;
                 }
             }
             else
             {
-                ServiceBase[] ServicesToRun = new ServiceBase[]
-                {
-                new MainService()
-                };
+                ServiceBase[] ServicesToRun = new ServiceBase[] { new MainService() };
                 ServiceBase.Run(ServicesToRun);
             }
         }
