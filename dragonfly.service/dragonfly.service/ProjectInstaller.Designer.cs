@@ -39,9 +39,8 @@
             // 
             // serviceInstaller
             // 
-            this.serviceInstaller.Description = "DS Manager";
-            this.serviceInstaller.DisplayName = "DS Manager";
-            this.serviceInstaller.ServiceName = "DS Manager";
+            this.serviceInstaller.DisplayName = "dsmanager";
+            this.serviceInstaller.ServiceName = "dsmanager";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
