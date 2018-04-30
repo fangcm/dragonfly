@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Configuration.Install;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
+using System.ServiceProcess;
 
 namespace SetupLibrary
 {
@@ -30,13 +31,27 @@ namespace SetupLibrary
             }
 
             string mainApp = Path.Combine(targetDir, "dragonfly.main.exe");
+            RunProcess(targetDir, mainApp, "", false);
 
-            Process process = new Process();
-            process.StartInfo.FileName = mainApp;
-            process.StartInfo.WorkingDirectory = targetDir;
-            process.Start();
+            string service = Path.Combine(targetDir, "dsmanager.exe");
+            Process s = RunProcess(targetDir, service, "-install", true);
+            if (s != null)
+            {
+                s.WaitForExit(5000);
+            }
 
+            try
+            {
+                using (ServiceController sc = new ServiceController("dsmanager"))
+                {
+                    sc.Start();
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
+
 
         public override void Uninstall(IDictionary savedState)
         {
@@ -54,7 +69,42 @@ namespace SetupLibrary
                 }
             }
 
+            try
+            {
+                using (ServiceController sc = new ServiceController("dsmanager"))
+                {
+                    TimeSpan timeout = new TimeSpan(0, 0, 15);
+                    if (sc.Status != ServiceControllerStatus.Stopped)
+                    {
+                        sc.Stop();
+                        sc.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            string service = Path.Combine(targetDir, "dsmanager.exe");
+            RunProcess(targetDir, service, "-uninstall", true);
+
         }
 
+
+
+        private Process RunProcess(string targetDir, string exeFile, string args, bool isAdmin)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = exeFile;
+            process.StartInfo.WorkingDirectory = targetDir;
+            process.StartInfo.Arguments = args;
+            if (isAdmin)
+            {
+                process.StartInfo.Verb = "runas";
+            }
+            process.Start();
+
+            return process;
+        }
     }
 }

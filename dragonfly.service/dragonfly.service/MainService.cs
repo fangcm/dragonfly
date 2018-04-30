@@ -10,7 +10,7 @@ namespace Dragonfly.Service
     partial class MainService : ServiceBase
     {
         private readonly Timer timer = new Timer();
-        private int ticks = 0;
+        private int ticks = -10;
 
         public MainService()
         {
@@ -44,6 +44,16 @@ namespace Dragonfly.Service
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            ticks++;
+            if (ticks < 0)
+            {
+                return;
+            }
+            if (ticks >= 6000)
+            {
+                ticks = 0;
+            }
+
             if (!worker.IsBusy)
             {
                 worker.RunWorkerAsync();
@@ -52,7 +62,6 @@ namespace Dragonfly.Service
 
         private void worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            ticks++;
 
             BackgroundWorker localWorker = sender as BackgroundWorker;
             if (localWorker.CancellationPending)

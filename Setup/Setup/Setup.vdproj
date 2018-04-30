@@ -57,49 +57,37 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3F59D08BB5750D352AED50A5FFA07F28"
-        "OwnerKey" = "8:_E04979D93F5245A2A7CE05801E7D7BE3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_474B919ED0D2B08C0A43C099697A4595"
-        "OwnerKey" = "8:_23549BC0C84E4BB7899E550CF973499D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_474B919ED0D2B08C0A43C099697A4595"
-        "OwnerKey" = "8:_FAB763B8189A4487B7A1D739C5C11DE8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_474B919ED0D2B08C0A43C099697A4595"
-        "OwnerKey" = "8:_E9D371898BC84488A60A3E4F4953809F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_474B919ED0D2B08C0A43C099697A4595"
-        "OwnerKey" = "8:_9A25876E52AD4BCB9CCE520C8DC37C67"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_474B919ED0D2B08C0A43C099697A4595"
+        "MsmKey" = "8:_40B02157D15AD3B150EAC224051AB2FB"
         "OwnerKey" = "8:_2EF6E826D0834A168B403C73740F0AD1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5F3016D8C8EF4C1BA57F1012520C2870"
+        "MsmKey" = "8:_40B02157D15AD3B150EAC224051AB2FB"
+        "OwnerKey" = "8:_9A25876E52AD4BCB9CCE520C8DC37C67"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_40B02157D15AD3B150EAC224051AB2FB"
+        "OwnerKey" = "8:_E9D371898BC84488A60A3E4F4953809F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_40B02157D15AD3B150EAC224051AB2FB"
+        "OwnerKey" = "8:_CE5DB896ED3B442F9A434D41BA175AAB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4EE9667D429E40C7AAE02BBEC21EFE5E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5F6EAC26FDF3479FAF5131431186202C"
+        "MsmKey" = "8:_5F3016D8C8EF4C1BA57F1012520C2870"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -111,25 +99,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_88130B79D9FED01D627768D6BD215D35"
-        "OwnerKey" = "8:_E04979D93F5245A2A7CE05801E7D7BE3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8AF3D09B7858211D7CCB5724A056017F"
         "OwnerKey" = "8:_23549BC0C84E4BB7899E550CF973499D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_950AEDF0311249A1A7DAC615C450DB78"
+        "MsmKey" = "8:_9523BB351DA54864966750D34D17CF83"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9523BB351DA54864966750D34D17CF83"
+        "MsmKey" = "8:_952A5E7EF297478B93115905B1721F41"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -147,19 +129,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B6A680009BD24812B685F2EA5E71228F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_BD793F7EB13B473CAE05688D134F0F86"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C933F856AF1C4BA1BE8678689580CE27"
+        "MsmKey" = "8:_CE5DB896ED3B442F9A434D41BA175AAB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -177,7 +153,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E04979D93F5245A2A7CE05801E7D7BE3"
+        "MsmKey" = "8:_E180F6F1A3D247F5B52E6E57A730A89F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -195,12 +171,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FAB763B8189A4487B7A1D739C5C11DE8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BD793F7EB13B473CAE05688D134F0F86"
         "MsmSig" = "8:_UNDEFINED"
@@ -208,115 +178,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B6A680009BD24812B685F2EA5E71228F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_950AEDF0311249A1A7DAC615C450DB78"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C933F856AF1C4BA1BE8678689580CE27"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FAB763B8189A4487B7A1D739C5C11DE8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E9D371898BC84488A60A3E4F4953809F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E5E34024040C4F6B9CB8B7E0AF1E0AFC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E04979D93F5245A2A7CE05801E7D7BE3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_88130B79D9FED01D627768D6BD215D35"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DB6FFF4B1C81441DB50874074984E6EA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D887E3A44F2F483D92CACD7D76ADE7C4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9D23B086A2AFDDCFA322CAA767AE2EC6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9A25876E52AD4BCB9CCE520C8DC37C67"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9523BB351DA54864966750D34D17CF83"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3F59D08BB5750D352AED50A5FFA07F28"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5F6EAC26FDF3479FAF5131431186202C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2EF6E826D0834A168B403C73740F0AD1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23549BC0C84E4BB7899E550CF973499D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8AF3D09B7858211D7CCB5724A056017F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_474B919ED0D2B08C0A43C099697A4595"
+        "OwnerKey" = "8:_0A084C0BAFACEB0C50110C67CA7C689F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -328,7 +190,91 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0A084C0BAFACEB0C50110C67CA7C689F"
+        "OwnerKey" = "8:_8AF3D09B7858211D7CCB5724A056017F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_23549BC0C84E4BB7899E550CF973499D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_40B02157D15AD3B150EAC224051AB2FB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2EF6E826D0834A168B403C73740F0AD1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3F59D08BB5750D352AED50A5FFA07F28"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9523BB351DA54864966750D34D17CF83"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9A25876E52AD4BCB9CCE520C8DC37C67"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9D23B086A2AFDDCFA322CAA767AE2EC6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D887E3A44F2F483D92CACD7D76ADE7C4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DB6FFF4B1C81441DB50874074984E6EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E5E34024040C4F6B9CB8B7E0AF1E0AFC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E9D371898BC84488A60A3E4F4953809F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_952A5E7EF297478B93115905B1721F41"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4EE9667D429E40C7AAE02BBEC21EFE5E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CE5DB896ED3B442F9A434D41BA175AAB"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -458,20 +404,6 @@
             "Identifier" = "8:_A255B80D_842C_4E74_98D4_AE824DC59538"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:/TARGETDIR=\"[TARGETDIR]\\\" /PROFILE=[PROFILE]"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_2D51067BD9474E1BAC37B86C0265ADA7"
-            {
-            "Name" = "8:dsmanager.exe"
-            "Condition" = "8:"
-            "Object" = "8:_B6A680009BD24812B685F2EA5E71228F"
-            "FileType" = "3:2"
-            "InstallAction" = "3:1"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:2"
-            "Identifier" = "8:_D6BA2337_89FB_4D48_844C_570B1357A169"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
             }
         }
         "DefaultFeature"
@@ -647,11 +579,6 @@
             "AssemblyAsmDisplayName" = "8:task.core, Version=1.0.4.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3F59D08BB5750D352AED50A5FFA07F28"
-                    {
-                    "Name" = "8:task.core.DLL"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:task.core.DLL"
             "TargetName" = "8:"
@@ -671,18 +598,13 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_474B919ED0D2B08C0A43C099697A4595"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_40B02157D15AD3B150EAC224051AB2FB"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.4.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_474B919ED0D2B08C0A43C099697A4595"
-                    {
-                    "Name" = "8:dragonfly.common.DLL"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:dragonfly.common.DLL"
             "TargetName" = "8:"
@@ -702,16 +624,27 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5F3016D8C8EF4C1BA57F1012520C2870"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4EE9667D429E40C7AAE02BBEC21EFE5E"
             {
-            "SourcePath" = "8:..\\SetupNeededFiles\\main\\dragonfly.main.exe.config"
-            "TargetName" = "8:dragonfly.main.exe.config"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.4.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_4EE9667D429E40C7AAE02BBEC21EFE5E"
+                    {
+                    "Name" = "8:dragonfly.common.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\SetupNeededFiles\\main\\dragonfly.common.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
-            "ReadOnly" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
@@ -722,23 +655,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5F6EAC26FDF3479FAF5131431186202C"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5F3016D8C8EF4C1BA57F1012520C2870"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:questions.core, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5F6EAC26FDF3479FAF5131431186202C"
-                    {
-                    "Name" = "8:questions.core.dll"
-                    "Attributes" = "3:513"
-                    }
-                }
-            "SourcePath" = "8:..\\SetupNeededFiles\\plugins\\questions.core.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\SetupNeededFiles\\main\\dragonfly.main.exe.config"
+            "TargetName" = "8:dragonfly.main.exe.config"
             "Tag" = "8:"
-            "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -773,37 +695,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_88130B79D9FED01D627768D6BD215D35"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:questions.core, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_88130B79D9FED01D627768D6BD215D35"
-                    {
-                    "Name" = "8:questions.core.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:questions.core.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8AF3D09B7858211D7CCB5724A056017F"
             {
             "AssemblyRegister" = "3:1"
@@ -811,11 +702,6 @@
             "AssemblyAsmDisplayName" = "8:FluentScheduler, Version=5.1.4.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_8AF3D09B7858211D7CCB5724A056017F"
-                    {
-                    "Name" = "8:FluentScheduler.DLL"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:FluentScheduler.DLL"
             "TargetName" = "8:"
@@ -833,37 +719,6 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_950AEDF0311249A1A7DAC615C450DB78"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dragonfly.common, Version=1.0.4.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_950AEDF0311249A1A7DAC615C450DB78"
-                    {
-                    "Name" = "8:dragonfly.common.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\SetupNeededFiles\\plugins\\dragonfly.common.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9523BB351DA54864966750D34D17CF83"
@@ -887,6 +742,37 @@
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:TRUE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_952A5E7EF297478B93115905B1721F41"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dsmanager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_952A5E7EF297478B93115905B1721F41"
+                    {
+                    "Name" = "8:dsmanager.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\SetupNeededFiles\\main\\dsmanager.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A459846C19274748B8DFFEBF6AFFE223"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
@@ -959,51 +845,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B6A680009BD24812B685F2EA5E71228F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CE5DB896ED3B442F9A434D41BA175AAB"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dsmanager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:dragonfly.main, Version=1.0.4.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B6A680009BD24812B685F2EA5E71228F"
+                    "_CE5DB896ED3B442F9A434D41BA175AAB"
                     {
-                    "Name" = "8:dsmanager.exe"
+                    "Name" = "8:dragonfly.main.exe"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\SetupNeededFiles\\plugins\\dsmanager.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3B6B9F9B021942AFA9215EE632E13CE6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C933F856AF1C4BA1BE8678689580CE27"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dsmanager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C933F856AF1C4BA1BE8678689580CE27"
-                    {
-                    "Name" = "8:dsmanager.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\SetupNeededFiles\\plugins\\dsmanager.exe"
+            "SourcePath" = "8:..\\SetupNeededFiles\\main\\dragonfly.main.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
@@ -1083,27 +938,16 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E04979D93F5245A2A7CE05801E7D7BE3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E180F6F1A3D247F5B52E6E57A730A89F"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:questions.notify, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_E04979D93F5245A2A7CE05801E7D7BE3"
-                    {
-                    "Name" = "8:questions.notify.exe"
-                    "Attributes" = "3:513"
-                    }
-                }
-            "SourcePath" = "8:..\\SetupNeededFiles\\plugins\\questions.notify.exe"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\SetupNeededFiles\\update\\TaskSettings.xml"
+            "TargetName" = "8:TaskSettings.xml"
             "Tag" = "8:"
-            "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
+            "Folder" = "8:_79C2D6A4CF4E46F488EEC14546BF0C8A"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
-            "ReadOnly" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
@@ -1176,54 +1020,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FAB763B8189A4487B7A1D739C5C11DE8"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dragonfly.main, Version=1.0.4.0, Culture=neutral, PublicKeyToken=895585e187446d42, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FAB763B8189A4487B7A1D739C5C11DE8"
-                    {
-                    "Name" = "8:dragonfly.main.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\SetupNeededFiles\\plugins\\dragonfly.main.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_1BC2A1C3E3B0434F82F34FFEB36B0534"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
         }
         "Folder"
         {
-            "{1525181F-901A-416C-8A58-119130FE478E}:_3B6B9F9B021942AFA9215EE632E13CE6"
-            {
-            "Name" = "8:#1936"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:System64Folder"
-                "Folders"
-                {
-                }
-            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A459846C19274748B8DFFEBF6AFFE223"
             {
             "DefaultLocation" = "8:[ProgramFiles64Folder]\\dragonfly"
@@ -1297,7 +1099,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8: [蜻蜓]工具"
         "ProductCode" = "8:{4485CC8B-A6D6-4B25-8893-A35D3EE0CD26}"
-        "PackageCode" = "8:{E73FB200-21DC-4E72-A5FD-966E62944372}"
+        "PackageCode" = "8:{6421B5C6-A6E4-4BF7-AF4E-B063121CEA69}"
         "UpgradeCode" = "8:{3D7BD5CE-7A67-4FED-AEFC-F68ADCFF979E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

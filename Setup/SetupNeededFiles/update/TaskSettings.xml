@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TaskSettings>
+    <NotifyJob IsTooLateLockScreen="true" TooLateTriggerTime="21:40" TooLateMinutes="120" LockScreenApp="0" LockScreenType="1" LockScreenDuration="10" StartTime="7:00" />
+</TaskSettings>
