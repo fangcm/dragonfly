@@ -55,6 +55,7 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Logger.cs" />
     <Compile Include="Utils\ProcessStarter.cs" />
     <Compile Include="Utils\ServiceHelper.cs" />
     <Compile Include="Program.cs" />
