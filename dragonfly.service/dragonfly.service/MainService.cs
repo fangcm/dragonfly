@@ -26,19 +26,15 @@ namespace Dragonfly.Service
         protected override void OnStart(string[] args)
         {
             timer.Start();
-            Logger.info("service start");
         }
 
         protected override void OnStop()
         {
             timer.Stop();
-            Logger.info("service stop");
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Logger.info("timer_Elapsed");
-
             if (!worker.IsBusy)
             {
                 worker.RunWorkerAsync();
@@ -50,16 +46,12 @@ namespace Dragonfly.Service
             BackgroundWorker localWorker = sender as BackgroundWorker;
             try
             {
-                Logger.info("worker_DoWork, ticks", ticks);
                 if (IsDragonflyMainProgramRunning())
                 {
-                    Logger.info("IsDragonflyMainProgramRunning");
                     return;
                 }
-                Logger.info("IsDragonflyMainProgramRunning, false");
 
                 string appDataPath = WinApi.GetCurrentUserApplicationDataFolderPath();
-                Logger.info("appDataPath", appDataPath);
                 if (RunDragonflyMainProcess(appDataPath))
                 {
                     return;
@@ -101,7 +93,13 @@ namespace Dragonfly.Service
 
         private bool RunDragonflyMainProcess(string appDataPath)
         {
-            string dragonfly = Path.Combine(appDataPath, "dragonfly", "plugins", "dragonfly.main.exe");
+            string pluginsPath = Path.Combine(appDataPath, "dragonfly", "plugins");
+            if(!Directory.Exists(pluginsPath))
+            {
+                return false;
+            }
+
+            string dragonfly = Path.Combine(pluginsPath, "dragonfly.main.exe");
             if (!File.Exists(dragonfly))
             {
                 string programFiles = Environment.GetEnvironmentVariable("ProgramW6432");

@@ -132,9 +132,7 @@ namespace Dragonfly.Service
         internal static extern int WaitForSingleObject(IntPtr token, uint timeInterval);
 
         [DllImport("wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool WTSEnumerateSessions(IntPtr hServer, [MarshalAs(UnmanagedType.U4)] UInt32 Reserved,
-            [MarshalAs(UnmanagedType.U4)] UInt32 Version,
-            ref IntPtr ppSessionInfo, [MarshalAs(UnmanagedType.U4)] ref UInt32 pCount);
+        static extern int WTSEnumerateSessions(System.IntPtr hServer, int Reserved, int Version, ref System.IntPtr ppSessionInfo, ref int pCount);
 
         [DllImport("userenv.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern bool CreateEnvironmentBlock(out IntPtr lpEnvironment, IntPtr hToken, bool bInherit);
@@ -145,13 +143,12 @@ namespace Dragonfly.Service
         [DllImport("userenv.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DestroyEnvironmentBlock(IntPtr lpEnvironment);
-        
+
 
         public static string GetCurrentUserApplicationDataFolderPath()
         {
             // Get token of the current user 
             IntPtr currentUserToken = GetCurrentUserToken();
-            Logger.info("currentUserToken", currentUserToken);
             if (currentUserToken == IntPtr.Zero)
             {
                 return string.Empty;
@@ -178,27 +175,27 @@ namespace Dragonfly.Service
             IntPtr hTokenDup = IntPtr.Zero;
 
             IntPtr pSessionInfo = IntPtr.Zero;
-            UInt32 dwCount = 0;
+            int dwCount = 0;
 
-            if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount))
+            WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount);
+
+            Int32 dataSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
+            Int64 current = (Int64)pSessionInfo;
+            for (int i = 0; i < dwCount; i++)
             {
-                for (int i = 0; i < dwCount; i++)
+                WTS_SESSION_INFO si = (WTS_SESSION_INFO)Marshal.PtrToStructure((IntPtr)current, typeof(WTS_SESSION_INFO));
+                if (WTS_CONNECTSTATE_CLASS.WTSActive == si.State)
                 {
-                    Logger.info("i", i);
-                    WTS_SESSION_INFO si = (WTS_SESSION_INFO)Marshal.PtrToStructure(pSessionInfo + i * Marshal.SizeOf(typeof(WTS_SESSION_INFO)), typeof(WTS_SESSION_INFO));
-                    if (WTS_CONNECTSTATE_CLASS.WTSActive == si.State)
-                    {
-                        dwSessionId = si.SessionID;
-                        Logger.info("dwSessionId", dwSessionId);
-                        break;
-                    }
+                    dwSessionId = si.SessionID;
+                    break;
                 }
-                WTSFreeMemory(pSessionInfo);
+
+                current += dataSize;
             }
 
+            WTSFreeMemory(pSessionInfo);
 
             bool bRet = WTSQueryUserToken(dwSessionId, out currentToken);
-            Logger.info("WTSQueryUserToken", bRet);
             if (bRet == false)
             {
                 return IntPtr.Zero;
@@ -212,24 +209,6 @@ namespace Dragonfly.Service
 
             return primaryToken;
         }
-
-        public static IntPtr GetUserToken(int sessionID)
-        {
-            IntPtr userToken;
-            //WTSQueryUserToken only works when in context of local system account with SE_TCB_NAME
-            //(which we are if we are running as a service under LocalSystem)
-            if (WTSQueryUserToken(sessionID, out userToken))
-            {
-                return userToken;
-            }
-            else
-            {
-                int err = Marshal.GetLastWin32Error();
-                if (err == 1008) return (IntPtr)null; //There is no token
-                throw new Win32Exception(err,
-                                         "Could not get the user token from session " + sessionID.ToString() +
-                                         " - Error: " + err.ToString());
-            }
-        }
+         
     }
 }
