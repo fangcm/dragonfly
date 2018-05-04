@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Security.Principal;
 
 namespace Dragonfly.Service
@@ -32,14 +35,14 @@ namespace Dragonfly.Service
         internal const uint INFINITE = 0xFFFFFFFF;
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct SECURITY_ATTRIBUTES
+        internal struct SECURITY_ATTRIBUTES
         {
             public int nLength;
             public IntPtr lpSecurityDescriptor;
             public int bInheritHandle;
         }
 
-        public enum SECURITY_IMPERSONATION_LEVEL
+        internal enum SECURITY_IMPERSONATION_LEVEL
         {
             SecurityAnonymous,
             SecurityIdentification,
@@ -47,13 +50,34 @@ namespace Dragonfly.Service
             SecurityDelegation
         }
 
-        public enum TOKEN_TYPE
+        internal enum TOKEN_TYPE
         {
             TokenPrimary = 1,
             TokenImpersonation
         }
 
-        public enum WTS_CONNECTSTATE_CLASS
+        internal enum WTS_INFO_CLASS
+        {
+            WTSInitialProgram,
+            WTSApplicationName,
+            WTSWorkingDirectory,
+            WTSOEMId,
+            WTSSessionId,
+            WTSUserName,
+            WTSWinStationName,
+            WTSDomainName,
+            WTSConnectState,
+            WTSClientBuildNumber,
+            WTSClientName,
+            WTSClientDirectory,
+            WTSClientProductId,
+            WTSClientHardwareId,
+            WTSClientAddress,
+            WTSClientDisplay,
+            WTSClientProtocolType
+        }
+
+        internal enum WTS_CONNECTSTATE_CLASS
         {
             WTSActive,
             WTSConnected,
@@ -68,7 +92,7 @@ namespace Dragonfly.Service
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        public struct STARTUPINFO
+        internal struct STARTUPINFO
         {
             public Int32 cb;
             public string lpReserved;
@@ -109,6 +133,9 @@ namespace Dragonfly.Service
 
             public WTS_CONNECTSTATE_CLASS State;
         }
+
+        [DllImport("Wtsapi32.dll")]
+        static extern bool WTSQuerySessionInformation(IntPtr hServer, int sessionId, WTS_INFO_CLASS wtsInfoClass, out IntPtr ppBuffer, out uint pBytesReturned);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern uint WTSGetActiveConsoleSessionId();
@@ -208,6 +235,57 @@ namespace Dragonfly.Service
             }
 
             return primaryToken;
+        }
+
+
+        private static string QuerySessionInfo(IntPtr hServer, int sessionId, WTS_INFO_CLASS wtsInfoClass)
+        {
+            IntPtr ppBuffer = IntPtr.Zero;
+            uint pBytesReturned;
+
+            if (WTSQuerySessionInformation(hServer, sessionId, wtsInfoClass, out ppBuffer, out pBytesReturned))
+            {
+                try
+                {
+                    return Marshal.PtrToStringAnsi(ppBuffer);
+                }
+                finally
+                {
+                    WTSFreeMemory(ppBuffer);
+                    ppBuffer = IntPtr.Zero;
+
+                }
+            }
+            return String.Empty;
+        }
+
+
+        public static string GetActiveUserWorkingDirectory()
+        {
+            IntPtr WTS_CURRENT_SERVER_HANDLE = IntPtr.Zero;
+            IntPtr pSessionInfo = IntPtr.Zero;
+            int dwCount = 0;
+
+            WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount);
+
+            string workingDirectory = string.Empty;
+            Int32 dataSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
+            Int64 current = (Int64)pSessionInfo;
+            for (int i = 0; i < dwCount; i++)
+            {
+                WTS_SESSION_INFO si = (WTS_SESSION_INFO)Marshal.PtrToStructure((IntPtr)current, typeof(WTS_SESSION_INFO));
+                if (WTS_CONNECTSTATE_CLASS.WTSActive == si.State)
+                {
+                    workingDirectory = QuerySessionInfo(WTS_CURRENT_SERVER_HANDLE, si.SessionID, WTS_INFO_CLASS.WTSWorkingDirectory);
+                    break;
+                }
+
+                current += dataSize;
+            }
+
+            WTSFreeMemory(pSessionInfo);
+
+            return workingDirectory;
         }
          
     }

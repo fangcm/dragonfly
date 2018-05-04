@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Timers;
 
@@ -26,6 +27,9 @@ namespace Dragonfly.Service
         protected override void OnStart(string[] args)
         {
             timer.Start();
+            Logger.info("GetCurrent", WindowsIdentity.GetCurrent().Name);
+            WindowsIdentity wi = WindowsIdentity.GetCurrent();
+            Logger.info("wi.Token", wi.Token.ToString());
         }
 
         protected override void OnStop()
