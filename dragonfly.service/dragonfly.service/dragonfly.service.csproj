@@ -56,8 +56,6 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\Logger.cs" />
-    <Compile Include="Utils\ProcessStarter.cs" />
-    <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\ServiceHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

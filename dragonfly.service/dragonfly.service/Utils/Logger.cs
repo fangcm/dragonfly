@@ -25,7 +25,7 @@ namespace Dragonfly.Service
 
         public static void log(EventLogEntryType eventType, params object[] messages)
         {
-            log(eventType, string.Join(", ", messages));
+            log(eventType, string.Join(" ", messages));
         }
 
         public static void log(EventLogEntryType eventType, string message)

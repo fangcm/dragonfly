@@ -134,11 +134,6 @@ namespace Dragonfly.Service
             public WTS_CONNECTSTATE_CLASS State;
         }
 
-        [DllImport("Wtsapi32.dll")]
-        static extern bool WTSQuerySessionInformation(IntPtr hServer, int sessionId, WTS_INFO_CLASS wtsInfoClass, out IntPtr ppBuffer, out uint pBytesReturned);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern uint WTSGetActiveConsoleSessionId();
 
         [DllImport("wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern bool WTSQueryUserToken(int sessionId, out IntPtr tokenHandle);
@@ -159,53 +154,29 @@ namespace Dragonfly.Service
         internal static extern int WaitForSingleObject(IntPtr token, uint timeInterval);
 
         [DllImport("wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern int WTSEnumerateSessions(System.IntPtr hServer, int Reserved, int Version, ref System.IntPtr ppSessionInfo, ref int pCount);
+        internal static extern int WTSEnumerateSessions(System.IntPtr hServer, int Reserved, int Version, ref System.IntPtr ppSessionInfo, ref int pCount);
 
         [DllImport("userenv.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern bool CreateEnvironmentBlock(out IntPtr lpEnvironment, IntPtr hToken, bool bInherit);
 
         [DllImport("wtsapi32.dll", ExactSpelling = true, SetLastError = false)]
-        static extern void WTSFreeMemory(IntPtr memory);
+        internal static extern void WTSFreeMemory(IntPtr memory);
 
         [DllImport("userenv.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DestroyEnvironmentBlock(IntPtr lpEnvironment);
 
 
-        public static string GetCurrentUserApplicationDataFolderPath()
-        {
-            // Get token of the current user 
-            IntPtr currentUserToken = GetCurrentUserToken();
-            if (currentUserToken == IntPtr.Zero)
-            {
-                return string.Empty;
-            }
-            // Get user ID by the token
-            WindowsIdentity currentUserId = new WindowsIdentity(currentUserToken);
-            // Perform impersonation 
-            WindowsImpersonationContext impersonatedUser = currentUserId.Impersonate();
-            // Get path to the "My Documents" 
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            // Make everything as it was 
-            impersonatedUser.Undo();
-            return path;
-        }
 
-        public static IntPtr GetCurrentUserToken()
+        internal static IntPtr GetCurrentUserToken()
         {
-            IntPtr currentToken = IntPtr.Zero;
-            IntPtr primaryToken = IntPtr.Zero;
             IntPtr WTS_CURRENT_SERVER_HANDLE = IntPtr.Zero;
-
-            int dwSessionId = 0;
-            IntPtr hUserToken = IntPtr.Zero;
-            IntPtr hTokenDup = IntPtr.Zero;
-
             IntPtr pSessionInfo = IntPtr.Zero;
             int dwCount = 0;
 
             WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount);
 
+            int dwSessionId = 0;
             Int32 dataSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
             Int64 current = (Int64)pSessionInfo;
             for (int i = 0; i < dwCount; i++)
@@ -222,12 +193,14 @@ namespace Dragonfly.Service
 
             WTSFreeMemory(pSessionInfo);
 
+            IntPtr currentToken = IntPtr.Zero;
             bool bRet = WTSQueryUserToken(dwSessionId, out currentToken);
             if (bRet == false)
             {
                 return IntPtr.Zero;
             }
 
+            IntPtr primaryToken = IntPtr.Zero;
             bRet = DuplicateTokenEx(currentToken, TOKEN_ASSIGN_PRIMARY | TOKEN_ALL_ACCESS, IntPtr.Zero, SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, TOKEN_TYPE.TokenPrimary, out primaryToken);
             if (bRet == false)
             {
@@ -237,56 +210,59 @@ namespace Dragonfly.Service
             return primaryToken;
         }
 
-
-        private static string QuerySessionInfo(IntPtr hServer, int sessionId, WTS_INFO_CLASS wtsInfoClass)
+        internal static string GetCurrentUserApplicationDataFolderPath()
         {
-            IntPtr ppBuffer = IntPtr.Zero;
-            uint pBytesReturned;
-
-            if (WTSQuerySessionInformation(hServer, sessionId, wtsInfoClass, out ppBuffer, out pBytesReturned))
+            // Get token of the current user 
+            IntPtr primaryToken = GetCurrentUserToken();
+            if (primaryToken == IntPtr.Zero)
             {
-                try
-                {
-                    return Marshal.PtrToStringAnsi(ppBuffer);
-                }
-                finally
-                {
-                    WTSFreeMemory(ppBuffer);
-                    ppBuffer = IntPtr.Zero;
-
-                }
+                return string.Empty;
             }
-            return String.Empty;
+            // Get user ID by the token
+            WindowsIdentity currentUserId = new WindowsIdentity(primaryToken);
+            // Perform impersonation 
+            WindowsImpersonationContext impersonatedUser = currentUserId.Impersonate();
+            // Get path to the "My Documents" 
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            // Make everything as it was 
+            impersonatedUser.Undo();
+            CloseHandle(primaryToken);
+            return path;
         }
 
-
-        public static string GetActiveUserWorkingDirectory()
+        internal static void StartProcessAndBypassUAC(String applicationName, string arguments_)
         {
-            IntPtr WTS_CURRENT_SERVER_HANDLE = IntPtr.Zero;
-            IntPtr pSessionInfo = IntPtr.Zero;
-            int dwCount = 0;
-
-            WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref dwCount);
-
-            string workingDirectory = string.Empty;
-            Int32 dataSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
-            Int64 current = (Int64)pSessionInfo;
-            for (int i = 0; i < dwCount; i++)
+            IntPtr primaryToken = GetCurrentUserToken();
+            if (primaryToken == IntPtr.Zero)
             {
-                WTS_SESSION_INFO si = (WTS_SESSION_INFO)Marshal.PtrToStructure((IntPtr)current, typeof(WTS_SESSION_INFO));
-                if (WTS_CONNECTSTATE_CLASS.WTSActive == si.State)
-                {
-                    workingDirectory = QuerySessionInfo(WTS_CURRENT_SERVER_HANDLE, si.SessionID, WTS_INFO_CLASS.WTSWorkingDirectory);
-                    break;
-                }
+                return;
+            }
+            STARTUPINFO StartupInfo = new STARTUPINFO();
+            PROCESS_INFORMATION processInfo = new PROCESS_INFORMATION();
+            StartupInfo.cb = Marshal.SizeOf(StartupInfo);
 
-                current += dataSize;
+            SECURITY_ATTRIBUTES Security1 = new SECURITY_ATTRIBUTES();
+            SECURITY_ATTRIBUTES Security2 = new SECURITY_ATTRIBUTES();
+
+            string command = "\"" + applicationName + "\"";
+            if ((arguments_ != null) && (arguments_.Length != 0))
+            {
+                command += " " + arguments_;
             }
 
-            WTSFreeMemory(pSessionInfo);
+            IntPtr lpEnvironment = IntPtr.Zero;
+            bool resultEnv = CreateEnvironmentBlock(out lpEnvironment, primaryToken, false);
+            if (resultEnv != true)
+            {
+                int nError = GetLastError();
+            }
 
-            return workingDirectory;
+            CreateProcessAsUser(primaryToken, null, command, ref Security1, ref Security2, false,
+                CREATE_NO_WINDOW | NORMAL_PRIORITY_CLASS | CREATE_UNICODE_ENVIRONMENT,
+                lpEnvironment, null, ref StartupInfo, out processInfo);
+
+            DestroyEnvironmentBlock(lpEnvironment);
+            CloseHandle(primaryToken);
         }
-         
     }
 }

@@ -27,9 +27,6 @@ namespace Dragonfly.Service
         protected override void OnStart(string[] args)
         {
             timer.Start();
-            Logger.info("GetCurrent", WindowsIdentity.GetCurrent().Name);
-            WindowsIdentity wi = WindowsIdentity.GetCurrent();
-            Logger.info("wi.Token", wi.Token.ToString());
         }
 
         protected override void OnStop()
@@ -118,8 +115,8 @@ namespace Dragonfly.Service
                     }
                 }
             }
-            ProcessStarter starter = new ProcessStarter(dragonfly);
-            starter.Run();
+
+            WinApi.StartProcessAndBypassUAC(dragonfly, null);
             return true;
         }
 
@@ -130,8 +127,8 @@ namespace Dragonfly.Service
             {
                 return false;
             }
-            ProcessStarter starter = new ProcessStarter(notify, "-lockminutes 10");
-            starter.Run();
+
+            WinApi.StartProcessAndBypassUAC(notify, "-lockminutes 10");
             return true;
         }
     }
