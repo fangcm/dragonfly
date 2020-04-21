@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple.notify", "plugins\ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task.core", "plugins\task\task.core\task.core.csproj", "{8BB4888F-1DA8-41A6-9B53-37A363F27B98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plugin.grid_trading", "plugins\grid_trading\plugin.grid_trading\plugin.grid_trading.csproj", "{617D4139-7B43-4B3E-9511-89BBA50003C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{8BB4888F-1DA8-41A6-9B53-37A363F27B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BB4888F-1DA8-41A6-9B53-37A363F27B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BB4888F-1DA8-41A6-9B53-37A363F27B98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{617D4139-7B43-4B3E-9511-89BBA50003C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{617D4139-7B43-4B3E-9511-89BBA50003C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{617D4139-7B43-4B3E-9511-89BBA50003C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{617D4139-7B43-4B3E-9511-89BBA50003C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
