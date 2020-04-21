@@ -36,8 +36,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             const int HEXIN_SCROLL_WND_2 = 0x00C8;
             const int FUNC_TREE_VIEW = 0x0081;
 
-            IntPtr h1 = Win32API.GetDlgItem(hWnd, MDI_FRAME);
-            h1 = Win32API.GetDlgItem(h1, AFX_WND);
+            IntPtr h1 = Win32API.FindWindowEx(hWnd,IntPtr.Zero, "TfrmBizContnr", "frmBizContnr");
+            IntPtr hTree1 = Win32API.FindWindowEx(h1, IntPtr.Zero, "TTreeView", null);
+
+            var level1 = FindWindowEx(hwnd, 0, "TEditorDockPanel", null);
+            var level2 = FindWindowEx(level1, 0, "TEditWindow", null);
+            var level3 = FindWindowEx(level2, 0, "TPanel", null);
+            var level4 = FindWindowEx(level3, 0, "TPanel", null);
+
+
             h1 = Win32API.GetDlgItem(h1, HEXIN_SCROLL_WND);
             h1 = Win32API.GetDlgItem(h1, HEXIN_SCROLL_WND_2);
             h1 = Win32API.GetDlgItem(h1, FUNC_TREE_VIEW);
@@ -226,7 +233,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         /// </summary>
         public bool Init()
         {
-            hWnd = Win32API.FindWindow(null, @"网上股票交易应用程序(E06)");
+            hWnd = Win32API.FindWindow(null, @"金贝壳网上交易系统");
 
             htvi = GetFuncTreeView();
             if (htvi == IntPtr.Zero)

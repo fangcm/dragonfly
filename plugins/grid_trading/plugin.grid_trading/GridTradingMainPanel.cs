@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Plugin.GridTrading.Trade;
+using System;
 using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading
@@ -29,6 +30,8 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void toolStripButtonSetting_Click(object sender, EventArgs e)
         {
+            TraderHelper.Instance.Init();
+            /*
             JobSettingForm settingForm = new JobSettingForm();
             if(settingForm.ShowDialog() == DialogResult.OK)
             {
@@ -37,6 +40,7 @@ namespace Dragonfly.Plugin.GridTrading
                     //this.gridTradingPlugin.StartGridTrading();
                 }
             }
+            */
         }
 
         private delegate void InsertLineDelegate(int index, DateTime date, string type, string desc);
