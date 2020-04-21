@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Trade\GuoHai\JinbeikeTrader.cs" />
     <Compile Include="Trade\ITrader.cs" />
+    <Compile Include="Trade\TraderHelper.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
   </ItemGroup>
   <ItemGroup>

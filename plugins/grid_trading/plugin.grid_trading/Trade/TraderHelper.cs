@@ -17,7 +17,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             trader.Init();
         }
 
-        public static XiaDan Instance
+        public static TraderHelper Instance
         {
             get { return instance; }
         }
