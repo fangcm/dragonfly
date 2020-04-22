@@ -1,5 +1,6 @@
 ﻿using Dragonfly.Plugin.GridTrading.Trade;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading
@@ -23,14 +24,14 @@ namespace Dragonfly.Plugin.GridTrading
         {
             listViewMain.Columns.Clear();
             listViewMain.Columns.Add("时间", 150, HorizontalAlignment.Left);
-            listViewMain.Columns.Add("事件", 40, HorizontalAlignment.Left);
-            listViewMain.Columns.Add("描述", 400, HorizontalAlignment.Left);
+            listViewMain.Columns.Add("描述", 450, HorizontalAlignment.Left);
+
+            TraderHelper.Instance.Init();
 
         }
 
         private void toolStripButtonSetting_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.Init();
             /*
             JobSettingForm settingForm = new JobSettingForm();
             if(settingForm.ShowDialog() == DialogResult.OK)
@@ -43,15 +44,15 @@ namespace Dragonfly.Plugin.GridTrading
             */
         }
 
-        private delegate void InsertLineDelegate(int index, DateTime date, string type, string desc);
+        private delegate void InsertLineDelegate(int index, DateTime date, Color foreColor, string desc);
 
-        public void InsertLine(int index, DateTime date, string type, string desc)
+        public void InsertLine(int index, DateTime date, System.Drawing.Color foreColor, string desc)
         {
             if (this.listViewMain.InvokeRequired == false)
             {
                 //如果调用该函数的线程和控件lstMain位于同一个线程内
                 ListViewItem lvi = listViewMain.Items.Add(date.ToString("yyyy年MM月dd日 HH:mm:ss"));
-                lvi.SubItems.Add(type);
+                lvi.ForeColor = foreColor;
                 lvi.SubItems.Add(desc);
             }
             else
@@ -61,15 +62,36 @@ namespace Dragonfly.Plugin.GridTrading
                 InsertLineDelegate insertLineDelegate = new InsertLineDelegate(InsertLine);
 
                 //使用控件lstMain的Invoke方法执行DMSGD代理(其类型是DispMSGDelegate)
-                this.listViewMain.Invoke(insertLineDelegate, index, date, type, desc);
+                this.listViewMain.Invoke(insertLineDelegate, index, date, foreColor, desc);
 
             }
         }
 
-        public void InsertLine(DateTime date, string type, string desc)
+        public void InsertLine(DateTime date, Color foreColor, string desc)
         {
-            InsertLine(0, date, type, desc);
+            InsertLine(0, date, foreColor, desc);
         }
+
+        private void toolStripButtonInit_Click(object sender, EventArgs e)
+        {
+            TraderHelper.Instance.Init();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            TraderHelper.Instance.BuyStock("", 10, 100);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            TraderHelper.Instance.SellStock("", 10, 100);
+        }
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            TraderHelper.Instance.CancelStock("", 10, 100);
+        }
+
+
     }
 
 }

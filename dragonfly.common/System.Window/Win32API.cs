@@ -85,6 +85,15 @@ namespace System.Window
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", EntryPoint = "FindWindowEx", SetLastError = true)]
         public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
+
+        //枚举一个父窗口的所有子窗口。IntPtr window窗口句柄
+        //WNDENUMPROC lpEnumFunc 回调函数的地址
+        //LPARAM lParam 自定义的参数
+        //注意：回调函数的返回值将会影响到这个API函数的行为。如果回调函数返回true，则枚举继续直到枚举完成；如果返回false，则将会中止枚举。
+        [DllImport("user32.dll", EntryPoint = "EnumChildWindows")]
+        public static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
+        public delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetDC(IntPtr hWnd);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]

@@ -36,6 +36,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             // 保存下单记录到文件
         }
 
-      
+        public void CancelStock(String code, float price, int num)
+        {
+            // TODO: 检查？分钟内是否重复卖出
+            trader.CancelStock(code, price, num);
+            // 保存下单记录到文件
+        }
     }
 }

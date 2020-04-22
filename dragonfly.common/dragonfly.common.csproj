@@ -63,6 +63,7 @@
     <Compile Include="Utils\AppConfig.cs" />
     <Compile Include="Utils\RegistryUtils.cs" />
     <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\WindowFinder.cs" />
     <Compile Include="Utils\XmlHelper.cs" />
     <Compile Include="Utils\ReadableLogger .cs" />
   </ItemGroup>

@@ -1,15 +1,15 @@
 ﻿using Dragonfly.Common.Utils;
 using System;
+using System.Drawing;
 using System.Collections.Specialized;
 
 namespace Dragonfly.Plugin.GridTrading.Utils
 {
     internal enum LoggType
     {
-        Trigger,
-        Suspend,
-        Resume,
-        Other
+        Red,
+        Black,
+        Gray
     }
 
     internal class LoggerUtil
@@ -45,23 +45,21 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 
         public static void InserLineToGridTradingMainPanel(DateTime date, LoggType type, string msg)
         {
-            string typeInfo;
+            Color foreColor;
             switch (type)
             {
-                case LoggType.Trigger:
-                    typeInfo = "触发";
+                case LoggType.Red:
+                    foreColor = Color.Red;
                     break;
-                case LoggType.Suspend:
-                    typeInfo = "休息";
+                case LoggType.Gray:
+                    foreColor = Color.Gray;
                     break;
-                case LoggType.Resume:
-                    typeInfo = "唤醒";
-                    break;
+                case LoggType.Black:
                 default:
-                    typeInfo = "其它";
+                    foreColor = Color.Black;
                     break;
             }
-            LoggerUtil.gridTradingMainPanel.InsertLine(date, typeInfo, msg);
+            LoggerUtil.gridTradingMainPanel.InsertLine(date, foreColor, msg);
         }
 
         private static LoggType ConvertToLoggType(string type)
@@ -69,8 +67,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils
             LoggType loggType;
             if (!Enum.TryParse<LoggType>(type, out loggType))
             {
-                Logger.error("LoggerUtil", "loggInfo.Type is error, type:" , type);
-                return LoggType.Other;
+                Logger.error("LoggerUtil", "loggInfo.Type is error, type:", type);
+                return LoggType.Black;
             }
             return loggType;
         }

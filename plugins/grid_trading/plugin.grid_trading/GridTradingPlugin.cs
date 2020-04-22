@@ -32,7 +32,7 @@ namespace Dragonfly.Plugin.GridTrading
                 UserControl m = PluginPanel;
             }
             LoggerUtil.Init(mainPanel);
-            LoggerUtil.Log(LoggType.Resume, "启动初始化");
+            LoggerUtil.Log(LoggType.Gray, "启动初始化");
             Logger.info("GridTradingPlugin", "Initialize");
  
         }
