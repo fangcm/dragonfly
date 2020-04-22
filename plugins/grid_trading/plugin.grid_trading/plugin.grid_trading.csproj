@@ -61,6 +61,7 @@
     <Compile Include="GridTradingMainPanel.Designer.cs">
       <DependentUpon>GridTradingMainPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Trade\AbstractHelper.cs" />
     <Compile Include="Trade\GuoHai\JinbeikeTrader.cs" />
     <Compile Include="Trade\ITrader.cs" />
     <Compile Include="Trade\TraderHelper.cs" />

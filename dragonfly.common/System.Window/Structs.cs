@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace System.Window
+namespace Dragonfly.Common.System.Window
 {
 	
 	/// <summary>
@@ -254,7 +254,7 @@ namespace System.Window
 		public int      bmiHeader_biYPelsPerMeter;
 		public int      bmiHeader_biClrUsed;
 		public int      bmiHeader_biClrImportant;
-		[MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst=1024)]
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=1024)]
 		public byte[] bmiColors; 
 	}
 	#endregion
@@ -292,7 +292,7 @@ namespace System.Window
 	public class BITMAPINFO 
 	{
 		public BITMAPINFOHEADER bmiHeader = new BITMAPINFOHEADER();
-		[MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst=1024)]
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst=1024)]
 		public byte[] bmiColors; 
 	}
 	#endregion

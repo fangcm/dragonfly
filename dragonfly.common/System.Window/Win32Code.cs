@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Window;
-
-namespace System.Window
+﻿namespace Dragonfly.Common.System.Window
 {
     public class Win32Code
     {
@@ -179,60 +173,119 @@ public const int VK_F9 = 0x78;
 public const int VK_F10 = 0x79;
 public const int VK_F11 = 0x7A;
 public const int VK_F12 = 0x7B;
-//public const int VK_F13 = 0x7C;
-//public const int VK_F14 = 0x7D;
-//public const int VK_F15 = 0x7E;
-//public const int VK_F16 = 0x7F;
-//public const int VK_F17 = 0x80;
-//public const int VK_F18 = 0x81;
-//public const int VK_F19 = 0x82
-//public const int VK_F20 = 0x83
-//public const int VK_F21 = 0x84
-//public const int VK_F22 = 0x85
-//public const int VK_F23 = 0x86
-//public const int VK_F24 = 0x87
-//public const int VK_NUMLOCK = 0x90
-//public const int VK_OEM_SCROLL = 0x91
-//public const int VK_OEM_1 = 0xBA
-//public const int VK_OEM_PLUS = 0xBB
-//public const int VK_OEM_COMMA = 0xBC
-//public const int VK_OEM_MINUS = 0xBD
-//public const int VK_OEM_PERIOD = 0xBE
-//public const int VK_OEM_2 = 0xBF
-//public const int VK_OEM_3 = 0xC0
-//public const int VK_OEM_4 = 0xDB
-//public const int VK_OEM_5 = 0xDC
-//public const int VK_OEM_6 = 0xDD
-//public const int VK_OEM_7 = 0xDE
-//public const int VK_OEM_8 = 0xDF
-//public const int VK_ICO_F17 = 0xE0
-//public const int VK_ICO_F18 = 0xE1
-//public const int VK_OEM102 = 0xE2
-//public const int VK_ICO_HELP = 0xE3
-//public const int VK_ICO_00 = 0xE4
-//public const int VK_ICO_CLEAR = 0xE6
-//public const int VK_OEM_RESET = 0xE9
-//public const int VK_OEM_JUMP = 0xEA
-//public const int VK_OEM_PA1 = 0xEB
-//public const int VK_OEM_PA2 = 0xEC
-//public const int VK_OEM_PA3 = 0xED
-//public const int VK_OEM_WSCTRL = 0xEE
-//public const int VK_OEM_CUSEL = 0xEF
-//public const int VK_OEM_ATTN = 0xF0
-//public const int VK_OEM_FINNISH = 0xF1
-//public const int VK_OEM_COPY = 0xF2
-//public const int VK_OEM_AUTO = 0xF3
-//public const int VK_OEM_ENLW = 0xF4
-//public const int VK_OEM_BACKTAB = 0xF5
-//public const int VK_ATTN = 0xF6
-//public const int VK_CRSEL = 0xF7
-//public const int VK_EXSEL = 0xF8
-//public const int VK_EREOF = 0xF9
-//public const int VK_PLAY = 0xFA
-//public const int VK_ZOOM = 0xFB
-//public const int VK_NONAME = 0xFC
-//public const int VK_PA1 = 0xFD
-//public const int VK_OEM_CLEAR = 0xFE
+        //public const int VK_F13 = 0x7C;
+        //public const int VK_F14 = 0x7D;
+        //public const int VK_F15 = 0x7E;
+        //public const int VK_F16 = 0x7F;
+        //public const int VK_F17 = 0x80;
+        //public const int VK_F18 = 0x81;
+        //public const int VK_F19 = 0x82
+        //public const int VK_F20 = 0x83
+        //public const int VK_F21 = 0x84
+        //public const int VK_F22 = 0x85
+        //public const int VK_F23 = 0x86
+        //public const int VK_F24 = 0x87
+        //public const int VK_NUMLOCK = 0x90
+        //public const int VK_OEM_SCROLL = 0x91
+        //public const int VK_OEM_1 = 0xBA
+        //public const int VK_OEM_PLUS = 0xBB
+        //public const int VK_OEM_COMMA = 0xBC
+        //public const int VK_OEM_MINUS = 0xBD
+        //public const int VK_OEM_PERIOD = 0xBE
+        //public const int VK_OEM_2 = 0xBF
+        //public const int VK_OEM_3 = 0xC0
+        //public const int VK_OEM_4 = 0xDB
+        //public const int VK_OEM_5 = 0xDC
+        //public const int VK_OEM_6 = 0xDD
+        //public const int VK_OEM_7 = 0xDE
+        //public const int VK_OEM_8 = 0xDF
+        //public const int VK_ICO_F17 = 0xE0
+        //public const int VK_ICO_F18 = 0xE1
+        //public const int VK_OEM102 = 0xE2
+        //public const int VK_ICO_HELP = 0xE3
+        //public const int VK_ICO_00 = 0xE4
+        //public const int VK_ICO_CLEAR = 0xE6
+        //public const int VK_OEM_RESET = 0xE9
+        //public const int VK_OEM_JUMP = 0xEA
+        //public const int VK_OEM_PA1 = 0xEB
+        //public const int VK_OEM_PA2 = 0xEC
+        //public const int VK_OEM_PA3 = 0xED
+        //public const int VK_OEM_WSCTRL = 0xEE
+        //public const int VK_OEM_CUSEL = 0xEF
+        //public const int VK_OEM_ATTN = 0xF0
+        //public const int VK_OEM_FINNISH = 0xF1
+        //public const int VK_OEM_COPY = 0xF2
+        //public const int VK_OEM_AUTO = 0xF3
+        //public const int VK_OEM_ENLW = 0xF4
+        //public const int VK_OEM_BACKTAB = 0xF5
+        //public const int VK_ATTN = 0xF6
+        //public const int VK_CRSEL = 0xF7
+        //public const int VK_EXSEL = 0xF8
+        //public const int VK_EREOF = 0xF9
+        //public const int VK_PLAY = 0xFA
+        //public const int VK_ZOOM = 0xFB
+        //public const int VK_NONAME = 0xFC
+        //public const int VK_PA1 = 0xFD
+        //public const int VK_OEM_CLEAR = 0xFE
+        #endregion
+
+        #region 内存管理
+        public const uint GMEM_FIXED = 0x0000;
+        public const uint PAGE_GUARD = 0x100;
+        public const uint PAGE_NOCACHE = 0x200;
+        public const uint PAGE_WRITECOMBINE = 0x400;
+        public const uint PAGE_REVERT_TO_FILE_MAP = 0x80000000;
+        public const uint MEM_COMMIT = 0x1000;
+        public const uint MEM_RESERVE = 0x2000;
+        public const uint MEM_DECOMMIT = 0x4000;
+        public const uint MEM_RELEASE = 0x8000;
+        public const uint MEM_FREE = 0x10000;
+        public const uint MEM_PRIVATE = 0x20000;
+        public const uint MEM_MAPPED = 0x40000;
+        public const uint MEM_RESET = 0x80000;
+        public const uint MEM_TOP_DOWN = 0x100000;
+        public const uint MEM_WRITE_WATCH = 0x200000;
+        public const uint MEM_PHYSICAL = 0x400000;
+        public const uint MEM_ROTATE = 0x800000;
+        public const uint MEM_DIFFERENT_IMAGE_BASE_OK = 0x800000;
+        public const uint MEM_RESET_UNDO = 0x1000000;
+        public const uint MEM_LARGE_PAGES = 0x20000000;
+        public const uint MEM_4MB_PAGES = 0x80000000;
+        public const uint SEC_FILE = 0x800000;
+        public const uint SEC_IMAGE = 0x1000000;
+        public const uint SEC_PROTECTED_IMAGE = 0x2000000;
+        public const uint SEC_RESERVE = 0x4000000;
+        public const uint SEC_COMMIT = 0x8000000;
+        public const uint SEC_NOCACHE = 0x10000000;
+        public const uint SEC_WRITECOMBINE = 0x40000000;
+        public const uint SEC_LARGE_PAGES = 0x80000000;
+        public const uint MEM_IMAGE = 0x1000000;
+        public const uint WRITE_WATCH_FLAG_RESET = 0x01;
+        public const uint MEM_UNMAP_WITH_TRANSIENT_BOOST = 0x01;
+
+        public const uint PROCESS_TERMINATE = 0x0001;
+        public const uint PROCESS_CREATE_THREAD = 0x0002;
+        public const uint PROCESS_SET_SESSIONID = 0x0004;
+        public const uint PROCESS_VM_OPERATION = 0x0008;
+        public const uint PROCESS_VM_READ = 0x0010;
+        public const uint PROCESS_VM_WRITE = 0x0020;
+        public const uint PROCESS_DUP_HANDLE = 0x0040;
+        public const uint PROCESS_CREATE_PROCESS = 0x0080;
+        public const uint PROCESS_SET_QUOTA = 0x0100;
+        public const uint PROCESS_SET_INFORMATION = 0x0200;
+        public const uint PROCESS_QUERY_INFORMATION = 0x0400;
+        public const uint PROCESS_SUSPEND_RESUME = 0x0800;
+        public const uint PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
+        public const uint PROCESS_ALL_ACCESS = 0x001F0FFF;
+
+        public const uint PAGE_NOACCESS = 0x01;
+        public const uint PAGE_READONLY = 0x02;
+        public const uint PAGE_READWRITE = 0x04;
+        public const uint PAGE_WRITECOPY = 0x08;
+        public const uint PAGE_EXECUTE = 0x10;
+        public const uint PAGE_EXECUTE_READ = 0x20;
+        public const uint PAGE_EXECUTE_READWRITE = 0x40;
+        public const uint PAGE_EXECUTE_WRITECOPY = 0x80;
         #endregion
 
     }

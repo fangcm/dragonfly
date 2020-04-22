@@ -91,7 +91,10 @@ namespace Dragonfly.Plugin.GridTrading
             TraderHelper.Instance.CancelStock("", 10, 100);
         }
 
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 
 }

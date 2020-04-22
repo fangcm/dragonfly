@@ -1,7 +1,7 @@
 using System;
 
 
-namespace System.Window
+namespace Dragonfly.Common.System.Window
 {
 	/// <summary>
 	/// Window API enumerations

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-using System.Window;
+﻿using Dragonfly.Common.System.Window;
 using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
+using System;
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
     // 国海金贝壳
-    public class JinbeikeTrader : ITrader
+    public class JinbeikeTrader : AbstractTrader, ITrader
     {
         IntPtr hWnd;    // 主窗口句柄
         IntPtr hStockTree;    // A股功能树形控件句柄
@@ -19,11 +14,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         // A股主功能菜单
         IntPtr hBuy, hSell, hBuyMarket, hSellMarket, hCancel;
-
-        private void ClickTreeViewItem(IntPtr hTree, IntPtr hItem)
-        {
-            Win32API.SendMessage(hTree, Win32Code.TVM_SELECTITEM, Win32Code.TVGN_CARET, hItem);
-        }
 
         private void InitMainFuncHandler()
         {
@@ -44,66 +34,69 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             hStockTree = finder.FoundHandle;
             if (hStockTree == IntPtr.Zero)
             {
-                LoggerUtil.Log(LoggType.Red, "没有找到金贝壳交易软件");
+                Log(LoggType.Red, "没有找到金贝壳交易软件");
                 return false;
             }
             InitMainFuncHandler();
 
             hHkStockTree = Win32API.FindWindowEx(finder.FoundParentHandle, hStockTree, "TTreeView", string.Empty);
 
-            LoggerUtil.Log(LoggType.Black, "关联金贝壳交易软件成功");
+            Log(LoggType.Black, "关联金贝壳交易软件成功");
+            Log(LoggType.Black, "买入:" + GetTvItemTextEx(hStockTree, hBuy));
+            Log(LoggType.Black, "卖出:" + GetTvItemTextEx(hStockTree, hSell));
+            Log(LoggType.Black, "撤单查询:" + GetTvItemTextEx(hStockTree, hCancel));
             return true;
         }
-        
+
         public void SellStock(string code, float price, int num)
         {
-            ClickTreeViewItem(hStockTree,hSell);
-/*
-            const int BUY_TXT_CODE = 0x0408;
-            const int BUY_TXT_PRICE = 0x0409;
-            const int BUY_TXT_NUM = 0x040A;
-            const int BUY_BTN_OK = 0x3EE;
+            ClickTreeViewItem(hStockTree, hSell);
+            /*
+                        const int BUY_TXT_CODE = 0x0408;
+                        const int BUY_TXT_PRICE = 0x0409;
+                        const int BUY_TXT_NUM = 0x040A;
+                        const int BUY_BTN_OK = 0x3EE;
 
-            // 设定代码,价格,数量
-            IntPtr hPanel = GetDetailPanel();
-            IntPtr hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_CODE);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, code);
-            hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_PRICE);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, price.ToString());
-            hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_NUM);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, num.ToString());
+                        // 设定代码,价格,数量
+                        IntPtr hPanel = GetDetailPanel();
+                        IntPtr hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_CODE);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, code);
+                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_PRICE);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, price.ToString());
+                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_NUM);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, num.ToString());
 
-            // 点击买入按钮
-            hCtrl = Win32API.GetDlgItem(hPanel, BUY_BTN_OK);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONDOWN, 0, 0);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
-*/
+                        // 点击买入按钮
+                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_BTN_OK);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONDOWN, 0, 0);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
+            */
         }
 
         public void BuyStock(string code, float price, int num)
         {
             ClickTreeViewItem(hStockTree, hBuy);
-/*
-            const int BUY_TXT_CODE = 0x0408;
-            const int BUY_TXT_PRICE = 0x0409;
-            const int BUY_TXT_NUM = 0x040A;
-            const int BUY_BTN_OK = 0x3EE;
+            /*
+                        const int BUY_TXT_CODE = 0x0408;
+                        const int BUY_TXT_PRICE = 0x0409;
+                        const int BUY_TXT_NUM = 0x040A;
+                        const int BUY_BTN_OK = 0x3EE;
 
 
-            // 设定代码,价格,数量
-            IntPtr hPanel = GetDetailPanel();
-            IntPtr hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_CODE);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, code);
-            hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_PRICE);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, price.ToString());
-            hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_NUM);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, num.ToString());
+                        // 设定代码,价格,数量
+                        IntPtr hPanel = GetDetailPanel();
+                        IntPtr hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_CODE);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, code);
+                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_PRICE);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, price.ToString());
+                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_NUM);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, num.ToString());
 
-            // 点击买入按钮
-            hCtrl = Win32API.GetDlgItem(hPanel, BUY_BTN_OK);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONDOWN, 0, 0);
-            Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
-*/
+                        // 点击买入按钮
+                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_BTN_OK);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONDOWN, 0, 0);
+                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
+            */
         }
 
         public void CancelStock(string code, float price, int num)
