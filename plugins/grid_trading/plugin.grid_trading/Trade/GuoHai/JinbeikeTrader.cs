@@ -41,10 +41,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             hHkStockTree = Win32API.FindWindowEx(finder.FoundParentHandle, hStockTree, "TTreeView", string.Empty);
 
+
             Log(LoggType.Black, "关联金贝壳交易软件成功");
-            Log(LoggType.Black, "买入:" + GetTvItemTextEx(hStockTree, hBuy));
-            Log(LoggType.Black, "卖出:" + GetTvItemTextEx(hStockTree, hSell));
-            Log(LoggType.Black, "撤单查询:" + GetTvItemTextEx(hStockTree, hCancel));
+            Log(LoggType.Black, "买入:" + TreeView.GetItemText(hStockTree, hBuy));
+            Log(LoggType.Black, "卖出:" + TreeView.GetItemText(hStockTree, hSell));
+            Log(LoggType.Black, "撤单查询:" + TreeView.GetItemText(hStockTree, hCancel));
             return true;
         }
 
