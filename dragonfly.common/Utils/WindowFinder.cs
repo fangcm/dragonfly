@@ -1,5 +1,5 @@
 ﻿using System;
-using Dragonfly.Common.System.Window;
+using System.Runtime.InteropServices;
 
 namespace Dragonfly.Common.Utils
 {
@@ -31,17 +31,24 @@ namespace Dragonfly.Common.Utils
 
         private bool FindChildClassHwnd(IntPtr hwndParent, IntPtr lParam)
         {
-            Win32API.EnumWindowProc childProc = new Win32API.EnumWindowProc(FindChildClassHwnd);
-            IntPtr hwnd = Win32API.FindWindowEx(hwndParent, IntPtr.Zero, this.m_classname, this.m_caption);
+            EnumWindowProc childProc = new EnumWindowProc(FindChildClassHwnd);
+            IntPtr hwnd = FindWindowEx(hwndParent, IntPtr.Zero, this.m_classname, this.m_caption);
             if (hwnd != IntPtr.Zero)
             {
                 this.m_hWnd = hwnd; // found: save it
                 this.m_hParentWnd = hwndParent;
                 return false; // stop enumerating
             }
-            Win32API.EnumChildWindows(hwndParent, childProc, IntPtr.Zero); // 递归回调 FindChildClassHwnd
+            EnumChildWindows(hwndParent, childProc, IntPtr.Zero); // 递归回调 FindChildClassHwnd
             return true;// keep looking
         }
 
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", EntryPoint = "FindWindowEx", SetLastError = true)]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", EntryPoint = "EnumChildWindows")]
+        public static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
+        public delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
     }
 }
