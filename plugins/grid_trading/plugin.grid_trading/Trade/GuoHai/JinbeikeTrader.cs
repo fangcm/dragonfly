@@ -1,5 +1,4 @@
-﻿using Dragonfly.Common.System.Window;
-using Dragonfly.Common.Utils;
+﻿using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
 using System;
 using System.Runtime.InteropServices;
@@ -9,67 +8,89 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
     // 国海金贝壳
     public class JinbeikeTrader : AbstractTrader, ITrader
     {
-        IntPtr hStockBtn, hStockTree;    // A股功能树形控件句柄
-        IntPtr hHkStockBtn, hHkStockTree;    // 港股通功能树形控件句柄
 
         // A股主功能菜单
-        IntPtr hBuy, hSell, hBuyMarket, hSellMarket, hCancel;
+        IntPtr hStockBtn, hStockTree;    // A股功能树形控件句柄
+        IntPtr hBuy, hSell, hCancel;
 
-        private void InitMainFuncHandler()
-        {
-            hBuy = Win32API.SendMessage(hStockTree, Win32Code.TVM_GETNEXTITEM, Win32Code.TVGN_ROOT, IntPtr.Zero);
-            hSell = Win32API.SendMessage(hStockTree, Win32Code.TVM_GETNEXTITEM, Win32Code.TVGN_NEXT, hBuy);
-            hBuyMarket = Win32API.SendMessage(hStockTree, Win32Code.TVM_GETNEXTITEM, Win32Code.TVGN_NEXT, hSell);
-            hSellMarket = Win32API.SendMessage(hStockTree, Win32Code.TVM_GETNEXTITEM, Win32Code.TVGN_NEXT, hBuyMarket);
-            hCancel = Win32API.SendMessage(hStockTree, Win32Code.TVM_GETNEXTITEM, Win32Code.TVGN_NEXT, hSellMarket);
-        }
-
-        
-
+        // A股主功能菜单
+        IntPtr hHkStockBtn, hHkStockTree;    // 港股通功能树形控件句柄
+        IntPtr hHkHgtBuy, hHkHgtSell, hHkHgtCancel;
+        IntPtr hSkHgtBuy, hSkHgtSell, hSkHgtCancel;
 
         public bool Init()
         {
-            if(!Init(@"金贝壳网上交易系统"))
+            if (!Init(@"金贝壳网上交易系统"))
             {
+                Log(LoggType.Red, "【金贝壳网上交易系统】未启动");
                 return false;
             }
 
-            hMainWnd = FindWindow(null, @"金贝壳网上交易系统");
-
-
-
             hStockBtn = FindHwndInApp("TButton", "股票");
+            hHkStockBtn = FindHwndInApp("TButton", "港股通");
             ClickButton(hStockBtn);
+            ClickButton(hHkStockBtn);
 
             // 获取左侧功能菜单treeview 句柄
             WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", string.Empty);
-            hStockTree = finder.FoundHandle;
+            IntPtr treeParentHandle = finder.FoundParentHandle;
+            IntPtr hTree = finder.FoundHandle;
+
+            while (hTree != IntPtr.Zero)
+            {
+                int count = GetTreeViewItemCount(hTree);
+                Log(LoggType.Black, "Tree菜单数量:" + count);
+                if (count == 109)
+                {
+                    hStockTree = hTree;
+                }
+                else if (count == 39)
+                {
+                    hHkStockBtn = hTree;
+                }
+                if (hStockTree != IntPtr.Zero && hHkStockBtn != IntPtr.Zero)
+                {
+                    break;
+                }
+                hTree = GetHwnd(treeParentHandle, hTree, "TTreeView", string.Empty);
+            }
+
             if (hStockTree == IntPtr.Zero)
             {
                 Log(LoggType.Red, "没有找到金贝壳交易软件");
                 return false;
             }
+            if (hHkStockBtn == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有找到金贝壳港股交易软件");
+                return false;
+            }
 
-
-
-
-
-            hHkStockBtn = FindHwndInApp("TButton", "港股通");
-            ClickButton(hHkStockBtn);
-
-            InitMainFuncHandler();
-
-            hHkStockTree = Win32API.FindWindowEx(finder.FoundParentHandle, hStockTree, "TTreeView", string.Empty);
-
+            InitMenuFuncHandler();
+            InitHkMenuFuncHandler();
 
             Log(LoggType.Black, "关联金贝壳交易软件成功");
-            Log(LoggType.Black, "买入:" + GetTreeViewItemTextEx(hStockTree, hBuy));
-            Log(LoggType.Black, "卖出:" + TreeView.GetItemText(hStockTree, hSell));
-            Log(LoggType.Black, "撤单查询:" + TreeView.GetItemText(hStockTree, hCancel));
+
             return true;
         }
-         
 
+        private void InitMenuFuncHandler()
+        {
+            hBuy = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, 0, IntPtr.Zero);
+            hSell = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuy);
+            IntPtr hBuyMarket = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSell);
+            IntPtr hSellMarket = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuyMarket);
+            hCancel = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSellMarket);
+        }
+
+        private void InitHkMenuFuncHandler()
+        {
+            hHkHgtBuy = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, 0, IntPtr.Zero);
+            hHkHgtSell = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtBuy);
+            IntPtr hBuyMarket = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtSell);
+            IntPtr hSellMarket = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuyMarket);
+            hHkHgtCancel = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSellMarket);
+        }
 
         public void SellStock(string code, float price, int num)
         {
