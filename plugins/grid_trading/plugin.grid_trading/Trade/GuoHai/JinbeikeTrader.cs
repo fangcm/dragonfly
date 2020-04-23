@@ -94,8 +94,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void SellStock(string code, float price, int num)
         {
+            SelectTreeViewItem(hStockTree, hSell);
             ClickButton(hStockBtn);
-            //SelectTreeViewItem(hStockTree, hSell);
             /*
                         const int BUY_TXT_CODE = 0x0408;
                         const int BUY_TXT_PRICE = 0x0409;
@@ -120,8 +120,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void BuyStock(string code, float price, int num)
         {
-            ClickButton(hHkStockBtn);
-            //SelectTreeViewItem(hStockTree, hBuy);
+            SelectTreeViewItem(hStockTree, hBuy);
+            ClickButton(hStockBtn);
             /*
                         const int BUY_TXT_CODE = 0x0408;
                         const int BUY_TXT_PRICE = 0x0409;
@@ -148,6 +148,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         public void CancelStock(string code, float price, int num)
         {
             SelectTreeViewItem(hStockTree, hCancel);
+            ClickButton(hStockBtn);
         }
 
         public void TodayDealsList()

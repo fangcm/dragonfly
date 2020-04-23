@@ -24,56 +24,50 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return true;
         }
 
-        protected void SelectTreeViewItem(IntPtr hTree, IntPtr hItem)
-        {
-            Interop.SendMessage(hTree, Interop.TVM_SELECTITEM, Interop.TVGN_CARET, hItem);
-            /*
-            RECT[] rec = new RECT[1];
-            if (GetTreeViewItemRECT(hTree, hItem, ref rec))
-            {
-                RECT itemrect = rec[0];
-                int fixedx = 20;
-                int fixedy = 10;
-                SendMouseClick(hTree, itemrect.left + fixedx, itemrect.top + fixedy);
-            }
-            */
-        }
-
-
-
-        protected int GetTreeViewItemCount(IntPtr hTreeView)
-        {
-            return Interop.SendMessage(hTreeView, Interop.TVM_GETCOUNT, 0, 0);
-        }
-
-
-
-
-        #region common
-
         protected IntPtr FindHwndInApp(string lpClassName, string lpWindowName)
         {
             WindowFinder finder = new WindowFinder(hMainWnd, lpClassName, lpWindowName);
             return finder.FoundHandle;
         }
 
-        protected IntPtr GetHwnd(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName)
+        protected IntPtr GetHwnd(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
         {
-            return Interop.FindWindowEx(hwndParent, hwndChildAfter, lpClassName, lpWindowName);
+            return Interop.FindWindowEx(hParent, hChildAfter, lpClassName, lpWindowName);
         }
 
-        protected bool GetTreeViewItemRECT(IntPtr treeViewHandle, IntPtr treeItemHandle, ref Interop.RECT[] rect)
+        protected int GetTreeViewItemCount(IntPtr hTreeView)
+        {
+            return Interop.SendMessage(hTreeView, Interop.TVM_GETCOUNT, 0, 0);
+        }
+
+        protected void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
+        {
+            Interop.SendMessage(hTreeView, Interop.TVM_SELECTITEM, Interop.TVGN_CARET, hItem);
+
+            Interop.RECT[] rec = new Interop.RECT[1];
+            if (GetTreeViewItemRECT(hTreeView, hItem, ref rec))
+            {
+                Interop.RECT itemrect = rec[0];
+                int fixedx = 50;
+                int fixedy = 10;
+                SendMouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
+            }
+
+        }
+
+
+        protected bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref Interop.RECT[] rect)
         {
             bool result = false;
             int processId;
-            Interop.GetWindowThreadProcessId(treeViewHandle, out processId);
+            Interop.GetWindowThreadProcessId(hTreeView, out processId);
             IntPtr process = Interop.OpenProcess(Interop.PROCESS_VM_OPERATION | Interop.PROCESS_VM_READ | Interop.PROCESS_VM_WRITE, false, processId);
             IntPtr buffer = Interop.VirtualAllocEx(process, 0, 4096, Interop.MEM_RESERVE | Interop.MEM_COMMIT, Interop.PAGE_READWRITE);
             try
             {
                 uint bytes = 0;
                 Interop.WriteProcessMemory(process, buffer, ref treeItemHandle, Marshal.SizeOf(treeItemHandle), ref bytes);
-                Interop.SendMessage(treeViewHandle, Interop.TVM_GETITEMRECT, 1, buffer);
+                Interop.SendMessage(hTreeView, Interop.TVM_GETITEMRECT, 1, buffer);
                 Interop.ReadProcessMemory(process, buffer, Marshal.UnsafeAddrOfPinnedArrayElement(rect, 0), Marshal.SizeOf(typeof(Interop.RECT)), ref bytes);
                 result = true;
             }
@@ -85,9 +79,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return result;
         }
 
-        public static void ClickButton(IntPtr handle)
+        public static void ClickButton(IntPtr hButton)
         {
-            Interop.SendMessage(handle, (int)Interop.BM_CLICK, 0, 0);
+            Interop.SendMessage(hButton, (int)Interop.BM_CLICK, 0, 0);
         }
 
         public static void SendMouseClick(IntPtr handle, int x, int y)
@@ -124,9 +118,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         {
             return ((y << 16) | (x & 0xFFFF));
         }
-
-        #endregion common
-
 
 
         protected class Interop
@@ -342,11 +333,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 DWLP_DLGPROC = 0x4
             }
 
-
-
         }
-
-
 
     }
 }
