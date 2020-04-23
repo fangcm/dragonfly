@@ -2,15 +2,15 @@
 using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
 using System;
+using System.Runtime.InteropServices;
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
     // 国海金贝壳
     public class JinbeikeTrader : AbstractTrader, ITrader
     {
-        IntPtr hWnd;    // 主窗口句柄
-        IntPtr hStockTree;    // A股功能树形控件句柄
-        IntPtr hHkStockTree;    // 港股通功能树形控件句柄
+        IntPtr hStockBtn, hStockTree;    // A股功能树形控件句柄
+        IntPtr hHkStockBtn, hHkStockTree;    // 港股通功能树形控件句柄
 
         // A股主功能菜单
         IntPtr hBuy, hSell, hBuyMarket, hSellMarket, hCancel;
@@ -24,34 +24,57 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             hCancel = Win32API.SendMessage(hStockTree, Win32Code.TVM_GETNEXTITEM, Win32Code.TVGN_NEXT, hSellMarket);
         }
 
+        
+
 
         public bool Init()
         {
-            hWnd = Win32API.FindWindow(null, @"金贝壳网上交易系统");
+            if(!Init(@"金贝壳网上交易系统"))
+            {
+                return false;
+            }
+
+            hMainWnd = FindWindow(null, @"金贝壳网上交易系统");
+
+
+
+            hStockBtn = FindHwndInApp("TButton", "股票");
+            ClickButton(hStockBtn);
 
             // 获取左侧功能菜单treeview 句柄
-            WindowFinder finder = new WindowFinder(hWnd, "TTreeView", string.Empty);
+            WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", string.Empty);
             hStockTree = finder.FoundHandle;
             if (hStockTree == IntPtr.Zero)
             {
                 Log(LoggType.Red, "没有找到金贝壳交易软件");
                 return false;
             }
+
+
+
+
+
+            hHkStockBtn = FindHwndInApp("TButton", "港股通");
+            ClickButton(hHkStockBtn);
+
             InitMainFuncHandler();
 
             hHkStockTree = Win32API.FindWindowEx(finder.FoundParentHandle, hStockTree, "TTreeView", string.Empty);
 
 
             Log(LoggType.Black, "关联金贝壳交易软件成功");
-            Log(LoggType.Black, "买入:" + TreeView.GetItemText(hStockTree, hBuy));
+            Log(LoggType.Black, "买入:" + GetTreeViewItemTextEx(hStockTree, hBuy));
             Log(LoggType.Black, "卖出:" + TreeView.GetItemText(hStockTree, hSell));
             Log(LoggType.Black, "撤单查询:" + TreeView.GetItemText(hStockTree, hCancel));
             return true;
         }
+         
+
 
         public void SellStock(string code, float price, int num)
         {
-            ClickTreeViewItem(hStockTree, hSell);
+            ClickButton(hStockBtn);
+            //SelectTreeViewItem(hStockTree, hSell);
             /*
                         const int BUY_TXT_CODE = 0x0408;
                         const int BUY_TXT_PRICE = 0x0409;
@@ -76,7 +99,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void BuyStock(string code, float price, int num)
         {
-            ClickTreeViewItem(hStockTree, hBuy);
+            ClickButton(hHkStockBtn);
+            //SelectTreeViewItem(hStockTree, hBuy);
             /*
                         const int BUY_TXT_CODE = 0x0408;
                         const int BUY_TXT_PRICE = 0x0409;
@@ -102,7 +126,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
-            ClickTreeViewItem(hStockTree, hCancel);
+            SelectTreeViewItem(hStockTree, hCancel);
         }
 
         public void TodayDealsList()

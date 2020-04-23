@@ -38,20 +38,13 @@ namespace Dragonfly.Common.System.Window
         /// <param name="read">读取长度</param>
         [DllImport("Kernel32.dll")]
         public static extern bool ReadProcessMemory(IntPtr handle, IntPtr address, IntPtr data, int size, out int read);
-
         [DllImport("Kernel32.dll")]
         public static extern bool ReadProcessMemory(IntPtr handle, IntPtr address, StringBuilder data, int size, out int read);
 
-        /// <summary>
-        /// 此函数能写入某一进程的内存区域
-        /// </summary>
-        /// <param name="handle">进程句柄</param>
-        /// <param name="address">要写的内存首地址</param>
-        /// <param name="data">指向要写的数据的指针</param>
-        /// <param name="size">要写入的字节数</param>
-        /// <param name="write">读取长度</param>
-        [DllImport("Kernel32.dll")]
-        public static extern bool WriteProcessMemory(IntPtr handle, IntPtr address, TVITEM data, int size, out int write);
+        [DllImport("kernel32.dll")]
+        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, ref IntPtr lpBuffer, int nSize, out int vNumberOfBytesRead);
+        [DllImport("kernel32.dll")]
+        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, out int vNumberOfBytesRead);
 
         /// <summary>
         /// VirtualAllocEx 函数的作用是在指定进程的虚拟空间保留或提交内存区域，除非指定MEM_RESET参数，否则将该内存区域置0。

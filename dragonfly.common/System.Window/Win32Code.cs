@@ -12,6 +12,7 @@
         #region tree view 
 
         public const int TV_FIRST = 0x1100;
+        public const int TVM_GETITEMRECT = TV_FIRST + 4;
         public const int TVM_GETCOUNT = TV_FIRST + 5;
         public const int TVM_GETNEXTITEM = TV_FIRST + 10;
         public const int TVM_SELECTITEM = TV_FIRST + 11;
@@ -37,8 +38,9 @@
         public const int TVIF_HANDLE = 0x0010;
         public const int TVIF_SELECTEDIMAGE = 0x0020;
         public const int TVIF_CHILDREN = 0x0040;
-        public const int TVIF_INTEGRAL = 0x0080; 
+        public const int TVIF_INTEGRAL = 0x0080;
 
+        public const int LVM_GETITEMRECT = (0x1000 + 14);
         #endregion
 
         public const string TOOLBARCLASSNAME = "ToolbarWindow32";
