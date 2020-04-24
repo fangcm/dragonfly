@@ -2,6 +2,7 @@
 using Dragonfly.Plugin.GridTrading.Utils;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
@@ -32,7 +33,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             ClickButton(hHkStockBtn);
 
             // 获取左侧功能菜单treeview 句柄
-            WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", string.Empty);
+            WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", null);
             IntPtr treeParentHandle = finder.FoundParentHandle;
             IntPtr hTree = finder.FoundHandle;
 
@@ -52,7 +53,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 {
                     break;
                 }
-                hTree = GetHwnd(treeParentHandle, hTree, "TTreeView", string.Empty);
+                hTree = FindHwndInParent(treeParentHandle, hTree, "TTreeView", null);
             }
 
             if (hStockTree == IntPtr.Zero)
@@ -76,58 +77,99 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         private void InitMenuFuncHandler()
         {
+            IntPtr tmp;
+
             hBuy = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, 0, IntPtr.Zero);
             hSell = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuy);
-            IntPtr hBuyMarket = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSell);
-            IntPtr hSellMarket = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuyMarket);
-            hCancel = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSellMarket);
+            tmp = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSell);
+            tmp = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
+            hCancel = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
         }
 
         private void InitHkMenuFuncHandler()
         {
+            IntPtr tmp;
+
             hHkHgtBuy = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, 0, IntPtr.Zero);
             hHkHgtSell = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtBuy);
-            IntPtr hBuyMarket = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtSell);
-            IntPtr hSellMarket = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuyMarket);
-            hHkHgtCancel = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSellMarket);
-        }
-
-        public void SellStock(string code, float price, int num)
-        {
-            SelectTreeViewItem(hStockTree, hSell);
-            ClickButton(hStockBtn);
-            /*
-                        const int BUY_TXT_CODE = 0x0408;
-                        const int BUY_TXT_PRICE = 0x0409;
-                        const int BUY_TXT_NUM = 0x040A;
-                        const int BUY_BTN_OK = 0x3EE;
-
-                        // 设定代码,价格,数量
-                        IntPtr hPanel = GetDetailPanel();
-                        IntPtr hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_CODE);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, code);
-                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_PRICE);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, price.ToString());
-                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_NUM);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, num.ToString());
-
-                        // 点击买入按钮
-                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_BTN_OK);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONDOWN, 0, 0);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
-            */
+            tmp = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtSell);
+            tmp = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
+            hHkHgtCancel = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
         }
 
         public void BuyStock(string code, float price, int num)
         {
             SelectTreeViewItem(hStockTree, hBuy);
             ClickButton(hStockBtn);
+            Thread.Sleep(1000);
+
+            IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
+
+            IntPtr hCode = IntPtr.Zero;
+            IntPtr hPrice = IntPtr.Zero;
+            IntPtr hNum = IntPtr.Zero;
+            IntPtr hButton = IntPtr.Zero;
+
+            IntPtr hChild = IntPtr.Zero;
+            while (true)
+            {
+                hChild = FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
+                if (hChild == IntPtr.Zero)
+                {
+                    break;
+                }
+                IntPtr tmp;
+
+                IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
+                if (c == IntPtr.Zero)
+                    continue;
+
+                tmp = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
+                if (tmp == IntPtr.Zero)
+                    continue;
+                IntPtr p = FindVisibleHwndInParent(tmp, IntPtr.Zero, "Edit", null);
+                if (p == IntPtr.Zero)
+                    continue;
+
+                IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
+                if (n == IntPtr.Zero)
+                    continue;
+
+                IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
+                if (b == IntPtr.Zero)
+                    continue;
+                hCode = c;
+                hPrice = p;
+                hNum = n;
+                hButton = b;
+
+            }
+            if (hCode == IntPtr.Zero || hPrice == IntPtr.Zero || hNum == IntPtr.Zero || hButton == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有委托下单的控件页面");
+                return;
+            }
+
+            Interop.SendMessage(hCode, Interop.WM_SETTEXT, 0, "" + code);
+            Interop.SendMessage(hPrice, Interop.WM_SETTEXT, 0, "" + price);
+            Interop.SendMessage(hPrice, Interop.WM_SETTEXT, 0, "" + num);
+
+            // 点击买入按钮
+            ClickButton(hButton);
+        }
+
+        public void SellStock(string code, float price, int num)
+        {
+            SelectTreeViewItem(hStockTree, hSell);
+            ClickButton(hStockBtn);
+
+
+
             /*
                         const int BUY_TXT_CODE = 0x0408;
                         const int BUY_TXT_PRICE = 0x0409;
                         const int BUY_TXT_NUM = 0x040A;
                         const int BUY_BTN_OK = 0x3EE;
-
 
                         // 设定代码,价格,数量
                         IntPtr hPanel = GetDetailPanel();
@@ -144,6 +186,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                         Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
             */
         }
+
 
         public void CancelStock(string code, float price, int num)
         {

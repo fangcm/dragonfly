@@ -79,16 +79,16 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.BuyStock("", 10, 100);
+            TraderHelper.Instance.BuyStock("300498", 10.012f, 100);
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.SellStock("", 10, 100);
+            TraderHelper.Instance.SellStock("300498", 10.012f, 100);
         }
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.CancelStock("", 10, 100);
+            TraderHelper.Instance.CancelStock("300498", 10.012f, 100);
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e)

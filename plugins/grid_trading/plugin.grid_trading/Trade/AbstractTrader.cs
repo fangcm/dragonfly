@@ -30,9 +30,26 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return finder.FoundHandle;
         }
 
-        protected IntPtr GetHwnd(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
+        protected IntPtr FindHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
         {
             return Interop.FindWindowEx(hParent, hChildAfter, lpClassName, lpWindowName);
+        }
+
+        protected IntPtr FindVisibleHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
+        {
+            IntPtr retHandle = hChildAfter;
+            do
+            {
+                retHandle = Interop.FindWindowEx(hParent, retHandle, lpClassName, lpWindowName);
+                int style = (int)Interop.GetWindowLong(retHandle, (int)Interop.WindowLongFlags.GWL_STYLE);
+
+                if ((style & Interop.WS_VISIBLE) != 0)
+                {
+                    break;
+                }
+            } while (retHandle != IntPtr.Zero);
+
+            return retHandle;
         }
 
         protected int GetTreeViewItemCount(IntPtr hTreeView)
@@ -84,12 +101,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             Interop.SendMessage(hButton, (int)Interop.BM_CLICK, 0, 0);
         }
 
-        public static void SendMouseClick(IntPtr handle, int x, int y)
+        public static void MouseClick(IntPtr hButton)
         {
+            Interop.SendMessage(hButton, Interop.WM_LBUTTONDOWN, 0, 0);
+            Interop.SendMessage(hButton, Interop.WM_LBUTTONUP, 0, 0);
+        }
 
+        public static void MouseClick(IntPtr handle, int x, int y)
+        {
             Interop.SendMessage(handle, Interop.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
             Interop.SendMessage(handle, Interop.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
-
         }
 
         protected void MouseClickScreen(int x, int y)
@@ -129,21 +150,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
             public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-            [DllImport("User32.dll", EntryPoint = "SendMessage")]
-            public static extern int SendTxtMessage(int hWnd, int Msg, int wParam, char[] lParam);
             [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
-            public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+            public static extern bool SendMessage(IntPtr hWnd, int Msg, int wParam, StringBuilder lParam);
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
             public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, IntPtr lParam);
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, string lParam);
 
             [DllImport("User32.Dll")]
             public static extern IntPtr PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
-            public const uint WM_GETTEXTLENGTH = 0x000E;
-            public const uint WM_SETTEXT = 0x000C;
-            public const uint WM_GETTEXT = 0x000D;
-            public const uint BM_CLICK = 0x00F5;
-            public const uint WM_CLOSE = 0x0010;
+            public const int WM_GETTEXTLENGTH = 0x000E;
+            public const int WM_SETTEXT = 0x000C;
+            public const int WM_GETTEXT = 0x000D;
+            public const int BM_CLICK = 0x00F5;
+            public const int WM_CLOSE = 0x0010;
 
             public enum GetWindow_Cmd : uint { GW_HWNDFIRST = 0, GW_HWNDLAST = 1, GW_HWNDNEXT = 2, GW_HWNDPREV = 3, GW_OWNER = 4, GW_CHILD = 5, GW_ENABLEDPOPUP = 6 }
 
@@ -319,6 +340,18 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
             public static extern IntPtr SetWindowLong64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
+            public static IntPtr GetWindowLong(IntPtr hWnd, int nIndex)
+            {
+                if (IntPtr.Size == 8)
+                {
+                    return GetWindowLong64(hWnd, nIndex);
+                }
+                else
+                {
+                    return GetWindowLong32(hWnd, nIndex);
+                }
+            }
+
             public enum WindowLongFlags : int
             {
                 GWL_EXSTYLE = -20,
@@ -332,6 +365,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 DWLP_MSGRESULT = 0x0,
                 DWLP_DLGPROC = 0x4
             }
+
+            public const long WS_VISIBLE = 0x10000000;
 
         }
 
