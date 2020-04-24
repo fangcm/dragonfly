@@ -101,7 +101,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             SelectTreeViewItem(hStockTree, hBuy);
             ClickButton(hStockBtn);
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
 
