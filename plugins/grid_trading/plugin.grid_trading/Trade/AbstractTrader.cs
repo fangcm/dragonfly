@@ -2,6 +2,7 @@
 using Dragonfly.Plugin.GridTrading.Utils;
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
@@ -96,6 +97,51 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return result;
         }
 
+        public static string GetWindowText(IntPtr hWnd)
+        {
+            var builder = new StringBuilder();
+            return GetWindowText(hWnd, builder);
+        }
+
+        public static string GetWindowText(IntPtr hWnd, StringBuilder builder)
+        {
+            // Allocate correct string length first
+            int length = NativeMethods.GetWindowTextLength(hWnd);
+            builder.Capacity = Math.Max(builder.Capacity, length + 1);
+            NativeMethods.GetWindowText(hWnd, builder, builder.Capacity);
+            return builder.ToString();
+        }
+
+        public static int SetWindowText(IntPtr handle, string text)
+        {
+            return NativeMethods.SetWindowText(handle, text);
+        }
+
+        public static string GetRichEditText(IntPtr handle)
+        {
+            int start = -1, next = -1;
+            NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
+            WinApi.SendMessage(handle, WinApi.EM_GETSEL, out start, out next);
+            if (start != next)
+            {
+                int len = next - start;
+                StringBuilder sb = new StringBuilder(len + 1);
+                int lenRead = (int)WinApi.SendMessage(handle, WinApi.EM_GETSELTEXT, IntPtr.Zero, sb);
+                if (lenRead > 0)
+                {
+                    return sb.ToString();
+                }
+            }
+
+            return "";
+        }
+
+        public static void SetRichEditText(IntPtr handle, string text)
+        {
+            NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
+            NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
+        }
+
         public static void KeyboardPress(IntPtr hwnd, string text)
         {
             Keyboard.Press(hwnd, text);
@@ -109,13 +155,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         public static void MouseClick(IntPtr hButton)
         {
             NativeMethods.SendMessage(hButton, NativeMethods.WM_LBUTTONDOWN, 0, 0);
+            Delay(5);
             NativeMethods.SendMessage(hButton, NativeMethods.WM_LBUTTONUP, 0, 0);
         }
 
         public static void MouseClick(IntPtr handle, int x, int y)
         {
             NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
+            Delay(5);
             NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
+        }
+
+        public static void MouseDoubleClick(IntPtr handle, int x, int y)
+        {
+            NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDBLCLK, 0, MAKELPARAM(x, y));
+
         }
 
         public void MouseClickScreen(int x, int y)
@@ -129,6 +183,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 NativeMethods.SetCursorPos(x, y);
 
                 NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftDown | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+                Delay(5);
                 NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftUp | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
             }
             finally

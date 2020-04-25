@@ -233,5 +233,16 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 
         internal const long WS_VISIBLE = 0x10000000;
 
+
+        internal const int EM_SETSEL = 0x00B1;
+        internal const int EM_REPLACESEL = 0x00C2;
+        internal const int EM_GETSELTEXT = 0x043E;
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        internal static extern int GetWindowTextLength(IntPtr hWnd);
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int maxCount);
+        [DllImport("user32.dll", EntryPoint = "SetWindowText")]
+        internal static extern int SetWindowText(IntPtr hwnd, string lpString);
     }
 }
