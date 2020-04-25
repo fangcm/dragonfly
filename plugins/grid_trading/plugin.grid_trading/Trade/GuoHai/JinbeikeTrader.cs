@@ -30,7 +30,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             hStockBtn = FindHwndInApp("TButton", "股票");
             hHkStockBtn = FindHwndInApp("TButton", "港股通");
             ClickButton(hStockBtn);
+            Delay(500);
             ClickButton(hHkStockBtn);
+            Delay(500);
 
             // 获取左侧功能菜单treeview 句柄
             WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", null);
@@ -101,7 +103,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             SelectTreeViewItem(hStockTree, hBuy);
             ClickButton(hStockBtn);
-            Thread.Sleep(500);
 
             IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
 
@@ -118,23 +119,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 {
                     break;
                 }
-                IntPtr tmp;
+
 
                 IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
                 if (c == IntPtr.Zero)
                     continue;
-
-                tmp = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
-                if (tmp == IntPtr.Zero)
-                    continue;
-                IntPtr p = FindVisibleHwndInParent(tmp, IntPtr.Zero, "Edit", null);
+                IntPtr p = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
                 if (p == IntPtr.Zero)
                     continue;
-
                 IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
                 if (n == IntPtr.Zero)
                     continue;
-
                 IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
                 if (b == IntPtr.Zero)
                     continue;
@@ -150,12 +145,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            Interop.SendMessage(hCode, Interop.WM_SETTEXT, 0, "" + code);
-            Interop.SendMessage(hPrice, Interop.WM_SETTEXT, 0, "" + price);
-            Interop.SendMessage(hPrice, Interop.WM_SETTEXT, 0, "" + num);
+
+            KeyboardPress(hCode, code);
+            KeyboardPress(hPrice, "10.11");
+            KeyboardPress(hNum, "12345");
 
             // 点击买入按钮
-            ClickButton(hButton);
+            //ClickButton(hButton);
         }
 
         public void SellStock(string code, float price, int num)

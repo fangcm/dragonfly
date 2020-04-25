@@ -2,7 +2,8 @@
 using System.Text;
 using System.Runtime.InteropServices;
 using Dragonfly.Common.Utils;
-
+using Dragonfly.Plugin.GridTrading.Utils;
+using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
@@ -67,13 +68,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 Interop.RECT itemrect = rec[0];
                 int fixedx = 50;
                 int fixedy = 10;
-                SendMouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
+                MouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
             }
 
         }
 
 
-        protected bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref Interop.RECT[] rect)
+        protected static bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref Interop.RECT[] rect)
         {
             bool result = false;
             int processId;
@@ -96,6 +97,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return result;
         }
 
+        public static void KeyboardPress(IntPtr hwnd, string text)
+        {
+            Keyboard.Press(hwnd, text);
+        }
+
         public static void ClickButton(IntPtr hButton)
         {
             Interop.SendMessage(hButton, (int)Interop.BM_CLICK, 0, 0);
@@ -113,7 +119,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             Interop.SendMessage(handle, Interop.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
         }
 
-        protected void MouseClickScreen(int x, int y)
+        public void MouseClickScreen(int x, int y)
         {
             Interop.POINT p = new Interop.POINT();
             Interop.GetCursorPos(out p);
@@ -125,13 +131,20 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
                 Interop.mouse_event((int)(Interop.MouseEventFlags.LeftDown | Interop.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
                 Interop.mouse_event((int)(Interop.MouseEventFlags.LeftUp | Interop.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
-
-                System.Threading.Thread.Sleep(2000);
             }
             finally
             {
                 Interop.SetCursorPos(p.X, p.Y);
                 Interop.ShowCursor(true);
+            }
+        }
+
+        public static void Delay(int milliSecond)
+        {
+            int start = Environment.TickCount;
+            while (Math.Abs(Environment.TickCount - start) < milliSecond)//毫秒
+            {
+                Application.DoEvents();
             }
         }
 
