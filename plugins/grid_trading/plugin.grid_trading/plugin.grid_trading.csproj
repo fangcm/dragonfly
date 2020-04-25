@@ -67,6 +67,7 @@
     <Compile Include="Trade\TraderHelper.cs" />
     <Compile Include="Utils\KeyBoard.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
+    <Compile Include="Utils\NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\dragonfly.common\dragonfly.common.csproj">

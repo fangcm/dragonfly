@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading.Utils
@@ -8,16 +7,13 @@ namespace Dragonfly.Plugin.GridTrading.Utils
     {
         private const uint WM_CHAR = 0x0102;
 
-        [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
-        public static extern void keybd_event(Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
-        [DllImport("User32.Dll")]
-        private static extern IntPtr PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+
 
         public static void Press(string text)
         {
             foreach (char letter in text)
             {
-                keybd_event((Keys)letter, 0, 0, 0);
+                NativeMethods.keybd_event((Keys)letter, 0, 0, 0);
             }
         }
 
@@ -27,9 +23,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         {
             foreach (char letter in text)
             {
-                PostMessage(hWnd, WM_CHAR, letter, 0);
+                NativeMethods.PostMessage(hWnd, WM_CHAR, letter, 0);
             }
         }
-     
+
     }
 }

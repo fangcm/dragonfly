@@ -81,22 +81,22 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             IntPtr tmp;
 
-            hBuy = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, 0, IntPtr.Zero);
-            hSell = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hBuy);
-            tmp = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hSell);
-            tmp = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
-            hCancel = (IntPtr)Interop.SendMessage(hStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
+            hBuy = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, 0, IntPtr.Zero);
+            hSell = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            hCancel = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
         }
 
         private void InitHkMenuFuncHandler()
         {
             IntPtr tmp;
 
-            hHkHgtBuy = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, 0, IntPtr.Zero);
-            hHkHgtSell = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtBuy);
-            tmp = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, hHkHgtSell);
-            tmp = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
-            hHkHgtCancel = (IntPtr)Interop.SendMessage(hHkStockTree, Interop.TVM_GETNEXTITEM, Interop.TVGN_NEXT, tmp);
+            hHkHgtBuy = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, 0, IntPtr.Zero);
+            hHkHgtSell = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtBuy);
+            tmp = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtSell);
+            tmp = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            hHkHgtCancel = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
         }
 
         public void BuyStock(string code, float price, int num)
