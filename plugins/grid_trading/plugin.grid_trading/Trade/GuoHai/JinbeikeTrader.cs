@@ -145,38 +145,20 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            /*
-            MouseDoubleClick(hCode,30,10);
-            KeyboardPress(hCode, code);
-            MouseDoubleClick(hPrice, 30, 10);
-            KeyboardPress(hPrice, "10.11");
-            MouseDoubleClick(hNum, 30, 10);
-
-            int WM_SETFOCUS = 0x0007;
-            //设置焦点
-            int WM_KILLFOCUS = 0x0008;
-            NativeMethods.SendMessage(hNum, WM_SETFOCUS, 0, "");
-            KeyboardPress(hNum, "12345");
-            //NativeMethods.SendMessage(hNum, NativeMethods.WM_SETTEXT, 0, "55500");
-            NativeMethods.SendMessage(hNum, WM_KILLFOCUS, 0, "");
-
-            //SendMessage(iLoginPwdEditFrame, WM_SETFOCUS, 0, null);//设置焦点到密码框，发送tab键有时不能转到密码框
-            //SendMessage(iLoginPwdEditFrame, WM_KILLFOCUS, 0, null);//设置焦点到密码框，发送tab键有时不能转到密码框
-            */
-
-            //Misc.SetText(code, hCode, 2);
-            //string code1 = Misc.GetText(hCode,2);
-            //Misc.SetText("10.11", hPrice, 2);
-            //string hPrice1 = Misc.GetText(hPrice,2);
+            NativeMethods.SendMessage(hCode, NativeMethods.WM_SETFOCUS, 0, 0);
+            SetRichEditText(hCode, code);
+            NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
+            NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
+            Delay(500);
+            SetEditText(hPrice,"10.11");
+            NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
+            NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
+            Delay(500);
             SetRichEditText(hNum, "12000");
-            string hNum1 = GetRichEditText(hNum);
-
-            //Log(LoggType.Black, code1);
-            //Log(LoggType.Black, hPrice1);
-            Log(LoggType.Black, hNum1);
+            NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
 
             // 点击买入按钮
-            //ClickButton(hButton);
+            ClickButton(hButton);
         }
 
         public void SellStock(string code, float price, int num)

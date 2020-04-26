@@ -105,7 +105,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         public static string GetWindowText(IntPtr hWnd, StringBuilder builder)
         {
-            // Allocate correct string length first
             int length = NativeMethods.GetWindowTextLength(hWnd);
             builder.Capacity = Math.Max(builder.Capacity, length + 1);
             NativeMethods.GetWindowText(hWnd, builder, builder.Capacity);
@@ -117,34 +116,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return NativeMethods.SetWindowText(handle, text);
         }
 
-        public static string GetRichEditText(IntPtr handle)
+        public static void SetEditText(IntPtr handle, string text)
         {
-            int start = -1, next = -1;
-            NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
-            WinApi.SendMessage(handle, WinApi.EM_GETSEL, out start, out next);
-            if (start != next)
-            {
-                int len = next - start;
-                StringBuilder sb = new StringBuilder(len + 1);
-                int lenRead = (int)WinApi.SendMessage(handle, WinApi.EM_GETSELTEXT, IntPtr.Zero, sb);
-                if (lenRead > 0)
-                {
-                    return sb.ToString();
-                }
-            }
-
-            return "";
+            NativeMethods.SendMessage(handle, NativeMethods.WM_SETTEXT, 0, text);
         }
 
         public static void SetRichEditText(IntPtr handle, string text)
         {
             NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
             NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
-        }
-
-        public static void KeyboardPress(IntPtr hwnd, string text)
-        {
-            Keyboard.Press(hwnd, text);
         }
 
         public static void ClickButton(IntPtr hButton)
@@ -192,6 +172,23 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 NativeMethods.ShowCursor(true);
             }
         }
+
+        public static void KeyboardPress(IntPtr handle, string text)
+        {
+            foreach (char letter in text)
+            {
+                NativeMethods.PostMessage(handle, NativeMethods.WM_CHAR, letter, 0);
+            }
+        }
+
+        public static void Press(string text)
+        {
+            foreach (char letter in text)
+            {
+                NativeMethods.keybd_event((Keys)letter, 0, 0, 0);
+            }
+        }
+
 
         public static void Delay(int milliSecond)
         {

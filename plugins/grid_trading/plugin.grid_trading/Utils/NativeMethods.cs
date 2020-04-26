@@ -28,8 +28,15 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal const int WM_GETTEXTLENGTH = 0x000E;
         internal const int WM_SETTEXT = 0x000C;
         internal const int WM_GETTEXT = 0x000D;
-        internal const int BM_CLICK = 0x00F5;
         internal const int WM_CLOSE = 0x0010;
+        internal const int WM_SETFOCUS = 0x0007;
+        internal const int WM_KILLFOCUS = 0x0008;
+        internal const int WM_CHAR = 0x0102;
+        internal const int WM_LBUTTONDOWN = 0x201;
+        internal const int WM_LBUTTONUP = 0x202;
+        internal const int WM_LBUTTONDBLCLK = 0x203;
+        internal const int MK_LBUTTON = 0x1;
+        internal const int BM_CLICK = 0x00F5;
 
         internal enum GetWindow_Cmd : uint { GW_HWNDFIRST = 0, GW_HWNDLAST = 1, GW_HWNDNEXT = 2, GW_HWNDPREV = 3, GW_OWNER = 4, GW_CHILD = 5, GW_ENABLEDPOPUP = 6 }
 
@@ -104,11 +111,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 
         [DllImport("kernel32.dll")]
         internal static extern bool CloseHandle(IntPtr handle);
-
-        internal const int WM_LBUTTONDOWN = 0x201;
-        internal const int WM_LBUTTONUP = 0x202;
-        internal const int WM_LBUTTONDBLCLK = 0x203;
-        internal const int MK_LBUTTON = 0x1;
 
         [DllImport("user32.dll")]
         internal static extern int GetWindowRect(IntPtr hwnd, out RECT lpRect);
@@ -232,7 +234,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         }
 
         internal const long WS_VISIBLE = 0x10000000;
-
 
         internal const int EM_SETSEL = 0x00B1;
         internal const int EM_REPLACESEL = 0x00C2;
