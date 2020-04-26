@@ -159,6 +159,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             // 点击买入按钮
             ClickButton(hButton);
+
+            IntPtr hConfirmDlg = FindHwndInApp("TfrmDialogs", "确认");
+            if (hConfirmDlg != IntPtr.Zero)
+            {
+                IntPtr hTPanel = FindVisibleHwndInParent(hConfirmDlg, IntPtr.Zero, "TPanel", null);
+                if (hTPanel != IntPtr.Zero)
+                {
+                    int i=1;
+                }
+            }
         }
 
         public void SellStock(string code, float price, int num)
