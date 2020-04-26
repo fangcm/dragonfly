@@ -35,6 +35,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal const int WM_LBUTTONDOWN = 0x201;
         internal const int WM_LBUTTONUP = 0x202;
         internal const int WM_LBUTTONDBLCLK = 0x203;
+        internal const int WM_PARENTNOTIFY = 0x0210;
+
         internal const int MK_LBUTTON = 0x1;
         internal const int BM_CLICK = 0x00F5;
 
@@ -245,5 +247,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int maxCount);
         [DllImport("user32.dll", EntryPoint = "SetWindowText")]
         internal static extern int SetWindowText(IntPtr hwnd, string lpString);
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr GetParent(IntPtr hwnd);
     }
 }

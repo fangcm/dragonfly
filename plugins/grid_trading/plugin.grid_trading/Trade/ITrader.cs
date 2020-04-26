@@ -16,8 +16,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         void TodayDealsList();
 
         void HoldingStockList();
-
-        void CashInfo();
         
     }
 }

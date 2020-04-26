@@ -88,12 +88,12 @@ namespace Dragonfly.Plugin.GridTrading
         }
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.CancelStock("300498", 10.012f, 100);
+            TraderHelper.Instance.TodayDealsList();
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-
+            TraderHelper.Instance.HoldingStockList();
         }
     }
 

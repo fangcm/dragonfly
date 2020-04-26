@@ -12,7 +12,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         // A股主功能菜单
         IntPtr hStockBtn, hStockTree;    // A股功能树形控件句柄
-        IntPtr hBuy, hSell, hCancel;
+        IntPtr hBuy, hSell, hCancel, hTodayDeals;
 
         // A股主功能菜单
         IntPtr hHkStockBtn, hHkStockTree;    // 港股通功能树形控件句柄
@@ -86,6 +86,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
             tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
             hCancel = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            // 科创板
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            // 新股申购
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            // 查询功能
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, tmp);
+            hTodayDeals = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
         }
 
         private void InitHkMenuFuncHandler()
@@ -101,6 +112,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void BuyStock(string code, float price, int num)
         {
+            Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
+
             SelectTreeViewItem(hStockTree, hBuy);
             ClickButton(hStockBtn);
 
@@ -141,7 +154,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
             if (hCode == IntPtr.Zero || hPrice == IntPtr.Zero || hNum == IntPtr.Zero || hButton == IntPtr.Zero)
             {
-                Log(LoggType.Red, "没有委托下单的控件页面");
+                Log(LoggType.Red, "没有买入下单的控件页面");
                 return;
             }
 
@@ -150,54 +163,126 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
             NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
             Delay(500);
-            SetEditText(hPrice,"10.11");
+            SetEditText(hPrice, "" + price);
             NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
             NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
             Delay(500);
-            SetRichEditText(hNum, "12000");
+            SetRichEditText(hNum, "" + num);
             NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
 
             // 点击买入按钮
             ClickButton(hButton);
-
-            IntPtr hConfirmDlg = FindHwndInApp("TfrmDialogs", "确认");
+            Delay(500);
+            WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
+            IntPtr hConfirmDlg = finder.FoundHandle;
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hTPanel = FindVisibleHwndInParent(hConfirmDlg, IntPtr.Zero, "TPanel", null);
-                if (hTPanel != IntPtr.Zero)
+                IntPtr hBtnYes = FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
+                IntPtr hBtnNo = FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
+
+                string sCode = GetEditText(hCode);
+                string sPrice = GetEditText(hPrice);
+                string sNum = GetEditText(hNum);
+
+                Log(LoggType.Red, "校验购买单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
+                if (sCode == code && sPrice == "" + price && sNum == "" + num)
                 {
-                    int i=1;
+                    ClickButton(hBtnYes);
                 }
+                else
+                {
+                    ClickButton(hBtnNo);
+                }
+
             }
         }
 
         public void SellStock(string code, float price, int num)
         {
+            Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
+
             SelectTreeViewItem(hStockTree, hSell);
             ClickButton(hStockBtn);
 
+            IntPtr hPanel = FindHwndInApp("Tfrm2007", null);
+
+            IntPtr hCode = IntPtr.Zero;
+            IntPtr hPrice = IntPtr.Zero;
+            IntPtr hNum = IntPtr.Zero;
+            IntPtr hButton = IntPtr.Zero;
+
+            IntPtr hChild = IntPtr.Zero;
+            while (true)
+            {
+                hChild = FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
+                if (hChild == IntPtr.Zero)
+                {
+                    break;
+                }
 
 
-            /*
-                        const int BUY_TXT_CODE = 0x0408;
-                        const int BUY_TXT_PRICE = 0x0409;
-                        const int BUY_TXT_NUM = 0x040A;
-                        const int BUY_BTN_OK = 0x3EE;
+                IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
+                if (c == IntPtr.Zero)
+                    continue;
+                IntPtr p = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
+                if (p == IntPtr.Zero)
+                    continue;
+                IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
+                if (n == IntPtr.Zero)
+                    continue;
+                IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
+                if (b == IntPtr.Zero)
+                    continue;
+                hCode = c;
+                hPrice = p;
+                hNum = n;
+                hButton = b;
 
-                        // 设定代码,价格,数量
-                        IntPtr hPanel = GetDetailPanel();
-                        IntPtr hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_CODE);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, code);
-                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_PRICE);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, price.ToString());
-                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_TXT_NUM);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_SETTEXT, 0, num.ToString());
+            }
+            if (hCode == IntPtr.Zero || hPrice == IntPtr.Zero || hNum == IntPtr.Zero || hButton == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有卖出下单的控件页面");
+                return;
+            }
 
-                        // 点击买入按钮
-                        hCtrl = Win32API.GetDlgItem(hPanel, BUY_BTN_OK);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONDOWN, 0, 0);
-                        Win32API.SendMessage(hCtrl, Win32Code.WM_LBUTTONUP, 0, 0);
-            */
+            NativeMethods.SendMessage(hCode, NativeMethods.WM_SETFOCUS, 0, 0);
+            SetRichEditText(hCode, code);
+            NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
+            NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
+            Delay(500);
+            SetEditText(hPrice, "" + price);
+            NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
+            NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
+            Delay(500);
+            SetRichEditText(hNum, "" + num);
+            NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
+
+            // 点击买入按钮
+            ClickButton(hButton);
+            Delay(500);
+            WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
+            IntPtr hConfirmDlg = finder.FoundHandle;
+            if (hConfirmDlg != IntPtr.Zero)
+            {
+                IntPtr hBtnYes = FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
+                IntPtr hBtnNo = FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
+
+                string sCode = GetEditText(hCode);
+                string sPrice = GetEditText(hPrice);
+                string sNum = GetEditText(hNum);
+
+                Log(LoggType.Red, "校验卖出单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
+                if (sCode == code && sPrice == "" + price && sNum == "" + num)
+                {
+                    ClickButton(hBtnYes);
+                }
+                else
+                {
+                    ClickButton(hBtnNo);
+                }
+
+            }
+
         }
 
 
@@ -209,36 +294,59 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void TodayDealsList()
         {
-            throw new NotImplementedException();
+            Log(LoggType.Black, "查询当日成交");
+
+            SelectTreeViewItem(hStockTree, hTodayDeals);
+
+            //ClickButton(hStockBtn);
+
+            IntPtr hPanel = FindHwndInApp("TFrmInquireToday", null);
+            if (hPanel == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有当日成交的控件页面");
+                return;
+            }
+
+            IntPtr hRefreash = FindHwndInParentRecursive(hPanel, "TButton", "刷新[F5]");
+            if (hRefreash != IntPtr.Zero)
+            {
+                ClickButton(hRefreash);
+                Delay(1000);
+            }
+            IntPtr hGrid = FindHwndInParentRecursive(hPanel, "TAdvStringGrid", null);
+            if (hGrid == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有当日成交的控件页面");
+                return;
+            }
+
+
+
         }
 
         public void HoldingStockList()
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void CashInfo()
+
+        protected new void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
-            /*
-            Win32API.SendMessage(htvi, Win32Code.TVM_SELECTITEM, Win32Code.TVGN_CARET, hQueryZjgp);
+            base.SelectTreeViewItem(hTreeView, hItem);
 
-            // TODO:发送复制命令,这里不能正常复制
-            IntPtr list = GetPositonList();
-            Win32API.SendMessage(list, Win32Code.WM_LBUTTONDOWN, 0, 0);
-            Win32API.SendMessage(list, Win32Code.WM_LBUTTONUP, 0, 0);
-            Win32API.SendMessage(list, Win32Code.WM_SETFOCUS, 0, 0);
-            //Win32API.SendMessage(list, Win32Code.WM_RENDERFORMAT, Win32Code.CF_UNICODETEXT, 0);
+            NativeMethods.RECT[] rec = new NativeMethods.RECT[1];
+            if (GetTreeViewItemRECT(hTreeView, hItem, ref rec))
+            {
+                NativeMethods.RECT itemrect = rec[0];
+                int fixedx = 50;
+                int fixedy = 10;
+                //MouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
+                IntPtr hParent = NativeMethods.GetParent(hTreeView);
+                NativeMethods.SendMessage(hParent, NativeMethods.WM_PARENTNOTIFY, NativeMethods.WM_LBUTTONDOWN, MAKELPARAM(itemrect.left + fixedx, itemrect.top + fixedy));
 
-            // Win32API.SendMessage(new IntPtr(0x00270bb2), Win32Code.WM_RENDERFORMAT, Win32Code.CF_UNICODETEXT, 0);
+            }
 
-            Win32API.SendMessage(list, Win32Code.WM_KEYDOWN, Win32Code.VK_CONTROL, 0);
-            Win32API.SendMessage(list, Win32Code.WM_KEYDOWN, Win32Code.VK_C, 0);
-            Win32API.SendMessage(list, Win32Code.WM_CHAR, Win32Code.VK_C, 0);
-            Win32API.SendMessage(list, Win32Code.WM_KEYUP, Win32Code.VK_C, 0);
-            Win32API.SendMessage(list, Win32Code.WM_KEYUP, Win32Code.VK_CONTROL, 0);
-            */
         }
-
 
     }
 }

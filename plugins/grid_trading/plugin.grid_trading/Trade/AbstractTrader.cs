@@ -11,9 +11,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
     {
         protected IntPtr hMainWnd;    // 主窗口句柄
 
-        internal void Log(Utils.LoggType type, string msg)
+        internal void Log(LoggType type, string msg)
         {
-            Utils.LoggerUtil.Log(type, msg);
+            LoggerUtil.Log(type, msg);
         }
 
         public bool Init(string appName)
@@ -34,6 +34,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         protected IntPtr FindHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
         {
             return NativeMethods.FindWindowEx(hParent, hChildAfter, lpClassName, lpWindowName);
+        }
+
+        protected IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName)
+        {
+            WindowFinder finder = new WindowFinder(hParent, lpClassName, lpWindowName);
+            return finder.FoundHandle;
         }
 
         protected IntPtr FindVisibleHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
@@ -61,16 +67,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         protected void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
             NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
-
-            NativeMethods.RECT[] rec = new NativeMethods.RECT[1];
-            if (GetTreeViewItemRECT(hTreeView, hItem, ref rec))
-            {
-                NativeMethods.RECT itemrect = rec[0];
-                int fixedx = 50;
-                int fixedy = 10;
-                MouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
-            }
-
         }
 
 
@@ -121,15 +117,32 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             NativeMethods.SendMessage(handle, NativeMethods.WM_SETTEXT, 0, text);
         }
 
+        public static string GetEditText(IntPtr handle)
+        {
+            StringBuilder data = new StringBuilder(32768);
+            NativeMethods.SendMessage(handle, NativeMethods.WM_GETTEXT, data.Capacity, data);
+            return data.ToString();
+        }
+
         public static void SetRichEditText(IntPtr handle, string text)
         {
             NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
             NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
         }
 
+        /*
+        public static string GetRichEditText(IntPtr handle)
+        {
+            NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
+            StringBuilder sb = new StringBuilder(32768);
+            bool ret = NativeMethods.SendMessage(handle, NativeMethods.EM_GETSELTEXT, 0, sb);
+            return sb.ToString();
+        }
+        */
+
         public static void ClickButton(IntPtr hButton)
         {
-            NativeMethods.SendMessage(hButton, (int)NativeMethods.BM_CLICK, 0, 0);
+            NativeMethods.PostMessage(hButton, (int)NativeMethods.BM_CLICK, 0, 0);
         }
 
         public static void MouseClick(IntPtr hButton)
