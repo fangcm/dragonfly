@@ -16,7 +16,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             LoggerUtil.Log(type, msg);
         }
 
-        public bool Init(string appName)
+        public bool Init(string appClassName, string appName)
         {
             hMainWnd = NativeMethods.FindWindow(null, appName);
             if (hMainWnd == IntPtr.Zero)
@@ -59,7 +59,25 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return retHandle;
         }
 
-        protected int GetTreeViewItemCount(IntPtr hTreeView)
+        protected static void ChangeTabPage(IntPtr hwndDialog, IntPtr hwndTabControl, int index)
+        {
+            int NM_SETFOCUS = -7;
+
+            NativeMethods.NMHDR nmhdr2 = new NativeMethods.NMHDR();
+            nmhdr2.hwndFrom = hwndDialog;
+            nmhdr2.idFrom = (uint)NativeMethods.GetDlgCtrlID(hwndTabControl);
+            nmhdr2.code = unchecked((uint)NM_SETFOCUS);
+            NativeMethods.SendMessage(hwndTabControl, NativeMethods.WM_NOTIFY, (int)nmhdr2.hwndFrom, ref nmhdr2);
+
+
+            NativeMethods.NMHDR nmhdr = new NativeMethods.NMHDR();
+            nmhdr.hwndFrom = hwndTabControl;
+            nmhdr.idFrom = (uint)NativeMethods.GetDlgCtrlID(hwndTabControl);
+            nmhdr.code = unchecked((uint)NativeMethods.TCN_SELCHANGING);
+            NativeMethods.SendMessage(hwndDialog, NativeMethods.WM_NOTIFY, (int)nmhdr.idFrom, ref nmhdr);
+        }
+
+        protected static int GetTreeViewItemCount(IntPtr hTreeView)
         {
             return NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETCOUNT, 0, 0);
         }
@@ -68,7 +86,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         {
             NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
         }
-
 
         internal static bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref NativeMethods.RECT[] rect)
         {

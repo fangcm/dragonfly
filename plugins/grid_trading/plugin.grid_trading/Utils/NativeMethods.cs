@@ -20,17 +20,20 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal static extern int SendMessage(IntPtr hWnd, int msg, int wParam, IntPtr lParam);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern int SendMessage(IntPtr hWnd, int msg, int wParam, string lParam);
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref NMHDR lParam);
         [DllImport("User32.Dll")]
         internal static extern IntPtr PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
         internal static extern void keybd_event(Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
 
+        internal const int WM_SETFOCUS = 0x0007;
+        internal const int WM_KILLFOCUS = 0x0008;
         internal const int WM_GETTEXTLENGTH = 0x000E;
         internal const int WM_SETTEXT = 0x000C;
         internal const int WM_GETTEXT = 0x000D;
         internal const int WM_CLOSE = 0x0010;
-        internal const int WM_SETFOCUS = 0x0007;
-        internal const int WM_KILLFOCUS = 0x0008;
+        internal const int WM_NOTIFY = 0x004E;
         internal const int WM_CHAR = 0x0102;
         internal const int WM_LBUTTONDOWN = 0x201;
         internal const int WM_LBUTTONUP = 0x202;
@@ -249,5 +252,31 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal static extern int SetWindowText(IntPtr hwnd, string lpString);
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr GetParent(IntPtr hwnd);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct NMHDR
+        {
+            public IntPtr hwndFrom;
+            public uint idFrom;
+            public uint code;
+        }
+
+        [DllImport("user32.dll")]
+        public static extern int GetDlgCtrlID(IntPtr hwndCtl);
+
+        public const int TCM_FIRST = 0x1300;
+        public const int TCM_GETITEMCOUNT = (TCM_FIRST + 4);
+        public const int TCM_GETITEMA = (TCM_FIRST + 5);
+        public const int TCM_GETITEMW = (TCM_FIRST + 60);
+        public const int TCM_GETITEMRECT = (TCM_FIRST + 10);
+        public const int TCM_GETCURSEL = (TCM_FIRST + 11);
+        public const int TCM_SETCURSEL = (TCM_FIRST + 12);
+        public const int TCM_GETROWCOUNT = (TCM_FIRST + 44);
+        public const int TCM_GETCURFOCUS = (TCM_FIRST + 47);
+        public const int TCM_SETCURFOCUS = (TCM_FIRST + 48);
+        public const int TCM_GETEXTENDEDSTYLE = (TCM_FIRST + 53);
+
+        internal const int TCN_SELCHANGING = -552;
+
     }
 }

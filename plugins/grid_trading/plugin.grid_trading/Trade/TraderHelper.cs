@@ -11,7 +11,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         }
 
         object lockObject = new object();
-        ITrader trader = new JinbeikeTrader();
+        ITrader trader = new JinTanHaoTrader();
 
         public void Init()
         {

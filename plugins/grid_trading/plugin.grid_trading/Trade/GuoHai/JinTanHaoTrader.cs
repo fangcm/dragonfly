@@ -6,114 +6,43 @@ using System.Threading;
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
-    // 国海金贝壳
-    public class JinbeikeTrader : AbstractTrader, ITrader
+    // 国海金叹号
+    public class JinTanHaoTrader : AbstractTrader, ITrader
     {
 
+        IntPtr hToolBar;
         // A股主功能菜单
-        IntPtr hStockBtn, hStockTree;    // A股功能树形控件句柄
-        IntPtr hBuy, hSell, hCancel, hTodayDeals;
-
-        // A股主功能菜单
-        IntPtr hHkStockBtn, hHkStockTree;    // 港股通功能树形控件句柄
-        IntPtr hHkHgtBuy, hHkHgtSell, hHkHgtCancel;
-        IntPtr hSkHgtBuy, hSkHgtSell, hSkHgtCancel;
+        IntPtr hStockTree;    // A股功能树形控件句柄
+        // 港股主功能菜单
+        IntPtr hHkStockTree;    // 港股通功能树形控件句柄
 
         public bool Init()
         {
-            if (!Init(null, @"金贝壳网上交易系统"))
+            if (!Init(@"TdxW_MainFrame_Class", null))
             {
-                Log(LoggType.Red, "【金贝壳网上交易系统】未启动");
+                Log(LoggType.Red, "【国海金叹号网上交易系统】未启动");
                 return false;
             }
+            hMainWnd = FindHwndInApp(@"#32770 (对话框)", @"通达信网上交易V6");
 
-            hStockBtn = FindHwndInApp("TButton", "股票");
-            hHkStockBtn = FindHwndInApp("TButton", "港股通");
-            ClickButton(hStockBtn);
-            Delay(500);
-            ClickButton(hHkStockBtn);
-            Delay(500);
-
-            // 获取左侧功能菜单treeview 句柄
-            WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", null);
-            IntPtr treeParentHandle = finder.FoundParentHandle;
-            IntPtr hTree = finder.FoundHandle;
-
-            while (hTree != IntPtr.Zero)
+            hToolBar = FindHwndInApp("Afx:58f0000:0:10003:0:0", null);
+            if(hToolBar == IntPtr.Zero)
             {
-                int count = GetTreeViewItemCount(hTree);
-                Log(LoggType.Black, "Tree菜单数量:" + count);
-                if (count == 109)
-                {
-                    hStockTree = hTree;
-                }
-                else if (count == 39)
-                {
-                    hHkStockBtn = hTree;
-                }
-                if (hStockTree != IntPtr.Zero && hHkStockBtn != IntPtr.Zero)
-                {
-                    break;
-                }
-                hTree = FindHwndInParent(treeParentHandle, hTree, "TTreeView", null);
-            }
-
-            if (hStockTree == IntPtr.Zero)
-            {
-                Log(LoggType.Red, "没有找到金贝壳交易软件");
+                Log(LoggType.Red, "未找到选择股票市场工具条");
                 return false;
             }
-            if (hHkStockBtn == IntPtr.Zero)
-            {
-                Log(LoggType.Red, "没有找到金贝壳港股交易软件");
-                return false;
-            }
-
-            InitMenuFuncHandler();
-            InitHkMenuFuncHandler();
 
             Log(LoggType.Black, "关联金贝壳交易软件成功");
 
             return true;
         }
 
-        private void InitMenuFuncHandler()
-        {
-            IntPtr tmp;
-
-            hBuy = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, IntPtr.Zero);
-            hSell = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            hCancel = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            // 科创板
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            // 新股申购
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            // 查询功能
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, tmp);
-            hTodayDeals = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-        }
-
-        private void InitHkMenuFuncHandler()
-        {
-            IntPtr tmp;
-
-            hHkHgtBuy = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, 0, IntPtr.Zero);
-            hHkHgtSell = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtBuy);
-            tmp = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtSell);
-            tmp = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            hHkHgtCancel = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-        }
-
         public void BuyStock(string code, float price, int num)
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
+            ChangeTabPage(NativeMethods.GetParent(hToolBar), hToolBar, 1);
 
+            /*
             SelectTreeViewItem(hStockTree, hBuy);
             ClickButton(hStockBtn);
 
@@ -195,12 +124,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 }
 
             }
+            */
         }
 
         public void SellStock(string code, float price, int num)
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
 
+            ChangeTabPage(NativeMethods.GetParent(hToolBar), hToolBar, 3);
+            /*
             SelectTreeViewItem(hStockTree, hSell);
             ClickButton(hStockBtn);
 
@@ -282,20 +214,59 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 }
 
             }
-
+            */
         }
 
 
         public void CancelStock(string code, float price, int num)
         {
-            SelectTreeViewItem(hStockTree, hCancel);
-            ClickButton(hStockBtn);
+ 
         }
 
         public void TodayDealsList()
         {
             Log(LoggType.Black, "查询当日成交");
-            Log(LoggType.Red, "TAdvStringGrid控件还不能解析");
+            
+            ChangeTabPage(hMainWnd, hToolBar, 1);
+            /*
+            // 获取左侧功能菜单treeview 句柄
+            WindowFinder finder = new WindowFinder(hMainWnd, "SysTreeView32", null);
+            IntPtr treeParentHandle = finder.FoundParentHandle;
+            IntPtr hTree = finder.FoundHandle;
+
+            while (hTree != IntPtr.Zero)
+            {
+                int count = GetTreeViewItemCount(hTree);
+                Log(LoggType.Black, "Tree菜单数量:" + count);
+                if (count == 109)
+                {
+                    hStockTree = hTree;
+                }
+                else if (count == 39)
+                {
+                    hHkStockBtn = hTree;
+                }
+                if (hStockTree != IntPtr.Zero && hHkStockBtn != IntPtr.Zero)
+                {
+                    break;
+                }
+                hTree = FindHwndInParent(treeParentHandle, hTree, "TTreeView", null);
+            }
+
+            if (hStockTree == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有找到金贝壳交易软件");
+                return false;
+            }
+            if (hHkStockBtn == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有找到金贝壳港股交易软件");
+                return false;
+            }
+
+            InitMenuFuncHandler();
+            InitHkMenuFuncHandler();
+            */
         }
 
         public void HoldingStockList()
