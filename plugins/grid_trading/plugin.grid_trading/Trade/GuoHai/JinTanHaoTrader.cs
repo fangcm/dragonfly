@@ -23,10 +23,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Red, "【国海金叹号网上交易系统】未启动");
                 return false;
             }
-            hMainWnd = FindHwndInApp(@"#32770 (对话框)", @"通达信网上交易V6");
+            IntPtr h1 = FindHwndInParentRecursive(hMainWnd, null, "通达信网上交易V6");
+            h1 = NativeMethods.GetDlgItem(h1, 0x00F5);
 
-            hToolBar = FindHwndInApp("Afx:58f0000:0:10003:0:0", null);
-            if(hToolBar == IntPtr.Zero)
+            IntPtr hp = h1;
+            h1 = NativeMethods.GetDlgItem(h1, 0x0000);
+            h1 = NativeMethods.FindWindowEx(hp, h1, "AfxWnd42", null);
+            h1 = NativeMethods.FindWindowEx(hp, h1, "AfxWnd42", null);
+            h1 = NativeMethods.GetDlgItem(h1, 0x0000); // h2 通达信网上交易V6#32770 (对话框)
+
+            h1 = NativeMethods.GetDlgItem(hMainWnd, 0x0000); // Afx:58f0000:0:10003:0:0
+            h1 = NativeMethods.GetDlgItem(h1, 0xE900); // mdi
+            h1 = NativeMethods.GetDlgItem(h1, 0xE900);
+            hToolBar = NativeMethods.GetDlgItem(h1, 0x00DD);
+
+            if (hToolBar == IntPtr.Zero)
             {
                 Log(LoggType.Red, "未找到选择股票市场工具条");
                 return false;
@@ -220,13 +231,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
- 
+
         }
 
         public void TodayDealsList()
         {
             Log(LoggType.Black, "查询当日成交");
-            
+
             ChangeTabPage(hMainWnd, hToolBar, 1);
             /*
             // 获取左侧功能菜单treeview 句柄

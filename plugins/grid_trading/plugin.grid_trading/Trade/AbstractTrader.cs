@@ -61,20 +61,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         protected static void ChangeTabPage(IntPtr hwndDialog, IntPtr hwndTabControl, int index)
         {
-            int NM_SETFOCUS = -7;
+            int fixedx = 90;
+            int fixedy = 14;
+            if (index ==3)
+            {
+                fixedx = 170;
+            }
+            //MouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
+            IntPtr hParent = NativeMethods.GetParent(hwndDialog);
+            NativeMethods.SendMessage(hParent, NativeMethods.WM_PARENTNOTIFY, NativeMethods.WM_LBUTTONDOWN, MAKELPARAM(fixedx, fixedy));
 
-            NativeMethods.NMHDR nmhdr2 = new NativeMethods.NMHDR();
-            nmhdr2.hwndFrom = hwndDialog;
-            nmhdr2.idFrom = (uint)NativeMethods.GetDlgCtrlID(hwndTabControl);
-            nmhdr2.code = unchecked((uint)NM_SETFOCUS);
-            NativeMethods.SendMessage(hwndTabControl, NativeMethods.WM_NOTIFY, (int)nmhdr2.hwndFrom, ref nmhdr2);
-
-
-            NativeMethods.NMHDR nmhdr = new NativeMethods.NMHDR();
-            nmhdr.hwndFrom = hwndTabControl;
-            nmhdr.idFrom = (uint)NativeMethods.GetDlgCtrlID(hwndTabControl);
-            nmhdr.code = unchecked((uint)NativeMethods.TCN_SELCHANGING);
-            NativeMethods.SendMessage(hwndDialog, NativeMethods.WM_NOTIFY, (int)nmhdr.idFrom, ref nmhdr);
         }
 
         protected static int GetTreeViewItemCount(IntPtr hTreeView)

@@ -262,7 +262,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         }
 
         [DllImport("user32.dll")]
-        public static extern int GetDlgCtrlID(IntPtr hwndCtl);
+        internal static extern int GetDlgCtrlID(IntPtr hwndCtl);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern IntPtr GetDlgItem(IntPtr hDlg, int nControlID);
 
         public const int TCM_FIRST = 0x1300;
         public const int TCM_GETITEMCOUNT = (TCM_FIRST + 4);
