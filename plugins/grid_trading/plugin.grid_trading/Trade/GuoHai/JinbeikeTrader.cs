@@ -49,9 +49,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 }
                 else if (count == 39)
                 {
-                    hHkStockBtn = hTree;
+                    hHkStockTree = hTree;
                 }
-                if (hStockTree != IntPtr.Zero && hHkStockBtn != IntPtr.Zero)
+                if (hStockTree != IntPtr.Zero && hHkStockTree != IntPtr.Zero)
                 {
                     break;
                 }
@@ -63,7 +63,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Red, "没有找到金贝壳交易软件");
                 return false;
             }
-            if (hHkStockBtn == IntPtr.Zero)
+            if (hHkStockTree == IntPtr.Zero)
             {
                 Log(LoggType.Red, "没有找到金贝壳港股交易软件");
                 return false;

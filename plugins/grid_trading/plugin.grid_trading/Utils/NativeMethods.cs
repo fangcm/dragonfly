@@ -21,7 +21,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern int SendMessage(IntPtr hWnd, int msg, int wParam, string lParam);
         [DllImport("user32.dll")]
-        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref NMHDR lParam);
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref TVITEM lParam);
         [DllImport("User32.Dll")]
         internal static extern IntPtr PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
@@ -46,20 +46,38 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal enum GetWindow_Cmd : uint { GW_HWNDFIRST = 0, GW_HWNDLAST = 1, GW_HWNDNEXT = 2, GW_HWNDPREV = 3, GW_OWNER = 4, GW_CHILD = 5, GW_ENABLEDPOPUP = 6 }
 
         internal const int TV_FIRST = 0x1100;
+        internal const int TV_SELECTITEM = 0x110B;
         internal const int TVGN_ROOT = 0x0;
         internal const int TVGN_NEXT = 0x1;
         internal const int TVGN_CHILD = 0x4;
         internal const int TVGN_FIRSTVISIBLE = 0x5;
         internal const int TVGN_NEXTVISIBLE = 0x6;
         internal const int TVGN_CARET = 0x9;
+        internal const int TVIF_TEXT = 0x1;
         internal const int TVM_GETCOUNT = TV_FIRST + 5;
         internal const int TVM_SELECTITEM = (TV_FIRST + 11);
         internal const int TVM_GETNEXTITEM = (TV_FIRST + 10);
         internal const int TVM_GETITEM = (TV_FIRST + 12);
-        internal const int TV_SELECTITEM = 0x110B;
         internal const int TVM_GETITEMRECT = (TV_FIRST + 4);
 
+
         internal const int LVM_GETITEMRECT = (0x1000 + 14);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public class TVITEM
+        {
+            public int mask;
+            public IntPtr hItem;
+            public int state;
+            public int stateMask;
+            public IntPtr pszText;
+            public int cchTextMax;
+            public int iImage;
+            public int iSelectedImage;
+            public int cChildren;
+            public IntPtr lParam;
+            public int HTreeItem;
+        }
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         internal static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
@@ -87,9 +105,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         [DllImport("kernel32.dll")]
         internal static extern IntPtr VirtualAllocEx(IntPtr hwnd, Int32 lpaddress, int size, int type, Int32 tect);
         [DllImport("kernel32.dll")]
-        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, ref IntPtr lpBuffer, int nSize, ref uint vNumberOfBytesRead);
+        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, ref IntPtr lpBuffer, int nSize, out int vNumberOfBytesRead);
         [DllImport("kernel32.dll")]
-        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, ref uint vNumberOfBytesRead);
+        internal static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, out int vNumberOfBytesRead);
         [DllImport("kernel32.dll")]
         internal static extern int GetProcAddress(int hwnd, string lpname);
         [DllImport("kernel32.dll")]
@@ -107,9 +125,13 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal const int PAGE_READWRITE = 0x04;
 
         [DllImport("kernel32.dll")]
-        internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, uint nSize, ref uint lpNumberOfBytesRead);
+        public static extern IntPtr LocalAlloc(uint flags, uint cb);
         [DllImport("kernel32.dll")]
-        internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, ref uint vNumberOfBytesRead);
+        public static extern IntPtr LocalFree(IntPtr p);
+        [DllImport("kernel32.dll")]
+        internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, out int lpNumberOfBytesRead);
+        [DllImport("kernel32.dll")]
+        internal static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, StringBuilder lpBuffer, int nSize, out int vNumberOfBytesRead);
 
         [DllImport("kernel32.dll")]
         internal static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
@@ -261,22 +283,10 @@ namespace Dragonfly.Plugin.GridTrading.Utils
             public uint code;
         }
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public extern static IntPtr GetDlgItem(IntPtr hDlg, int nControlID);
         [DllImport("user32.dll")]
         public static extern int GetDlgCtrlID(IntPtr hwndCtl);
-
-        public const int TCM_FIRST = 0x1300;
-        public const int TCM_GETITEMCOUNT = (TCM_FIRST + 4);
-        public const int TCM_GETITEMA = (TCM_FIRST + 5);
-        public const int TCM_GETITEMW = (TCM_FIRST + 60);
-        public const int TCM_GETITEMRECT = (TCM_FIRST + 10);
-        public const int TCM_GETCURSEL = (TCM_FIRST + 11);
-        public const int TCM_SETCURSEL = (TCM_FIRST + 12);
-        public const int TCM_GETROWCOUNT = (TCM_FIRST + 44);
-        public const int TCM_GETCURFOCUS = (TCM_FIRST + 47);
-        public const int TCM_SETCURFOCUS = (TCM_FIRST + 48);
-        public const int TCM_GETEXTENDEDSTYLE = (TCM_FIRST + 53);
-
-        internal const int TCN_SELCHANGING = -552;
 
     }
 }
