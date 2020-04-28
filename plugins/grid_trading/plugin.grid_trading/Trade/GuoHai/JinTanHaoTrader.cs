@@ -15,8 +15,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         IntPtr hToolBar;
         // A股主功能菜单
         IntPtr hStockTree;    // A股功能树形控件句柄
+        IntPtr hBuy, hSell, hCancel, hTodayDeals;
         // 港股主功能菜单
         IntPtr hHkStockTree;    // 港股通功能树形控件句柄
+        IntPtr hHkHgtBuy, hHkHgtSell, hHkHgtCancel, hHkHgtTodayDeals;
+        IntPtr hHkSgtBuy, hHkSgtSell, hHkSgtCancel, hHkSgtTodayDeals;
 
         public bool Init()
         {
@@ -51,6 +54,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return false;
             }
 
+            InitStockTreeViewItemHandler();
+            //InitHKStockTreeViewItemHandler();
+
             Log(LoggType.Black, "关联金叹号交易软件成功");
 
             return true;
@@ -67,12 +73,26 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             MouseClick(hToolBar, x, y);
         }
 
+        private void InitStockTreeViewItemHandler()
+        {
+            IntPtr hTmp;
+
+            hBuy = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, 0);
+            hSell = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
+            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
+            hCancel = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
+            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, hTmp);
+            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hTodayDeals = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+        }
 
         public void BuyStock(string code, float price, int num)
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SelectTreeViewItem(hStockTree, FindTreeViewItem(hStockTree, "买入"));
+            SelectTreeViewItem(hStockTree, hBuy);
 
             IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
 
@@ -158,7 +178,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         public void SellStock(string code, float price, int num)
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
-            MouseClickToolbar(hToolBar, 1);
+            MouseClickToolbar(hToolBar, 0);
+            SelectTreeViewItem(hStockTree, hSell);
 
             /*
             SelectTreeViewItem(hStockTree, hSell);
@@ -248,10 +269,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
-<<<<<<< HEAD
-=======
-            MouseClickToolbar(hToolBar, 2);
->>>>>>> 8ce465f0cc76dde48350f39fe33b5bd4ce4023a7
+            MouseClickToolbar(hToolBar, 0);
+            SelectTreeViewItem(hStockTree, hCancel);
 
         }
 
@@ -259,12 +278,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Black, "查询当日成交");
 
-<<<<<<< HEAD
-            ChangeTabPage(hMainWnd, hToolBar, 1);
-=======
-            MouseClick(hToolBar, 150, 10);
+            MouseClickToolbar(hToolBar, 2);
 
->>>>>>> 8ce465f0cc76dde48350f39fe33b5bd4ce4023a7
             /*
             // 获取左侧功能菜单treeview 句柄
             WindowFinder finder = new WindowFinder(hMainWnd, "SysTreeView32", null);
@@ -312,7 +327,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Red, "TAdvStringGrid控件还不能解析");
         }
 
-        /*
         protected new void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
             base.SelectTreeViewItem(hTreeView, hItem);
@@ -321,15 +335,27 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             if (GetTreeViewItemRECT(hTreeView, hItem, ref rec))
             {
                 NativeMethods.RECT itemrect = rec[0];
-                int fixedx = 50;
+                int fixedx = 10;
                 int fixedy = 10;
-                //MouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
-                IntPtr hParent = NativeMethods.GetParent(hTreeView);
-                NativeMethods.SendMessage(hParent, NativeMethods.WM_PARENTNOTIFY, NativeMethods.WM_LBUTTONDOWN, MAKELPARAM(itemrect.left + fixedx, itemrect.top + fixedy));
+                int x = itemrect.left + fixedx, y = itemrect.top + fixedy;
+                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
 
+                Delay(5);
+
+                NativeMethods.NMHDR nm;
+                nm.hwndFrom = hTreeView;
+                nm.idFrom = (uint)NativeMethods.GetDlgCtrlID(hTreeView);
+                nm.code = NativeMethods.NM_CLICK;
+                IntPtr hParent = NativeMethods.GetParent(hTreeView);
+                NativeMethods.SendMessage(hParent, NativeMethods.WM_NOTIFY, (int)nm.idFrom, ref nm);
+
+                Delay(5);
+
+                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
             }
+
+
         }
-        */
 
     }
 }

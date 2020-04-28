@@ -22,6 +22,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         internal static extern int SendMessage(IntPtr hWnd, int msg, int wParam, string lParam);
         [DllImport("user32.dll")]
         internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref TVITEM lParam);
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref NMHDR lParam);
         [DllImport("User32.Dll")]
         internal static extern IntPtr PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
@@ -275,20 +277,19 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr GetParent(IntPtr hwnd);
 
+        internal const int NM_CLICK = -2;
+
         [StructLayout(LayoutKind.Sequential)]
         public struct NMHDR
         {
             public IntPtr hwndFrom;
             public uint idFrom;
-            public uint code;
+            public int code;
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public extern static IntPtr GetDlgItem(IntPtr hDlg, int nControlID);
+        internal extern static IntPtr GetDlgItem(IntPtr hDlg, int nControlID);
         [DllImport("user32.dll")]
         internal static extern int GetDlgCtrlID(IntPtr hwndCtl);
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        internal static extern IntPtr GetDlgItem(IntPtr hDlg, int nControlID);
-
     }
 }

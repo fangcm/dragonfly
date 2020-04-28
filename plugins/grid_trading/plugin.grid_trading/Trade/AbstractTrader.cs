@@ -66,88 +66,30 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         protected void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
-            if (hItem == IntPtr.Zero)
-                return;
             NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
         }
 
-        internal const int MY_MAXLVITEMTEXT = 1024;
-        protected IntPtr FindTreeViewItem(IntPtr hTreeView, string sItemName)
+        internal static bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref NativeMethods.RECT[] rect)
         {
-            IntPtr foundItem = IntPtr.Zero;
+            bool result = false;
             int processId;
             NativeMethods.GetWindowThreadProcessId(hTreeView, out processId);
             IntPtr process = NativeMethods.OpenProcess(NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE, false, processId);
             IntPtr buffer = NativeMethods.VirtualAllocEx(process, 0, 4096, NativeMethods.MEM_RESERVE | NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
             try
             {
-                IntPtr item = (IntPtr)NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, 0);
-                while (item != IntPtr.Zero)
-                {
-                    string itemText = GetTreeViewItemText(hTreeView, item);
-                    if (itemText == sItemName)
-                    {
-                        foundItem = item;
-                        break;
-                    }
-
-                    item = (IntPtr)NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, item);
-                }
-
+                int bytes;
+                NativeMethods.WriteProcessMemory(process, buffer, ref treeItemHandle, Marshal.SizeOf(treeItemHandle), out bytes);
+                NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETITEMRECT, 1, buffer);
+                NativeMethods.ReadProcessMemory(process, buffer, Marshal.UnsafeAddrOfPinnedArrayElement(rect, 0), Marshal.SizeOf(typeof(NativeMethods.RECT)), out bytes);
+                result = true;
             }
             finally
             {
                 NativeMethods.VirtualFreeEx(process, buffer, 0, NativeMethods.MEM_RELEASE);
                 NativeMethods.CloseHandle(process);
             }
-
-
-
-            return foundItem;
-        }
-
-        protected static string GetTreeViewItemText(IntPtr hTreeView, IntPtr itemHwnd)
-        {
-            var result = new StringBuilder(1024);
-
-            int vProcessId;
-            NativeMethods.GetWindowThreadProcessId(hTreeView, out vProcessId);
-            var vProcess = NativeMethods.OpenProcess(NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE, false, vProcessId);
-
-            var pStrBufferMemory = NativeMethods.VirtualAllocEx(vProcess, 0, 1024, NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
-            var remoteBuffer = NativeMethods.VirtualAllocEx(vProcess, 0, Marshal.SizeOf(typeof(NativeMethods.TVITEM)), NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
-
-            try
-            {
-                var tvItem = new NativeMethods.TVITEM
-                {
-                    mask = NativeMethods.TVIF_TEXT,
-                    hItem = itemHwnd,
-                    pszText = pStrBufferMemory,
-                    cchTextMax = 1024
-                };
-
-                var localBuffer = Marshal.AllocHGlobal(Marshal.SizeOf(tvItem));
-                Marshal.StructureToPtr(tvItem, localBuffer, false);
-
-                int vNumberOfBytesWrite;
-                NativeMethods.WriteProcessMemory(vProcess, remoteBuffer, ref localBuffer, Marshal.SizeOf(typeof(NativeMethods.TVITEM)), out vNumberOfBytesWrite);
-
-                NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETITEM, 0, remoteBuffer.ToInt32());
-
-                int vNumberOfBytesRead;
-                NativeMethods.ReadProcessMemory(vProcess, pStrBufferMemory, result, 1024, out vNumberOfBytesRead);
-
-
-            }
-            finally
-            {
-                NativeMethods.VirtualFreeEx(vProcess, pStrBufferMemory, 0, NativeMethods.MEM_RELEASE);
-                NativeMethods.VirtualFreeEx(vProcess, remoteBuffer, 0, NativeMethods.MEM_RELEASE);
-                NativeMethods.CloseHandle(vProcess);
-            }
-
-            return result.ToString();
+            return result;
         }
 
         public static string GetWindowText(IntPtr hWnd)
