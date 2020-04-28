@@ -18,7 +18,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         public bool Init(string appClassName, string appName)
         {
-            hMainWnd = NativeMethods.FindWindow(null, appName);
+            hMainWnd = NativeMethods.FindWindow(appClassName, appName);
             if (hMainWnd == IntPtr.Zero)
                 return false;
 
@@ -59,20 +59,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return retHandle;
         }
 
-        protected static void ChangeTabPage(IntPtr hwndDialog, IntPtr hwndTabControl, int index)
-        {
-            int fixedx = 90;
-            int fixedy = 14;
-            if (index ==3)
-            {
-                fixedx = 170;
-            }
-            //MouseClick(hTreeView, itemrect.left + fixedx, itemrect.top + fixedy);
-            IntPtr hParent = NativeMethods.GetParent(hwndDialog);
-            NativeMethods.SendMessage(hParent, NativeMethods.WM_PARENTNOTIFY, NativeMethods.WM_LBUTTONDOWN, MAKELPARAM(fixedx, fixedy));
-
-        }
-
         protected static int GetTreeViewItemCount(IntPtr hTreeView)
         {
             return NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETCOUNT, 0, 0);
@@ -80,30 +66,88 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         protected void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
+            if (hItem == IntPtr.Zero)
+                return;
             NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
         }
 
-        internal static bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref NativeMethods.RECT[] rect)
+        internal const int MY_MAXLVITEMTEXT = 1024;
+        protected IntPtr FindTreeViewItem(IntPtr hTreeView, string sItemName)
         {
-            bool result = false;
+            IntPtr foundItem = IntPtr.Zero;
             int processId;
             NativeMethods.GetWindowThreadProcessId(hTreeView, out processId);
             IntPtr process = NativeMethods.OpenProcess(NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE, false, processId);
             IntPtr buffer = NativeMethods.VirtualAllocEx(process, 0, 4096, NativeMethods.MEM_RESERVE | NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
             try
             {
-                uint bytes = 0;
-                NativeMethods.WriteProcessMemory(process, buffer, ref treeItemHandle, Marshal.SizeOf(treeItemHandle), ref bytes);
-                NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETITEMRECT, 1, buffer);
-                NativeMethods.ReadProcessMemory(process, buffer, Marshal.UnsafeAddrOfPinnedArrayElement(rect, 0), Marshal.SizeOf(typeof(NativeMethods.RECT)), ref bytes);
-                result = true;
+                IntPtr item = (IntPtr)NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, 0);
+                while (item != IntPtr.Zero)
+                {
+                    string itemText = GetTreeViewItemText(hTreeView, item);
+                    if (itemText == sItemName)
+                    {
+                        foundItem = item;
+                        break;
+                    }
+
+                    item = (IntPtr)NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, item);
+                }
+
             }
             finally
             {
                 NativeMethods.VirtualFreeEx(process, buffer, 0, NativeMethods.MEM_RELEASE);
                 NativeMethods.CloseHandle(process);
             }
-            return result;
+
+
+
+            return foundItem;
+        }
+
+        protected static string GetTreeViewItemText(IntPtr hTreeView, IntPtr itemHwnd)
+        {
+            var result = new StringBuilder(1024);
+
+            int vProcessId;
+            NativeMethods.GetWindowThreadProcessId(hTreeView, out vProcessId);
+            var vProcess = NativeMethods.OpenProcess(NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE, false, vProcessId);
+
+            var pStrBufferMemory = NativeMethods.VirtualAllocEx(vProcess, 0, 1024, NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
+            var remoteBuffer = NativeMethods.VirtualAllocEx(vProcess, 0, Marshal.SizeOf(typeof(NativeMethods.TVITEM)), NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
+
+            try
+            {
+                var tvItem = new NativeMethods.TVITEM
+                {
+                    mask = NativeMethods.TVIF_TEXT,
+                    hItem = itemHwnd,
+                    pszText = pStrBufferMemory,
+                    cchTextMax = 1024
+                };
+
+                var localBuffer = Marshal.AllocHGlobal(Marshal.SizeOf(tvItem));
+                Marshal.StructureToPtr(tvItem, localBuffer, false);
+
+                int vNumberOfBytesWrite;
+                NativeMethods.WriteProcessMemory(vProcess, remoteBuffer, ref localBuffer, Marshal.SizeOf(typeof(NativeMethods.TVITEM)), out vNumberOfBytesWrite);
+
+                NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETITEM, 0, remoteBuffer.ToInt32());
+
+                int vNumberOfBytesRead;
+                NativeMethods.ReadProcessMemory(vProcess, pStrBufferMemory, result, 1024, out vNumberOfBytesRead);
+
+
+            }
+            finally
+            {
+                NativeMethods.VirtualFreeEx(vProcess, pStrBufferMemory, 0, NativeMethods.MEM_RELEASE);
+                NativeMethods.VirtualFreeEx(vProcess, remoteBuffer, 0, NativeMethods.MEM_RELEASE);
+                NativeMethods.CloseHandle(vProcess);
+            }
+
+            return result.ToString();
         }
 
         public static string GetWindowText(IntPtr hWnd)
@@ -143,26 +187,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
         }
 
-        /*
-        public static string GetRichEditText(IntPtr handle)
-        {
-            NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
-            StringBuilder sb = new StringBuilder(32768);
-            bool ret = NativeMethods.SendMessage(handle, NativeMethods.EM_GETSELTEXT, 0, sb);
-            return sb.ToString();
-        }
-        */
-
         public static void ClickButton(IntPtr hButton)
         {
             NativeMethods.PostMessage(hButton, (int)NativeMethods.BM_CLICK, 0, 0);
-        }
-
-        public static void MouseClick(IntPtr hButton)
-        {
-            NativeMethods.SendMessage(hButton, NativeMethods.WM_LBUTTONDOWN, 0, 0);
-            Delay(5);
-            NativeMethods.SendMessage(hButton, NativeMethods.WM_LBUTTONUP, 0, 0);
         }
 
         public static void MouseClick(IntPtr handle, int x, int y)

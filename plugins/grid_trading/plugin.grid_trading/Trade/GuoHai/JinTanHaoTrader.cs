@@ -1,13 +1,15 @@
 ﻿using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
     // 国海金叹号
-    public class JinTanHaoTrader : AbstractTrader, ITrader
+    public class JintanhaoTrader : AbstractTrader, ITrader
     {
 
         IntPtr hToolBar;
@@ -18,24 +20,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public bool Init()
         {
-            if (!Init(@"TdxW_MainFrame_Class", null))
+            if (!Init("TdxW_MainFrame_Class", null))
             {
                 Log(LoggType.Red, "【国海金叹号网上交易系统】未启动");
                 return false;
             }
-            IntPtr h1 = FindHwndInParentRecursive(hMainWnd, null, "通达信网上交易V6");
-            h1 = NativeMethods.GetDlgItem(h1, 0x00F5);
-
-            IntPtr hp = h1;
-            h1 = NativeMethods.GetDlgItem(h1, 0x0000);
-            h1 = NativeMethods.FindWindowEx(hp, h1, "AfxWnd42", null);
-            h1 = NativeMethods.FindWindowEx(hp, h1, "AfxWnd42", null);
-            h1 = NativeMethods.GetDlgItem(h1, 0x0000); // h2 通达信网上交易V6#32770 (对话框)
-
-            h1 = NativeMethods.GetDlgItem(hMainWnd, 0x0000); // Afx:58f0000:0:10003:0:0
-            h1 = NativeMethods.GetDlgItem(h1, 0xE900); // mdi
-            h1 = NativeMethods.GetDlgItem(h1, 0xE900);
-            hToolBar = NativeMethods.GetDlgItem(h1, 0x00DD);
+            hMainWnd = FindHwndInApp(null, @"通达信网上交易V6");
+            IntPtr mdi = FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
+            IntPtr tmp = NativeMethods.GetDlgItem(mdi, 0xE900);
+            hToolBar = NativeMethods.GetDlgItem(tmp, 0x00DD);
 
             if (hToolBar == IntPtr.Zero)
             {
@@ -43,19 +36,43 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return false;
             }
 
-            Log(LoggType.Black, "关联金贝壳交易软件成功");
+            // 获取左侧功能菜单treeview 句柄
+            hStockTree = NativeMethods.GetDlgItem(hToolBar, 0xE900);
+            hHkStockTree = NativeMethods.GetDlgItem(hToolBar, 0xE903);
+
+            if (hStockTree == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有找到金叹号交易软件");
+                return false;
+            }
+            if (hHkStockTree == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有找到金叹号港股交易软件");
+                return false;
+            }
+
+            Log(LoggType.Black, "关联金叹号交易软件成功");
 
             return true;
         }
 
+        public static void MouseClickToolbar(IntPtr hToolBar, int index)
+        {
+            NativeMethods.RECT rect = new NativeMethods.RECT();
+            NativeMethods.GetWindowRect(hToolBar, out rect);
+
+            int x = 10 + (rect.right - rect.left) / 3 * index;
+            int y = 10;
+
+            MouseClick(hToolBar, x, y);
+        }
+
+
         public void BuyStock(string code, float price, int num)
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
-            ChangeTabPage(NativeMethods.GetParent(hToolBar), hToolBar, 1);
-
-            /*
-            SelectTreeViewItem(hStockTree, hBuy);
-            ClickButton(hStockBtn);
+            MouseClickToolbar(hToolBar, 0);
+            SelectTreeViewItem(hStockTree, FindTreeViewItem(hStockTree, "买入"));
 
             IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
 
@@ -135,14 +152,14 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 }
 
             }
-            */
+
         }
 
         public void SellStock(string code, float price, int num)
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
+            MouseClickToolbar(hToolBar, 1);
 
-            ChangeTabPage(NativeMethods.GetParent(hToolBar), hToolBar, 3);
             /*
             SelectTreeViewItem(hStockTree, hSell);
             ClickButton(hStockBtn);
@@ -231,6 +248,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
+<<<<<<< HEAD
+=======
+            MouseClickToolbar(hToolBar, 2);
+>>>>>>> 8ce465f0cc76dde48350f39fe33b5bd4ce4023a7
 
         }
 
@@ -238,7 +259,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Black, "查询当日成交");
 
+<<<<<<< HEAD
             ChangeTabPage(hMainWnd, hToolBar, 1);
+=======
+            MouseClick(hToolBar, 150, 10);
+
+>>>>>>> 8ce465f0cc76dde48350f39fe33b5bd4ce4023a7
             /*
             // 获取左侧功能菜单treeview 句柄
             WindowFinder finder = new WindowFinder(hMainWnd, "SysTreeView32", null);
