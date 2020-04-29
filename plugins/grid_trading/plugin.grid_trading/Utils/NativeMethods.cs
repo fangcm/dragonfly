@@ -8,6 +8,32 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 
     public class NativeMethods
     {
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct RECT
+        {
+            internal int left;
+            internal int top;
+            internal int right;
+            internal int bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct TVITEM
+        {
+            public int mask;
+            public IntPtr hItem;
+            public int state;
+            public int stateMask;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public IntPtr lpszText;
+            public int cchTextMax;
+            public int iImage;
+            public int iSelectedImage;
+            public int cChildren;
+            public IntPtr IParam;
+        }
+
+
         [DllImport("User32.dll", EntryPoint = "FindWindow")]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("User32.dll", EntryPoint = "FindWindowEx")]
@@ -65,35 +91,11 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 
         internal const int LVM_GETITEMRECT = (0x1000 + 14);
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public class TVITEM
-        {
-            public int mask;
-            public IntPtr hItem;
-            public int state;
-            public int stateMask;
-            public IntPtr pszText;
-            public int cchTextMax;
-            public int iImage;
-            public int iSelectedImage;
-            public int cChildren;
-            public IntPtr lParam;
-            public int HTreeItem;
-        }
-
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         internal static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
 
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct RECT
-        {
-            internal int left;
-            internal int top;
-            internal int right;
-            internal int bottom;
-        }
 
-        [DllImport("kernel32 ", CharSet = CharSet.Unicode)]
+        [DllImport("kernel32 ", CharSet = CharSet.Auto)]
         internal static extern int CopyMemory(RECT Destination, IntPtr Source, int Length);
 
         [DllImport("kernel32.dll")]

@@ -3,6 +3,7 @@ using Dragonfly.Plugin.GridTrading.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -88,11 +89,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             hTodayDeals = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
         }
 
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SetFocus(IntPtr hWnd);
+        const int WM_MOUSEMOVE = 0x200;
+
         public void BuyStock(string code, float price, int num)
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
             SelectTreeViewItem(hStockTree, hBuy);
+            /*
+            Class1.TVITEMEX item = new Class1.TVITEMEX();
+            item.hItem = hBuy;
+            item.mask = Class1.TVIF.TEXT;
+            bool ret = (bool)Class1.GetItemInTarget(hStockTree, item);
 
             IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
 
@@ -172,6 +183,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 }
 
             }
+                        */
 
         }
 
@@ -179,6 +191,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
+            string a = GetTreeViewItemText(hStockTree, hCancel);
             SelectTreeViewItem(hStockTree, hSell);
 
             /*
@@ -327,10 +340,54 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Red, "TAdvStringGrid控件还不能解析");
         }
 
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct TV_HITTESTINFO
+        {
+            /// <summary>Client coordinates of the point to test.</summary>
+            public Point pt;
+            /// <summary>Variable that receives information about the results of a hit test.</summary>
+            public TVHit flags;
+            /// <summary>Handle to the item that occupies the point.</summary>
+            public IntPtr hItem;
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, ref TV_HITTESTINFO lParam);
+        int TVM_HITTEST = (0x1100 + 17);
+        [Flags]
+        public enum TVHit
+        {
+            /// <summary>In the client area, but below the last item.</summary>
+            NoWhere = 0x0001,
+            /// <summary>On the bitmap associated with an item.</summary>
+            OnItemIcon = 0x0002,
+            /// <summary>On the label (string) associated with an item.</summary>
+            OnItemLabel = 0x0004,
+            /// <summary>In the indentation associated with an item.</summary>
+            OnItemIndent = 0x0008,
+            /// <summary>On the button associated with an item.</summary>
+            OnItemButton = 0x0010,
+            /// <summary>In the area to the right of an item. </summary>
+            OnItemRight = 0x0020,
+            /// <summary>On the state icon for a tree-view item that is in a user-defined state.</summary>
+            OnItemStateIcon = 0x0040,
+            /// <summary>On the bitmap or label associated with an item. </summary>
+            OnItem = (OnItemIcon | OnItemLabel | OnItemStateIcon),
+            /// <summary>Above the client area. </summary>
+            Above = 0x0100,
+            /// <summary>Below the client area.</summary>
+            Below = 0x0200,
+            /// <summary>To the right of the client area.</summary>
+            ToRight = 0x0400,
+            /// <summary>To the left of the client area.</summary>
+            ToLeft = 0x0800
+        }
+
         protected new void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
-            base.SelectTreeViewItem(hTreeView, hItem);
+            SetFocus(hTreeView);
 
+            base.SelectTreeViewItem(hTreeView, hItem);
+            /*
             NativeMethods.RECT[] rec = new NativeMethods.RECT[1];
             if (GetTreeViewItemRECT(hTreeView, hItem, ref rec))
             {
@@ -338,6 +395,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 int fixedx = 10;
                 int fixedy = 10;
                 int x = itemrect.left + fixedx, y = itemrect.top + fixedy;
+
                 NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
 
                 Delay(5);
@@ -347,12 +405,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 nm.idFrom = (uint)NativeMethods.GetDlgCtrlID(hTreeView);
                 nm.code = NativeMethods.NM_CLICK;
                 IntPtr hParent = NativeMethods.GetParent(hTreeView);
-                NativeMethods.SendMessage(hParent, NativeMethods.WM_NOTIFY, (int)nm.idFrom, ref nm);
+                NativeMethods.PostMessage(hParent, NativeMethods.WM_NOTIFY, (int)nm.idFrom, ref nm);
+
+                TV_HITTESTINFO hitTestInfo = new TV_HITTESTINFO();
+                hitTestInfo.pt = new Point(x, y);
+                PostMessage(hTreeView, TVM_HITTEST, 0, ref hitTestInfo);
 
                 Delay(5);
 
-                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
+                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, 0x00000001, MAKELPARAM(x, y));
             }
+            */
 
 
         }
