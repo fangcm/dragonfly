@@ -1937,6 +1937,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int uMsg, IntPtr wParam, StringBuilder lParam, int flags, int uTimeout, out IntPtr result);
         [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int uMsg, IntPtr wParam, ref Win32Rect lParam, int flags, int uTimeout, out IntPtr result);
+        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int uMsg, out int wParam, out int lParam, int flags, int uTimeout, out IntPtr result);
 
         [DllImport("User32.dll", EntryPoint = "FindWindow")]

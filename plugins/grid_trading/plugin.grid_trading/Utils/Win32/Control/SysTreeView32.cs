@@ -5,6 +5,17 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
     internal class SysTreeView32
     {
+        internal static int GetTreeViewItemCount(IntPtr hTreeView)
+        {
+            //return NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETCOUNT, 0, 0);
+            return 0;
+        }
+
+        internal static void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
+        {
+            //NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
+        }
+
         internal static string GetTreeItemText(IntPtr hwnd, IntPtr itemHwnd)
         {
             NativeMethods.TVITEM tvItem = new NativeMethods.TVITEM();

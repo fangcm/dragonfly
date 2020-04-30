@@ -28,12 +28,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return false;
             }
 
-            hStockBtn = FindHwndInParentRecursive(hMainWnd, "TButton", "股票");
-            hHkStockBtn = FindHwndInParentRecursive(hMainWnd, "TButton", "港股通");
-            ClickButton(hStockBtn);
-            Delay(500);
-            ClickButton(hHkStockBtn);
-            Delay(500);
+            hStockBtn = Window.FindHwndInParentRecursive(hMainWnd, "TButton", "股票");
+            hHkStockBtn = Window.FindHwndInParentRecursive(hMainWnd, "TButton", "港股通");
+            Button.Click(hStockBtn);
+            Misc.Delay(500);
+            Button.Click(hHkStockBtn);
+            Misc.Delay(500);
 
             // 获取左侧功能菜单treeview 句柄
             WindowFinder finder = new WindowFinder(hMainWnd, "TTreeView", null);
@@ -42,7 +42,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             while (hTree != IntPtr.Zero)
             {
-                int count = GetTreeViewItemCount(hTree);
+                int count = SysTreeView32.GetTreeViewItemCount(hTree);
                 Log(LoggType.Black, "Tree菜单数量:" + count);
                 if (count == 109)
                 {
@@ -56,7 +56,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 {
                     break;
                 }
-                hTree = FindHwndInParent(treeParentHandle, hTree, "TTreeView", null);
+                hTree = Window.FindHwndInParent(treeParentHandle, hTree, "TTreeView", null);
             }
 
             if (hStockTree == IntPtr.Zero)
@@ -115,10 +115,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
 
-            SelectTreeViewItem(hStockTree, hBuy);
-            ClickButton(hStockBtn);
+            SysTreeView32.SelectTreeViewItem(hStockTree, hBuy);
+            Button.Click(hStockBtn);
 
-            IntPtr hPanel = FindHwndInParentRecursive(hMainWnd, "TFrmBuyStock", null);
+            IntPtr hPanel = Window.FindHwndInParentRecursive(hMainWnd, "TFrmBuyStock", null);
 
             IntPtr hCode = IntPtr.Zero;
             IntPtr hPrice = IntPtr.Zero;
@@ -128,23 +128,23 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             IntPtr hChild = IntPtr.Zero;
             while (true)
             {
-                hChild = FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
+                hChild = Window.FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
                 if (hChild == IntPtr.Zero)
                 {
                     break;
                 }
 
 
-                IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
+                IntPtr c = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
                 if (c == IntPtr.Zero)
                     continue;
-                IntPtr p = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
+                IntPtr p = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
                 if (p == IntPtr.Zero)
                     continue;
-                IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
+                IntPtr n = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
                 if (n == IntPtr.Zero)
                     continue;
-                IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
+                IntPtr b = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
                 if (b == IntPtr.Zero)
                     continue;
                 hCode = c;
@@ -159,34 +159,34 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            SetRichEditText(hCode, code);
-            Delay(500);
-            SetEditText(hPrice, "" + price);
-            Delay(500);
-            SetRichEditText(hNum, "" + num);
+            RichEdit.SetText(hCode, code);
+            Misc.Delay(500);
+            EditBox.SetText(hPrice, "" + price);
+            Misc.Delay(500);
+            RichEdit.SetText(hNum, "" + num);
 
             // 点击买入按钮
-            ClickButton(hButton);
-            Delay(500);
+            Button.Click(hButton);
+            Misc.Delay(500);
             WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
             IntPtr hConfirmDlg = finder.FoundHandle;
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hBtnYes = FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
-                IntPtr hBtnNo = FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
+                IntPtr hBtnYes = Window.FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
+                IntPtr hBtnNo = Window.FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
 
-                string sCode = GetEditText(hCode);
-                string sPrice = GetEditText(hPrice);
-                string sNum = GetEditText(hNum);
+                string sCode = RichEdit.GetText(hCode);
+                string sPrice = EditBox.GetText(hPrice);
+                string sNum = RichEdit.GetText(hNum);
 
                 Log(LoggType.Red, "校验购买单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
                 if (sCode == code && sPrice == "" + price && sNum == "" + num)
                 {
-                    ClickButton(hBtnYes);
+                    Button.Click(hBtnYes);
                 }
                 else
                 {
-                    ClickButton(hBtnNo);
+                    Button.Click(hBtnNo);
                 }
 
             }
@@ -196,10 +196,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
 
-            SelectTreeViewItem(hStockTree, hSell);
-            ClickButton(hStockBtn);
+            SysTreeView32.SelectTreeViewItem(hStockTree, hSell);
+            Button.Click(hStockBtn);
 
-            IntPtr hPanel = FindHwndInParentRecursive(hMainWnd, "Tfrm2007", null);
+            IntPtr hPanel = Window.FindHwndInParentRecursive(hMainWnd, "Tfrm2007", null);
 
             IntPtr hCode = IntPtr.Zero;
             IntPtr hPrice = IntPtr.Zero;
@@ -209,23 +209,23 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             IntPtr hChild = IntPtr.Zero;
             while (true)
             {
-                hChild = FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
+                hChild = Window.FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
                 if (hChild == IntPtr.Zero)
                 {
                     break;
                 }
 
 
-                IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
+                IntPtr c = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
                 if (c == IntPtr.Zero)
                     continue;
-                IntPtr p = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
+                IntPtr p = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
                 if (p == IntPtr.Zero)
                     continue;
-                IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
+                IntPtr n = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
                 if (n == IntPtr.Zero)
                     continue;
-                IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
+                IntPtr b = Window.FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
                 if (b == IntPtr.Zero)
                     continue;
                 hCode = c;
@@ -240,34 +240,34 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            SetRichEditText(hCode, code);
-            Delay(500);
-            SetEditText(hPrice, "" + price);
-            Delay(500);
-            SetRichEditText(hNum, "" + num);
+            RichEdit.SetText(hCode, code);
+            Misc.Delay(500);
+            EditBox.SetText(hPrice, "" + price);
+            Misc.Delay(500);
+            RichEdit.SetText(hNum, "" + num);
 
             // 点击买入按钮
-            ClickButton(hButton);
-            Delay(500);
+            Button.Click(hButton);
+            Misc.Delay(500);
             WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
             IntPtr hConfirmDlg = finder.FoundHandle;
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hBtnYes = FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
-                IntPtr hBtnNo = FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
+                IntPtr hBtnYes = Window.FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
+                IntPtr hBtnNo = Window.FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
 
-                string sCode = GetEditText(hCode);
-                string sPrice = GetEditText(hPrice);
-                string sNum = GetEditText(hNum);
+                string sCode = RichEdit.GetText(hCode);
+                string sPrice = EditBox.GetText(hPrice);
+                string sNum = RichEdit.GetText(hNum);
 
                 Log(LoggType.Red, "校验卖出单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
                 if (sCode == code && sPrice == "" + price && sNum == "" + num)
                 {
-                    ClickButton(hBtnYes);
+                    Button.Click(hBtnYes);
                 }
                 else
                 {
-                    ClickButton(hBtnNo);
+                    Button.Click(hBtnNo);
                 }
 
             }
@@ -277,8 +277,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
-            SelectTreeViewItem(hStockTree, hCancel);
-            ClickButton(hStockBtn);
+            SysTreeView32.SelectTreeViewItem(hStockTree, hCancel);
+            Button.Click(hStockBtn);
         }
 
         public void TodayDealsList()

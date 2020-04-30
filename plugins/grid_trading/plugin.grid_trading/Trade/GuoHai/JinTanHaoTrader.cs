@@ -30,10 +30,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Red, "【国海金叹号网上交易系统】未启动");
                 return false;
             }
-            hMainWnd = FindHwndInParentRecursive(hMainWnd, null, @"通达信网上交易V6");
-            IntPtr mdi = FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
-            IntPtr tmp = GetDlgItem(mdi, 0xE900);
-            hToolBar = GetDlgItem(tmp, 0x00DD);
+            hMainWnd = Window.FindHwndInParentRecursive(hMainWnd, null, @"通达信网上交易V6");
+            IntPtr mdi = Window.FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
+            IntPtr tmp = Window.GetDlgItem(mdi, 0xE900);
+            hToolBar = Window.GetDlgItem(tmp, 0x00DD);
 
             if (hToolBar == IntPtr.Zero)
             {
@@ -42,8 +42,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             // 获取左侧功能菜单treeview 句柄
-            hStockTree = GetDlgItem(hToolBar, 0xE900);
-            hHkStockTree = GetDlgItem(hToolBar, 0xE903);
+            hStockTree = Window.GetDlgItem(hToolBar, 0xE900);
+            hHkStockTree = Window.GetDlgItem(hToolBar, 0xE903);
 
             if (hStockTree == IntPtr.Zero)
             {
@@ -72,7 +72,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             int x = 10 + (rect.right - rect.left) / 3 * index;
             int y = 10;
 
-            MouseClick(hToolBar, x, y);
+            Window.MouseClick(hToolBar, x, y);
         }
 
         private void InitStockTreeViewItemHandler()
@@ -89,7 +89,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
             hTodayDeals = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
 
-            string a = GetTreeItemText(hStockTree, hCancel);
+            string a = SysTreeView32.GetTreeItemText(hStockTree, hCancel);
 
         }
 
@@ -97,7 +97,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SelectTreeViewItem(hStockTree, hBuy);
+            SysTreeView32.SelectTreeViewItem(hStockTree, hBuy);
             /*
             Class1.TVITEMEX item = new Class1.TVITEMEX();
             item.hItem = hBuy;
@@ -149,17 +149,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             SetRichEditText(hCode, code);
             NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
             NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
-            Delay(500);
+            Misc.Delay(500);
             SetEditText(hPrice, "" + price);
             NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
             NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
-            Delay(500);
+            Misc.Delay(500);
             SetRichEditText(hNum, "" + num);
             NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
 
             // 点击买入按钮
-            ClickButton(hButton);
-            Delay(500);
+            Button.Click(hButton);
+            Misc.Delay(500);
             WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
             IntPtr hConfirmDlg = finder.FoundHandle;
             if (hConfirmDlg != IntPtr.Zero)
@@ -174,11 +174,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Red, "校验购买单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
                 if (sCode == code && sPrice == "" + price && sNum == "" + num)
                 {
-                    ClickButton(hBtnYes);
+                    Button.Click(hBtnYes);
                 }
                 else
                 {
-                    ClickButton(hBtnNo);
+                    Button.Click(hBtnNo);
                 }
 
             }
@@ -190,11 +190,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SelectTreeViewItem(hStockTree, hSell);
+            SysTreeView32.SelectTreeViewItem(hStockTree, hSell);
 
             /*
             SelectTreeViewItem(hStockTree, hSell);
-            ClickButton(hStockBtn);
+            Button.Click(hStockBtn);
 
             IntPtr hPanel = FindHwndInApp("Tfrm2007", null);
 
@@ -241,17 +241,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             SetRichEditText(hCode, code);
             NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
             NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
-            Delay(500);
+            Misc.Delay(500);
             SetEditText(hPrice, "" + price);
             NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
             NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
-            Delay(500);
+            Misc.Delay(500);
             SetRichEditText(hNum, "" + num);
             NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
 
             // 点击买入按钮
-            ClickButton(hButton);
-            Delay(500);
+            Button.Click(hButton);
+            Misc.Delay(500);
             WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
             IntPtr hConfirmDlg = finder.FoundHandle;
             if (hConfirmDlg != IntPtr.Zero)
@@ -266,11 +266,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Red, "校验卖出单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
                 if (sCode == code && sPrice == "" + price && sNum == "" + num)
                 {
-                    ClickButton(hBtnYes);
+                    Button.Click(hBtnYes);
                 }
                 else
                 {
-                    ClickButton(hBtnNo);
+                    Button.Click(hBtnNo);
                 }
 
             }
@@ -281,7 +281,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         public void CancelStock(string code, float price, int num)
         {
             MouseClickToolbar(hToolBar, 0);
-            SelectTreeViewItem(hStockTree, hCancel);
+            SysTreeView32.SelectTreeViewItem(hStockTree, hCancel);
 
         }
 
