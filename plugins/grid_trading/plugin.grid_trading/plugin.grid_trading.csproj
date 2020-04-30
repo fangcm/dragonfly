@@ -73,7 +73,6 @@
     <Compile Include="Trade\TraderHelper.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
     <Compile Include="Utils\Win32\NativeMethods.cs" />
-    <Compile Include="Utils\Win32\SafeCoTaskMem.cs" />
     <Compile Include="Utils\Win32\SysTreeView32.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -35,7 +35,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         internal static IntPtr ProxySendMessage(IntPtr hwnd, int msg, int wParam, IntPtr lParam)
         {
-            return Misc.ProxySendMessage(hwnd, msg, new IntPtr(wParam), lParam);
+            return ProxySendMessage(hwnd, msg, new IntPtr(wParam), lParam);
         }
 
         internal static bool GetWindowRect(IntPtr hwnd, ref NativeMethods.Win32Rect rc)
