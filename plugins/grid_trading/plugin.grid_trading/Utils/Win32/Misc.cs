@@ -22,7 +22,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         {
             IntPtr result;
 
-            IntPtr resultSendMessage = UnsafeNativeMethods.SendMessageTimeout(hwnd, msg, wParam, lParam, _sendMessageFlags, _sendMessageTimeoutValue, out result);
+            IntPtr resultSendMessage = NativeMethods.SendMessageTimeout(hwnd, msg, wParam, lParam, _sendMessageFlags, _sendMessageTimeoutValue, out result);
             int lastWin32Error = Marshal.GetLastWin32Error();
 
             if (resultSendMessage == IntPtr.Zero)
@@ -40,7 +40,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         internal static bool GetWindowRect(IntPtr hwnd, ref NativeMethods.Win32Rect rc)
         {
-            return UnsafeNativeMethods.GetWindowRect(hwnd, ref rc);
+            return NativeMethods.GetWindowRect(hwnd, ref rc);
         }
 
 

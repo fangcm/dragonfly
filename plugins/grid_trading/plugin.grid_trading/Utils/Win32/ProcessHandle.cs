@@ -12,11 +12,11 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
             if (hwnd != IntPtr.Zero)
             {
-                UnsafeNativeMethods.GetWindowThreadProcessId(hwnd, out processId);
+                NativeMethods.GetWindowThreadProcessId(hwnd, out processId);
             }
             else
             {
-                processId = UnsafeNativeMethods.GetCurrentProcessId();
+                processId = NativeMethods.GetCurrentProcessId();
             }
 
             if (processId == 0)
@@ -25,7 +25,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             }
 
             // handle might be used to query for Wow64 information (_QUERY_), or to do cross-process allocs (VM_*)
-            handle = UnsafeNativeMethods.OpenProcess(NativeMethods.PROCESS_QUERY_INFORMATION | NativeMethods.PROCESS_VM_OPERATION |
+            handle = NativeMethods.OpenProcess(NativeMethods.PROCESS_QUERY_INFORMATION | NativeMethods.PROCESS_VM_OPERATION |
                             NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE, false, processId);
 
         }
@@ -41,7 +41,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         public void Dispose()
         {
-            UnsafeNativeMethods.CloseHandle(handle);
+            NativeMethods.CloseHandle(handle);
         }
     }
 }

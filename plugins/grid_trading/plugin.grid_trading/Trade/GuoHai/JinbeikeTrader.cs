@@ -28,8 +28,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return false;
             }
 
-            hStockBtn = FindHwndInApp("TButton", "股票");
-            hHkStockBtn = FindHwndInApp("TButton", "港股通");
+            hStockBtn = FindHwndInParentRecursive(hMainWnd, "TButton", "股票");
+            hHkStockBtn = FindHwndInParentRecursive(hMainWnd, "TButton", "港股通");
             ClickButton(hStockBtn);
             Delay(500);
             ClickButton(hHkStockBtn);
@@ -118,7 +118,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             SelectTreeViewItem(hStockTree, hBuy);
             ClickButton(hStockBtn);
 
-            IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
+            IntPtr hPanel = FindHwndInParentRecursive(hMainWnd, "TFrmBuyStock", null);
 
             IntPtr hCode = IntPtr.Zero;
             IntPtr hPrice = IntPtr.Zero;
@@ -199,7 +199,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             SelectTreeViewItem(hStockTree, hSell);
             ClickButton(hStockBtn);
 
-            IntPtr hPanel = FindHwndInApp("Tfrm2007", null);
+            IntPtr hPanel = FindHwndInParentRecursive(hMainWnd, "Tfrm2007", null);
 
             IntPtr hCode = IntPtr.Zero;
             IntPtr hPrice = IntPtr.Zero;

@@ -30,10 +30,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Red, "【国海金叹号网上交易系统】未启动");
                 return false;
             }
-            hMainWnd = FindHwndInApp(null, @"通达信网上交易V6");
+            hMainWnd = FindHwndInParentRecursive(hMainWnd, null, @"通达信网上交易V6");
             IntPtr mdi = FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
-            IntPtr tmp = UnsafeNativeMethods.GetDlgItem(mdi, 0xE900);
-            hToolBar = UnsafeNativeMethods.GetDlgItem(tmp, 0x00DD);
+            IntPtr tmp = GetDlgItem(mdi, 0xE900);
+            hToolBar = GetDlgItem(tmp, 0x00DD);
 
             if (hToolBar == IntPtr.Zero)
             {
@@ -42,8 +42,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             // 获取左侧功能菜单treeview 句柄
-            hStockTree = UnsafeNativeMethods.GetDlgItem(hToolBar, 0xE900);
-            hHkStockTree = UnsafeNativeMethods.GetDlgItem(hToolBar, 0xE903);
+            hStockTree = GetDlgItem(hToolBar, 0xE900);
+            hHkStockTree = GetDlgItem(hToolBar, 0xE903);
 
             if (hStockTree == IntPtr.Zero)
             {
@@ -67,7 +67,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         public static void MouseClickToolbar(IntPtr hToolBar, int index)
         {
             NativeMethods.Win32Rect rect = new NativeMethods.Win32Rect();
-            UnsafeNativeMethods.GetWindowRect(hToolBar, ref rect);
+            NativeMethods.GetWindowRect(hToolBar, ref rect);
 
             int x = 10 + (rect.right - rect.left) / 3 * index;
             int y = 10;
@@ -88,12 +88,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, hTmp);
             hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
             hTodayDeals = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+
+            string a = GetTreeItemText(hStockTree, hCancel);
+
         }
-
-
-        [DllImport("user32.dll")]
-        internal static extern IntPtr SetFocus(IntPtr hWnd);
-        const int WM_MOUSEMOVE = 0x200;
 
         public void BuyStock(string code, float price, int num)
         {
@@ -192,7 +190,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            string a = GetTreeViewItemText(hStockTree, hCancel);
             SelectTreeViewItem(hStockTree, hSell);
 
             /*
@@ -341,93 +338,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Red, "TAdvStringGrid控件还不能解析");
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct TV_HITTESTINFO
-        {
-            /// <summary>Client coordinates of the point to test.</summary>
-            public Point pt;
-            /// <summary>Variable that receives information about the results of a hit test.</summary>
-            public TVHit flags;
-            /// <summary>Handle to the item that occupies the point.</summary>
-            public IntPtr hItem;
-        }
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, ref TV_HITTESTINFO lParam);
-        int TVM_HITTEST = (0x1100 + 17);
-        [Flags]
-        public enum TVHit
-        {
-            /// <summary>In the client area, but below the last item.</summary>
-            NoWhere = 0x0001,
-            /// <summary>On the bitmap associated with an item.</summary>
-            OnItemIcon = 0x0002,
-            /// <summary>On the label (string) associated with an item.</summary>
-            OnItemLabel = 0x0004,
-            /// <summary>In the indentation associated with an item.</summary>
-            OnItemIndent = 0x0008,
-            /// <summary>On the button associated with an item.</summary>
-            OnItemButton = 0x0010,
-            /// <summary>In the area to the right of an item. </summary>
-            OnItemRight = 0x0020,
-            /// <summary>On the state icon for a tree-view item that is in a user-defined state.</summary>
-            OnItemStateIcon = 0x0040,
-            /// <summary>On the bitmap or label associated with an item. </summary>
-            OnItem = (OnItemIcon | OnItemLabel | OnItemStateIcon),
-            /// <summary>Above the client area. </summary>
-            Above = 0x0100,
-            /// <summary>Below the client area.</summary>
-            Below = 0x0200,
-            /// <summary>To the right of the client area.</summary>
-            ToRight = 0x0400,
-            /// <summary>To the left of the client area.</summary>
-            ToLeft = 0x0800
-        }
 
-        protected new void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
-        {
-            SetFocus(hTreeView);
-
-            base.SelectTreeViewItem(hTreeView, hItem);
-            /*
-            NativeMethods.RECT[] rec = new NativeMethods.RECT[1];
-            if (GetTreeViewItemRECT(hTreeView, hItem, ref rec))
-            {
-                NativeMethods.RECT itemrect = rec[0];
-                int fixedx = 10;
-                int fixedy = 10;
-                int x = itemrect.left + fixedx, y = itemrect.top + fixedy;
-
-                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
-
-                Delay(5);
-
-                NativeMethods.NMHDR nm;
-                nm.hwndFrom = hTreeView;
-                nm.idFrom = (uint)NativeMethods.GetDlgCtrlID(hTreeView);
-                nm.code = NativeMethods.NM_CLICK;
-                IntPtr hParent = NativeMethods.GetParent(hTreeView);
-                NativeMethods.PostMessage(hParent, NativeMethods.WM_NOTIFY, (int)nm.idFrom, ref nm);
-
-                TV_HITTESTINFO hitTestInfo = new TV_HITTESTINFO();
-                hitTestInfo.pt = new Point(x, y);
-                PostMessage(hTreeView, TVM_HITTEST, 0, ref hitTestInfo);
-
-                Delay(5);
-
-                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, 0x00000001, MAKELPARAM(x, y));
-            }
-            */
-
-
-        }
-
-        internal static string GetTreeViewItemText(IntPtr hTreeView, IntPtr itemHwnd)
-        {
-            NativeMethods.TVITEM tvItem = new NativeMethods.TVITEM();
-            tvItem.mask = NativeMethods.TVIF_TEXT;
-            tvItem.hItem = itemHwnd;
-            tvItem.cchTextMax = 512;
-            return SysTreeView32.GetTreeItemText(hTreeView, tvItem);
-        }
     }
 }

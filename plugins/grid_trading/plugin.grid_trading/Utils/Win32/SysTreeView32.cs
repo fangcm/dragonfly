@@ -5,12 +5,32 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
     internal class SysTreeView32
     {
+        internal static string GetTreeItemText(IntPtr hwnd, IntPtr itemHwnd)
+        {
+            NativeMethods.TVITEM tvItem = new NativeMethods.TVITEM();
+            tvItem.mask = NativeMethods.TVIF_TEXT;
+            tvItem.hItem = itemHwnd;
+            tvItem.cchTextMax = 512;
+            return GetTreeItemText(hwnd, tvItem);
+        }
+
         internal static unsafe string GetTreeItemText(IntPtr hwnd, NativeMethods.TVITEM item)
         {
             TVITEM_32 item32 = new TVITEM_32(item);
 
             return XSendMessage.GetTextWithinStructure(hwnd, NativeMethods.TVM_GETITEMW, IntPtr.Zero, new IntPtr(&item32),
                         Marshal.SizeOf(item32.GetType()), new IntPtr(&item32.pszText), item32.cchTextMax, true);
+        }
+
+        internal static NativeMethods.Win32Rect GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle)
+        {
+            NativeMethods.Win32Rect rect = NativeMethods.Win32Rect.Empty;
+            unsafe
+            {
+                XSendMessage.XSend(hTreeView, NativeMethods.TVM_GETITEMRECT, treeItemHandle, new IntPtr(&rect), Marshal.SizeOf(rect.GetType()));
+            }
+            return rect;
+
         }
 
 
@@ -70,18 +90,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         }
 
 
-
-
-        internal static NativeMethods.Win32Rect GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle)
-        {
-            NativeMethods.Win32Rect rect = NativeMethods.Win32Rect.Empty;
-            unsafe
-            {
-                XSendMessage.XSend(hTreeView, NativeMethods.TVM_GETITEMRECT, treeItemHandle, new IntPtr(&rect), Marshal.SizeOf(rect.GetType()));
-            }
-            return rect;
-
-        }
 
     }
 }

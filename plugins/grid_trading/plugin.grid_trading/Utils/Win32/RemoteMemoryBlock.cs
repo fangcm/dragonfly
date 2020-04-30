@@ -20,39 +20,39 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         public void Dispose()
         {
-            UnsafeNativeMethods.VirtualFreeEx(_processHandle, handle, UIntPtr.Zero, UnsafeNativeMethods.MEM_RELEASE);
+            NativeMethods.VirtualFreeEx(_processHandle, handle, UIntPtr.Zero, NativeMethods.MEM_RELEASE);
         }
 
         internal RemoteMemoryBlock(int cbSize, IntPtr processHandle)
         {
             _processHandle = processHandle;
-            handle = UnsafeNativeMethods.VirtualAllocEx(_processHandle, IntPtr.Zero, new UIntPtr((uint)cbSize), UnsafeNativeMethods.MEM_COMMIT, UnsafeNativeMethods.PAGE_READWRITE);
+            handle = NativeMethods.VirtualAllocEx(_processHandle, IntPtr.Zero, new UIntPtr((uint)cbSize), NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
         }
 
         internal IntPtr WriteTo(IntPtr sourceAddress, IntPtr cbSize)
         {
             IntPtr count;
-            UnsafeNativeMethods.WriteProcessMemory(_processHandle, handle, sourceAddress, cbSize, out count);
+            NativeMethods.WriteProcessMemory(_processHandle, handle, sourceAddress, cbSize, out count);
             return count;
         }
 
         internal IntPtr ReadFrom(IntPtr remoteAddress, IntPtr destAddress, IntPtr cbSize)
         {
             IntPtr count;
-            UnsafeNativeMethods.ReadProcessMemory(_processHandle, remoteAddress, destAddress, cbSize, out count);
+            NativeMethods.ReadProcessMemory(_processHandle, remoteAddress, destAddress, cbSize, out count);
             return count;
         }
 
         internal IntPtr ReadFrom(SafeCoTaskMem destAddress, IntPtr cbSize)
         {
             IntPtr count;
-            UnsafeNativeMethods.ReadProcessMemory(_processHandle, handle, destAddress, cbSize, out count);
+            NativeMethods.ReadProcessMemory(_processHandle, handle, destAddress, cbSize, out count);
             return count;
         }
         internal IntPtr ReadFrom(IntPtr destAddress, IntPtr cbSize)
         {
             IntPtr count;
-            UnsafeNativeMethods.ReadProcessMemory(_processHandle, handle, destAddress, cbSize, out count);
+            NativeMethods.ReadProcessMemory(_processHandle, handle, destAddress, cbSize, out count);
             return count;
         }
 
