@@ -18,9 +18,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,13 +63,20 @@
       <DependentUpon>GridTradingMainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Trade\AbstractTrader.cs" />
-    <Compile Include="Trade\Class1.cs" />
+    <Compile Include="Utils\Win32\Misc.cs" />
+    <Compile Include="Utils\Win32\SafeNativeMethods.cs" />
+    <Compile Include="Utils\Win32\XSendMessage.cs" />
+    <Compile Include="Utils\Win32\ProcessHandle.cs" />
+    <Compile Include="Utils\Win32\RemoteMemoryBlock.cs" />
     <Compile Include="Trade\GuoHai\JintanhaoTrader.cs" />
     <Compile Include="Trade\GuoHai\JinbeikeTrader.cs" />
     <Compile Include="Trade\ITrader.cs" />
     <Compile Include="Trade\TraderHelper.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
-    <Compile Include="Utils\NativeMethods.cs" />
+    <Compile Include="Utils\Win32\NativeMethods.cs" />
+    <Compile Include="Utils\Win32\SafeCoTaskMem.cs" />
+    <Compile Include="Utils\Win32\SysTreeView32.cs" />
+    <Compile Include="Utils\Win32\UnsafeNativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\dragonfly.common\dragonfly.common.csproj">

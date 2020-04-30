@@ -1,5 +1,6 @@
 ﻿using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
+using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -81,33 +82,33 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             IntPtr tmp;
 
-            hBuy = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, IntPtr.Zero);
-            hSell = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            hCancel = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            hBuy = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, IntPtr.Zero);
+            hSell = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            hCancel = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
             // 科创板
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
             // 新股申购
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
             // 查询功能
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            tmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, tmp);
-            hTodayDeals = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            tmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, tmp);
+            hTodayDeals = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
         }
 
         private void InitHkMenuFuncHandler()
         {
             IntPtr tmp;
 
-            hHkHgtBuy = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, 0, IntPtr.Zero);
-            hHkHgtSell = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtBuy);
-            tmp = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtSell);
-            tmp = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
-            hHkHgtCancel = (IntPtr)NativeMethods.SendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            hHkHgtBuy = Misc.ProxySendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, 0, IntPtr.Zero);
+            hHkHgtSell = Misc.ProxySendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtBuy);
+            tmp = Misc.ProxySendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hHkHgtSell);
+            tmp = Misc.ProxySendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
+            hHkHgtCancel = Misc.ProxySendMessage(hHkStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, tmp);
         }
 
         public void BuyStock(string code, float price, int num)
@@ -158,17 +159,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_SETFOCUS, 0, 0);
             SetRichEditText(hCode, code);
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
             Delay(500);
             SetEditText(hPrice, "" + price);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
             Delay(500);
             SetRichEditText(hNum, "" + num);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
 
             // 点击买入按钮
             ClickButton(hButton);
@@ -245,17 +240,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_SETFOCUS, 0, 0);
             SetRichEditText(hCode, code);
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
             Delay(500);
             SetEditText(hPrice, "" + price);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
             Delay(500);
             SetRichEditText(hNum, "" + num);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
 
             // 点击买入按钮
             ClickButton(hButton);

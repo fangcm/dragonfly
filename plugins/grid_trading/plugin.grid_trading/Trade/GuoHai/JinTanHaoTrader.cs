@@ -1,5 +1,6 @@
 ﻿using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
+using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,8 +32,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
             hMainWnd = FindHwndInApp(null, @"通达信网上交易V6");
             IntPtr mdi = FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
-            IntPtr tmp = NativeMethods.GetDlgItem(mdi, 0xE900);
-            hToolBar = NativeMethods.GetDlgItem(tmp, 0x00DD);
+            IntPtr tmp = UnsafeNativeMethods.GetDlgItem(mdi, 0xE900);
+            hToolBar = UnsafeNativeMethods.GetDlgItem(tmp, 0x00DD);
 
             if (hToolBar == IntPtr.Zero)
             {
@@ -41,8 +42,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             // 获取左侧功能菜单treeview 句柄
-            hStockTree = NativeMethods.GetDlgItem(hToolBar, 0xE900);
-            hHkStockTree = NativeMethods.GetDlgItem(hToolBar, 0xE903);
+            hStockTree = UnsafeNativeMethods.GetDlgItem(hToolBar, 0xE900);
+            hHkStockTree = UnsafeNativeMethods.GetDlgItem(hToolBar, 0xE903);
 
             if (hStockTree == IntPtr.Zero)
             {
@@ -65,8 +66,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public static void MouseClickToolbar(IntPtr hToolBar, int index)
         {
-            NativeMethods.RECT rect = new NativeMethods.RECT();
-            NativeMethods.GetWindowRect(hToolBar, out rect);
+            NativeMethods.Win32Rect rect = new NativeMethods.Win32Rect();
+            UnsafeNativeMethods.GetWindowRect(hToolBar, ref rect);
 
             int x = 10 + (rect.right - rect.left) / 3 * index;
             int y = 10;
@@ -78,15 +79,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             IntPtr hTmp;
 
-            hBuy = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, 0);
-            hSell = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
-            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
-            hCancel = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
-            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
-            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
-            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, hTmp);
-            hTmp = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
-            hTodayDeals = (IntPtr)NativeMethods.SendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hBuy = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, IntPtr.Zero);
+            hSell = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
+            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
+            hCancel = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
+            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, hTmp);
+            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            hTodayDeals = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
         }
 
 
@@ -420,5 +421,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
+        internal static string GetTreeViewItemText(IntPtr hTreeView, IntPtr itemHwnd)
+        {
+            NativeMethods.TVITEM tvItem = new NativeMethods.TVITEM();
+            tvItem.mask = NativeMethods.TVIF_TEXT;
+            tvItem.hItem = itemHwnd;
+            tvItem.cchTextMax = 512;
+            return SysTreeView32.GetTreeItemText(hTreeView, tvItem);
+        }
     }
 }

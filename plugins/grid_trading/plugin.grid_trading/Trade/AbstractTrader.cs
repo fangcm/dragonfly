@@ -16,6 +16,7 @@
 
 using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
+using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -34,7 +35,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         public bool Init(string appClassName, string appName)
         {
-            hMainWnd = NativeMethods.FindWindow(appClassName, appName);
+            hMainWnd = UnsafeNativeMethods.FindWindow(appClassName, appName);
             if (hMainWnd == IntPtr.Zero)
                 return false;
 
@@ -49,7 +50,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         protected IntPtr FindHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
         {
-            return NativeMethods.FindWindowEx(hParent, hChildAfter, lpClassName, lpWindowName);
+            return UnsafeNativeMethods.FindWindowEx(hParent, hChildAfter, lpClassName, lpWindowName);
         }
 
         protected IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName)
@@ -63,10 +64,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             IntPtr retHandle = hChildAfter;
             do
             {
-                retHandle = NativeMethods.FindWindowEx(hParent, retHandle, lpClassName, lpWindowName);
-                int style = (int)NativeMethods.GetWindowLong(retHandle, (int)NativeMethods.WindowLongFlags.GWL_STYLE);
-
-                if ((style & NativeMethods.WS_VISIBLE) != 0)
+                retHandle = UnsafeNativeMethods.FindWindowEx(hParent, retHandle, lpClassName, lpWindowName);
+                if (retHandle == IntPtr.Zero)
+                {
+                    break;
+                }
+                if (SafeNativeMethods.IsWindowVisible(retHandle))
                 {
                     break;
                 }
@@ -77,86 +80,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         protected static int GetTreeViewItemCount(IntPtr hTreeView)
         {
-            return NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETCOUNT, 0, 0);
+            //return NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETCOUNT, 0, 0);
+            return 0;
         }
 
         protected void SelectTreeViewItem(IntPtr hTreeView, IntPtr hItem)
         {
-            NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
+            //NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_SELECTITEM, NativeMethods.TVGN_CARET, hItem);
         }
 
-        protected static string GetTreeViewItemText(IntPtr hTreeView, IntPtr itemHwnd)
-        {
-            NativeMethods.TVITEM tvItem = new NativeMethods.TVITEM();
 
-            int vProcessId;
-            NativeMethods.GetWindowThreadProcessId(hTreeView, out vProcessId);
-
-            IntPtr vProcess = NativeMethods.OpenProcess(NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE,
-                false, vProcessId);
-
-            IntPtr vPointer = NativeMethods.VirtualAllocEx(vProcess, 0, 4096,
-                 NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
-
-            const int bufferSize = 512;
-            IntPtr pStrBuffer = IntPtr.Zero;
-            IntPtr pTvItem = IntPtr.Zero;
-            try
-            {
-                tvItem.mask = NativeMethods.TVIF_TEXT;
-                tvItem.hItem = itemHwnd;
-                tvItem.lpszText = NativeMethods.VirtualAllocEx(vProcess, 0, bufferSize, NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
-                tvItem.cchTextMax = bufferSize;
-
-                pStrBuffer = Marshal.AllocHGlobal(bufferSize);
-
-                pTvItem = Marshal.AllocHGlobal(4096);
-                Marshal.StructureToPtr(tvItem, pTvItem, false);
-
-                int vNumberOfBytesWrite;
-                NativeMethods.WriteProcessMemory(vProcess, vPointer, pTvItem, Marshal.SizeOf(typeof(NativeMethods.TVITEM)), out vNumberOfBytesWrite);
-
-                NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETITEM, 0, (int)vPointer);
-
-                int vNumberOfBytesRead;
-                NativeMethods.ReadProcessMemory(vProcess, tvItem.lpszText, pStrBuffer, bufferSize, out vNumberOfBytesRead);
-
-                string s_itemname = Marshal.PtrToStringAnsi(pStrBuffer);
-                return s_itemname;
-            }
-            finally
-            {
-                NativeMethods.VirtualFreeEx(vProcess, tvItem.lpszText, 4096, NativeMethods.MEM_RESERVE);
-                Marshal.FreeHGlobal(pStrBuffer);
-                Marshal.FreeHGlobal(pTvItem);
-                NativeMethods.VirtualFreeEx(vProcess, vPointer, 4096, NativeMethods.MEM_RESERVE);
-                NativeMethods.CloseHandle(vProcess);
-            }
-
-        }
-
-        internal static bool GetTreeViewItemRECT(IntPtr hTreeView, IntPtr treeItemHandle, ref NativeMethods.RECT[] rect)
-        {
-            bool result = false;
-            int processId;
-            NativeMethods.GetWindowThreadProcessId(hTreeView, out processId);
-            IntPtr process = NativeMethods.OpenProcess(NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ | NativeMethods.PROCESS_VM_WRITE, false, processId);
-            IntPtr buffer = NativeMethods.VirtualAllocEx(process, 0, 4096, NativeMethods.MEM_RESERVE | NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
-            try
-            {
-                int bytes;
-                NativeMethods.WriteProcessMemory(process, buffer, ref treeItemHandle, Marshal.SizeOf(treeItemHandle), out bytes);
-                NativeMethods.SendMessage(hTreeView, NativeMethods.TVM_GETITEMRECT, 1, buffer);
-                NativeMethods.ReadProcessMemory(process, buffer, Marshal.UnsafeAddrOfPinnedArrayElement(rect, 0), Marshal.SizeOf(typeof(NativeMethods.RECT)), out bytes);
-                result = true;
-            }
-            finally
-            {
-                NativeMethods.VirtualFreeEx(process, buffer, 0, NativeMethods.MEM_RELEASE);
-                NativeMethods.CloseHandle(process);
-            }
-            return result;
-        }
 
         public static string GetWindowText(IntPtr hWnd)
         {
@@ -166,89 +99,58 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         public static string GetWindowText(IntPtr hWnd, StringBuilder builder)
         {
-            int length = NativeMethods.GetWindowTextLength(hWnd);
-            builder.Capacity = Math.Max(builder.Capacity, length + 1);
-            NativeMethods.GetWindowText(hWnd, builder, builder.Capacity);
-            return builder.ToString();
+
+            //int length = UnsafeNativeMethods.GetWindowTextLength(hWnd);
+            //builder.Capacity = Math.Max(builder.Capacity, length + 1);
+            //UnsafeNativeMethods.GetWindowText(hWnd, builder, builder.Capacity);
+            //return builder.ToString();
+
+            return "";
         }
 
         public static int SetWindowText(IntPtr handle, string text)
         {
-            return NativeMethods.SetWindowText(handle, text);
+            //return NativeMethods.SetWindowText(handle, text);
+            return 0;
         }
 
         public static void SetEditText(IntPtr handle, string text)
         {
-            NativeMethods.SendMessage(handle, NativeMethods.WM_SETTEXT, 0, text);
+           // NativeMethods.SendMessage(handle, NativeMethods.WM_SETTEXT, 0, text);
         }
 
         public static string GetEditText(IntPtr handle)
         {
             StringBuilder data = new StringBuilder(32768);
-            NativeMethods.SendMessage(handle, NativeMethods.WM_GETTEXT, data.Capacity, data);
+           // NativeMethods.SendMessage(handle, NativeMethods.WM_GETTEXT, data.Capacity, data);
             return data.ToString();
         }
 
         public static void SetRichEditText(IntPtr handle, string text)
         {
-            NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
-            NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
+           // NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
+           // NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
         }
 
         public static void ClickButton(IntPtr hButton)
         {
-            NativeMethods.PostMessage(hButton, (int)NativeMethods.BM_CLICK, 0, 0);
+            //NativeMethods.PostMessage(hButton, (int)NativeMethods.BM_CLICK, 0, 0);
         }
 
         public static void MouseClick(IntPtr handle, int x, int y)
         {
-            NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
-            Delay(5);
-            NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
+           // NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
+           // Delay(5);
+           // NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
         }
 
         public static void MouseDoubleClick(IntPtr handle, int x, int y)
         {
-            NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDBLCLK, 0, MAKELPARAM(x, y));
+           // NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDBLCLK, 0, MAKELPARAM(x, y));
 
         }
 
-        public void MouseClickScreen(int x, int y)
-        {
-            NativeMethods.POINT p = new NativeMethods.POINT();
-            NativeMethods.GetCursorPos(out p);
 
-            try
-            {
-                NativeMethods.ShowCursor(false);
-                NativeMethods.SetCursorPos(x, y);
-
-                NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftDown | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
-                Delay(5);
-                NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftUp | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
-            }
-            finally
-            {
-                NativeMethods.SetCursorPos(p.X, p.Y);
-                NativeMethods.ShowCursor(true);
-            }
-        }
-
-        public static void KeyboardPress(IntPtr handle, string text)
-        {
-            foreach (char letter in text)
-            {
-                NativeMethods.PostMessage(handle, NativeMethods.WM_CHAR, letter, 0);
-            }
-        }
-
-        public static void Press(string text)
-        {
-            foreach (char letter in text)
-            {
-                NativeMethods.keybd_event((Keys)letter, 0, 0, 0);
-            }
-        }
 
 
         public static void Delay(int milliSecond)
