@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
@@ -185,6 +186,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal const int WM_NCHITTEST = 0x0084;
         internal const int WM_KEYDOWN = 0x0100;
         internal const int WM_KEYUP = 0x0101;
+        internal const int WM_CHAR = 0x0102;
         internal const int WM_COMMAND = 0x0111;
         internal const int WM_SYSCOMMAND = 0x0112;
         internal const int WM_HSCROLL = 0x0114;
@@ -1536,6 +1538,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal const int TVIF_TEXT = 0x0001;
         internal const int TVIF_IMAGE = 0x0002;
         internal const int TVIF_STATE = 0x0008;
+        internal const int TVIF_HANDLE = 0x0010;
         internal const int TVIF_CHILDREN = 0x0040;
 
         internal const int TVIS_SELECTED = 0x0002;
@@ -1957,5 +1960,31 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref NativeMethods.Win32Rect lpPoints, int cPoints);
         [DllImport("user32.dll", ExactSpelling = true)]
         internal static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref NativeMethods.Win32Point lpPoints, int cPoints);
+
+
+        [Flags]
+        internal enum MouseEventFlags
+        {
+            Move = 0x0001,
+            LeftDown = 0x0002,
+            LeftUp = 0x0004,
+            RightDown = 0x0008,
+            RightUp = 0x0010,
+            MiddleDown = 0x0020,
+            MiddleUp = 0x0040,
+            Wheel = 0x0800,
+            Absolute = 0x8000
+        }
+
+        [DllImport("User32")]
+        internal extern static void mouse_event(int dwFlags, int dx, int dy, int dwData, IntPtr dwExtraInfo);
+        [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
+        internal static extern void keybd_event(Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
+        [DllImport("User32")]
+        internal extern static bool GetCursorPos(out Win32Point p);
+        [DllImport("user32.dll")]
+        internal static extern int SetCursorPos(int x, int y);
+        [DllImport("User32")]
+        internal extern static int ShowCursor(bool bShow);
     }
 }

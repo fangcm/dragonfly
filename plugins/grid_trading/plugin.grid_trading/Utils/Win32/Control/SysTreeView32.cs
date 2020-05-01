@@ -14,19 +14,37 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
             // get control coordinates at which we will "click"
             NativeMethods.Win32Point pt = new NativeMethods.Win32Point(((rectItem.left + rectItem.right) / 2), ((rectItem.top + rectItem.bottom) / 2));
+            NativeMethods.Win32Point deskTopPt = new NativeMethods.Win32Point(((rectItem.left + rectItem.right) / 2), ((rectItem.top + rectItem.bottom) / 2));
 
             // convert back to client
-            Misc.MapWindowPoints(IntPtr.Zero, hTreeView, ref pt, 1);
+            //Misc.MapWindowPoints(IntPtr.Zero, hTreeView, ref pt, 1);
             // click
-            SimulateClick(hTreeView,pt);
+            //SimulateClick(hTreeView, pt, deskTopPt);
+            Misc.MouseClickScreen(deskTopPt.x, deskTopPt.y);
         }
 
         // simulate click via posting WM_LBUTTONDOWN(UP)
-        internal static void SimulateClick(IntPtr hTreeView, NativeMethods.Win32Point pt)
+        internal static void SimulateClick(IntPtr hTreeView, NativeMethods.Win32Point pt, NativeMethods.Win32Point deskTopPt)
         {
-            // Fails if a SendMessage is used instead of the Post.
-            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
-            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
+            NativeMethods.Win32Point p = new NativeMethods.Win32Point();
+            NativeMethods.GetCursorPos(out p);
+
+            try
+            {
+                NativeMethods.ShowCursor(false);
+                NativeMethods.SetCursorPos(deskTopPt.x, deskTopPt.y);
+
+                HitTestTreeView(hTreeView, pt.x, pt.y);
+                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
+                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
+                Misc.Delay(10);
+            }
+            finally
+            {
+                NativeMethods.SetCursorPos(p.x, p.y);
+                NativeMethods.ShowCursor(true);
+            }
+
         }
 
 
@@ -269,6 +287,33 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                         Marshal.SizeOf(item32.GetType()), new IntPtr(&item32.pszText), item32.cchTextMax, true);
         }
 
+        internal static unsafe bool SetItem(IntPtr hTreeView, NativeMethods.TVITEM tvItem)
+        {
+            TVITEM_32 item32 = new TVITEM_32(tvItem);
+
+            return XSendMessage.XSend(hTreeView, NativeMethods.TVM_SETITEMW, IntPtr.Zero, new IntPtr(&item32), Marshal.SizeOf(item32.GetType()));
+        }
+
+        internal static unsafe IntPtr HitTestTreeView(IntPtr hTreeView, int x, int y)
+        {
+            IntPtr hitTestItem = IntPtr.Zero;
+
+            // Convert the coordinates for the point of interest from
+            // screen coordinates to window-relative coordinates.
+            NativeMethods.Win32Point clientPoint = new NativeMethods.Win32Point(x, y);
+            Misc.MapWindowPoints(IntPtr.Zero, hTreeView, ref clientPoint, 1);
+
+
+            TVHITTESTINFO_32 hitTestInfo32 = new TVHITTESTINFO_32(clientPoint.x, clientPoint.y, 0);
+            if (XSendMessage.XSend(hTreeView, NativeMethods.TVM_HITTEST, IntPtr.Zero, new IntPtr(&hitTestInfo32),
+                Marshal.SizeOf(hitTestInfo32.GetType())))
+            {
+                hitTestItem = new IntPtr(hitTestInfo32.hItem);
+            }
+
+            return hitTestItem;
+        }
+
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         internal struct TVITEM_32
@@ -325,7 +370,32 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             }
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct TVHITTESTINFO_32
+        {
+            internal NativeMethods.Win32Point pt;
+            internal uint flags;
+            internal int hItem;
 
+            internal TVHITTESTINFO_32(int x, int y, uint flags)
+            {
+                pt.x = x;
+                pt.y = y;
+                this.flags = flags;
+                hItem = 0;
+            }
+
+            // This operator should only be called when TVHITTESTINFO is a 64 bit structure
+            static public explicit operator NativeMethods.TVHITTESTINFO(TVHITTESTINFO_32 hitTestInfo)
+            {
+                NativeMethods.TVHITTESTINFO nativeHitTestInfo = new NativeMethods.TVHITTESTINFO();
+                nativeHitTestInfo.pt = hitTestInfo.pt;
+                nativeHitTestInfo.flags = hitTestInfo.flags;
+                nativeHitTestInfo.hItem = new IntPtr(hitTestInfo.hItem);
+
+                return nativeHitTestInfo;
+            }
+        }
 
     }
 }

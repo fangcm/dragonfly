@@ -147,7 +147,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 Application.DoEvents();
             }
         }
-        
+
         internal static int MAKELPARAM(int x, int y)
         {
             return ((y << 16) | (x & 0xFFFF));
@@ -187,6 +187,41 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         #endregion
 
 
+        internal static void MouseClickScreen(int x, int y)
+        {
+            NativeMethods.Win32Point p = new NativeMethods.Win32Point();
+            NativeMethods.GetCursorPos(out p);
 
+            try
+            {
+                NativeMethods.ShowCursor(false);
+                NativeMethods.SetCursorPos(x, y);
+
+                NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftDown | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+                Delay(5);
+                NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftUp | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+            }
+            finally
+            {
+                NativeMethods.SetCursorPos(p.x, p.y);
+                NativeMethods.ShowCursor(true);
+            }
+        }
+
+        internal static void KeyboardPress(IntPtr handle, string text)
+        {
+            foreach (char letter in text)
+            {
+                NativeMethods.PostMessage(handle, NativeMethods.WM_CHAR, new IntPtr(letter), IntPtr.Zero);
+            }
+        }
+
+        internal static void Press(string text)
+        {
+            foreach (char letter in text)
+            {
+                NativeMethods.keybd_event((Keys)letter, 0, 0, 0);
+            }
+        }
     }
 }
