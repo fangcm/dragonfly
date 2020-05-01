@@ -7,6 +7,29 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
     internal class SysTreeView32
     {
 
+        internal static void SimulateClick(IntPtr hTreeView, IntPtr hItem)
+        {
+            // get item rect
+            NativeMethods.Win32Rect rectItem = GetItemRect(hTreeView, hItem, true);
+
+            // get control coordinates at which we will "click"
+            NativeMethods.Win32Point pt = new NativeMethods.Win32Point(((rectItem.left + rectItem.right) / 2), ((rectItem.top + rectItem.bottom) / 2));
+
+            // convert back to client
+            Misc.MapWindowPoints(IntPtr.Zero, hTreeView, ref pt, 1);
+            // click
+            SimulateClick(hTreeView,pt);
+        }
+
+        // simulate click via posting WM_LBUTTONDOWN(UP)
+        internal static void SimulateClick(IntPtr hTreeView, NativeMethods.Win32Point pt)
+        {
+            // Fails if a SendMessage is used instead of the Post.
+            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
+            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
+        }
+
+
         #region get all Helpers
 
         internal static List<TreeItemNode> GetAllItems(IntPtr hTreeView)
@@ -197,7 +220,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             // Temporarily allow the possibility of returning a bounding rect for scrolled off items.  
             // Will need to revisit this when there is a method that can scroll items into view.
             //if (Misc.IsItemVisible(hTreeView, ref rc))
-
+            Misc.MapWindowPoints(hTreeView, IntPtr.Zero, ref rc, 2);
             return rc;
         }
 

@@ -127,6 +127,18 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         }
 
 
+        // wrapper for MapWindowPoints
+        internal static int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref NativeMethods.Win32Rect rect, int cPoints)
+        {
+            return NativeMethods.MapWindowPoints(hWndFrom, hWndTo, ref rect, cPoints);
+        }
+
+        // wrapper for MapWindowPoints
+        internal static int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref NativeMethods.Win32Point pt, int cPoints)
+        {
+            return NativeMethods.MapWindowPoints(hWndFrom, hWndTo, ref pt, cPoints);
+        }
+
         internal static void Delay(int milliSecond)
         {
             int start = Environment.TickCount;

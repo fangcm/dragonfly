@@ -102,6 +102,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
             SysTreeView32.SelectItem(hStockTree, hBuy);
+            SysTreeView32.SimulateClick(hStockTree, hBuy);
 
             /*
             Class1.TVITEMEX item = new Class1.TVITEMEX();
@@ -196,6 +197,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
             SysTreeView32.SelectItem(hStockTree, hSell);
+            SysTreeView32.SimulateClick(hStockTree, hSell);
 
             /*
             SelectTreeViewItem(hStockTree, hSell);
@@ -285,16 +287,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
+            Log(LoggType.Red, "撤单: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
             SysTreeView32.SelectItem(hStockTree, hCancel);
+            SysTreeView32.SimulateClick(hStockTree, hCancel);
+
 
         }
 
         public void TodayDealsList()
         {
             Log(LoggType.Black, "查询当日成交");
+            MouseClickToolbar(hToolBar, 0);
+            SysTreeView32.SelectItem(hStockTree, hTodayDeals);
+            SysTreeView32.SimulateClick(hStockTree, hTodayDeals);
 
-            MouseClickToolbar(hToolBar, 2);
 
             /*
             // 获取左侧功能菜单treeview 句柄

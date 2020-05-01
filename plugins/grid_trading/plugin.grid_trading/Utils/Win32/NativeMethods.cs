@@ -1953,6 +1953,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool GetWindowRect(IntPtr hWnd, [In, Out] ref NativeMethods.Win32Rect rect);
-
+        [DllImport("user32.dll", ExactSpelling = true)]
+        internal static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref NativeMethods.Win32Rect lpPoints, int cPoints);
+        [DllImport("user32.dll", ExactSpelling = true)]
+        internal static extern int MapWindowPoints(IntPtr hWndFrom, IntPtr hWndTo, ref NativeMethods.Win32Point lpPoints, int cPoints);
     }
 }
