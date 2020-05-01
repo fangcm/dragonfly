@@ -140,7 +140,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         // Main method.  It simply copies an unmamaged buffer to the remote process, sends the message, and then
         // copies the remote buffer back to the local unmanaged buffer.
-        internal static bool XSend(IntPtr hwnd, int uMsg, IntPtr wParam, IntPtr ptrStructure,  int cbSize)
+        internal static bool XSend(IntPtr hwnd, int uMsg, IntPtr wParam, IntPtr ptrStructure, int cbSize)
         {
             using (ProcessHandle hProcess = new ProcessHandle(hwnd))
             {
@@ -300,12 +300,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         }
 
 
-
     }
-
-
-
-
 
 }
 

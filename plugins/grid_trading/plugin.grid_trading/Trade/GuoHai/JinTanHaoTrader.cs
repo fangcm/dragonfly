@@ -77,27 +77,32 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         private void InitStockTreeViewItemHandler()
         {
-            IntPtr hTmp;
+            var items = SysTreeView32.GetAllItems(hStockTree);
+            SysTreeView32.TreeItemNode node;
 
-            hBuy = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_ROOT, IntPtr.Zero);
-            hSell = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hBuy);
-            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hSell);
-            hCancel = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
-            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hCancel);
-            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
-            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_CHILD, hTmp);
-            hTmp = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
-            hTodayDeals = Misc.ProxySendMessage(hStockTree, NativeMethods.TVM_GETNEXTITEM, NativeMethods.TVGN_NEXT, hTmp);
+            node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "买入");
+            if (node != null) { hBuy = node.Handle; }
 
-            string a = SysTreeView32.GetTreeItemText(hStockTree, hCancel);
+            node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "卖出");
+            if (node != null) { hSell = node.Handle; }
 
+            node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "撤单");
+            if (node != null) { hCancel = node.Handle; }
+
+            node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "查询");
+            if (node != null)
+            {
+                node = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "当日成交");
+                hTodayDeals = node.Handle;
+            }
         }
 
         public void BuyStock(string code, float price, int num)
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SysTreeView32.SelectTreeViewItem(hStockTree, hBuy);
+            SysTreeView32.SelectItem(hStockTree, hBuy);
+
             /*
             Class1.TVITEMEX item = new Class1.TVITEMEX();
             item.hItem = hBuy;
@@ -190,7 +195,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SysTreeView32.SelectTreeViewItem(hStockTree, hSell);
+            SysTreeView32.SelectItem(hStockTree, hSell);
 
             /*
             SelectTreeViewItem(hStockTree, hSell);
@@ -281,7 +286,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         public void CancelStock(string code, float price, int num)
         {
             MouseClickToolbar(hToolBar, 0);
-            SysTreeView32.SelectTreeViewItem(hStockTree, hCancel);
+            SysTreeView32.SelectItem(hStockTree, hCancel);
 
         }
 

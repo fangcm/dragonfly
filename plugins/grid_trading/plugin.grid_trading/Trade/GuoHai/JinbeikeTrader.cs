@@ -42,7 +42,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             while (hTree != IntPtr.Zero)
             {
-                int count = SysTreeView32.GetTreeViewItemCount(hTree);
+                int count = 0; // SysTreeView32.GetItemCount(hTree);
                 Log(LoggType.Black, "Tree菜单数量:" + count);
                 if (count == 109)
                 {
@@ -115,7 +115,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
 
-            SysTreeView32.SelectTreeViewItem(hStockTree, hBuy);
+            SysTreeView32.SelectItem(hStockTree, hBuy);
             Button.Click(hStockBtn);
 
             IntPtr hPanel = Window.FindHwndInParentRecursive(hMainWnd, "TFrmBuyStock", null);
@@ -196,7 +196,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
 
-            SysTreeView32.SelectTreeViewItem(hStockTree, hSell);
+            SysTreeView32.SelectItem(hStockTree, hSell);
             Button.Click(hStockBtn);
 
             IntPtr hPanel = Window.FindHwndInParentRecursive(hMainWnd, "Tfrm2007", null);
@@ -277,7 +277,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void CancelStock(string code, float price, int num)
         {
-            SysTreeView32.SelectTreeViewItem(hStockTree, hCancel);
+            SysTreeView32.SelectItem(hStockTree, hCancel);
             Button.Click(hStockBtn);
         }
 

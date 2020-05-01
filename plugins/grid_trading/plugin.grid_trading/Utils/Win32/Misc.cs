@@ -141,6 +141,10 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             return ((y << 16) | (x & 0xFFFF));
         }
 
+        internal static bool IsBitSet(int flags, int bit)
+        {
+            return (flags & bit) == bit;
+        }
 
         #region Exception
         private static void EvaluateSendMessageTimeoutError(int error)
