@@ -29,8 +29,81 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         internal static IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName)
         {
-            WindowFinder finder = new WindowFinder(hParent, lpClassName, lpWindowName);
-            return finder.FoundHandle;
+            return FindHwndInParentRecursive(hParent, lpClassName, lpWindowName, false);
+        }
+
+        internal static IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName, bool onlyInVisibleParent)
+        {
+            IntPtr iResult = IntPtr.Zero;
+            // 首先在父窗体上查找控件
+            iResult = NativeMethods.FindWindowEx(hParent, IntPtr.Zero, lpClassName, lpWindowName);
+            // 如果找到直接返回控件句柄
+            if (iResult != IntPtr.Zero) return iResult;
+
+            // 枚举子窗体，查找控件句柄
+            NativeMethods.EnumChildWindows(hParent, (h, l) =>
+            {
+                if (onlyInVisibleParent)
+                {
+                    if (!NativeMethods.IsWindowVisible(h)) { return true; }
+                }
+                IntPtr f1 = NativeMethods.FindWindowEx(h, IntPtr.Zero, lpClassName, lpWindowName);
+                if (f1 == IntPtr.Zero)
+                {
+                    return true;
+                }
+                else
+                {
+                    iResult = f1;
+                    return false;
+                }
+            }, IntPtr.Zero);
+            // 返回查找结果
+            return iResult;
+        }
+
+        internal static IntPtr FindVisibleHwndLikeInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
+        {
+            IntPtr hWnd = IntPtr.Zero;
+            while (true)
+            {
+                hWnd = FindVisibleHwndInParent(hParent, hWnd, null, null);
+                if (hWnd == IntPtr.Zero)
+                {
+                    break;
+                }
+                var windowName = new StringBuilder(256);
+                var className = new StringBuilder(256);
+
+                NativeMethods.GetWindowText(hWnd, windowName, 255);
+                NativeMethods.GetClassName(hWnd, className, 255);
+
+                bool bMatchWindowName = true;
+                if (lpWindowName != null)
+                {
+                    if (!windowName.ToString().Contains(lpWindowName))
+                    {
+                        bMatchWindowName = false;
+                    }
+                }
+
+                bool bMatchClassName = true;
+                if (lpClassName != null)
+                {
+                    if (!className.ToString().Contains(lpClassName))
+                    {
+                        bMatchClassName = false;
+                    }
+                }
+
+                if (bMatchWindowName && bMatchClassName)
+                {
+                    break;
+                }
+            }
+
+
+            return hWnd;
         }
 
         internal static IntPtr GetDlgItem(IntPtr hDlg, int nControlID)
@@ -51,13 +124,20 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             return NativeMethods.GetWindowRect(hwnd, ref rc);
         }
 
-
-        internal static void MouseClick(IntPtr handle, int x, int y)
+        internal static void SimulateClick(IntPtr hTreeView, int x, int y)
         {
-            // NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONDOWN, 0x00000001, MAKELPARAM(x, y));
-            // Delay(5);
-            // NativeMethods.SendMessage(handle, NativeMethods.WM_LBUTTONUP, 0x00000000, MAKELPARAM(x, y));
+            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
+            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
         }
 
+        internal static bool SetFocus(IntPtr hwnd)
+        {
+            if (!NativeMethods.IsWindowVisible(hwnd))
+            {
+                return false;
+            }
+
+            return NativeMethods.SetForegroundWindow(hwnd);
+        }
     }
 }

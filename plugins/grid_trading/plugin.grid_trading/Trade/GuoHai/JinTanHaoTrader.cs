@@ -13,7 +13,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
     // 国海金叹号
     public class JintanhaoTrader : AbstractTrader, ITrader
     {
-
+        IntPtr afxWind42DetailPanel;
         IntPtr hToolBar;
         // A股主功能菜单
         IntPtr hStockTree;    // A股功能树形控件句柄
@@ -31,9 +31,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return false;
             }
             hMainWnd = Window.FindHwndInParentRecursive(hMainWnd, null, @"通达信网上交易V6");
-            IntPtr mdi = Window.FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
-            IntPtr tmp = Window.GetDlgItem(mdi, 0xE900);
-            hToolBar = Window.GetDlgItem(tmp, 0x00DD);
+            IntPtr afxMDIFrame = Window.FindHwndInParentRecursive(hMainWnd, "AfxMDIFrame42", null);
+            IntPtr afxWind42TreePanel = Window.GetDlgItem(afxMDIFrame, 0xE900);
+            afxWind42DetailPanel = Window.GetDlgItem(afxMDIFrame, 0xE901);
+
+            hToolBar = Window.GetDlgItem(afxWind42TreePanel, 0x00DD);
 
             if (hToolBar == IntPtr.Zero)
             {
@@ -56,8 +58,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return false;
             }
 
-            InitStockTreeViewItemHandler();
-            //InitHKStockTreeViewItemHandler();
+            if (!InitStockTreeViewItemHandler())
+            {
+                Log(LoggType.Red, "初始化A股菜单树失败");
+                return false;
+            }
+            if (!InitHKStockTreeViewItemHandler())
+            {
+                Log(LoggType.Red, "初始化港股通菜单树失败");
+                return false;
+            }
 
             Log(LoggType.Black, "关联金叹号交易软件成功");
 
@@ -72,13 +82,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             int x = 10 + (rect.right - rect.left) / 3 * index;
             int y = 10;
 
-            Window.MouseClick(hToolBar, x, y);
+            Window.SimulateClick(hToolBar, x, y);
         }
 
-        private void InitStockTreeViewItemHandler()
+        private bool InitStockTreeViewItemHandler()
         {
             var items = SysTreeView32.GetAllItems(hStockTree);
-            SysTreeView32.TreeItemNode node;
+            if (items.Count != 23)
+            {
+                Log(LoggType.Black, "A股菜单树菜单个数不一致");
+                return false;
+            }
+
+            SysTreeView32.TreeItemNode node, child;
 
             node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "买入");
             if (node != null) { hBuy = node.Handle; }
@@ -92,103 +108,141 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "查询");
             if (node != null)
             {
-                node = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "当日成交");
-                hTodayDeals = node.Handle;
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "当日成交");
+                if (child != null) { hTodayDeals = child.Handle; }
             }
+
+            return
+                hBuy != IntPtr.Zero &&
+                hSell != IntPtr.Zero &&
+                hCancel != IntPtr.Zero &&
+                hTodayDeals != IntPtr.Zero;
+        }
+
+        private bool InitHKStockTreeViewItemHandler()
+        {
+            var items = SysTreeView32.GetAllItems(hHkStockTree);
+            if (items.Count != 2)
+            {
+                Log(LoggType.Black, "港股通菜单树菜单个数不一致");
+                return false;
+            }
+
+            SysTreeView32.TreeItemNode node, child;
+
+            node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "沪港通");
+            if (node != null)
+            {
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "买入");
+                if (child != null) { hHkHgtBuy = child.Handle; }
+
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "卖出");
+                if (child != null) { hHkHgtSell = child.Handle; }
+
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "撤单");
+                if (child != null) { hHkHgtCancel = child.Handle; }
+
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "当日成交查询");
+                if (child != null) { hHkHgtTodayDeals = child.Handle; }
+            }
+
+            node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "深港通");
+            if (node != null)
+            {
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "买入");
+                if (child != null) { hHkSgtBuy = child.Handle; }
+
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "卖出");
+                if (child != null) { hHkSgtSell = child.Handle; }
+
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "撤单");
+                if (child != null) { hHkSgtCancel = child.Handle; }
+
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "当日成交查询");
+                if (child != null) { hHkSgtTodayDeals = child.Handle; }
+            }
+
+            return
+                hHkHgtBuy != IntPtr.Zero &&
+                hHkHgtSell != IntPtr.Zero &&
+                hHkHgtCancel != IntPtr.Zero &&
+                hHkHgtTodayDeals != IntPtr.Zero &&
+                hHkSgtBuy != IntPtr.Zero &&
+                hHkSgtSell != IntPtr.Zero &&
+                hHkSgtCancel != IntPtr.Zero &&
+                hHkSgtTodayDeals != IntPtr.Zero;
         }
 
         public void BuyStock(string code, float price, int num)
         {
             Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
+            //SysTreeView32.SelectItem(hStockTree, hBuy);
             SysTreeView32.SimulateClick(hStockTree, hBuy);
-            SysTreeView32.SelectItem(hStockTree, hBuy);
+            Misc.Delay(1000);
 
-            /*
-            Class1.TVITEMEX item = new Class1.TVITEMEX();
-            item.hItem = hBuy;
-            item.mask = Class1.TVIF.TEXT;
-            bool ret = (bool)Class1.GetItemInTarget(hStockTree, item);
 
-            IntPtr hPanel = FindHwndInApp("TFrmBuyStock", null);
-
-            IntPtr hCode = IntPtr.Zero;
-            IntPtr hPrice = IntPtr.Zero;
-            IntPtr hNum = IntPtr.Zero;
-            IntPtr hButton = IntPtr.Zero;
-
-            IntPtr hChild = IntPtr.Zero;
-            while (true)
+            IntPtr panel = Window.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
+            IntPtr btnConfirm = Window.GetDlgItem(panel, 0x07DA);
+            if (btnConfirm == IntPtr.Zero || Window.GetWindowText(btnConfirm) != "买入下单")
             {
-                hChild = FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
-                if (hChild == IntPtr.Zero)
-                {
-                    break;
-                }
-
-
-                IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
-                if (c == IntPtr.Zero)
-                    continue;
-                IntPtr p = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
-                if (p == IntPtr.Zero)
-                    continue;
-                IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
-                if (n == IntPtr.Zero)
-                    continue;
-                IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
-                if (b == IntPtr.Zero)
-                    continue;
-                hCode = c;
-                hPrice = p;
-                hNum = n;
-                hButton = b;
-
-            }
-            if (hCode == IntPtr.Zero || hPrice == IntPtr.Zero || hNum == IntPtr.Zero || hButton == IntPtr.Zero)
-            {
-                Log(LoggType.Red, "没有买入下单的控件页面");
+                Log(LoggType.Black, "不是买入下单页面");
                 return;
             }
 
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_SETFOCUS, 0, 0);
-            SetRichEditText(hCode, code);
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
+            IntPtr hStaticMaxBuyNum = Window.GetDlgItem(panel, 0x2EF2);
+            IntPtr hEditCode = Window.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
+            IntPtr hEditPrice = Window.GetDlgItem(panel, 0x2EE6);
+            IntPtr hEditNum = Window.GetDlgItem(panel, 0x2EE7);
+
+            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditNum == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "不是买入下单的控件页面");
+                return;
+            }
+
+            Window.SetFocus(hEditCode);
             Misc.Delay(500);
-            SetEditText(hPrice, "" + price);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
+            Misc.KeyboardPress(hEditCode, code);
+            Window.SetFocus(hEditPrice);
             Misc.Delay(500);
-            SetRichEditText(hNum, "" + num);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
+            Misc.KeyboardPress(hEditPrice, "" + price);
+            Window.SetFocus(hEditNum);
+            Misc.Delay(500);
+            Misc.KeyboardPress(hEditNum, "" + num);
 
             // 点击买入按钮
-            Button.Click(hButton);
             Misc.Delay(500);
-            WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
-            IntPtr hConfirmDlg = finder.FoundHandle;
+            Button.Click(btnConfirm);
+            Misc.Delay(500);
+
+            IntPtr hConfirmDlg = Window.FindHwndInParentRecursive(IntPtr.Zero, null, "买入交易确认", true);
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hBtnYes = FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
-                IntPtr hBtnNo = FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
+                IntPtr hBtnYes = Window.FindHwndInParentRecursive(hConfirmDlg, "Button", "买入确认");
+                IntPtr hBtnNo = Window.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
 
-                string sCode = GetEditText(hCode);
-                string sPrice = GetEditText(hPrice);
-                string sNum = GetEditText(hNum);
+                IntPtr hStaticConfirm = Window.GetDlgItem(hConfirmDlg, 0x1B65);
+                string txtConfirm = Window.GetWindowText(hStaticConfirm);
 
-                Log(LoggType.Red, "校验购买单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
-                if (sCode == code && sPrice == "" + price && sNum == "" + num)
+                Dictionary<string, string> patten = new Dictionary<string, string>();
+                patten["操作类别"] = @"^买入$";
+                patten["股票代码"] = @"^" + code;
+                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
+                patten["委托数量"] = @"^" + num + "股";
+                patten["委托方式"] = "限价委托";
+                if (ValidateTipText(txtConfirm, patten))
                 {
+                    Log(LoggType.Gray, "校验提示正常: " + txtConfirm.Replace('\n', ' '));
                     Button.Click(hBtnYes);
+
                 }
                 else
                 {
+                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
                     Button.Click(hBtnNo);
                 }
-
             }
-                        */
 
         }
 
@@ -197,7 +251,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
             SysTreeView32.SimulateClick(hStockTree, hSell);
-            SysTreeView32.SelectItem(hStockTree, hSell);
+            //SysTreeView32.SelectItem(hStockTree, hSell);
 
             /*
             SelectTreeViewItem(hStockTree, hSell);
@@ -289,7 +343,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "撤单: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SysTreeView32.SelectItem(hStockTree, hCancel);
+            //SysTreeView32.SelectItem(hStockTree, hCancel);
             SysTreeView32.SimulateClick(hStockTree, hCancel);
 
 
@@ -299,7 +353,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Black, "查询当日成交");
             MouseClickToolbar(hToolBar, 0);
-            SysTreeView32.SelectItem(hStockTree, hTodayDeals);
+            //SysTreeView32.SelectItem(hStockTree, hTodayDeals);
             SysTreeView32.SimulateClick(hStockTree, hTodayDeals);
 
 

@@ -198,8 +198,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 NativeMethods.SetCursorPos(x, y);
 
                 NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftDown | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
-                Delay(5);
+                Delay(10);
                 NativeMethods.mouse_event((int)(NativeMethods.MouseEventFlags.LeftUp | NativeMethods.MouseEventFlags.Absolute), 0, 0, 0, IntPtr.Zero);
+                Delay(10);
             }
             finally
             {
@@ -213,6 +214,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             foreach (char letter in text)
             {
                 NativeMethods.PostMessage(handle, NativeMethods.WM_CHAR, new IntPtr(letter), IntPtr.Zero);
+                Misc.Delay(100);
             }
         }
 
@@ -223,5 +225,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 NativeMethods.keybd_event((Keys)letter, 0, 0, 0);
             }
         }
+
     }
 }

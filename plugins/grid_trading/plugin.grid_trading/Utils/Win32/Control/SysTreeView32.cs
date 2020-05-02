@@ -9,42 +9,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         internal static void SimulateClick(IntPtr hTreeView, IntPtr hItem)
         {
-            // get item rect
             NativeMethods.Win32Rect rectItem = GetItemRect(hTreeView, hItem, true);
-
-            // get control coordinates at which we will "click"
-            NativeMethods.Win32Point pt = new NativeMethods.Win32Point(((rectItem.left + rectItem.right) / 2), ((rectItem.top + rectItem.bottom) / 2));
             NativeMethods.Win32Point deskTopPt = new NativeMethods.Win32Point(((rectItem.left + rectItem.right) / 2), ((rectItem.top + rectItem.bottom) / 2));
-
-            // convert back to client
-            //Misc.MapWindowPoints(IntPtr.Zero, hTreeView, ref pt, 1);
-            // click
-            //SimulateClick(hTreeView, pt, deskTopPt);
             Misc.MouseClickScreen(deskTopPt.x, deskTopPt.y);
-        }
-
-        // simulate click via posting WM_LBUTTONDOWN(UP)
-        internal static void SimulateClick(IntPtr hTreeView, NativeMethods.Win32Point pt, NativeMethods.Win32Point deskTopPt)
-        {
-            NativeMethods.Win32Point p = new NativeMethods.Win32Point();
-            NativeMethods.GetCursorPos(out p);
-
-            try
-            {
-                NativeMethods.ShowCursor(false);
-                NativeMethods.SetCursorPos(deskTopPt.x, deskTopPt.y);
-
-                HitTestTreeView(hTreeView, pt.x, pt.y);
-                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
-                NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(pt.x, pt.y));
-                Misc.Delay(10);
-            }
-            finally
-            {
-                NativeMethods.SetCursorPos(p.x, p.y);
-                NativeMethods.ShowCursor(true);
-            }
-
         }
 
 

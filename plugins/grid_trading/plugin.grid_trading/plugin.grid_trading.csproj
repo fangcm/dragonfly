@@ -72,7 +72,6 @@
     <Compile Include="Utils\Win32\ProcessHandle.cs" />
     <Compile Include="Utils\Win32\RemoteMemoryBlock.cs" />
     <Compile Include="Trade\GuoHai\JintanhaoTrader.cs" />
-    <Compile Include="Trade\GuoHai\JinbeikeTrader.cs" />
     <Compile Include="Trade\ITrader.cs" />
     <Compile Include="Trade\TraderHelper.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />

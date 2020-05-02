@@ -1948,6 +1948,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("User32.dll", EntryPoint = "FindWindowEx")]
         internal static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", EntryPoint = "EnumChildWindows")]
+        public static extern bool EnumChildWindows(IntPtr window, CallBack callback, IntPtr lParam);
+        public delegate bool CallBack(IntPtr hwnd, int lParam);
 
         [DllImport("user32.dll")]
         internal static extern int GetDlgCtrlID(IntPtr hwndCtl);
