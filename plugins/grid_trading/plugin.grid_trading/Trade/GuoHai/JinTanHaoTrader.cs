@@ -190,7 +190,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            IntPtr hStaticMaxBuyNum = Window.GetDlgItem(panel, 0x2EF2);
+            IntPtr hStaticMaxBuyNum = Window.GetDlgItem(panel, 0x07E6);
             IntPtr hEditCode = Window.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = Window.GetDlgItem(panel, 0x2EE6);
             IntPtr hEditNum = Window.GetDlgItem(panel, 0x2EE7);
@@ -213,6 +213,18 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             // 点击买入按钮
             Misc.Delay(500);
+
+            string maxBuyNum = Static.GetText(hStaticMaxBuyNum);
+            if (maxBuyNum != null && maxBuyNum.Length > 0)
+            {
+                int maxNum = int.Parse(maxBuyNum);
+                if (maxNum < num)
+                {
+                    Log(LoggType.Red, "资金不足，不能购买");
+                    return;
+                }
+            }
+
             Button.Click(btnConfirm);
             Misc.Delay(500);
 
@@ -243,6 +255,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                     Button.Click(hBtnNo);
                 }
             }
+            else
+            {
+                Log(LoggType.Red, "没有检测到卖出确认对话框");
+            }
 
         }
 
@@ -250,92 +266,87 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
             MouseClickToolbar(hToolBar, 0);
-            SysTreeView32.SimulateClick(hStockTree, hSell);
             //SysTreeView32.SelectItem(hStockTree, hSell);
+            SysTreeView32.SimulateClick(hStockTree, hSell);
+            Misc.Delay(1000);
 
-            /*
-            SelectTreeViewItem(hStockTree, hSell);
-            Button.Click(hStockBtn);
 
-            IntPtr hPanel = FindHwndInApp("Tfrm2007", null);
-
-            IntPtr hCode = IntPtr.Zero;
-            IntPtr hPrice = IntPtr.Zero;
-            IntPtr hNum = IntPtr.Zero;
-            IntPtr hButton = IntPtr.Zero;
-
-            IntPtr hChild = IntPtr.Zero;
-            while (true)
+            IntPtr panel = Window.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
+            IntPtr btnConfirm = Window.GetDlgItem(panel, 0x07DA);
+            if (btnConfirm == IntPtr.Zero || Window.GetWindowText(btnConfirm) != "卖出下单")
             {
-                hChild = FindVisibleHwndInParent(hPanel, hChild, "TPanel", null);
-                if (hChild == IntPtr.Zero)
-                {
-                    break;
-                }
-
-
-                IntPtr c = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TEdit", null);
-                if (c == IntPtr.Zero)
-                    continue;
-                IntPtr p = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TStockComboBox", null);
-                if (p == IntPtr.Zero)
-                    continue;
-                IntPtr n = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TBoundPriceEdit", null);
-                if (n == IntPtr.Zero)
-                    continue;
-                IntPtr b = FindVisibleHwndInParent(hChild, IntPtr.Zero, "TButton", "委托[F3]");
-                if (b == IntPtr.Zero)
-                    continue;
-                hCode = c;
-                hPrice = p;
-                hNum = n;
-                hButton = b;
-
-            }
-            if (hCode == IntPtr.Zero || hPrice == IntPtr.Zero || hNum == IntPtr.Zero || hButton == IntPtr.Zero)
-            {
-                Log(LoggType.Red, "没有卖出下单的控件页面");
+                Log(LoggType.Black, "不是卖出下单页面");
                 return;
             }
 
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_SETFOCUS, 0, 0);
-            SetRichEditText(hCode, code);
-            NativeMethods.SendMessage(hCode, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_SETFOCUS, 0, 0);
+            IntPtr hStaticMaxSellNum = Window.GetDlgItem(panel, 0x0811);
+            IntPtr hEditCode = Window.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
+            IntPtr hEditPrice = Window.GetDlgItem(panel, 0x2EE6);
+            IntPtr hEditNum = Window.GetDlgItem(panel, 0x2EE7);
+
+            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditNum == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "不是卖出下单的控件页面");
+                return;
+            }
+
+            Window.SetFocus(hEditCode);
             Misc.Delay(500);
-            SetEditText(hPrice, "" + price);
-            NativeMethods.SendMessage(hPrice, NativeMethods.WM_KILLFOCUS, 0, 0);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_SETFOCUS, 0, 0);
+            Misc.KeyboardPress(hEditCode, code);
+            Window.SetFocus(hEditPrice);
             Misc.Delay(500);
-            SetRichEditText(hNum, "" + num);
-            NativeMethods.SendMessage(hNum, NativeMethods.WM_KILLFOCUS, 0, 0);
+            Misc.KeyboardPress(hEditPrice, "" + price);
+            Window.SetFocus(hEditNum);
+            Misc.Delay(500);
+            Misc.KeyboardPress(hEditNum, "" + num);
 
             // 点击买入按钮
-            Button.Click(hButton);
             Misc.Delay(500);
-            WindowFinder finder = new WindowFinder(IntPtr.Zero, "TfrmDialogs", "确认");
-            IntPtr hConfirmDlg = finder.FoundHandle;
+            string maxSellNum = Static.GetText(hStaticMaxSellNum);
+            if (maxSellNum != null && maxSellNum.Length > 0)
+            {
+                int maxNum = int.Parse(maxSellNum);
+                if (maxNum < num)
+                {
+                    Log(LoggType.Red, "股票不足，不能卖出");
+                    return;
+                }
+            }
+
+            Button.Click(btnConfirm);
+            Misc.Delay(500);
+
+            IntPtr hConfirmDlg = Window.FindHwndInParentRecursive(IntPtr.Zero, null, "卖出交易确认", true);
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hBtnYes = FindHwndInParentRecursive(hConfirmDlg, "TButton", "是(&Y)");
-                IntPtr hBtnNo = FindHwndInParentRecursive(hConfirmDlg, "TButton", "否(&N)");
+                IntPtr hBtnYes = Window.FindHwndInParentRecursive(hConfirmDlg, "Button", "卖出确认");
+                IntPtr hBtnNo = Window.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
 
-                string sCode = GetEditText(hCode);
-                string sPrice = GetEditText(hPrice);
-                string sNum = GetEditText(hNum);
+                IntPtr hStaticConfirm = Window.GetDlgItem(hConfirmDlg, 0x1B65);
+                string txtConfirm = Window.GetWindowText(hStaticConfirm);
 
-                Log(LoggType.Red, "校验卖出单: " + sCode + ", 价格: " + sPrice + ", 数量: " + sNum);
-                if (sCode == code && sPrice == "" + price && sNum == "" + num)
+                Dictionary<string, string> patten = new Dictionary<string, string>();
+                patten["操作类别"] = @"^卖出$";
+                patten["股票代码"] = @"^" + code;
+                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
+                patten["委托数量"] = @"^" + num + "股";
+                patten["委托方式"] = "限价委托";
+                if (ValidateTipText(txtConfirm, patten))
                 {
+                    Log(LoggType.Gray, "校验提示正常: " + txtConfirm.Replace('\n', ' '));
                     Button.Click(hBtnYes);
+
                 }
                 else
                 {
+                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
                     Button.Click(hBtnNo);
                 }
-
             }
-            */
+            else
+            {
+                Log(LoggType.Red, "没有检测到卖出确认对话框");
+            }
         }
 
 
