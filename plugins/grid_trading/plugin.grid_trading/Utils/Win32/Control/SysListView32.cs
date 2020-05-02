@@ -26,7 +26,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 Dictionary<string, string> items = new Dictionary<string, string>(columns.Count);
                 for (int col = 0; col < columns.Count; col++)
                 {
-                    items[columns[col]] = GetText(hwnd, row, col);
+                    items[""+col] = GetText(hwnd, row, col);
                 }
                 dataList.Add(items);
             }
@@ -81,7 +81,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             lvitem.mask = NativeMethods.LVIF_TEXT;
             lvitem.iItem = item;
             lvitem.iSubItem = subitem;
-            lvitem.cchTextMax = 512;
             return GetItemText(hwnd, lvitem);
         }
 
@@ -112,6 +111,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         // This overload method is used to get ListView Item text.
         internal static unsafe string GetItemText(IntPtr hwnd, NativeMethods.LVITEM item)
         {
+            item.cchTextMax = 256;
             LVITEM_32 item32 = new LVITEM_32(item);
 
             return XSendMessage.GetTextWithinStructureRemoteBitness(hwnd, NativeMethods.LVM_GETITEMW, IntPtr.Zero,
