@@ -26,7 +26,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 Dictionary<string, string> items = new Dictionary<string, string>(columns.Count);
                 for (int col = 0; col < columns.Count; col++)
                 {
-                    items[""+col] = GetText(hwnd, row, col);
+                    items["" + col] = GetText(hwnd, row, col);
                 }
                 dataList.Add(items);
             }
@@ -112,12 +112,20 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal static unsafe string GetItemText(IntPtr hwnd, NativeMethods.LVITEM item)
         {
             item.cchTextMax = 256;
-            LVITEM_32 item32 = new LVITEM_32(item);
 
+            //return XSendMessage.GetTextWithinStructure(hwnd, NativeMethods.LVM_GETITEMW, IntPtr.Zero,
+            //    new IntPtr(&item), Marshal.SizeOf(item.GetType()), new IntPtr(&item.pszText), item.cchTextMax, false);
+
+            /*
+            LVITEM_64 item64 = new LVITEM_64(item);
+            return XSendMessage.GetTextWithinStructure(hwnd, NativeMethods.LVM_GETITEMW, IntPtr.Zero,
+                new IntPtr(&item64), Marshal.SizeOf(item64.GetType()), new IntPtr(&item64.pszText), item64.cchTextMax, false);
+            */
+
+            LVITEM_32 item32 = new LVITEM_32(item);
             return XSendMessage.GetTextWithinStructureRemoteBitness(hwnd, NativeMethods.LVM_GETITEMW, IntPtr.Zero,
                 new IntPtr(&item32), Marshal.SizeOf(item32.GetType()), new IntPtr(&item32.pszText),
                 item32.cchTextMax, true, false);
-
         }
 
         // This overload method is used to set ListView Item data.
@@ -244,6 +252,121 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 nativeItem.iGroupID = item.iGroupID;
                 nativeItem.cColumns = item.cColumns;
                 nativeItem.puColumns = new IntPtr(item.puColumns);
+
+                return nativeItem;
+            }
+        }
+
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        private struct LVITEM_64
+        {
+            internal int mask;
+            internal int iItem;
+            internal int iSubItem;
+            internal int state;
+            internal int stateMask;
+            internal int for_alignment;
+            internal long pszText;
+            internal int cchTextMax;
+            internal int iImage;
+            internal long lParam;
+            internal int iIndent;
+
+            // This constructor should only be called with LVITEM is a 32 bit structure
+            internal LVITEM_64(NativeMethods.LVITEM item)
+            {
+                mask = item.mask;
+                iItem = item.iItem;
+                iSubItem = item.iSubItem;
+                state = item.state;
+                stateMask = item.stateMask;
+                for_alignment = 0;
+                pszText = (long)item.pszText;
+                cchTextMax = item.cchTextMax;
+                iImage = item.iImage;
+                lParam = (long)item.lParam;
+                iIndent = item.iIndent;
+            }
+
+            // This operator should only be called when LVITEM is a 32 bit structure
+            static public explicit operator NativeMethods.LVITEM(LVITEM_64 item)
+            {
+                NativeMethods.LVITEM nativeItem = new NativeMethods.LVITEM();
+
+                nativeItem.mask = item.mask;
+                nativeItem.iItem = item.iItem;
+                nativeItem.iSubItem = item.iSubItem;
+                nativeItem.state = item.state;
+                nativeItem.stateMask = item.stateMask;
+                nativeItem.pszText = IntPtr.Zero;
+                nativeItem.cchTextMax = item.cchTextMax;
+                nativeItem.iImage = item.iImage;
+                nativeItem.lParam = new IntPtr(unchecked((int)item.lParam));
+                nativeItem.iIndent = item.iIndent;
+
+                return nativeItem;
+            }
+        }
+
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        private struct LVITEM_V6_64
+        {
+            internal uint mask;
+            internal int iItem;
+            internal int iSubItem;
+            internal int state;
+            internal int stateMask;
+            internal int for_alignment;
+            internal long pszText;
+            internal int cchTextMax;
+            internal int iImage;
+            internal long lParam;
+            internal int iIndent;
+            internal int iGroupID;
+            internal int cColumns;
+            internal int for_alignment_2;
+            internal long puColumns;
+
+            // This constructor should only be called with LVITEM_V6 is a 32 bit structure
+            internal LVITEM_V6_64(NativeMethods.LVITEM_V6 item)
+            {
+                mask = item.mask;
+                iItem = item.iItem;
+                iSubItem = item.iSubItem;
+                state = item.state;
+                stateMask = item.stateMask;
+                for_alignment = 0;
+                pszText = (long)item.pszText;
+                cchTextMax = item.cchTextMax;
+                iImage = item.iImage;
+                lParam = (long)item.lParam;
+                iIndent = item.iIndent;
+                iGroupID = item.iGroupID;
+                cColumns = item.cColumns;
+                for_alignment_2 = 0;
+                puColumns = (long)item.puColumns;
+            }
+
+            // This operator should only be called when LVITEM_V6 is a 32 bit structure
+            static public explicit operator NativeMethods.LVITEM_V6(LVITEM_V6_64 item)
+            {
+                NativeMethods.LVITEM_V6 nativeItem = new NativeMethods.LVITEM_V6();
+
+                nativeItem.mask = item.mask;
+                nativeItem.iItem = item.iItem;
+                nativeItem.iSubItem = item.iSubItem;
+                nativeItem.state = item.state;
+                nativeItem.stateMask = item.stateMask;
+                nativeItem.pszText = IntPtr.Zero;
+                nativeItem.cchTextMax = item.cchTextMax;
+                nativeItem.iImage = item.iImage;
+                nativeItem.lParam = new IntPtr(unchecked((int)item.lParam));
+                nativeItem.iIndent = item.iIndent;
+                nativeItem.iGroupID = item.iGroupID;
+                nativeItem.cColumns = item.cColumns;
+                nativeItem.puColumns = IntPtr.Zero;
 
                 return nativeItem;
             }
