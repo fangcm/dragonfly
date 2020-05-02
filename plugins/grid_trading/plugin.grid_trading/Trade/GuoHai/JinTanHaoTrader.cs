@@ -17,11 +17,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         IntPtr hToolBar;
         // A股主功能菜单
         IntPtr hStockTree;    // A股功能树形控件句柄
-        IntPtr hBuy, hSell, hCancel, hTodayDeals;
+        IntPtr hBuy, hSell, hCancel, hTodayDeals, hHoldingStock;
         // 港股主功能菜单
         IntPtr hHkStockTree;    // 港股通功能树形控件句柄
-        IntPtr hHkHgtBuy, hHkHgtSell, hHkHgtCancel, hHkHgtTodayDeals;
-        IntPtr hHkSgtBuy, hHkSgtSell, hHkSgtCancel, hHkSgtTodayDeals;
+        IntPtr hHkHgtBuy, hHkHgtSell, hHkHgtCancel, hHkHgtTodayDeals, hHkHgtHoldingStock;
+        IntPtr hHkSgtBuy, hHkSgtSell, hHkSgtCancel, hHkSgtTodayDeals, hHkSgtHoldingStock;
 
         public bool Init()
         {
@@ -108,6 +108,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             node = items.Find((SysTreeView32.TreeItemNode n) => n.Text == "查询");
             if (node != null)
             {
+                child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "资金股份");
+                if (child != null) { hHoldingStock = child.Handle; }
                 child = node.Children.Find((SysTreeView32.TreeItemNode n) => n.Text == "当日成交");
                 if (child != null) { hTodayDeals = child.Handle; }
             }
@@ -116,7 +118,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 hBuy != IntPtr.Zero &&
                 hSell != IntPtr.Zero &&
                 hCancel != IntPtr.Zero &&
-                hTodayDeals != IntPtr.Zero;
+                hTodayDeals != IntPtr.Zero &&
+                hHoldingStock != IntPtr.Zero;
         }
 
         private bool InitHKStockTreeViewItemHandler()
@@ -360,14 +363,14 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
-        public void TodayDealsList()
+        public List<Dictionary<string, string>> TodayDealsList()
         {
             Log(LoggType.Black, "查询当日成交");
             MouseClickToolbar(hToolBar, 0);
             //SysTreeView32.SelectItem(hStockTree, hTodayDeals);
             SysTreeView32.SimulateClick(hStockTree, hTodayDeals);
 
-
+            return null;
             /*
             // 获取左侧功能菜单treeview 句柄
             WindowFinder finder = new WindowFinder(hMainWnd, "SysTreeView32", null);
@@ -409,10 +412,25 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             */
         }
 
-        public void HoldingStockList()
+        public List<Dictionary<string, string>> HoldingStockList()
         {
-            Log(LoggType.Black, "查询股票持仓");
-            Log(LoggType.Red, "TAdvStringGrid控件还不能解析");
+            Log(LoggType.Black, "查询资金股份");
+            MouseClickToolbar(hToolBar, 0);
+            //SysTreeView32.SelectItem(hStockTree, hHoldingStock);
+            SysTreeView32.SimulateClick(hStockTree, hHoldingStock);
+            Misc.Delay(1000);
+
+
+            IntPtr panel = Window.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
+            IntPtr btnConfirm = Window.GetDlgItem(panel, 0x06BB);
+            if (btnConfirm == IntPtr.Zero || Window.GetWindowText(btnConfirm) != "修改成本")
+            {
+                Log(LoggType.Black, "不是查询资金股份页面");
+                return null;
+            }
+            IntPtr hListView = Window.GetDlgItem(panel, 0x061F);
+            List<Dictionary<string, string>> dataList = SysListView32.GetAllText(hListView);
+            return dataList;
         }
 
 

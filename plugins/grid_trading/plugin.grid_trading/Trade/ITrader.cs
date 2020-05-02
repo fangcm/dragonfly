@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
@@ -13,9 +13,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         void CancelStock(string code, float price, int num);
 
-        void TodayDealsList();
+        List<Dictionary<string, string>> TodayDealsList();
 
-        void HoldingStockList();
-        
+        List<Dictionary<string, string>> HoldingStockList();
+
     }
 }

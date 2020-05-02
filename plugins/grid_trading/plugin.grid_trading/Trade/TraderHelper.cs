@@ -1,4 +1,5 @@
 ﻿using Dragonfly.Plugin.GridTrading.Trade.GuoHai;
+using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
@@ -46,19 +47,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        public void TodayDealsList()
+        public List<Dictionary<string, string>> TodayDealsList()
         {
             lock (lockObject)
             {
-                trader.TodayDealsList();
+                return trader.TodayDealsList();
             }
         }
 
-        public void HoldingStockList()
+        public List<Dictionary<string, string>> HoldingStockList()
         {
             lock (lockObject)
             {
-                trader.HoldingStockList();
+                return trader.HoldingStockList();
             }
         }
 

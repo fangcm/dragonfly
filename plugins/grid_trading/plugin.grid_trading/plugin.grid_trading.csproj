@@ -66,6 +66,8 @@
     <Compile Include="Utils\Win32\Control\Button.cs" />
     <Compile Include="Utils\Win32\Control\EditBox.cs" />
     <Compile Include="Utils\Win32\Control\Static.cs" />
+    <Compile Include="Utils\Win32\Control\SysHeader.cs" />
+    <Compile Include="Utils\Win32\Control\SysListView32.cs" />
     <Compile Include="Utils\Win32\Control\Window.cs" />
     <Compile Include="Utils\Win32\Misc.cs" />
     <Compile Include="Utils\Win32\Control\RichEdit.cs" />
