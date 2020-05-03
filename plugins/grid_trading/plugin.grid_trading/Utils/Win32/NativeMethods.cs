@@ -1883,23 +1883,25 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         [DllImport("user32.dll", ExactSpelling = true)]
         internal static extern bool IsWindowVisible(IntPtr hWnd);
+        [DllImport("user32.dll", ExactSpelling = true)]
+        internal static extern bool IsWindowEnabled(IntPtr hWnd);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern int GetWindowTextLength(IntPtr hWnd);
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int maxCount);
         [DllImport("user32.dll", EntryPoint = "SetWindowText")]
         internal static extern int SetWindowText(IntPtr hwnd, string lpString);
 
-        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int GetClassName(IntPtr hwnd, StringBuilder className, int maxCount);
 
         [DllImport("kernel32.dll")]
         internal static extern uint GetCurrentProcessId();
-        [DllImport("User32.dll", ExactSpelling = true)]
+        [DllImport("user32.dll", ExactSpelling = true)]
         internal static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint dwProcessId);
-        [DllImport("User32.dll", ExactSpelling = true)]
+        [DllImport("user32.dll", ExactSpelling = true)]
         internal static extern bool IsWindow(IntPtr hWnd);
-        [DllImport("User32.dll", ExactSpelling = true)]
+        [DllImport("user32.dll", ExactSpelling = true)]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -1933,20 +1935,20 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         //
         // Messages and Message Queues Functions
         //
-        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
-        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, int flags, int uTimeout, out IntPtr pResult);
-        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int uMsg, IntPtr wParam, StringBuilder lParam, int flags, int uTimeout, out IntPtr result);
-        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int uMsg, IntPtr wParam, ref Win32Rect lParam, int flags, int uTimeout, out IntPtr result);
-        [DllImport("User32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern IntPtr SendMessageTimeout(IntPtr hwnd, int uMsg, out int wParam, out int lParam, int flags, int uTimeout, out IntPtr result);
 
-        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        [DllImport("User32.dll", EntryPoint = "FindWindowEx")]
+        [DllImport("user32.dll", EntryPoint = "FindWindowEx")]
         internal static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
         [DllImport("user32.dll", EntryPoint = "EnumChildWindows")]
         public static extern bool EnumChildWindows(IntPtr window, CallBack callback, IntPtr lParam);
@@ -1979,15 +1981,19 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             Absolute = 0x8000
         }
 
-        [DllImport("User32")]
+        [DllImport("user32.dll")]
         internal extern static void mouse_event(int dwFlags, int dx, int dy, int dwData, IntPtr dwExtraInfo);
         [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
         internal static extern void keybd_event(Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
-        [DllImport("User32")]
+        [DllImport("user32.dll")]
         internal extern static bool GetCursorPos(out Win32Point p);
         [DllImport("user32.dll")]
         internal static extern int SetCursorPos(int x, int y);
-        [DllImport("User32")]
+        [DllImport("user32.dll")]
         internal extern static int ShowCursor(bool bShow);
+        [DllImport("user32.dll", EntryPoint = "ClipCursor", SetLastError = true)]
+        internal static extern bool ClipCursor(ref Win32Rect rect);
+        [DllImport("user32.dll", EntryPoint = "ClipCursor", SetLastError = true)]
+        internal static extern bool ClipCursor(IntPtr rect);
     }
 }

@@ -84,7 +84,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             int x = 10 + (rect.right - rect.left) / 3 * index;
             int y = 10;
 
-            Window.SimulateClick(hToolBar, x, y);
+            Misc.SimulateClick(hToolBar, x, y);
         }
 
         private bool InitStockTreeViewItemHandler()
@@ -181,7 +181,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         public void KeepAlive()
         {
             // 刷新
-            NativeMethods.PostMessage(hMainWnd, NativeMethods.WM_KEYDOWN, 
+            NativeMethods.PostMessage(hMainWnd, NativeMethods.WM_KEYDOWN,
                 new IntPtr((int)System.Windows.Forms.Keys.F5), IntPtr.Zero);
         }
 
@@ -421,7 +421,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             */
         }
 
-        public List<Dictionary<string, string>> HoldingStockList()
+        public List<string[]> HoldingStockList()
         {
             Log(LoggType.Black, "查询资金股份");
             MouseClickToolbar(hToolBar, 0);
@@ -437,28 +437,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Black, "不是查询资金股份页面");
                 return null;
             }
-            IntPtr hListView = Window.GetDlgItem(panel, 0x061F);
 
-            AutomationElement el = AutomationElement.FromHandle(hListView);
-            TreeWalker walker = TreeWalker.ContentViewWalker;
-            int i = 0;
-            for (AutomationElement child = walker.GetFirstChild(el);
-                child != null;
-                child = walker.GetNextSibling(child))
+
+            IntPtr hOutputButton = Window.GetDlgItem(panel, 0x047F);
+            if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
-                // Print out the type of the item and its name
-                Log(LoggType.Black, "item " + child.Current.ToString());
-                int k = 0;
-                for (AutomationElement child2 = walker.GetFirstChild(child);
-                child2 != null;
-                child2 = walker.GetNextSibling(child2))
-                {
-                    Log(LoggType.Black, "Child2 ==  " + child2.Current.ClassName);
-                }
+                Log(LoggType.Red, "查询资金股份 - 输出按钮不可用");
             }
-            return null;
-            //List<Dictionary<string, string>> dataList = SysListView32.GetAllText(hListView);
-            //return dataList;
+
+            IntPtr hBtnYes = Window.FindHwndInParentRecursive(hConfirmDlg, "Button", "输出");
+
+            string fileName = "";
+
+            return DataParser.ReadCsv(fileName);
         }
 
 

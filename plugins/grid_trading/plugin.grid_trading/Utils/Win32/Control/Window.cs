@@ -1,5 +1,4 @@
-﻿using Dragonfly.Common.Utils;
-using System;
+﻿using System;
 using System.Text;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
@@ -122,12 +121,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal static bool GetWindowRect(IntPtr hwnd, ref NativeMethods.Win32Rect rc)
         {
             return NativeMethods.GetWindowRect(hwnd, ref rc);
-        }
-
-        internal static void SimulateClick(IntPtr hTreeView, int x, int y)
-        {
-            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
-            NativeMethods.PostMessage(hTreeView, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
         }
 
         internal static bool SetFocus(IntPtr hwnd)

@@ -186,6 +186,25 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         }
         #endregion
 
+        #region mouse
+
+        //限制鼠标在屏幕上的一个区域内
+        public static void LockMouse(NativeMethods.Win32Rect rect)
+        {
+            NativeMethods.ClipCursor(ref rect);
+        }
+
+        /// 解除鼠标的区域限制
+        public static void UnLockMouse()
+        {
+            NativeMethods.ClipCursor(IntPtr.Zero);
+        }
+
+        internal static void SimulateClick(IntPtr hwnd, int x, int y)
+        {
+            NativeMethods.PostMessage(hwnd, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
+            NativeMethods.PostMessage(hwnd, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
+        }
 
         internal static void MouseClickScreen(int x, int y)
         {
@@ -208,6 +227,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 NativeMethods.ShowCursor(true);
             }
         }
+
+        #endregion
 
         internal static void KeyboardPress(IntPtr handle, string text)
         {
