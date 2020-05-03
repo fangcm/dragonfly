@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Automation;
+
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
@@ -174,6 +176,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 hHkSgtSell != IntPtr.Zero &&
                 hHkSgtCancel != IntPtr.Zero &&
                 hHkSgtTodayDeals != IntPtr.Zero;
+        }
+
+        public void KeepAlive()
+        {
+            // 刷新
+            NativeMethods.PostMessage(hMainWnd, NativeMethods.WM_KEYDOWN, 
+                new IntPtr((int)System.Windows.Forms.Keys.F5), IntPtr.Zero);
         }
 
         public void BuyStock(string code, float price, int num)
@@ -429,8 +438,27 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             IntPtr hListView = Window.GetDlgItem(panel, 0x061F);
-            List<Dictionary<string, string>> dataList = SysListView32.GetAllText(hListView);
-            return dataList;
+
+            AutomationElement el = AutomationElement.FromHandle(hListView);
+            TreeWalker walker = TreeWalker.ContentViewWalker;
+            int i = 0;
+            for (AutomationElement child = walker.GetFirstChild(el);
+                child != null;
+                child = walker.GetNextSibling(child))
+            {
+                // Print out the type of the item and its name
+                Log(LoggType.Black, "item " + child.Current.ToString());
+                int k = 0;
+                for (AutomationElement child2 = walker.GetFirstChild(child);
+                child2 != null;
+                child2 = walker.GetNextSibling(child2))
+                {
+                    Log(LoggType.Black, "Child2 ==  " + child2.Current.ClassName);
+                }
+            }
+            return null;
+            //List<Dictionary<string, string>> dataList = SysListView32.GetAllText(hListView);
+            //return dataList;
         }
 
 

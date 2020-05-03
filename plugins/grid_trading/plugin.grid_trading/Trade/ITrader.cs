@@ -7,6 +7,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade
     {
         bool Init();
 
+        void KeepAlive();
+
         void SellStock(string code, float price, int num);
 
         void BuyStock(string code, float price, int num);
