@@ -93,7 +93,8 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.HoldingStockList();
+            var a = TraderHelper.Instance.HoldingStockList();
+            Console.WriteLine("aaa");
         }
 
         private void toolStripButtonCancel_Click(object sender, EventArgs e)

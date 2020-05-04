@@ -66,15 +66,16 @@
       <DependentUpon>GridTradingMainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Trade\AbstractTrader.cs" />
+    <Compile Include="Trade\Model.cs" />
     <Compile Include="Utils\DataParser.cs" />
-    <Compile Include="Utils\Win32\Control\Button.cs" />
-    <Compile Include="Utils\Win32\Control\EditBox.cs" />
-    <Compile Include="Utils\Win32\Control\Static.cs" />
-    <Compile Include="Utils\Win32\Control\SysHeader.cs" />
-    <Compile Include="Utils\Win32\Control\SysListView32.cs" />
-    <Compile Include="Utils\Win32\Control\Window.cs" />
+    <Compile Include="Utils\Win32\Control\WindowButton.cs" />
+    <Compile Include="Utils\Win32\Control\WindowEditBox.cs" />
+    <Compile Include="Utils\Win32\Control\WindowStatic.cs" />
+    <Compile Include="Utils\Win32\Control\WindowHeader.cs" />
+    <Compile Include="Utils\Win32\Control\WindowListView.cs" />
+    <Compile Include="Utils\Win32\Control\WindowHwnd.cs" />
     <Compile Include="Utils\Win32\Misc.cs" />
-    <Compile Include="Utils\Win32\Control\RichEdit.cs" />
+    <Compile Include="Utils\Win32\Control\WindowRichEdit.cs" />
     <Compile Include="Utils\Win32\XSendMessage.cs" />
     <Compile Include="Utils\Win32\ProcessHandle.cs" />
     <Compile Include="Utils\Win32\RemoteMemoryBlock.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Trade\TraderHelper.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
     <Compile Include="Utils\Win32\NativeMethods.cs" />
-    <Compile Include="Utils\Win32\Control\SysTreeView32.cs" />
+    <Compile Include="Utils\Win32\Control\WindowTreeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\dragonfly.common\dragonfly.common.csproj">

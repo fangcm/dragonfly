@@ -3,13 +3,17 @@ using System.Text;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class EditBox
+    internal class WindowRichEdit
     {
+        internal static string GetText(IntPtr hwnd)
+        {
+            return Misc.ProxyGetText(hwnd);
+        }
+
         internal static void SetText(IntPtr hwnd, string text)
         {
             int result = Misc.ProxySendMessageInt(hwnd, NativeMethods.EM_GETLIMITTEXT, IntPtr.Zero, IntPtr.Zero);
-            // A result of -1 means that no limit is set.
-            if (result != -1 && result < text.Length)
+            if (result < text.Length)
             {
                 throw new InvalidOperationException("字符长度限制");
             }
@@ -20,11 +24,9 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             {
                 throw new InvalidOperationException("发送字符数据错误");
             }
-        }
 
-        internal static string GetText(IntPtr hwnd)
-        {
-            return Misc.ProxyGetText(hwnd);
+            // NativeMethods.SendMessage(handle, NativeMethods.EM_SETSEL, 0, -1);
+            // NativeMethods.SendMessage(handle, NativeMethods.EM_REPLACESEL, 1, text);
         }
     }
 }

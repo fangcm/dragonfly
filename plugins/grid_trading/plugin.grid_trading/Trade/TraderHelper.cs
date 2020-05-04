@@ -1,12 +1,13 @@
 ﻿using Dragonfly.Plugin.GridTrading.Trade.GuoHai;
+using System;
 using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
-    public class TraderHelper
+    internal class TraderHelper
     {
         private static TraderHelper instance = new TraderHelper();
-        public static TraderHelper Instance
+        internal static TraderHelper Instance
         {
             get { return instance; }
         }
@@ -14,7 +15,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         object lockObject = new object();
         ITrader trader = new JintanhaoTrader();
 
-        public void Init()
+        internal void Init()
         {
             lock (lockObject)
             {
@@ -23,7 +24,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         }
 
 
-        public void BuyStock(string code, float price, int num)
+        internal void BuyStock(string code, float price, int num)
         {
             lock (lockObject)
             {
@@ -31,7 +32,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        public void SellStock(string code, float price, int num)
+        internal void SellStock(string code, float price, int num)
         {
             lock (lockObject)
             {
@@ -39,7 +40,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        public void CancelStock(string code, float price, int num)
+        internal void CancelStock(string code, float price, int num)
         {
             lock (lockObject)
             {
@@ -47,7 +48,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        public List<Dictionary<string, string>> TodayDealsList()
+        internal List<string[]> TodayDealsList()
         {
             lock (lockObject)
             {
@@ -55,7 +56,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        public List<Dictionary<string, string>> HoldingStockList()
+        internal Tuple<ModelAccountStat, List<ModelHoldingStock>> HoldingStockList()
         {
             lock (lockObject)
             {

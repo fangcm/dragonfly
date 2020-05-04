@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Diagnostics;
 using System.Text;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class Window
+    internal class WindowHwnd
     {
 
         internal static IntPtr FindHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
@@ -132,5 +134,18 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
             return NativeMethods.SetForegroundWindow(hwnd);
         }
+
+        internal static void closeProcess(string procName, string prefixTitle)
+        {
+            foreach (Process thisProc in Process.GetProcessesByName(procName))
+            {
+                if (thisProc.MainWindowTitle.Contains(prefixTitle))
+                {
+                    if (!thisProc.CloseMainWindow())
+                        thisProc.Kill();  //当发送关闭窗口命令无效时强行结束进程 
+                }
+            }
+        }
+
     }
 }

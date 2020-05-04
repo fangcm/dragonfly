@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class SysHeader
+    internal class WindowSysHeader
     {
         internal static List<string> GetAllHeaders(IntPtr hwnd)
         {

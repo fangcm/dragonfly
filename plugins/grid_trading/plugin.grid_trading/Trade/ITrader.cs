@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
     // 交易接口
-    public interface ITrader
+    internal interface ITrader
     {
         bool Init();
 
@@ -15,9 +16,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         void CancelStock(string code, float price, int num);
 
-        List<Dictionary<string, string>> TodayDealsList();
+        List<string[]> TodayDealsList();
 
-        List<Dictionary<string, string>> HoldingStockList();
+        Tuple<ModelAccountStat, List<ModelHoldingStock>> HoldingStockList();
 
     }
 }

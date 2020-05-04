@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class SysTreeView32
+    internal class WindowTreeView
     {
 
         internal static void SimulateClick(IntPtr hTreeView, IntPtr hItem)

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class SysListView32
+    internal class WindowListView
     {
         internal static List<Dictionary<string, string>> GetAllText(IntPtr hwnd)
         {
@@ -14,7 +14,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                 return null;
             }
 
-            List<string> columns = SysHeader.GetAllHeaders(hwnd);
+            List<string> columns = WindowSysHeader.GetAllHeaders(hwnd);
             if (columns == null || columns.Count == 0)
             {
                 return null;
@@ -38,7 +38,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         // retrieve count of columns in the listview
         internal static int GetColumnCount(IntPtr hwnd)
         {
-            int column = SysHeader.GetSubItemCount(hwnd);
+            int column = WindowSysHeader.GetSubItemCount(hwnd);
             return (column <= -1) ? 0 : column;
         }
 

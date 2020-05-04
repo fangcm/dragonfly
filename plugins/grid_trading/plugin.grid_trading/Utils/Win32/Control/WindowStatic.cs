@@ -2,7 +2,7 @@
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class Static
+    internal class WindowStatic
     {
         internal static string GetText(IntPtr hwnd)
         {

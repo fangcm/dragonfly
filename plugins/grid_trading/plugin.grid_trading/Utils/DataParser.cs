@@ -1,24 +1,43 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Dragonfly.Plugin.GridTrading.Utils
 {
     internal class DataParser
     {
-        internal static List<string[]> ReadCsv(string fileName, string separator = " ", bool quote = false)
+        internal static List<string[]> ReadCsv(string fileName)
         {
-            List<string[]> rows = new List<string[]>();
-            TextFieldParser parser = new TextFieldParser(fileName /*, Encoding.GetEncoding("shift_jis")*/);
-            //parser.TextFieldType = FieldType.FixedWidth;
-            parser.TextFieldType = FieldType.Delimited;
-            parser.SetDelimiters(separator);
-            parser.HasFieldsEnclosedInQuotes = quote;
-
-            while (!parser.EndOfData)
+            using (TextFieldParser parser = new TextFieldParser(fileName, Encoding.GetEncoding("gbk")))
             {
-                rows.Add(parser.ReadFields());
+                List<string[]> rows = new List<string[]>();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.HasFieldsEnclosedInQuotes = false;
+                parser.Delimiters = (new string[] { " " });
+                parser.CommentTokens = new string[] { "-" };
+                parser.TrimWhiteSpace = true;
+
+                while (!parser.EndOfData)
+                {
+                    rows.Add(filterEmpty(parser.ReadFields()));
+                }
+                return rows;
             }
-            return rows;
         }
+
+        private static string[] filterEmpty(string[] param)
+        {
+            List<string> ret = new List<string>();
+            foreach (string item in param)
+            {
+                if (item.Length == 0 || item.Trim().Length == 0)
+                {
+                    continue;
+                }
+                ret.Add(item);
+            }
+            return ret.ToArray();
+        }
+
     }
 }

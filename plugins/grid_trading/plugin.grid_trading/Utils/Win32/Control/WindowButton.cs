@@ -2,7 +2,7 @@
 
 namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
-    internal class Button
+    internal class WindowButton
     {
         internal static void Click(IntPtr hwnd)
         {
