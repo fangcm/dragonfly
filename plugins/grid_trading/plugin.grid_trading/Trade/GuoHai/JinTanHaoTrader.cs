@@ -373,7 +373,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
-        public List<string[]> TodayDealsList()
+        public List<ModelTodayDeals> TodayDealsList()
         {
             Log(LoggType.Black, "查询当日成交");
             MouseClickToolbar(hToolBar, 0);
@@ -384,18 +384,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x06BB);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "修改成本")
-            {
-                Log(LoggType.Black, "查询当日成交 - 不是该页面");
-                return null;
-            }
-
-
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
-                Log(LoggType.Red, "查询当日成交 - 输出按钮不可用");
+                Log(LoggType.Red, "查询当日成交 - 无成交（输出按钮不可用）");
                 return null;
             }
             WindowButton.Click(hOutputButton);
@@ -418,7 +410,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                     WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
                     Misc.Delay(1000);
                     List<string[]> rawData = DataParser.ReadCsv(tempFile);
-                    return ModelHoldingStock.Parse(rawData);
+                    return ModelTodayDeals.Parse(rawData);
                 }
                 finally
                 {

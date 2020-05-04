@@ -48,7 +48,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal List<string[]> TodayDealsList()
+        internal List<ModelTodayDeals> TodayDealsList()
         {
             lock (lockObject)
             {

@@ -20,7 +20,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             if (param == null || param.Length == 0)
                 return null;
 
-            var stat = new ModelAccountStat();
+            var item = new ModelAccountStat();
             for (int i = 0; i < param.Length; i++)
             {
                 string[] raw = param[i].Split(':');
@@ -31,28 +31,28 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 switch (key)
                 {
                     case "余额":
-                        stat.remainingMoney = decimal.Parse(value);
+                        item.remainingMoney = decimal.Parse(value);
                         break;
                     case "可用":
-                        stat.availableMoney = decimal.Parse(value);
+                        item.availableMoney = decimal.Parse(value);
                         break;
                     case "可取":
-                        stat.transferableMoney = decimal.Parse(value);
+                        item.transferableMoney = decimal.Parse(value);
                         break;
                     case "参考市值":
-                        stat.marketValue = decimal.Parse(value);
+                        item.marketValue = decimal.Parse(value);
                         break;
                     case "资产":
-                        stat.totalAssets = decimal.Parse(value);
+                        item.totalAssets = decimal.Parse(value);
                         break;
                     case "盈亏":
-                        stat.profit = decimal.Parse(value);
+                        item.profit = decimal.Parse(value);
                         break;
                 }
 
             }
 
-            return stat;
+            return item;
         }
     }
 
@@ -87,7 +87,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 if (rawHoldingStock.Length != header.Length)
                     continue;
 
-                ModelHoldingStock holdingStock = new ModelHoldingStock();
+                ModelHoldingStock item = new ModelHoldingStock();
                 for (int col = 0; col < header.Length; col++)
                 {
                     string key = header[col];
@@ -95,39 +95,104 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     switch (key)
                     {
                         case "证券代码":
-                            holdingStock.code = value;
+                            item.code = value;
                             break;
                         case "证券名称":
-                            holdingStock.name = value;
+                            item.name = value;
                             break;
                         case "证券数量":
-                            holdingStock.holdingNum = (int)decimal.Parse(value);
+                            item.holdingNum = (int)decimal.Parse(value);
                             break;
                         case "可卖数量":
-                            holdingStock.availableNum = (int)decimal.Parse(value);
+                            item.availableNum = (int)decimal.Parse(value);
                             break;
                         case "成本价":
-                            holdingStock.costPrice = decimal.Parse(value);
+                            item.costPrice = decimal.Parse(value);
                             break;
                         case "当前价":
-                            holdingStock.currPrice = decimal.Parse(value);
+                            item.currPrice = decimal.Parse(value);
                             break;
                         case "最新市值":
-                            holdingStock.marketValue = decimal.Parse(value);
+                            item.marketValue = decimal.Parse(value);
                             break;
                         case "浮动盈亏":
-                            holdingStock.profit = decimal.Parse(value);
+                            item.profit = decimal.Parse(value);
                             break;
                         case "盈亏比例(%)":
-                            holdingStock.profitPercent = decimal.Parse(value);
+                            item.profitPercent = decimal.Parse(value);
                             break;
                     }
                 }
 
-                holdStockList.Add(holdingStock);
+                holdStockList.Add(item);
             }
 
             return new Tuple<ModelAccountStat, List<ModelHoldingStock>>(stat, holdStockList);
+        }
+    }
+
+    internal class ModelTodayDeals
+    {
+        internal string dealTime = string.Empty; // 成交时间
+        internal string code = string.Empty; // 证券代码                                      
+        internal string name = string.Empty; // 证券名称
+        internal string flag = string.Empty; // 买卖标志
+        internal decimal price = 0; // 成交价格
+        internal int num = 0; // 成交数量
+        internal decimal amount = 0; // 成交金额
+        internal string type = string.Empty; // 成交类型
+
+        internal static List<ModelTodayDeals> Parse(List<string[]> param)
+        {
+            if (param == null || param.Count <= 1)
+                return null;
+            List<ModelTodayDeals> todayDealsList = new List<ModelTodayDeals>();
+
+            string[] header = param[0];
+            for (int row = 1; row < param.Count; row++)
+            {
+                string[] rawTodayDeals = param[row];
+                if (rawTodayDeals.Length != header.Length)
+                    continue;
+
+                ModelTodayDeals item = new ModelTodayDeals();
+                for (int col = 0; col < header.Length; col++)
+                {
+                    string key = header[col];
+                    string value = rawTodayDeals[col];
+                    switch (key)
+                    {
+                        case "成交时间":
+                            item.dealTime = value;
+                            break;
+                        case "证券代码":
+                            item.code = value;
+                            break;
+                        case "证券名称":
+                            item.name = value;
+                            break;
+                        case "买卖标志":
+                            item.flag = value;
+                            break;
+                        case "成交价格":
+                            item.price = decimal.Parse(value);
+                            break;
+                        case "成交数量":
+                            item.num = (int)decimal.Parse(value);
+                            break;
+                        case "成交金额":
+                            item.amount = decimal.Parse(value);
+                            break;
+                        case "成交类型":
+                            item.type = value;
+                            break;
+                    }
+                }
+
+                todayDealsList.Add(item);
+            }
+
+            return todayDealsList;
         }
     }
 }

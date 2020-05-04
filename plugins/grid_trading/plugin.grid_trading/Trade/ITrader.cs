@@ -16,7 +16,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         void CancelStock(string code, float price, int num);
 
-        List<string[]> TodayDealsList();
+        List<ModelTodayDeals> TodayDealsList();
 
         Tuple<ModelAccountStat, List<ModelHoldingStock>> HoldingStockList();
 
