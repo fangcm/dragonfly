@@ -56,7 +56,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         }
     }
 
-    internal class ModelHoldingStock
+    internal class ModelHoldingStock 
     {
         internal string code = string.Empty; // 证券代码
         internal string name = string.Empty; // 证券名称
@@ -131,7 +131,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         }
     }
 
-    internal class ModelTodayDeals
+    internal class ModelTodayDeals 
     {
         internal string dealTime = string.Empty; // 成交时间
         internal string code = string.Empty; // 证券代码                                      
@@ -156,6 +156,73 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     continue;
 
                 ModelTodayDeals item = new ModelTodayDeals();
+                for (int col = 0; col < header.Length; col++)
+                {
+                    string key = header[col];
+                    string value = rawTodayDeals[col];
+                    switch (key)
+                    {
+                        case "成交时间":
+                            item.dealTime = value;
+                            break;
+                        case "证券代码":
+                            item.code = value;
+                            break;
+                        case "证券名称":
+                            item.name = value;
+                            break;
+                        case "买卖标志":
+                            item.flag = value;
+                            break;
+                        case "成交价格":
+                            item.price = decimal.Parse(value);
+                            break;
+                        case "成交数量":
+                            item.num = (int)decimal.Parse(value);
+                            break;
+                        case "成交金额":
+                            item.amount = decimal.Parse(value);
+                            break;
+                        case "成交类型":
+                            item.type = value;
+                            break;
+                    }
+                }
+
+                todayDealsList.Add(item);
+            }
+
+            return todayDealsList;
+        }
+    }
+
+
+    // 可撤订单（撤单页面）
+    internal class ModelRevocableOrder 
+    {
+        internal string dealTime = string.Empty; // 成交时间
+        internal string code = string.Empty; // 证券代码                                      
+        internal string name = string.Empty; // 证券名称
+        internal string flag = string.Empty; // 买卖标志
+        internal decimal price = 0; // 成交价格
+        internal int num = 0; // 成交数量
+        internal decimal amount = 0; // 成交金额
+        internal string type = string.Empty; // 成交类型
+
+        internal static List<ModelRevocableOrder> Parse(List<string[]> param)
+        {
+            if (param == null || param.Count <= 1)
+                return null;
+            List<ModelRevocableOrder> todayDealsList = new List<ModelRevocableOrder>();
+
+            string[] header = param[0];
+            for (int row = 1; row < param.Count; row++)
+            {
+                string[] rawTodayDeals = param[row];
+                if (rawTodayDeals.Length != header.Length)
+                    continue;
+
+                ModelRevocableOrder item = new ModelRevocableOrder();
                 for (int col = 0; col < header.Length; col++)
                 {
                     string key = header[col];

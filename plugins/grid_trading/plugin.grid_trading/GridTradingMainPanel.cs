@@ -99,7 +99,7 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void toolStripButtonCancel_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.CancelStock("300498", 10.012f, 100000);
+            var a = TraderHelper.Instance.RevocableOrders();
         }
     }
 

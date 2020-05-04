@@ -1,20 +1,14 @@
-﻿using Dragonfly.Common.Utils;
-using Dragonfly.Plugin.GridTrading.Utils;
+﻿using Dragonfly.Plugin.GridTrading.Utils;
 using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Automation;
-
+using System.Text.RegularExpressions;
 
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
     // 国海金叹号
-    internal class JintanhaoTrader : AbstractTrader, ITrader
+    internal partial class JintanhaoTrader : AbstractTrader, ITrader
     {
         IntPtr afxWind42DetailPanel;
         IntPtr hToolBar;
@@ -148,6 +142,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 child = node.Children.Find((WindowTreeView.TreeItemNode n) => n.Text == "撤单");
                 if (child != null) { hHkHgtCancel = child.Handle; }
 
+                child = node.Children.Find((WindowTreeView.TreeItemNode n) => n.Text == "资金股份");
+                if (child != null) { hHkHgtHoldingStock = child.Handle; }
+
                 child = node.Children.Find((WindowTreeView.TreeItemNode n) => n.Text == "当日成交查询");
                 if (child != null) { hHkHgtTodayDeals = child.Handle; }
             }
@@ -163,6 +160,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
                 child = node.Children.Find((WindowTreeView.TreeItemNode n) => n.Text == "撤单");
                 if (child != null) { hHkSgtCancel = child.Handle; }
+
+                child = node.Children.Find((WindowTreeView.TreeItemNode n) => n.Text == "资金股份");
+                if (child != null) { hHkSgtHoldingStock = child.Handle; }
 
                 child = node.Children.Find((WindowTreeView.TreeItemNode n) => n.Text == "当日成交查询");
                 if (child != null) { hHkSgtTodayDeals = child.Handle; }
@@ -186,306 +186,44 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 new IntPtr((int)System.Windows.Forms.Keys.F5), IntPtr.Zero);
         }
 
-        public void BuyStock(string code, float price, int num)
+
+
+        // 校验弹出框提示信息是否为委托信息
+        internal bool ValidateTipText(string tipText, Dictionary<string, string> patten)
         {
-            Log(LoggType.Red, "购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hStockTree, hBuy);
-            WindowTreeView.SimulateClick(hStockTree, hBuy);
-            Misc.Delay(1000);
-
-
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "买入下单")
+            Dictionary<string, string> pattenCopy = new Dictionary<string, string>(patten);
+            string[] tipTextArray = tipText.Split('\n');
+            foreach (string line in tipTextArray)
             {
-                Log(LoggType.Black, "不是买入下单页面");
-                return;
-            }
+                string[] sKeyValue = line.Split(':');
+                if (sKeyValue.Length != 2)
+                    continue;
+                string key = sKeyValue[0].Trim();
+                string value = sKeyValue[1].Trim();
 
-            IntPtr hStaticMaxBuyNum = WindowHwnd.GetDlgItem(panel, 0x07E6);
-            IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
-            IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
-            IntPtr hEditNum = WindowHwnd.GetDlgItem(panel, 0x2EE7);
-
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditNum == IntPtr.Zero)
-            {
-                Log(LoggType.Red, "不是买入下单的控件页面");
-                return;
-            }
-
-            WindowHwnd.SetFocus(hEditCode);
-            Misc.Delay(500);
-            Misc.KeyboardPress(hEditCode, code);
-            WindowHwnd.SetFocus(hEditPrice);
-            Misc.Delay(500);
-            Misc.KeyboardPress(hEditPrice, "" + price);
-            WindowHwnd.SetFocus(hEditNum);
-            Misc.Delay(500);
-            Misc.KeyboardPress(hEditNum, "" + num);
-
-            // 点击买入按钮
-            Misc.Delay(500);
-
-            string maxBuyNum = WindowStatic.GetText(hStaticMaxBuyNum);
-            if (maxBuyNum != null && maxBuyNum.Length > 0)
-            {
-                int maxNum = int.Parse(maxBuyNum);
-                if (maxNum < num)
+                if (pattenCopy.ContainsKey(key))
                 {
-                    Log(LoggType.Red, "资金不足，不能购买");
-                    return;
+                    if (Regex.IsMatch(value, pattenCopy[key]))
+                    {
+                        pattenCopy.Remove(key);
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
 
-            WindowButton.Click(btnConfirm);
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "买入交易确认", true);
-            if (hConfirmDlg != IntPtr.Zero)
+            if (pattenCopy.Count == 0)
             {
-                IntPtr hBtnYes = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "买入确认");
-                IntPtr hBtnNo = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
-
-                IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
-                string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
-
-                Dictionary<string, string> patten = new Dictionary<string, string>();
-                patten["操作类别"] = @"^买入$";
-                patten["股票代码"] = @"^" + code;
-                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + num + "股";
-                patten["委托方式"] = "限价委托";
-                if (ValidateTipText(txtConfirm, patten))
-                {
-                    Log(LoggType.Gray, "校验提示正常: " + txtConfirm.Replace('\n', ' '));
-                    WindowButton.Click(hBtnYes);
-
-                }
-                else
-                {
-                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
-                    WindowButton.Click(hBtnNo);
-                }
+                return true;
             }
             else
             {
-                Log(LoggType.Red, "没有检测到卖出确认对话框");
+                return false;
             }
 
         }
-
-        public void SellStock(string code, float price, int num)
-        {
-            Log(LoggType.Red, "卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hStockTree, hSell);
-            WindowTreeView.SimulateClick(hStockTree, hSell);
-            Misc.Delay(1000);
-
-
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "卖出下单")
-            {
-                Log(LoggType.Black, "不是卖出下单页面");
-                return;
-            }
-
-            IntPtr hStaticMaxSellNum = WindowHwnd.GetDlgItem(panel, 0x0811);
-            IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
-            IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
-            IntPtr hEditNum = WindowHwnd.GetDlgItem(panel, 0x2EE7);
-
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditNum == IntPtr.Zero)
-            {
-                Log(LoggType.Red, "不是卖出下单的控件页面");
-                return;
-            }
-
-            WindowHwnd.SetFocus(hEditCode);
-            Misc.Delay(500);
-            Misc.KeyboardPress(hEditCode, code);
-            WindowHwnd.SetFocus(hEditPrice);
-            Misc.Delay(500);
-            Misc.KeyboardPress(hEditPrice, "" + price);
-            WindowHwnd.SetFocus(hEditNum);
-            Misc.Delay(500);
-            Misc.KeyboardPress(hEditNum, "" + num);
-
-            // 点击买入按钮
-            Misc.Delay(500);
-            string maxSellNum = WindowStatic.GetText(hStaticMaxSellNum);
-            if (maxSellNum != null && maxSellNum.Length > 0)
-            {
-                int maxNum = int.Parse(maxSellNum);
-                if (maxNum < num)
-                {
-                    Log(LoggType.Red, "股票不足，不能卖出");
-                    return;
-                }
-            }
-
-            WindowButton.Click(btnConfirm);
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "卖出交易确认", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hBtnYes = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "卖出确认");
-                IntPtr hBtnNo = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
-
-                IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
-                string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
-
-                Dictionary<string, string> patten = new Dictionary<string, string>();
-                patten["操作类别"] = @"^卖出$";
-                patten["股票代码"] = @"^" + code;
-                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + num + "股";
-                patten["委托方式"] = "限价委托";
-                if (ValidateTipText(txtConfirm, patten))
-                {
-                    Log(LoggType.Gray, "校验提示正常: " + txtConfirm.Replace('\n', ' '));
-                    WindowButton.Click(hBtnYes);
-
-                }
-                else
-                {
-                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
-                    WindowButton.Click(hBtnNo);
-                }
-            }
-            else
-            {
-                Log(LoggType.Red, "没有检测到卖出确认对话框");
-            }
-        }
-
-
-        public void CancelStock(string code, float price, int num)
-        {
-            Log(LoggType.Red, "撤单: " + code + ", 价格: " + price + ", 数量: " + num);
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hStockTree, hCancel);
-            WindowTreeView.SimulateClick(hStockTree, hCancel);
-
-
-        }
-
-        public List<ModelTodayDeals> TodayDealsList()
-        {
-            Log(LoggType.Black, "查询当日成交");
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hStockTree, hTodayDeals);
-            WindowTreeView.SimulateClick(hStockTree, hTodayDeals);
-
-            Misc.Delay(1000);
-
-
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
-            if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
-            {
-                Log(LoggType.Red, "查询当日成交 - 无成交（输出按钮不可用）");
-                return null;
-            }
-            WindowButton.Click(hOutputButton);
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
-                IntPtr hEditTxtFile = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E8);
-                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x0001);
-
-                WindowButton.Click(hCheckTxt);
-                string tempFile = Path.GetTempFileName();
-                WindowEditBox.SetText(hEditTxtFile, tempFile);
-                WindowButton.Click(hBtnYes);
-                try
-                {
-                    Misc.Delay(1000);
-                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
-                    Misc.Delay(1000);
-                    List<string[]> rawData = DataParser.ReadCsv(tempFile);
-                    return ModelTodayDeals.Parse(rawData);
-                }
-                finally
-                {
-                    try
-                    {
-                        File.Delete(tempFile);
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return null;
-        }
-
-        public Tuple<ModelAccountStat, List<ModelHoldingStock>> HoldingStockList()
-        {
-            Log(LoggType.Black, "查询资金股份");
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hStockTree, hHoldingStock);
-            WindowTreeView.SimulateClick(hStockTree, hHoldingStock);
-            Misc.Delay(1000);
-
-
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x06BB);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "修改成本")
-            {
-                Log(LoggType.Black, "查询资金股份 - 不是该页面");
-                return null;
-            }
-
-
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
-            if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
-            {
-                Log(LoggType.Red, "查询资金股份 - 输出按钮不可用");
-                return null;
-            }
-            WindowButton.Click(hOutputButton);
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
-                IntPtr hEditTxtFile = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E8);
-                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x0001);
-
-                WindowButton.Click(hCheckTxt);
-                string tempFile = Path.GetTempFileName();
-                WindowEditBox.SetText(hEditTxtFile, tempFile);
-                WindowButton.Click(hBtnYes);
-                try
-                {
-                    Misc.Delay(1000);
-                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
-                    Misc.Delay(1000);
-                    List<string[]> rawData = DataParser.ReadCsv(tempFile);
-                    return ModelHoldingStock.Parse(rawData);
-                }
-                finally
-                {
-                    try
-                    {
-                        File.Delete(tempFile);
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return null;
-        }
-
 
     }
 }
