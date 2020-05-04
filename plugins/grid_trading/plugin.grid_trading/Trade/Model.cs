@@ -56,7 +56,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         }
     }
 
-    internal class ModelHoldingStock 
+    internal class ModelHoldingStock
     {
         internal string code = string.Empty; // 证券代码
         internal string name = string.Empty; // 证券名称
@@ -131,7 +131,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         }
     }
 
-    internal class ModelTodayDeals 
+    internal class ModelTodayDeals
     {
         internal string dealTime = string.Empty; // 成交时间
         internal string code = string.Empty; // 证券代码                                      
@@ -198,7 +198,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
 
     // 可撤订单（撤单页面）
-    internal class ModelRevocableOrder 
+    internal class ModelRevocableOrder
     {
         internal string dealTime = string.Empty; // 成交时间
         internal string code = string.Empty; // 证券代码                                      
@@ -213,20 +213,20 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         {
             if (param == null || param.Count <= 1)
                 return null;
-            List<ModelRevocableOrder> todayDealsList = new List<ModelRevocableOrder>();
+            List<ModelRevocableOrder> revocableOrderList = new List<ModelRevocableOrder>();
 
             string[] header = param[0];
             for (int row = 1; row < param.Count; row++)
             {
-                string[] rawTodayDeals = param[row];
-                if (rawTodayDeals.Length != header.Length)
+                string[] rawRevocableOrder = param[row];
+                if (rawRevocableOrder.Length != header.Length)
                     continue;
 
                 ModelRevocableOrder item = new ModelRevocableOrder();
                 for (int col = 0; col < header.Length; col++)
                 {
                     string key = header[col];
-                    string value = rawTodayDeals[col];
+                    string value = rawRevocableOrder[col];
                     switch (key)
                     {
                         case "成交时间":
@@ -256,10 +256,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     }
                 }
 
-                todayDealsList.Add(item);
+                revocableOrderList.Add(item);
             }
 
-            return todayDealsList;
+            return revocableOrderList;
         }
     }
 }

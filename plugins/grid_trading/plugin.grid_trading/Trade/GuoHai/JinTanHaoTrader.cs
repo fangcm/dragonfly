@@ -225,5 +225,44 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
+
+        // 通用保存文件窗口确认后，解析txt文件，返回解析model
+        internal static object ParseModelDataFromTxtFileAfterConfirDlg(Func<List<string[]>, object> modelParser)
+        {
+            Misc.Delay(500);
+
+            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
+            if (hConfirmDlg != IntPtr.Zero)
+            {
+                IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
+                IntPtr hEditTxtFile = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E8);
+                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x0001);
+
+                WindowButton.Click(hCheckTxt);
+                string tempFile = Path.GetTempFileName();
+                WindowEditBox.SetText(hEditTxtFile, tempFile);
+                WindowButton.Click(hBtnYes);
+                try
+                {
+                    Misc.Delay(1000);
+                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
+                    Misc.Delay(1000);
+                    List<string[]> rawData = DataParser.ReadCsv(tempFile);
+                    return modelParser(rawData);
+                }
+                finally
+                {
+                    try
+                    {
+                        File.Delete(tempFile);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

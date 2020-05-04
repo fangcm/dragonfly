@@ -206,40 +206,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             WindowButton.Click(hOutputButton);
-
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
-                IntPtr hEditTxtFile = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E8);
-                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x0001);
-
-                WindowButton.Click(hCheckTxt);
-                string tempFile = Path.GetTempFileName();
-                WindowEditBox.SetText(hEditTxtFile, tempFile);
-                WindowButton.Click(hBtnYes);
-                try
-                {
-                    Misc.Delay(1000);
-                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
-                    Misc.Delay(1000);
-                    List<string[]> rawData = DataParser.ReadCsv(tempFile);
-                    return ModelRevocableOrder.Parse(rawData);
-                }
-                finally
-                {
-                    try
-                    {
-                        File.Delete(tempFile);
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return null;
+            return (List<ModelRevocableOrder>)ParseModelDataFromTxtFileAfterConfirDlg(ModelRevocableOrder.Parse);
         }
 
         public List<ModelTodayDeals> SgtTodayDealsList()
@@ -260,40 +227,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             WindowButton.Click(hOutputButton);
-
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
-                IntPtr hEditTxtFile = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E8);
-                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x0001);
-
-                WindowButton.Click(hCheckTxt);
-                string tempFile = Path.GetTempFileName();
-                WindowEditBox.SetText(hEditTxtFile, tempFile);
-                WindowButton.Click(hBtnYes);
-                try
-                {
-                    Misc.Delay(1000);
-                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
-                    Misc.Delay(1000);
-                    List<string[]> rawData = DataParser.ReadCsv(tempFile);
-                    return ModelTodayDeals.Parse(rawData);
-                }
-                finally
-                {
-                    try
-                    {
-                        File.Delete(tempFile);
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return null;
+            return (List<ModelTodayDeals>)ParseModelDataFromTxtFileAfterConfirDlg(ModelTodayDeals.Parse);
         }
 
         public Tuple<ModelAccountStat, List<ModelHoldingStock>> SgtHoldingStockList()
@@ -321,39 +255,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             WindowButton.Click(hOutputButton);
-            Misc.Delay(500);
-
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
-                IntPtr hEditTxtFile = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E8);
-                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x0001);
-
-                WindowButton.Click(hCheckTxt);
-                string tempFile = Path.GetTempFileName();
-                WindowEditBox.SetText(hEditTxtFile, tempFile);
-                WindowButton.Click(hBtnYes);
-                try
-                {
-                    Misc.Delay(1000);
-                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
-                    Misc.Delay(1000);
-                    List<string[]> rawData = DataParser.ReadCsv(tempFile);
-                    return ModelHoldingStock.Parse(rawData);
-                }
-                finally
-                {
-                    try
-                    {
-                        File.Delete(tempFile);
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return null;
+            return (Tuple<ModelAccountStat, List<ModelHoldingStock>>)
+                ParseModelDataFromTxtFileAfterConfirDlg(ModelHoldingStock.Parse);
         }
 
 
