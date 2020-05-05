@@ -1,47 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
 {
     internal class ManualGrid : Grid
     {
-        internal Dictionary<string, object> priceAndHoldingVolume = new Dictionary<string, object>();
-
-        internal override void Init(Dictionary<string, object> config)
+        internal static ManualGrid FromJson(string jsonData)
         {
-            base.Init(config);
+            ManualGrid grid = Newtonsoft.Json.JsonConvert.DeserializeObject<ManualGrid>(jsonData);
 
-            object temp;
+            grid.gridNodeList.Add(10,new GridNode() { TradingPrice = 10, HoldingVolume = 100, });
 
-            if (config.TryGetValue("PriceAndHoldingVolume", out temp))
-            {
-                priceAndHoldingVolume = (Dictionary<string, object>)temp;
-                foreach (var cfg in priceAndHoldingVolume)
-                {
-
-                    GridItem item = new GridItem()
-                    {
-                        TradingPrice = decimal.Parse(cfg.Key),
-                        HoldingVolume = int.Parse(cfg.Value.ToString()),
-                    };
-                    gridItemList.Add(item.TradingPrice, item);
-                }
-
-                buildTradingGrid();
-            }
+            grid.buildTradingGrid();
+            return grid;
         }
 
-        private void buildTradingGrid()
+        internal void buildTradingGrid()
         {
-            foreach (var item in gridItemList)
+            foreach (var item in gridNodeList)
             {
-                int index = gridItemList.IndexOfKey(item.Key);
+                int index = gridNodeList.IndexOfKey(item.Key);
 
                 GridOrder buyOrder = null;
                 GridOrder sellOrder = null;
                 if (index > 0)
                 {
-                    var temp = gridItemList.ElementAt(index - 1);
+                    var temp = gridNodeList.ElementAt(index - 1);
                     buyOrder = new GridOrder()
                     {
                         Price = temp.Value.TradingPrice,
@@ -49,9 +32,9 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                     };
                 }
 
-                if (index < gridItemList.Count - 1)
+                if (index < gridNodeList.Count - 1)
                 {
-                    var temp = gridItemList.ElementAt(index + 1);
+                    var temp = gridNodeList.ElementAt(index + 1);
                     sellOrder = new GridOrder()
                     {
                         Price = temp.Value.TradingPrice,
@@ -64,11 +47,11 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
                 if (index == 0)
                 {
-                    this.MinPrice = item.Value.TradingPrice;
+                    MinPrice = item.Value.TradingPrice;
                 }
-                else if (index == gridItemList.Count - 1)
+                else if (index == gridNodeList.Count - 1)
                 {
-                    this.MaxPrice = item.Value.TradingPrice;
+                    MaxPrice = item.Value.TradingPrice;
                 }
 
             }

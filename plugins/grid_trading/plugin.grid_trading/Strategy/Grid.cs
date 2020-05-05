@@ -4,70 +4,90 @@ using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
 {
+    internal enum Direction : int
+    {
+        buy = 1,
+        sell = 2,
+    }
+
+    internal enum StockMarket : int
+    {
+        A = 1,
+        Hgt = 2,
+        Sgt = 3,
+    }
+
     internal abstract class Grid
     {
-        internal Dictionary<string, object> config = null;
+        [JsonIgnore]
+        internal GridOrder LastTradingOrder { get; set; }
 
-        // 根据价格排序
-        internal SortedList<decimal, GridItem> gridItemList = new SortedList<decimal, GridItem>();
-        internal int GridCount { get { return gridItemList.Count; } }
+        [JsonProperty(Required = Required.Always)]
+        internal StockMarket StockMarket { get; set; }
 
+        [JsonProperty(Required = Required.Always)]
+        internal string StockCode { get; set; }
+
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        internal string StockName { get; set; }
+
+        [JsonProperty(Required = Required.Always)]
         internal decimal InitPrice { get; set; } //初始价格
+
+        [JsonProperty(Required = Required.Always)]
         internal int InitHoldingVolume { get; set; } //初始持有股数
+
+        [JsonProperty(Required = Required.AllowNull)]
         internal decimal MaxPrice { get; set; }
+
+        [JsonProperty(Required = Required.AllowNull)]
         internal decimal MinPrice { get; set; }
 
-        internal virtual void Init(Dictionary<string, object> config)
+        // 根据价格排序的网格
+        [JsonIgnore]
+        internal SortedList<decimal, GridNode> gridNodeList = new SortedList<decimal, GridNode>();
+
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        internal IList<GridNode> GridNodes
         {
-            this.config = config;
-
-            object temp;
-
-            if (config.TryGetValue("InitPrice", out temp))
+            get
             {
-                InitPrice = decimal.Parse(temp.ToString());
+                return gridNodeList.Values;
             }
-
-            if (config.TryGetValue("InitHoldingVolume", out temp))
+            set
             {
-                InitHoldingVolume = int.Parse(temp.ToString());
-            }
-
-            if (config.TryGetValue("MaxPrice", out temp))
-            {
-                MaxPrice = decimal.Parse(temp.ToString());
-            }
-
-            if (config.TryGetValue("MinPrice", out temp))
-            {
-                MinPrice = decimal.Parse(temp.ToString());
+                gridNodeList.Clear();
+                foreach (GridNode node in value)
+                {
+                    gridNodeList.Add(node.TradingPrice, node);
+                }
             }
         }
 
-        internal virtual void Init(string jsonData)
+
+        internal string ToJson()
         {
-            Dictionary<string, object> dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
-            Init(dict);
+            return JsonConvert.SerializeObject(this);
         }
 
 
         // 根据持仓量，获取下一网格交易项
-        internal GridItem ExpectedGridItem(int holdingVolume)
+        internal virtual GridNode ExpectedGridItem(int holdingVolume)
         {
-            if (gridItemList.Count == 0)
+            if (gridNodeList.Count == 0)
             {
                 return null;
             }
-            else if (gridItemList.Count == 1)
+            else if (gridNodeList.Count == 1)
             {
-                return gridItemList[0];
+                return gridNodeList[0];
             }
 
-            GridItem expectedItem = null;
+            GridNode expectedItem = null;
             decimal minDist = holdingVolume;
-            foreach (GridItem gridItem in gridItemList.Values)
+            foreach (GridNode gridItem in gridNodeList.Values)
             {
-                decimal dist = Math.Abs(gridItem.HoldingVolume- holdingVolume);
+                decimal dist = Math.Abs(gridItem.HoldingVolume - holdingVolume);
                 if (dist < minDist)
                 {
                     expectedItem = gridItem;
@@ -80,7 +100,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
     }
 
-    internal class GridItem
+    internal class GridNode
     {
         //交易价格档位
         internal decimal TradingPrice { get; set; }
@@ -95,8 +115,10 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         internal GridOrder SellOrder { get; set; }
     }
 
+
     internal class GridOrder
     {
+        internal Direction Direction { get; set; }
         //交易价
         internal decimal Price { get; set; }
 
