@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 // 术语：
 // trading 成交、交易
+// ContractNo tradingNo ActualAmount
 // turnover 成交额
 // trading volume 成交量
 // Market Price 市场价格  
@@ -16,9 +17,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 {
     internal class ModelAccountStat
     {
-        internal decimal remainingMoney = 0; // 余额
-        internal decimal availableMoney = 0; // 可用
-        internal decimal transferableMoney = 0; // 可取
+        internal decimal remainingAmount = 0; // 余额
+        internal decimal availableAmount = 0; // 可用
+        internal decimal transferableAmount = 0; // 可取
         internal decimal marketValue = 0; // 参考市值
         internal decimal totalAssets = 0; // 资产
         internal decimal pnl = 0; // 盈亏
@@ -39,13 +40,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 switch (key)
                 {
                     case "余额":
-                        item.remainingMoney = decimal.Parse(value);
+                        item.remainingAmount = decimal.Parse(value);
                         break;
                     case "可用":
-                        item.availableMoney = decimal.Parse(value);
+                        item.availableAmount = decimal.Parse(value);
                         break;
                     case "可取":
-                        item.transferableMoney = decimal.Parse(value);
+                        item.transferableAmount = decimal.Parse(value);
                         break;
                     case "参考市值":
                         item.marketValue = decimal.Parse(value);

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("dragonfly.plugin.grid_trading")]
+[assembly: AssemblyTitle("trading_unit_test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("fangcm")]
-[assembly: AssemblyProduct("dragonfly.plugin.grid_trading")]
-[assembly: AssemblyCopyright("Copyright © fangcm 2020")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("trading_unit_test")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("617d4139-7b43-4b3e-9511-89bba50003c5")]
+[assembly: Guid("35842b6f-dc92-4a54-8bf6-16ffbf7bd00c")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
@@ -34,4 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("trading_unit_test")]
