@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
@@ -41,6 +42,12 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             {
                 MinPrice = decimal.Parse(temp.ToString());
             }
+        }
+
+        internal virtual void Init(string jsonData)
+        {
+            Dictionary<string, object> dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
+            Init(dict);
         }
 
 
