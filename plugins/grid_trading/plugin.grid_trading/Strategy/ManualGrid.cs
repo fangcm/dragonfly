@@ -8,10 +8,18 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 {
     internal class ManualGrid : Grid
     {
+        internal List<Tuple< decimal,int>> prices = new List<Tuple<decimal, int>>();
+
         internal override void Init(Dictionary<string, object> config)
         {
             base.Init(config);
-            throw new NotImplementedException();
+
+            object temp;
+
+            if (config.TryGetValue("Price", out temp))
+            {
+                InitPrice = (decimal)temp;
+            }
         }
     }
 }

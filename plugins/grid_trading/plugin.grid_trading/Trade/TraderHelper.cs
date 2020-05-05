@@ -33,19 +33,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         #region A股
 
-        internal void BuyStock(string code, float price, int num)
+        internal void BuyStock(string stockCode, float price, int volume)
         {
             lock (lockObject)
             {
-                trader.BuyStock(code, price, num);
+                trader.BuyStock(stockCode, price, volume);
             }
         }
 
-        internal void SellStock(string code, float price, int num)
+        internal void SellStock(string stockCode, float price, int volume)
         {
             lock (lockObject)
             {
-                trader.SellStock(code, price, num);
+                trader.SellStock(stockCode, price, volume);
             }
         }
 
@@ -78,19 +78,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         #region 沪港通
 
 
-        internal void HgtBuyStock(string code, float price, int num)
+        internal void HgtBuyStock(string stockCode, float price, int volume)
         {
             lock (lockObject)
             {
-                trader.HgtBuyStock(code, price, num);
+                trader.HgtBuyStock(stockCode, price, volume);
             }
         }
 
-        internal void HgtSellStock(string code, float price, int num)
+        internal void HgtSellStock(string stockCode, float price, int volume)
         {
             lock (lockObject)
             {
-                trader.HgtSellStock(code, price, num);
+                trader.HgtSellStock(stockCode, price, volume);
             }
         }
 
@@ -123,19 +123,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         #region 深港通
 
 
-        internal void SgtBuyStock(string code, float price, int num)
+        internal void SgtBuyStock(string stockCode, float price, int volume)
         {
             lock (lockObject)
             {
-                trader.SgtBuyStock(code, price, num);
+                trader.SgtBuyStock(stockCode, price, volume);
             }
         }
 
-        internal void SgtSellStock(string code, float price, int num)
+        internal void SgtSellStock(string stockCode, float price, int volume)
         {
             lock (lockObject)
             {
-                trader.SgtSellStock(code, price, num);
+                trader.SgtSellStock(stockCode, price, volume);
             }
         }
 

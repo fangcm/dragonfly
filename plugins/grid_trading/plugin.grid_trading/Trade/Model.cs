@@ -1,8 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+// 术语：
+// trading 成交、交易
+// turnover 成交额
+// trading volume 成交量
+// Market Price 市场价格  
+// TransactionId  Volume  
+// Direction : Order side (buy or sell)
+// balance: Order contracts balance
+// Commission  佣金
+// PnL : The profit, realized by trade
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
@@ -13,7 +21,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         internal decimal transferableMoney = 0; // 可取
         internal decimal marketValue = 0; // 参考市值
         internal decimal totalAssets = 0; // 资产
-        internal decimal profit = 0; // 盈亏
+        internal decimal pnl = 0; // 盈亏
 
         internal static ModelAccountStat Parse(string[] param)
         {
@@ -46,7 +54,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                         item.totalAssets = decimal.Parse(value);
                         break;
                     case "盈亏":
-                        item.profit = decimal.Parse(value);
+                        item.pnl = decimal.Parse(value);
                         break;
                 }
 
@@ -58,15 +66,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
     internal class ModelHoldingStock
     {
-        internal string code = string.Empty; // 证券代码
-        internal string name = string.Empty; // 证券名称
-        internal int holdingNum = 0; // 证券数量
-        internal int availableNum = 0; // 可卖数量
+        internal string stockCode = string.Empty; // 证券代码
+        internal string stockName = string.Empty; // 证券名称
+        internal int holdingVolume = 0; // 证券数量
+        internal int availableVolume = 0; // 可卖数量
         internal decimal costPrice = 0; // 成本价
         internal decimal currPrice = 0; // 当前价
         internal decimal marketValue = 0; // 最新市值
-        internal decimal profit = 0; // 浮动盈亏
-        internal decimal profitPercent = 0; // 盈亏比例(%)
+        internal decimal pnl = 0; // 浮动盈亏
+        internal decimal pnlPercent = 0; // 盈亏比例(%)
 
         internal static Tuple<ModelAccountStat, List<ModelHoldingStock>> Parse(List<string[]> param)
         {
@@ -95,16 +103,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     switch (key)
                     {
                         case "证券代码":
-                            item.code = value;
+                            item.stockCode = value;
                             break;
                         case "证券名称":
-                            item.name = value;
+                            item.stockName = value;
                             break;
                         case "证券数量":
-                            item.holdingNum = (int)decimal.Parse(value);
+                            item.holdingVolume = (int)decimal.Parse(value);
                             break;
                         case "可卖数量":
-                            item.availableNum = (int)decimal.Parse(value);
+                            item.availableVolume = (int)decimal.Parse(value);
                             break;
                         case "成本价":
                             item.costPrice = decimal.Parse(value);
@@ -116,10 +124,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             item.marketValue = decimal.Parse(value);
                             break;
                         case "浮动盈亏":
-                            item.profit = decimal.Parse(value);
+                            item.pnl = decimal.Parse(value);
                             break;
                         case "盈亏比例(%)":
-                            item.profitPercent = decimal.Parse(value);
+                            item.pnlPercent = decimal.Parse(value);
                             break;
                     }
                 }
@@ -133,12 +141,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
     internal class ModelTodayDeals
     {
-        internal string dealTime = string.Empty; // 成交时间
-        internal string code = string.Empty; // 证券代码                                      
-        internal string name = string.Empty; // 证券名称
-        internal string flag = string.Empty; // 买卖标志
+        internal string tradingTime = string.Empty; // 成交时间
+        internal string stockCode = string.Empty; // 证券代码                                      
+        internal string stockName = string.Empty; // 证券名称
+        internal string direction = string.Empty; // 买卖标志(buy or sell)
         internal decimal price = 0; // 成交价格
-        internal int num = 0; // 成交数量
+        internal int volume = 0; // 成交数量
         internal decimal amount = 0; // 成交金额
         internal string type = string.Empty; // 成交类型
 
@@ -163,22 +171,22 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     switch (key)
                     {
                         case "成交时间":
-                            item.dealTime = value;
+                            item.tradingTime = value;
                             break;
                         case "证券代码":
-                            item.code = value;
+                            item.stockCode = value;
                             break;
                         case "证券名称":
-                            item.name = value;
+                            item.stockName = value;
                             break;
                         case "买卖标志":
-                            item.flag = value;
+                            item.direction = value;
                             break;
                         case "成交价格":
                             item.price = decimal.Parse(value);
                             break;
                         case "成交数量":
-                            item.num = (int)decimal.Parse(value);
+                            item.volume = (int)decimal.Parse(value);
                             break;
                         case "成交金额":
                             item.amount = decimal.Parse(value);
@@ -200,12 +208,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade
     // 可撤订单（撤单页面）
     internal class ModelRevocableOrder
     {
-        internal string dealTime = string.Empty; // 成交时间
-        internal string code = string.Empty; // 证券代码                                      
-        internal string name = string.Empty; // 证券名称
-        internal string flag = string.Empty; // 买卖标志
+        internal string tradingTime = string.Empty; // 成交时间
+        internal string stockCode = string.Empty; // 证券代码                                      
+        internal string stockName = string.Empty; // 证券名称
+        internal string direction = string.Empty; // 买卖标志(buy or sell)
         internal decimal price = 0; // 成交价格
-        internal int num = 0; // 成交数量
+        internal int volume = 0; // 成交数量
         internal decimal amount = 0; // 成交金额
         internal string type = string.Empty; // 成交类型
 
@@ -230,22 +238,22 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     switch (key)
                     {
                         case "成交时间":
-                            item.dealTime = value;
+                            item.tradingTime = value;
                             break;
                         case "证券代码":
-                            item.code = value;
+                            item.stockCode = value;
                             break;
                         case "证券名称":
-                            item.name = value;
+                            item.stockName = value;
                             break;
                         case "买卖标志":
-                            item.flag = value;
+                            item.direction = value;
                             break;
                         case "成交价格":
                             item.price = decimal.Parse(value);
                             break;
                         case "成交数量":
-                            item.num = (int)decimal.Parse(value);
+                            item.volume = (int)decimal.Parse(value);
                             break;
                         case "成交金额":
                             item.amount = decimal.Parse(value);

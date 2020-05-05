@@ -10,9 +10,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
     internal partial class JintanhaoTrader
     {
 
-        public void HgtBuyStock(string code, float price, int num)
+        public void HgtBuyStock(string stockCode, float price, int volume)
         {
-            Log(LoggType.Red, "沪港通购买股票: " + code + ", 价格: " + price + ", 数量: " + num);
+            Log(LoggType.Red, "沪港通购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtBuy);
             WindowTreeView.SimulateClick(hHkStockTree, hHkHgtBuy);
@@ -27,12 +27,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            IntPtr hStaticMaxBuyNum = WindowHwnd.GetDlgItem(panel, 0x07E6);
+            IntPtr hStaticMaxBuyVolume = WindowHwnd.GetDlgItem(panel, 0x07E6);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
-            IntPtr hEditNum = WindowHwnd.GetDlgItem(panel, 0x2EE7);
+            IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
 
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditNum == IntPtr.Zero)
+            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 Log(LoggType.Red, "不是买入下单的控件页面");
                 return;
@@ -40,22 +40,22 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             WindowHwnd.SetFocus(hEditCode);
             Misc.Delay(500);
-            Misc.KeyboardPress(hEditCode, code);
+            Misc.KeyboardPress(hEditCode, stockCode);
             WindowHwnd.SetFocus(hEditPrice);
             Misc.Delay(500);
             Misc.KeyboardPress(hEditPrice, "" + price);
-            WindowHwnd.SetFocus(hEditNum);
+            WindowHwnd.SetFocus(hEditVolume);
             Misc.Delay(500);
-            Misc.KeyboardPress(hEditNum, "" + num);
+            Misc.KeyboardPress(hEditVolume, "" + volume);
 
             // 点击买入按钮
             Misc.Delay(500);
 
-            string maxBuyNum = WindowStatic.GetText(hStaticMaxBuyNum);
-            if (maxBuyNum != null && maxBuyNum.Length > 0)
+            string maxBuyVolume = WindowStatic.GetText(hStaticMaxBuyVolume);
+            if (maxBuyVolume != null && maxBuyVolume.Length > 0)
             {
-                int maxNum = int.Parse(maxBuyNum);
-                if (maxNum < num)
+                int maxVolume = int.Parse(maxBuyVolume);
+                if (maxVolume < volume)
                 {
                     Log(LoggType.Red, "资金不足，不能购买");
                     return;
@@ -76,9 +76,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
                 Dictionary<string, string> patten = new Dictionary<string, string>();
                 patten["操作类别"] = @"^买入$";
-                patten["股票代码"] = @"^" + code;
+                patten["股票代码"] = @"^" + stockCode;
                 patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + num + "股";
+                patten["委托数量"] = @"^" + volume + "股";
                 patten["委托方式"] = "限价委托";
                 if (ValidateTipText(txtConfirm, patten))
                 {
@@ -99,9 +99,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
-        public void HgtSellStock(string code, float price, int num)
+        public void HgtSellStock(string stockCode, float price, int volume)
         {
-            Log(LoggType.Red, "沪港通卖出股票: " + code + ", 价格: " + price + ", 数量: " + num);
+            Log(LoggType.Red, "沪港通卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtSell);
             WindowTreeView.SimulateClick(hHkStockTree, hHkHgtSell);
@@ -116,12 +116,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return;
             }
 
-            IntPtr hStaticMaxSellNum = WindowHwnd.GetDlgItem(panel, 0x0811);
+            IntPtr hStaticMaxSellVolume = WindowHwnd.GetDlgItem(panel, 0x0811);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
-            IntPtr hEditNum = WindowHwnd.GetDlgItem(panel, 0x2EE7);
+            IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
 
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditNum == IntPtr.Zero)
+            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 Log(LoggType.Red, "不是卖出下单的控件页面");
                 return;
@@ -129,21 +129,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             WindowHwnd.SetFocus(hEditCode);
             Misc.Delay(500);
-            Misc.KeyboardPress(hEditCode, code);
+            Misc.KeyboardPress(hEditCode, stockCode);
             WindowHwnd.SetFocus(hEditPrice);
             Misc.Delay(500);
             Misc.KeyboardPress(hEditPrice, "" + price);
-            WindowHwnd.SetFocus(hEditNum);
+            WindowHwnd.SetFocus(hEditVolume);
             Misc.Delay(500);
-            Misc.KeyboardPress(hEditNum, "" + num);
+            Misc.KeyboardPress(hEditVolume, "" + volume);
 
             // 点击买入按钮
             Misc.Delay(500);
-            string maxSellNum = WindowStatic.GetText(hStaticMaxSellNum);
-            if (maxSellNum != null && maxSellNum.Length > 0)
+            string maxSellVolume = WindowStatic.GetText(hStaticMaxSellVolume);
+            if (maxSellVolume != null && maxSellVolume.Length > 0)
             {
-                int maxNum = int.Parse(maxSellNum);
-                if (maxNum < num)
+                int maxVolume = int.Parse(maxSellVolume);
+                if (maxVolume < volume)
                 {
                     Log(LoggType.Red, "股票不足，不能卖出");
                     return;
@@ -164,9 +164,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
                 Dictionary<string, string> patten = new Dictionary<string, string>();
                 patten["操作类别"] = @"^卖出$";
-                patten["股票代码"] = @"^" + code;
+                patten["股票代码"] = @"^" + stockCode;
                 patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + num + "股";
+                patten["委托数量"] = @"^" + volume + "股";
                 patten["委托方式"] = "限价委托";
                 if (ValidateTipText(txtConfirm, patten))
                 {
