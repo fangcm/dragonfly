@@ -75,6 +75,7 @@
     <Compile Include="Strategy\GridDao.cs" />
     <Compile Include="Strategy\GridHelper.cs" />
     <Compile Include="Strategy\ManualGrid.cs" />
+    <Compile Include="Trade\TradeDao.cs" />
     <Compile Include="Trade\AbstractTrader.cs" />
     <Compile Include="Trade\GuoHai\JintanhaoTraderSgt.cs" />
     <Compile Include="Trade\GuoHai\JintanhaoTraderHgt.cs" />
