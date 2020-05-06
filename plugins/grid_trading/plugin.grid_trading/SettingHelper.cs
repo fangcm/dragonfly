@@ -7,6 +7,7 @@ namespace Dragonfly.Plugin.GridTrading
 {
     internal class SettingHelper
     {
+        internal const string ConnenctionString = @"Data Source=grid_trading.db;Version=3;";
         internal const int LockScreenApp_Simple = 0;
         internal const int LockScreenApp_Question = 1;
 

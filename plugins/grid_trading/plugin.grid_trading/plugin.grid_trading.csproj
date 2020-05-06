@@ -40,6 +40,7 @@
       <HintPath>..\..\..\ReferencesLib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ReferencesLib\System.Data.SQLite.dll</HintPath>
@@ -71,6 +72,7 @@
       <DependentUpon>GridTradingMainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Strategy\Grid.cs" />
+    <Compile Include="Strategy\GridDao.cs" />
     <Compile Include="Strategy\GridHelper.cs" />
     <Compile Include="Strategy\ManualGrid.cs" />
     <Compile Include="Trade\AbstractTrader.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Trade\Model.cs" />
     <Compile Include="TradingWorker.cs" />
     <Compile Include="Utils\DataParser.cs" />
+    <Compile Include="Utils\SqliteHelper.cs" />
     <Compile Include="Utils\Win32\Control\WindowButton.cs" />
     <Compile Include="Utils\Win32\Control\WindowEditBox.cs" />
     <Compile Include="Utils\Win32\Control\WindowStatic.cs" />
@@ -127,10 +130,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\setting.bmp" />
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="x64\" />
-    <Folder Include="x86\" />
+    <None Include="grid_trading.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
