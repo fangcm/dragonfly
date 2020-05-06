@@ -33,7 +33,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         #region A股
 
-        internal void BuyStock(string stockCode, float price, int volume)
+        internal void BuyStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
@@ -41,7 +41,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal void SellStock(string stockCode, float price, int volume)
+        internal void SellStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
@@ -78,7 +78,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         #region 沪港通
 
 
-        internal void HgtBuyStock(string stockCode, float price, int volume)
+        internal void HgtBuyStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
@@ -86,7 +86,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal void HgtSellStock(string stockCode, float price, int volume)
+        internal void HgtSellStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
@@ -123,7 +123,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         #region 深港通
 
 
-        internal void SgtBuyStock(string stockCode, float price, int volume)
+        internal void SgtBuyStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
@@ -131,7 +131,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal void SgtSellStock(string stockCode, float price, int volume)
+        internal void SgtSellStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {

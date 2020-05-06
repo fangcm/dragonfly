@@ -10,7 +10,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
     internal partial class JintanhaoTrader : AbstractTrader, ITrader
     {
 
-        public void BuyStock(string stockCode, float price, int volume)
+        public void BuyStock(string stockCode, decimal price, int volume)
         {
             Log(LoggType.Red, "A股购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
@@ -98,7 +98,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
-        public void SellStock(string stockCode, float price, int volume)
+        public void SellStock(string stockCode, decimal price, int volume)
         {
             Log(LoggType.Red, "A股卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);

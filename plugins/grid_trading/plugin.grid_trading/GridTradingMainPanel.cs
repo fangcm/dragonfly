@@ -77,15 +77,6 @@ namespace Dragonfly.Plugin.GridTrading
             TraderHelper.Instance.Init();
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            TraderHelper.Instance.BuyStock("300498", 10.012f, 1000000);
-        }
-
-        private void toolStripButton3_Click(object sender, EventArgs e)
-        {
-            TraderHelper.Instance.SellStock("300498", 10.012f, 100000);
-        }
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             TraderHelper.Instance.TodayDealsList();
@@ -100,6 +91,12 @@ namespace Dragonfly.Plugin.GridTrading
         private void toolStripButtonCancel_Click(object sender, EventArgs e)
         {
             var a = TraderHelper.Instance.RevocableOrders();
+        }
+
+        private void toolStripButtonOrder_Click(object sender, EventArgs e)
+        {
+            TradingForm form = new TradingForm();
+            form.ShowDialog();
         }
     }
 

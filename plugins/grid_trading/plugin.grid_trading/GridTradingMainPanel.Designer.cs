@@ -33,11 +33,9 @@
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonSetting = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonInit = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonOrder = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,11 +59,9 @@
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonSetting,
             this.toolStripButtonInit,
-            this.toolStripButton2,
-            this.toolStripButton3,
+            this.toolStripButtonOrder,
             this.toolStripButton4,
-            this.toolStripButton5,
-            this.toolStripButtonCancel});
+            this.toolStripButton5});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(353, 27);
@@ -87,29 +83,19 @@
             this.toolStripButtonInit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonInit.Image")));
             this.toolStripButtonInit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonInit.Name = "toolStripButtonInit";
-            this.toolStripButtonInit.Size = new System.Drawing.Size(36, 24);
-            this.toolStripButtonInit.Text = "关联";
+            this.toolStripButtonInit.Size = new System.Drawing.Size(60, 24);
+            this.toolStripButtonInit.Text = "关联交易";
             this.toolStripButtonInit.Click += new System.EventHandler(this.toolStripButtonInit_Click);
             // 
-            // toolStripButton2
+            // toolStripButtonOrder
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(33, 24);
-            this.toolStripButton2.Text = "buy";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(31, 24);
-            this.toolStripButton3.Text = "sell";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            this.toolStripButtonOrder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonOrder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOrder.Image")));
+            this.toolStripButtonOrder.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOrder.Name = "toolStripButtonOrder";
+            this.toolStripButtonOrder.Size = new System.Drawing.Size(36, 24);
+            this.toolStripButtonOrder.Text = "下单";
+            this.toolStripButtonOrder.Click += new System.EventHandler(this.toolStripButtonOrder_Click);
             // 
             // toolStripButton4
             // 
@@ -130,16 +116,6 @@
             this.toolStripButton5.Size = new System.Drawing.Size(37, 24);
             this.toolStripButton5.Text = "deal";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
-            // 
-            // toolStripButtonCancel
-            // 
-            this.toolStripButtonCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCancel.Image")));
-            this.toolStripButtonCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonCancel.Name = "toolStripButtonCancel";
-            this.toolStripButtonCancel.Size = new System.Drawing.Size(48, 24);
-            this.toolStripButtonCancel.Text = "cancel";
-            this.toolStripButtonCancel.Click += new System.EventHandler(this.toolStripButtonCancel_Click);
             // 
             // GridTradingMainPanel
             // 
@@ -163,10 +139,8 @@
         private System.Windows.Forms.ToolStrip toolStripMain;
         private System.Windows.Forms.ToolStripButton toolStripButtonSetting;
         private System.Windows.Forms.ToolStripButton toolStripButtonInit;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButtonOrder;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
-        private System.Windows.Forms.ToolStripButton toolStripButtonCancel;
     }
 }
