@@ -20,25 +20,25 @@ namespace trading_unit_test
                 'MaxPrice': 30.50,
                 'MinPrice': 30.50,
                 'GridNodes': [
-                    {'32.38': 15000},
-                    {'32.06': 16000},
-                    {'31.74': 17000},
-                    {'31.42': 18000},
-                    {'31.11': 19000},
-                    {'30.81': 20000},
-                    {'30.50': 21000},
-                    {'30.20': 22000},
-                    {'29.89': 23000},
-                    {'29.59': 24000},
-                    {'29.30': 25000}
+                    {'TradingPrice': 32.38,'HoldingVolume':15000},
+                    {'TradingPrice': 32.06,'HoldingVolume': 16000},
+                    {'TradingPrice': 31.74,'HoldingVolume': 17000},
+                    {'TradingPrice': 31.42,'HoldingVolume': 18000},
+                    {'TradingPrice': 31.11,'HoldingVolume': 19000},
+                    {'TradingPrice': 30.81,'HoldingVolume': 20000},
+                    {'TradingPrice': 30.50,'HoldingVolume': 21000},
+                    {'TradingPrice': 30.20,'HoldingVolume': 22000},
+                    {'TradingPrice': 29.89,'HoldingVolume': 23000},
+                    {'TradingPrice': 29.59,'HoldingVolume': 24000},
+                    {'TradingPrice': 29.30,'HoldingVolume': 25000}
                 ]
             }";
 
-            ManualGrid g = ManualGrid.FromJson(json);
+            ManualGrid g = ManualGrid.FromJson<ManualGrid>(json);
 
-            foreach (var item in g.gridNodeList)
+            foreach (var node in g.GridNodes)
             {
-                printItemData(item.Value);
+                printNodeData(node);
             }
 
             Console.WriteLine("InitPrice:" + g.InitPrice);
@@ -49,7 +49,7 @@ namespace trading_unit_test
 
             for (int p = 13000; p < 27000; p += 500)
             {
-                printExpectedItemData(g, p);
+                printExpectedNodeData(g, p);
 
             }
 
@@ -58,15 +58,15 @@ namespace trading_unit_test
 
         }
 
-        private void printExpectedItemData(ManualGrid g, int volume)
+        private void printExpectedNodeData(ManualGrid g, int volume)
         {
             Console.WriteLine(" ");
             Console.WriteLine("Expected volume:" + volume);
-            var egi = g.ExpectedGridItem(volume);
-            printItemData(egi);
+            var egi = g.ExpectedGridNode(volume);
+            printNodeData(egi);
         }
 
-        private void printItemData(GridNode node)
+        private void printNodeData(GridNode node)
         {
             if (node == null)
                 return;

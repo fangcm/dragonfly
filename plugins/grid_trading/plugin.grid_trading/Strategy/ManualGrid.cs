@@ -4,54 +4,52 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 {
     internal class ManualGrid : Grid
     {
-        internal static ManualGrid FromJson(string jsonData)
+
+        protected override void Init()
         {
-            ManualGrid grid = Newtonsoft.Json.JsonConvert.DeserializeObject<ManualGrid>(jsonData);
+            base.Init();
 
-            grid.gridNodeList.Add(10,new GridNode() { TradingPrice = 10, HoldingVolume = 100, });
-
-            grid.buildTradingGrid();
-            return grid;
-        }
-
-        internal void buildTradingGrid()
-        {
-            foreach (var item in gridNodeList)
+            if (GridNodes == null || GridNodes.Count == 0)
             {
-                int index = gridNodeList.IndexOfKey(item.Key);
+                return;
+            }
+
+            foreach (var node in GridNodes)
+            {
+                int index = GridNodes.FindIndex(x => x.TradingPrice == node.TradingPrice);
 
                 GridOrder buyOrder = null;
                 GridOrder sellOrder = null;
                 if (index > 0)
                 {
-                    var temp = gridNodeList.ElementAt(index - 1);
+                    var temp = GridNodes.ElementAt(index - 1);
                     buyOrder = new GridOrder()
                     {
-                        Price = temp.Value.TradingPrice,
-                        Volume = temp.Value.HoldingVolume - item.Value.HoldingVolume,
+                        Price = temp.TradingPrice,
+                        Volume = temp.HoldingVolume - node.HoldingVolume,
                     };
                 }
 
-                if (index < gridNodeList.Count - 1)
+                if (index < GridNodes.Count - 1)
                 {
-                    var temp = gridNodeList.ElementAt(index + 1);
+                    var temp = GridNodes.ElementAt(index + 1);
                     sellOrder = new GridOrder()
                     {
-                        Price = temp.Value.TradingPrice,
-                        Volume = item.Value.HoldingVolume - temp.Value.HoldingVolume,
+                        Price = temp.TradingPrice,
+                        Volume = node.HoldingVolume - temp.HoldingVolume,
                     };
                 }
 
-                item.Value.SellOrder = sellOrder;
-                item.Value.BuyOrder = buyOrder;
+                node.SellOrder = sellOrder;
+                node.BuyOrder = buyOrder;
 
                 if (index == 0)
                 {
-                    MinPrice = item.Value.TradingPrice;
+                    MinPrice = node.TradingPrice;
                 }
-                else if (index == gridNodeList.Count - 1)
+                else if (index == GridNodes.Count - 1)
                 {
-                    MaxPrice = item.Value.TradingPrice;
+                    MaxPrice = node.TradingPrice;
                 }
 
             }
