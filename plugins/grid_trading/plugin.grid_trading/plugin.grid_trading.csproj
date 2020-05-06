@@ -73,7 +73,6 @@
     </Compile>
     <Compile Include="Strategy\Grid.cs" />
     <Compile Include="Strategy\GridDao.cs" />
-    <Compile Include="Strategy\GridHelper.cs" />
     <Compile Include="Strategy\ManualGrid.cs" />
     <Compile Include="Trade\TradeDao.cs" />
     <Compile Include="Trade\AbstractTrader.cs" />
