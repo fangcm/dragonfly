@@ -9,7 +9,7 @@ namespace trading_unit_test
     [TestClass]
     public class GridDaoTest
     {
- 
+
         [TestMethod]
         public void TestManualGridJson()
         {
@@ -21,9 +21,14 @@ namespace trading_unit_test
 
 
             Console.WriteLine("InitPrice:" + grids.Count);
+
+            foreach (Grid g in grids)
+            {
+                GridTest.PrintGridData(g);
+            }
         }
 
-       
+
     }
 
 

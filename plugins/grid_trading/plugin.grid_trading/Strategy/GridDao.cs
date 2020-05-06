@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
 {
@@ -21,9 +18,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             List<SQLiteParameter> paramList = new List<SQLiteParameter>();
 
-            string sql = @"
-                select id,stock_market,stock_code,stock_name,init_price,init_holding_volume,
-                  max_price,min_price,strategy_json,disable_flag,delete_flag
+            string sql = @"select id,grid_type,stock_code,stock_name,strategy_json,disable_flag,delete_flag
                 from grid_strategy
                 where delete_flag = 0 ";
 
@@ -34,13 +29,21 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             }
             sql += "order by id ";
 
-
+            List<Grid> grids = new List<Grid>();
             DataTable dt = SqliteHelper.ExecuteDataTable(sql, paramList.ToArray());
             foreach (DataRow row in dt.Rows)
             {
-                Console.WriteLine(row.ToString());
+                GridType gridType = (GridType)Convert.ToInt32(row["grid_type"]);
+                switch (gridType)
+                {
+                    case GridType.ManualGrid:
+                        ManualGrid g = Grid.FromJson<ManualGrid>(Convert.ToString(row["strategy_json"]));
+                        grids.Add(g);
+                        break;
+                }
+
             }
-            return null;
+            return grids;
         }
     }
 }

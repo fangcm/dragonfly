@@ -36,20 +36,11 @@ namespace trading_unit_test
 
             ManualGrid g = ManualGrid.FromJson<ManualGrid>(json);
 
-            foreach (var node in g.GridNodes)
-            {
-                printNodeData(node);
-            }
-
-            Console.WriteLine("InitPrice:" + g.InitPrice);
-            Console.WriteLine("InitHoldingVolume:" + g.InitHoldingVolume);
-            Console.WriteLine("MinPrice:" + g.MinPrice);
-            Console.WriteLine("MaxPrice:" + g.MaxPrice);
-
+            PrintGridData(g);
 
             for (int p = 13000; p < 27000; p += 500)
             {
-                printExpectedNodeData(g, p);
+                PrintExpectedNodeData(g, p);
 
             }
 
@@ -58,15 +49,28 @@ namespace trading_unit_test
 
         }
 
-        private void printExpectedNodeData(ManualGrid g, int volume)
+        private void PrintExpectedNodeData(ManualGrid g, int volume)
         {
             Console.WriteLine(" ");
             Console.WriteLine("Expected volume:" + volume);
             var egi = g.ExpectedGridNode(volume);
-            printNodeData(egi);
+            GridTest.PrintNodeData(egi);
+        }
+        internal static void PrintGridData(Grid g)
+        {
+            foreach (var node in g.GridNodes)
+            {
+                PrintNodeData(node);
+            }
+
+            Console.WriteLine("InitPrice:" + g.InitPrice);
+            Console.WriteLine("InitHoldingVolume:" + g.InitHoldingVolume);
+            Console.WriteLine("MinPrice:" + g.MinPrice);
+            Console.WriteLine("MaxPrice:" + g.MaxPrice);
+
         }
 
-        private void printNodeData(GridNode node)
+        internal static void PrintNodeData(GridNode node)
         {
             if (node == null)
                 return;
