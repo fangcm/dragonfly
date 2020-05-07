@@ -1,5 +1,4 @@
 ﻿using Dragonfly.Plugin.GridTrading.Strategy;
-using System;
 using System.Collections.Generic;
 
 
@@ -8,25 +7,35 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
     internal class ModelHoldingStock
     {
+        internal string accountNo = string.Empty; // 股东代码
         internal string stockCode = string.Empty; // 证券代码
         internal string stockName = string.Empty; // 证券名称
-        internal int holdingVolume = 0; // 证券数量
+        internal int holdingVolume = 0; // 证券数量 （A股）  持仓量（港股）
         internal int availableVolume = 0; // 可卖数量
-        internal decimal costPrice = 0; // 成本价
-        internal decimal currPrice = 0; // 当前价
-        internal decimal marketValue = 0; // 最新市值
-        internal decimal pnl = 0; // 浮动盈亏
-        internal decimal pnlPercent = 0; // 盈亏比例(%)
+        internal int currVolume = 0; // 当前数量（港股）
+        internal decimal currPrice = 0; // 当前价 or 最新价(港币)
 
         internal static List<ModelHoldingStock> Parse(List<string[]> param)
         {
             if (param == null || param.Count == 0)
                 return null;
             List<ModelHoldingStock> holdStockList = new List<ModelHoldingStock>();
-            
-            string[] header = param[1];
-            for (int row = 2; row < param.Count; row++)
+
+            string[] header = null;
+            for (int row = 0; row < param.Count; row++)
             {
+                if(param[row].Length < 10)
+                {
+                    // 忽略其他信息
+                    continue;
+                }
+
+                if(header == null)
+                {
+                    header = param[row];
+                    continue;
+                }
+
                 string[] rawHoldingStock = param[row];
                 if (rawHoldingStock.Length != header.Length)
                     continue;
@@ -38,6 +47,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     string value = rawHoldingStock[col];
                     switch (key)
                     {
+                        case "股东代码":
+                            item.accountNo = value;
+                            break;
                         case "证券代码":
                             item.stockCode = value;
                             break;
@@ -45,25 +57,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             item.stockName = value;
                             break;
                         case "证券数量":
+                        case "持仓量":
                             item.holdingVolume = (int)decimal.Parse(value);
                             break;
                         case "可卖数量":
                             item.availableVolume = (int)decimal.Parse(value);
                             break;
-                        case "成本价":
-                            item.costPrice = decimal.Parse(value);
+                        case "当前数量":
+                            item.currVolume = (int)decimal.Parse(value);
                             break;
                         case "当前价":
                             item.currPrice = decimal.Parse(value);
-                            break;
-                        case "最新市值":
-                            item.marketValue = decimal.Parse(value);
-                            break;
-                        case "浮动盈亏":
-                            item.pnl = decimal.Parse(value);
-                            break;
-                        case "盈亏比例(%)":
-                            item.pnlPercent = decimal.Parse(value);
                             break;
                     }
                 }
