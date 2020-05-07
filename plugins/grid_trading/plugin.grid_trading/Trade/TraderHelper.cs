@@ -65,7 +65,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal Tuple<ModelAccountStat, List<ModelHoldingStock>> HoldingStockList()
+        internal List<ModelHoldingStock> HoldingStockList()
         {
             lock (lockObject)
             {
@@ -110,7 +110,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal Tuple<ModelAccountStat, List<ModelHoldingStock>> HgtHoldingStockList()
+        internal List<ModelHoldingStock> HgtHoldingStockList()
         {
             lock (lockObject)
             {
@@ -155,7 +155,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
         }
 
-        internal Tuple<ModelAccountStat, List<ModelHoldingStock>> SgtHoldingStockList()
+        internal List<ModelHoldingStock> SgtHoldingStockList()
         {
             lock (lockObject)
             {

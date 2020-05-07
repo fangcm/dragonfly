@@ -229,7 +229,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             return (List<ModelTodayDeals>)ParseModelDataFromTxtFileAfterConfirDlg(ModelTodayDeals.Parse);
         }
 
-        public Tuple<ModelAccountStat, List<ModelHoldingStock>> SgtHoldingStockList()
+        public List<ModelHoldingStock> SgtHoldingStockList()
         {
             Log(LoggType.Black, "深港通资金股份");
             MouseClickToolbar(hToolBar, 0);
@@ -254,8 +254,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             WindowButton.Click(hOutputButton);
-            return (Tuple<ModelAccountStat, List<ModelHoldingStock>>)
-                ParseModelDataFromTxtFileAfterConfirDlg(ModelHoldingStock.Parse);
+            return (List<ModelHoldingStock>)ParseModelDataFromTxtFileAfterConfirDlg(ModelHoldingStock.Parse);
         }
 
 

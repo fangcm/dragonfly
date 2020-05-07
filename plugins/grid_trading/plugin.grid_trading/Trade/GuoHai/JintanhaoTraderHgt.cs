@@ -231,7 +231,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         }
 
-        public Tuple<ModelAccountStat, List<ModelHoldingStock>> HgtHoldingStockList()
+        public List<ModelHoldingStock> HgtHoldingStockList()
         {
             Log(LoggType.Black, "沪港通资金股份");
             MouseClickToolbar(hToolBar, 0);
@@ -256,8 +256,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             WindowButton.Click(hOutputButton);
-            return (Tuple<ModelAccountStat, List<ModelHoldingStock>>)
-                ParseModelDataFromTxtFileAfterConfirDlg(ModelHoldingStock.Parse);
+            return (List<ModelHoldingStock>)ParseModelDataFromTxtFileAfterConfirDlg(ModelHoldingStock.Parse);
 
         }
 

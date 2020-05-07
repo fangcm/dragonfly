@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragonfly.Plugin.GridTrading.Trade.GuoHai;
+using System;
 using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
@@ -20,7 +21,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         List<ModelTodayDeals> TodayDealsList();
 
-        Tuple<ModelAccountStat, List<ModelHoldingStock>> HoldingStockList();
+        List<ModelHoldingStock> HoldingStockList();
 
         #endregion
 
@@ -34,7 +35,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         List<ModelTodayDeals> HgtTodayDealsList();
 
-        Tuple<ModelAccountStat, List<ModelHoldingStock>> HgtHoldingStockList();
+        List<ModelHoldingStock> HgtHoldingStockList();
 
         #endregion
 
@@ -48,7 +49,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         List<ModelTodayDeals> SgtTodayDealsList();
 
-        Tuple<ModelAccountStat, List<ModelHoldingStock>> SgtHoldingStockList();
+        List<ModelHoldingStock> SgtHoldingStockList();
 
         #endregion
 

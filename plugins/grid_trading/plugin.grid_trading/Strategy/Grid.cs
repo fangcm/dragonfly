@@ -70,7 +70,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         }
 
         // 根据持仓量，获取下一网格交易项
-        internal virtual GridNode ExpectedGridNode(int holdingVolume)
+        internal virtual GridNode ExpectedGridNodeByHoldingVolume(int holdingVolume)
         {
             if (GridNodes == null || GridNodes.Count == 0)
             {
@@ -96,6 +96,31 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             return expectedNode;
         }
 
+        internal GridNode ExpectedGridNodeByPrice(decimal price)
+        {
+            if (GridNodes == null || GridNodes.Count == 0)
+            {
+                return null;
+            }
+            else if (GridNodes.Count == 1)
+            {
+                return GridNodes[0];
+            }
+
+            GridNode expectedNode = null;
+            decimal minDist = price;
+            foreach (GridNode node in GridNodes)
+            {
+                decimal dist = Math.Abs(node.TradingPrice - price);
+                if (dist < minDist)
+                {
+                    expectedNode = node;
+                    minDist = dist;
+                }
+            }
+
+            return expectedNode;
+        }
     }
 
     internal class GridNode

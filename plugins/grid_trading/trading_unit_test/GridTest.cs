@@ -53,7 +53,7 @@ namespace trading_unit_test
         {
             Console.WriteLine(" ");
             Console.WriteLine("Expected volume:" + volume);
-            var egi = g.ExpectedGridNode(volume);
+            var egi = g.ExpectedGridNodeByHoldingVolume(volume);
             GridTest.PrintNodeData(egi);
         }
         internal static void PrintGridData(Grid g)
