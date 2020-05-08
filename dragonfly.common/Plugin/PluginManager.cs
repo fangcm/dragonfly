@@ -29,31 +29,21 @@ namespace Dragonfly.Common.Plugin
 
             List<string> plugIns = new List<string>();
 
+            try
+            {
 #if DEBUG
-            Logger.info("PluginManager", "DEBUG mode");
-            try
-            {
-                string debugPluginPath = AppDomain.CurrentDomain.BaseDirectory;
-                string[] plugInsInDebugPath = Directory.GetFiles(debugPluginPath, "*.dll", SearchOption.AllDirectories);
-                plugIns.AddRange(plugInsInDebugPath);
-            }
-            catch
-            {
-            }
+                Logger.info("PluginManager", "DEBUG mode");
+                string pluginPath = AppDomain.CurrentDomain.BaseDirectory;
 #else
-
-            Logger.info("PluginManager", "RELEASE mode");
-            try
-            {
+                Logger.info("PluginManager", "RELEASE mode");
                 string pluginPath = AppConfig.PluginsPath;
+#endif
                 string[] plugInsInDataPath = Directory.GetFiles(pluginPath, "*.dll", SearchOption.AllDirectories);
                 plugIns.AddRange(plugInsInDataPath);
             }
             catch
             {
             }
-
-#endif
 
             if (plugIns == null || plugIns.Count == 0)
             {
@@ -95,7 +85,7 @@ namespace Dragonfly.Common.Plugin
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.error("PluginManager", "Create plugin instance error. " , e.Message);
+                                    Logger.error("PluginManager", "Create plugin instance error. ", e.Message);
                                 }
                             }
                         }
@@ -103,11 +93,11 @@ namespace Dragonfly.Common.Plugin
                 }
                 catch (ReflectionTypeLoadException ex)
                 {
-                    Logger.error("PluginManager", "ReflectionTypeLoadException error. " , ex.Message);
+                    Logger.error("PluginManager", "ReflectionTypeLoadException error. ", ex.Message);
                 }
                 catch (Exception e)
                 {
-                    Logger.error("PluginManager", "Other Exception error. " ,e.Message);
+                    Logger.error("PluginManager", "Other Exception error. ", e.Message);
                 }
             }
         }
