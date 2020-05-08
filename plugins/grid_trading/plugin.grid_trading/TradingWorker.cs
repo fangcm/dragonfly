@@ -73,20 +73,34 @@ namespace Dragonfly.Plugin.GridTrading
             {
                 // 查出历史最后成交
                 ModelTodayDeals tr = TradeDao.FindLastTradingRecord(grid.StockMarket, grid.StockCode);
-                grid.LastTradingOrder = new GridOrder() { Direction = tr.ConvertDirectionToInt(), Price = tr.tradePrice, Volume = tr.tradeVolume };
 
+                decimal lastTradePrice;
+                if (tr != null && tr.tradePrice > 0)
+                {
+                    lastTradePrice = tr.tradePrice;
+                }
+                else
+                {
+                    lastTradePrice = grid.InitPrice;
+                }
                 // 算出下一笔的买卖单
-                GridNode nodeByPrice = grid.ExpectedGridNodeByPrice(tr.tradePrice);
+                GridNode nodeByPrice = grid.ExpectedGridNodeByPrice(lastTradePrice);
 
                 int holdingVolume = FindStockHoldingVolume(grid.StockMarket, grid.StockCode, holdingStocks);
+                if (holdingVolume == 0)
+                {
+                    LoggerUtil.Log(LoggType.Red, "忽略 - 查询股票持仓数量为0。 市场：" + grid.StockMarket.ToString() + ", 股票：" + grid.StockCode);
+                    continue;
+                }
+
                 GridNode nodeByVolume = grid.ExpectedGridNodeByHoldingVolume(holdingVolume);
                 // 不一致, 忽略
                 bool sameNode = Grid.Equals(nodeByPrice, nodeByVolume);
                 if (!sameNode)
                 {
-                    LoggerUtil.Log(LoggType.Red, "网格策略在判断当前网格节点时存在不一致，需人工参与。 市场：" + grid.StockMarket.ToString() +
-                        ", 股票：" + grid.StockCode + ", 价格" + tr.tradePrice + ", 数量：" + tr.tradeVolume + ", 持仓：" + holdingStocks);
-                    return;
+                    LoggerUtil.Log(LoggType.Red, "忽略 - 网格策略在判断当前网格节点时存在不一致，需人工参与。 市场：" + grid.StockMarket.ToString() +
+                        ", 股票：" + grid.StockCode + ", 查询最后交易价格" + lastTradePrice + ", 持仓：" + holdingVolume);
+                    continue;
                 }
 
 

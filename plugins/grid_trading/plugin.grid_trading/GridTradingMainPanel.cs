@@ -1,4 +1,5 @@
-﻿using Dragonfly.Plugin.GridTrading.Trade;
+﻿using Dragonfly.Plugin.GridTrading.Strategy;
+using Dragonfly.Plugin.GridTrading.Trade;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -30,20 +31,6 @@ namespace Dragonfly.Plugin.GridTrading
 
         }
 
-        private void toolStripButtonSetting_Click(object sender, EventArgs e)
-        {
-            /*
-            JobSettingForm settingForm = new JobSettingForm();
-            if(settingForm.ShowDialog() == DialogResult.OK)
-            {
-                if (settingForm.bDataChanged)
-                {
-                    //this.gridTradingPlugin.StartGridTrading();
-                }
-            }
-            */
-        }
-
         private delegate void InsertLineDelegate(int index, DateTime date, Color foreColor, string desc);
 
         public void InsertLine(int index, DateTime date, System.Drawing.Color foreColor, string desc)
@@ -72,25 +59,19 @@ namespace Dragonfly.Plugin.GridTrading
             InsertLine(0, date, foreColor, desc);
         }
 
+
+        private void toolStripButtonSetting_Click(object sender, EventArgs e)
+        {
+            GridSettingForm settingForm = new GridSettingForm();
+            settingForm.ShowDialog();
+        }
+
         private void toolStripButtonInit_Click(object sender, EventArgs e)
         {
-            TraderHelper.Instance.Init();
-        }
-
-        private void toolStripButton5_Click(object sender, EventArgs e)
-        {
-            TraderHelper.Instance.TodayDealsList();
-        }
-
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            var a = TraderHelper.Instance.HoldingStockList();
-            Console.WriteLine("aaa");
-        }
-
-        private void toolStripButtonCancel_Click(object sender, EventArgs e)
-        {
-            var a = TraderHelper.Instance.RevocableOrders();
+            if (gridTradingPlugin != null)
+            {
+                gridTradingPlugin.TraderReady = TraderHelper.Instance.Init();
+            }
         }
 
         private void toolStripButtonOrder_Click(object sender, EventArgs e)

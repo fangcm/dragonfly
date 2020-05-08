@@ -33,8 +33,7 @@ namespace Dragonfly.Common.Plugin
             Logger.info("PluginManager", "DEBUG mode");
             try
             {
-                string debugPath = @"..\..\plugins\bin\Debug";
-                string debugPluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, debugPath);
+                string debugPluginPath = AppDomain.CurrentDomain.BaseDirectory;
                 string[] plugInsInDebugPath = Directory.GetFiles(debugPluginPath, "*.dll", SearchOption.AllDirectories);
                 plugIns.AddRange(plugInsInDebugPath);
             }

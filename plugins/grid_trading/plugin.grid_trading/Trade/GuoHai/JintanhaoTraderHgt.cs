@@ -12,6 +12,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void HgtBuyStock(string stockCode, decimal price, int volume)
         {
+            if (hHkStockTree == IntPtr.Zero || hHkHgtBuy == IntPtr.Zero)
+            {
+                return;
+            }
+
             Log(LoggType.Red, "沪港通购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtBuy);
@@ -101,6 +106,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void HgtSellStock(string stockCode, decimal price, int volume)
         {
+            if (hHkStockTree == IntPtr.Zero || hHkHgtSell == IntPtr.Zero)
+            {
+                return;
+            }
+
             Log(LoggType.Red, "沪港通卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtSell);
@@ -189,6 +199,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelRevocableOrder> HgtRevocableOrders()
         {
+            if (hHkStockTree == IntPtr.Zero || hHkHgtCancel == IntPtr.Zero)
+            {
+                return null;
+            }
+
             Log(LoggType.Red, "沪港通可撤委托");
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtCancel);
@@ -211,6 +226,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelTodayDeals> HgtTodayDealsList()
         {
+            if (hHkStockTree == IntPtr.Zero || hHkHgtTodayDeals == IntPtr.Zero)
+            {
+                return null;
+            }
+
             Log(LoggType.Black, "沪港通当日成交");
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtTodayDeals);
@@ -233,6 +253,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelHoldingStock> HgtHoldingStockList()
         {
+            if (hHkStockTree == IntPtr.Zero || hHkHgtHoldingStock == IntPtr.Zero)
+            {
+                return null;
+            }
+
             Log(LoggType.Black, "沪港通资金股份");
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hHkStockTree, hHkHgtHoldingStock);

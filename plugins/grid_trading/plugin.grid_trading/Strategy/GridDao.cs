@@ -18,7 +18,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             List<SQLiteParameter> paramList = new List<SQLiteParameter>();
 
-            string sql = @"select id,grid_type,stock_code,stock_name,strategy_json,disable_flag,delete_flag
+            string sql = @"select id,grid_type,strategy_json,disable_flag
                 from grid_strategy
                 where delete_flag = 0 ";
 

@@ -19,9 +19,6 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
     internal abstract class Grid
     {
-        [JsonIgnore]
-        internal GridOrder LastTradingOrder { get; set; }
-
         [JsonProperty(Required = Required.Always)]
         internal StockMarket StockMarket { get; set; }
 

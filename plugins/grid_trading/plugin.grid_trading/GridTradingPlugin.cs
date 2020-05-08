@@ -1,7 +1,6 @@
 ﻿using Dragonfly.Common.Plugin;
 using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
-using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -32,6 +31,8 @@ namespace Dragonfly.Plugin.GridTrading
         public string Caption { get { return "网格交易"; } }
         public string Version { get { return "1.0.0"; } }
 
+        internal bool TraderReady { get; set; }
+
         public void Initialize()
         {
             if (mainPanel == null)
@@ -42,6 +43,8 @@ namespace Dragonfly.Plugin.GridTrading
             LoggerUtil.Init(mainPanel);
             LoggerUtil.Log(LoggType.Gray, "启动初始化");
 
+            SqliteHelper.DataSource = AppDomain.CurrentDomain.BaseDirectory + "grid_trading.db";
+
             this.bgWorker = new BackgroundWorker();
             this.bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
 
@@ -49,6 +52,7 @@ namespace Dragonfly.Plugin.GridTrading
             timer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
             timer.AutoReset = true;
             timer.Enabled = true;
+
 
             Logger.info("GridTradingPlugin", "Initialize");
 
@@ -102,6 +106,11 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (!TraderReady)
+            {
+                LoggerUtil.Log(LoggType.Black, "没有关联交易软件,不能自动下单");
+                return;
+            }
             elapsedCounter++;
             LoggerUtil.Log(LoggType.Gray, "开始策略交易，第" + elapsedCounter + "次");
 

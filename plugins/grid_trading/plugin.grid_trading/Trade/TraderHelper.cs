@@ -1,5 +1,4 @@
 ﻿using Dragonfly.Plugin.GridTrading.Trade.GuoHai;
-using System;
 using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
@@ -15,11 +14,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         object lockObject = new object();
         ITrader trader = new JintanhaoTrader();
 
-        internal void Init()
+        internal bool Init()
         {
             lock (lockObject)
             {
-                trader.Init();
+                return trader.Init();
             }
         }
 

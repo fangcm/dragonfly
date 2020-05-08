@@ -12,6 +12,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void BuyStock(string stockCode, decimal price, int volume)
         {
+            if (hStockTree == IntPtr.Zero || hBuy == IntPtr.Zero)
+            {
+                return;
+            }
+
             Log(LoggType.Red, "A股购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hStockTree, hBuy);
@@ -100,6 +105,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public void SellStock(string stockCode, decimal price, int volume)
         {
+            if (hStockTree == IntPtr.Zero || hSell == IntPtr.Zero)
+            {
+                return;
+            }
+            
             Log(LoggType.Red, "A股卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hStockTree, hSell);
@@ -187,6 +197,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelRevocableOrder> RevocableOrders()
         {
+            if (hStockTree == IntPtr.Zero || hCancel == IntPtr.Zero)
+            {
+                return null;
+            }
+
             Log(LoggType.Red, "A股可撤委托");
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hStockTree, hCancel);
@@ -209,6 +224,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelTodayDeals> TodayDealsList()
         {
+            if(hStockTree == IntPtr.Zero || hTodayDeals == IntPtr.Zero)
+            {
+                return null;
+            }
+
             Log(LoggType.Black, "A股当日成交");
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hStockTree, hTodayDeals);
@@ -230,6 +250,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelHoldingStock> HoldingStockList()
         {
+            if (hStockTree == IntPtr.Zero || hHoldingStock == IntPtr.Zero)
+            {
+                return null;
+            }
+
             Log(LoggType.Black, "A股资金股份");
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hStockTree, hHoldingStock);
