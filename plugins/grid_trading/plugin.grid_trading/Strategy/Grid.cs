@@ -19,6 +19,13 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
     internal abstract class Grid
     {
+        [JsonIgnore]
+        internal int Id { get; set; }
+        [JsonIgnore]
+        internal int GridType { get; set; }
+        [JsonIgnore]
+        internal int DisableFlag { get; set; }
+
         [JsonProperty(Required = Required.Always)]
         internal StockMarket StockMarket { get; set; }
 

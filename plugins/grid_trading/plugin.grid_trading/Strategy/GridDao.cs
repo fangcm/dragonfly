@@ -34,14 +34,21 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             foreach (DataRow row in dt.Rows)
             {
                 GridType gridType = (GridType)Convert.ToInt32(row["grid_type"]);
+                Grid g = null;
                 switch (gridType)
                 {
                     case GridType.ManualGrid:
-                        ManualGrid g = Grid.FromJson<ManualGrid>(Convert.ToString(row["strategy_json"]));
-                        grids.Add(g);
+                        g = Grid.FromJson<ManualGrid>(Convert.ToString(row["strategy_json"]));
                         break;
                 }
 
+                if (g != null)
+                {
+                    g.Id = Convert.ToInt32(row["id"]);
+                    g.DisableFlag = Convert.ToInt32(row["disable_flag"]);
+                    g.GridType = (int)gridType;
+                    grids.Add(g);
+                }
             }
             return grids;
         }
