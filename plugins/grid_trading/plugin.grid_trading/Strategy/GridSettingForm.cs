@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Dragonfly.Plugin.GridTrading
+namespace Dragonfly.Plugin.GridTrading.Strategy
 {
-    internal partial class JobSettingForm : Form
+    internal partial class GridSettingForm : Form
     {
         public bool bDataChanged = false;
 
@@ -89,7 +89,7 @@ namespace Dragonfly.Plugin.GridTrading
             set { numericUpDownDuration.Value = value; }
         }
 
-        public JobSettingForm()
+        public GridSettingForm()
         {
             InitializeComponent();
         }

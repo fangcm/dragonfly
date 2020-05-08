@@ -72,7 +72,7 @@ namespace Dragonfly.Plugin.GridTrading
             foreach (Grid grid in grids)
             {
                 // 查出历史最后成交
-                TradingRecord tr = TradeDao.FindLastTradingRecord(grid.StockMarket, grid.StockCode);
+                ModelTodayDeals tr = TradeDao.FindLastTradingRecord(grid.StockMarket, grid.StockCode);
                 grid.LastTradingOrder = new GridOrder() { Direction = tr.ConvertDirectionToInt(), Price = tr.tradePrice, Volume = tr.tradeVolume };
 
                 // 算出下一笔的买卖单

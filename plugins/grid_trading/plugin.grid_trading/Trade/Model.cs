@@ -82,7 +82,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
     internal class ModelTodayDeals
     {
         internal int tradeDate = 0; // 成交日期
-        internal string tradingTime = string.Empty; // 成交时间 hh:mm:ss
+        internal string tradeTime = string.Empty; // 成交时间 hh:mm:ss
         internal string direction = string.Empty; // 买卖标志(buy or sell)
         internal string stockCode = string.Empty; // 证券代码                                      
         internal string stockName = string.Empty; // 证券名称
@@ -135,7 +135,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             item.tradeDate = int.Parse(value);
                             break;
                         case "成交时间":
-                            item.tradingTime = value;
+                            item.tradeTime = value;
                             break;
                         case "买卖标志":
                             item.direction = value;
@@ -187,7 +187,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
     internal class ModelRevocableOrder
     {
         internal int tradeDate = 0; // 成交日期
-        internal string tradingTime = string.Empty; // 成交时间 hh:mm:ss
+        internal string tradeTime = string.Empty; // 成交时间 hh:mm:ss
         internal string stockCode = string.Empty; // 证券代码                                      
         internal string stockName = string.Empty; // 证券名称
         internal string direction = string.Empty; // 买卖标志(buy or sell)
@@ -241,7 +241,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             item.tradeDate = int.Parse(value);
                             break;
                         case "成交时间":
-                            item.tradingTime = value;
+                            item.tradeTime = value;
                             break;
                         case "证券代码":
                             item.stockCode = value;

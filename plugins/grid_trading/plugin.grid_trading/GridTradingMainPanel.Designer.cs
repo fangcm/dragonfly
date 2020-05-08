@@ -44,10 +44,10 @@
             this.listViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewMain.FullRowSelect = true;
             this.listViewMain.GridLines = true;
-            this.listViewMain.Location = new System.Drawing.Point(0, 27);
+            this.listViewMain.Location = new System.Drawing.Point(0, 25);
             this.listViewMain.Name = "listViewMain";
             this.listViewMain.ShowGroups = false;
-            this.listViewMain.Size = new System.Drawing.Size(353, 123);
+            this.listViewMain.Size = new System.Drawing.Size(353, 125);
             this.listViewMain.TabIndex = 1;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
@@ -64,17 +64,17 @@
             this.toolStripButton5});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(353, 27);
+            this.toolStripMain.Size = new System.Drawing.Size(353, 25);
             this.toolStripMain.TabIndex = 2;
             this.toolStripMain.Text = "toolStripMain";
             // 
             // toolStripButtonSetting
             // 
-            this.toolStripButtonSetting.Image = global::Dragonfly.Plugin.GridTrading.Properties.Resources.setting;
+            this.toolStripButtonSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSetting.Name = "toolStripButtonSetting";
-            this.toolStripButtonSetting.Size = new System.Drawing.Size(56, 24);
-            this.toolStripButtonSetting.Text = "参数";
+            this.toolStripButtonSetting.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButtonSetting.Text = "交易策略";
             this.toolStripButtonSetting.Click += new System.EventHandler(this.toolStripButtonSetting_Click);
             // 
             // toolStripButtonInit
@@ -83,7 +83,7 @@
             this.toolStripButtonInit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonInit.Image")));
             this.toolStripButtonInit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonInit.Name = "toolStripButtonInit";
-            this.toolStripButtonInit.Size = new System.Drawing.Size(60, 24);
+            this.toolStripButtonInit.Size = new System.Drawing.Size(60, 22);
             this.toolStripButtonInit.Text = "关联交易";
             this.toolStripButtonInit.Click += new System.EventHandler(this.toolStripButtonInit_Click);
             // 
@@ -93,8 +93,8 @@
             this.toolStripButtonOrder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOrder.Image")));
             this.toolStripButtonOrder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOrder.Name = "toolStripButtonOrder";
-            this.toolStripButtonOrder.Size = new System.Drawing.Size(36, 24);
-            this.toolStripButtonOrder.Text = "下单";
+            this.toolStripButtonOrder.Size = new System.Drawing.Size(60, 24);
+            this.toolStripButtonOrder.Text = "手工下单";
             this.toolStripButtonOrder.Click += new System.EventHandler(this.toolStripButtonOrder_Click);
             // 
             // toolStripButton4
