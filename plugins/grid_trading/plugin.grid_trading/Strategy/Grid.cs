@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
 {
@@ -17,12 +18,10 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         Sgt = 3,
     }
 
-    internal abstract class Grid
+    internal class Grid
     {
         [JsonIgnore]
         internal int Id { get; set; }
-        [JsonIgnore]
-        internal int GridType { get; set; }
         [JsonIgnore]
         internal int DisableFlag { get; set; }
 
@@ -56,21 +55,49 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             return JsonConvert.SerializeObject(this);
         }
 
-        internal static T FromJson<T>(string jsonData) where T : Grid
+        internal static Grid FromJson(string jsonData)
         {
-            T grid = JsonConvert.DeserializeObject<T>(jsonData);
-            grid.Init();
-
-            return (T)Convert.ChangeType(grid, typeof(T));
+            return JsonConvert.DeserializeObject<Grid>(jsonData);
         }
 
-        protected virtual void Init()
+        internal virtual void ResetOrders()
         {
             if (GridNodes == null || GridNodes.Count == 0)
             {
                 return;
             }
             GridNodes.Sort((x, y) => x.TradingPrice.CompareTo(y.TradingPrice));
+
+            foreach (var node in GridNodes)
+            {
+                int index = GridNodes.FindIndex(x => x.TradingPrice == node.TradingPrice);
+
+                GridOrder buyOrder = null;
+                GridOrder sellOrder = null;
+                if (index > 0)
+                {
+                    var temp = GridNodes.ElementAt(index - 1);
+                    buyOrder = new GridOrder()
+                    {
+                        Price = temp.TradingPrice,
+                        Volume = temp.HoldingVolume - node.HoldingVolume,
+                    };
+                }
+
+                if (index < GridNodes.Count - 1)
+                {
+                    var temp = GridNodes.ElementAt(index + 1);
+                    sellOrder = new GridOrder()
+                    {
+                        Price = temp.TradingPrice,
+                        Volume = node.HoldingVolume - temp.HoldingVolume,
+                    };
+                }
+
+                node.SellOrder = sellOrder;
+                node.BuyOrder = buyOrder;
+            }
+
         }
 
         // 根据持仓量，获取下一网格交易项
@@ -138,22 +165,24 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         internal int HoldingVolume { get; set; }
 
         //买单
-        [JsonIgnore]
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         internal GridOrder BuyOrder { get; set; }
 
         //卖单
-        [JsonIgnore]
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         internal GridOrder SellOrder { get; set; }
     }
 
 
     internal class GridOrder
     {
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         internal Direction Direction { get; set; }
         //交易价
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         internal decimal Price { get; set; }
-
         //数量
+        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         internal int Volume { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace trading_unit_test
             List<Grid> grids = GridDao.GetAllGrids();
 
 
-            Console.WriteLine("InitPrice:" + grids.Count);
+            Console.WriteLine("grid Count:" + grids.Count);
 
             foreach (Grid g in grids)
             {

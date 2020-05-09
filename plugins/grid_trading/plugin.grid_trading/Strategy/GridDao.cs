@@ -6,11 +6,6 @@ using System.Data.SQLite;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
 {
-    internal enum GridType : int
-    {
-        ManualGrid = 1,
-        EqualRatioGrid = 2,
-    }
 
     internal static class GridDao
     {
@@ -18,7 +13,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             List<SQLiteParameter> paramList = new List<SQLiteParameter>();
 
-            string sql = @"select id,grid_type,strategy_json,disable_flag
+            string sql = @"select id,strategy_json,disable_flag
                 from grid_strategy
                 where delete_flag = 0 ";
 
@@ -33,20 +28,12 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             DataTable dt = SqliteHelper.ExecuteDataTable(sql, paramList.ToArray());
             foreach (DataRow row in dt.Rows)
             {
-                GridType gridType = (GridType)Convert.ToInt32(row["grid_type"]);
-                Grid g = null;
-                switch (gridType)
-                {
-                    case GridType.ManualGrid:
-                        g = Grid.FromJson<ManualGrid>(Convert.ToString(row["strategy_json"]));
-                        break;
-                }
+                Grid g = Grid.FromJson(Convert.ToString(row["strategy_json"]));
 
                 if (g != null)
                 {
                     g.Id = Convert.ToInt32(row["id"]);
                     g.DisableFlag = Convert.ToInt32(row["disable_flag"]);
-                    g.GridType = (int)gridType;
                     grids.Add(g);
                 }
             }

@@ -71,8 +71,8 @@ namespace Dragonfly.Plugin.GridTrading
 
             foreach (Grid grid in grids)
             {
-                // 查出历史最后成交
-                ModelTodayDeals tr = TradeDao.FindLastTradingRecord(grid.StockMarket, grid.StockCode);
+                // 查出历史最后成交价格
+                ModelTodayDeals tr = TradeDao.FindLastTradingPrice(grid.StockMarket, grid.StockCode);
 
                 decimal lastTradePrice;
                 if (tr != null && tr.tradePrice > 0)

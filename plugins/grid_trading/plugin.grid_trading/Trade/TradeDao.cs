@@ -103,16 +103,14 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             SqliteHelper.ExecuteNonQuery(sql, paramList.ToArray());
         }
 
-        internal static ModelTodayDeals FindLastTradingRecord(StockMarket stockMarket, string stockCode)
+        internal static ModelTodayDeals FindLastTradingPrice(StockMarket stockMarket, string stockCode)
         {
             List<SQLiteParameter> paramList = new List<SQLiteParameter>();
 
-            string sql = @"select trade_date,direction,stock_code,trade_price,sum(trade_volume) trade_volume,
-                    order_no, max(trade_time) last_trade_time
+            string sql = @"select trade_date,trade_time,direction,stock_code,trade_price
                 from trade_record
                 where stock_market= @stock_market and stock_code=@stock_code
-                group by trade_date, direction,stock_code, trade_price, order_no
-                order by trade_date desc,last_trade_time desc
+                order by trade_date desc,trade_time desc
                 limit 1 ";
 
             paramList.Add(new SQLiteParameter("stock_market") { Value = (int)stockMarket });
@@ -125,16 +123,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             }
 
             DataRow row = dt.Rows[0];
-
             ModelTodayDeals mtd = new ModelTodayDeals()
             {
                 tradeDate = Convert.ToInt32(row["trade_date"]),
-                tradeTime = Convert.ToString(row["last_trade_time"]),
+                tradeTime = Convert.ToString(row["trade_time"]),
                 direction = Convert.ToString(row["direction"]),
                 stockCode = Convert.ToString(row["stock_code"]),
                 tradePrice = Convert.ToDecimal(row["trade_price"]),
-                tradeVolume = Convert.ToInt32(row["trade_volume"]),
-                orderNo = Convert.ToString(row["order_no"]),
             };
             return mtd;
         }

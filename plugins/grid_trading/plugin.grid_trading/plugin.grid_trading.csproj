@@ -51,6 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GridTradingPlugin.cs" />
+    <Compile Include="Strategy\GridModifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Strategy\GridModifyForm.designer.cs">
+      <DependentUpon>GridModifyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Strategy\GridSettingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,7 +77,6 @@
     </Compile>
     <Compile Include="Strategy\Grid.cs" />
     <Compile Include="Strategy\GridDao.cs" />
-    <Compile Include="Strategy\ManualGrid.cs" />
     <Compile Include="Trade\TradeDao.cs" />
     <Compile Include="Trade\AbstractTrader.cs" />
     <Compile Include="Trade\GuoHai\JintanhaoTraderSgt.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Trade\Model.cs" />
     <Compile Include="TradingWorker.cs" />
     <Compile Include="Utils\DataParser.cs" />
+    <Compile Include="Utils\EditableListView.cs" />
     <Compile Include="Utils\SqliteHelper.cs" />
     <Compile Include="Utils\Win32\Control\WindowButton.cs" />
     <Compile Include="Utils\Win32\Control\WindowEditBox.cs" />
@@ -112,6 +118,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Strategy\GridModifyForm.resx">
+      <DependentUpon>GridModifyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Strategy\GridSettingForm.resx">
       <DependentUpon>GridSettingForm.cs</DependentUpon>
     </EmbeddedResource>
