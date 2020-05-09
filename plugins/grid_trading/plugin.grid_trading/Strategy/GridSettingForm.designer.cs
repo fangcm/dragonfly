@@ -119,7 +119,7 @@
             this.textBoxStockMarket.Name = "textBoxStockMarket";
             this.textBoxStockMarket.ReadOnly = true;
             this.textBoxStockMarket.Size = new System.Drawing.Size(40, 21);
-            this.textBoxStockMarket.TabIndex = 12;
+            this.textBoxStockMarket.TabIndex = 1;
             this.textBoxStockMarket.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelMarket
@@ -128,7 +128,7 @@
             this.labelMarket.Location = new System.Drawing.Point(3, 9);
             this.labelMarket.Name = "labelMarket";
             this.labelMarket.Size = new System.Drawing.Size(53, 12);
-            this.labelMarket.TabIndex = 11;
+            this.labelMarket.TabIndex = 0;
             this.labelMarket.Text = "交易市场";
             // 
             // buttonAddNew
@@ -136,7 +136,7 @@
             this.buttonAddNew.Location = new System.Drawing.Point(226, 40);
             this.buttonAddNew.Name = "buttonAddNew";
             this.buttonAddNew.Size = new System.Drawing.Size(40, 23);
-            this.buttonAddNew.TabIndex = 8;
+            this.buttonAddNew.TabIndex = 10;
             this.buttonAddNew.Text = "新增";
             this.buttonAddNew.UseVisualStyleBackColor = true;
             this.buttonAddNew.Click += new System.EventHandler(this.buttonAddNew_Click);
@@ -146,7 +146,7 @@
             this.buttonDelete.Location = new System.Drawing.Point(340, 40);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(40, 23);
-            this.buttonDelete.TabIndex = 10;
+            this.buttonDelete.TabIndex = 12;
             this.buttonDelete.Text = "删除";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
@@ -157,7 +157,7 @@
             this.textBoxStockName.Name = "textBoxStockName";
             this.textBoxStockName.ReadOnly = true;
             this.textBoxStockName.Size = new System.Drawing.Size(97, 21);
-            this.textBoxStockName.TabIndex = 3;
+            this.textBoxStockName.TabIndex = 5;
             // 
             // labelName
             // 
@@ -165,7 +165,7 @@
             this.labelName.Location = new System.Drawing.Point(224, 9);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(53, 12);
-            this.labelName.TabIndex = 2;
+            this.labelName.TabIndex = 4;
             this.labelName.Text = "股票名称";
             // 
             // textBoxStockCode
@@ -174,7 +174,7 @@
             this.textBoxStockCode.Name = "textBoxStockCode";
             this.textBoxStockCode.ReadOnly = true;
             this.textBoxStockCode.Size = new System.Drawing.Size(50, 21);
-            this.textBoxStockCode.TabIndex = 1;
+            this.textBoxStockCode.TabIndex = 3;
             // 
             // labelCode
             // 
@@ -182,7 +182,7 @@
             this.labelCode.Location = new System.Drawing.Point(109, 9);
             this.labelCode.Name = "labelCode";
             this.labelCode.Size = new System.Drawing.Size(53, 12);
-            this.labelCode.TabIndex = 0;
+            this.labelCode.TabIndex = 2;
             this.labelCode.Text = "股票代码";
             // 
             // labelInitVolume
@@ -191,7 +191,7 @@
             this.labelInitVolume.Location = new System.Drawing.Point(109, 44);
             this.labelInitVolume.Name = "labelInitVolume";
             this.labelInitVolume.Size = new System.Drawing.Size(53, 12);
-            this.labelInitVolume.TabIndex = 6;
+            this.labelInitVolume.TabIndex = 8;
             this.labelInitVolume.Text = "初始持股";
             // 
             // textBoxInitVolume
@@ -200,7 +200,7 @@
             this.textBoxInitVolume.Name = "textBoxInitVolume";
             this.textBoxInitVolume.ReadOnly = true;
             this.textBoxInitVolume.Size = new System.Drawing.Size(40, 21);
-            this.textBoxInitVolume.TabIndex = 7;
+            this.textBoxInitVolume.TabIndex = 9;
             this.textBoxInitVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBoxInitPrice
@@ -209,7 +209,7 @@
             this.textBoxInitPrice.Name = "textBoxInitPrice";
             this.textBoxInitPrice.ReadOnly = true;
             this.textBoxInitPrice.Size = new System.Drawing.Size(40, 21);
-            this.textBoxInitPrice.TabIndex = 5;
+            this.textBoxInitPrice.TabIndex = 7;
             this.textBoxInitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelInitPrice
@@ -218,7 +218,7 @@
             this.labelInitPrice.Location = new System.Drawing.Point(3, 44);
             this.labelInitPrice.Name = "labelInitPrice";
             this.labelInitPrice.Size = new System.Drawing.Size(53, 12);
-            this.labelInitPrice.TabIndex = 4;
+            this.labelInitPrice.TabIndex = 6;
             this.labelInitPrice.Text = "初始价格";
             this.labelInitPrice.Click += new System.EventHandler(this.labelInitPrice_Click);
             // 
@@ -227,7 +227,7 @@
             this.buttonModify.Location = new System.Drawing.Point(283, 40);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(40, 23);
-            this.buttonModify.TabIndex = 9;
+            this.buttonModify.TabIndex = 11;
             this.buttonModify.Text = "修改";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
