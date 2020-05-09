@@ -41,12 +41,6 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         internal int InitHoldingVolume { get; set; } //初始持有股数
 
         [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        internal decimal MaxPrice { get; set; }
-
-        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        internal decimal MinPrice { get; set; }
-
-        [JsonProperty(Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         internal List<GridNode> GridNodes { get; set; }
 
 
@@ -58,6 +52,25 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         internal static Grid FromJson(string jsonData)
         {
             return JsonConvert.DeserializeObject<Grid>(jsonData);
+        }
+
+        internal string GetStockMarketDesc()
+        {
+            string desc = "";
+            switch (StockMarket)
+            {
+                case StockMarket.A:
+                    desc = "A股";
+                    break;
+                case StockMarket.Hgt:
+                    desc = "沪港通";
+                    break;
+                case StockMarket.Sgt:
+                    desc = "深港通";
+                    break;
+            }
+            return desc;
+
         }
 
         internal virtual void ResetOrders()

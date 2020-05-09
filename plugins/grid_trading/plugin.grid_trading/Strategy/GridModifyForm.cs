@@ -1,6 +1,5 @@
 ﻿using Dragonfly.Plugin.GridTrading.Utils;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -20,15 +19,17 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         private void GridModifyForm_Load(object sender, EventArgs e)
         {
             listViewGrid.Columns.Clear();
-            listViewGrid.Columns.Add("价格", 50, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("价格", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("持仓量", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("买单价", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("买单量", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("卖单价", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("卖单数", 60, HorizontalAlignment.Right);
 
+            RefreshControls();
+
             list = new EditableListView(listViewGrid);
-            list.TextBoxColumns = new int[] { 0, 1, 2, 3,4,5 };
+            list.TextBoxColumns = new int[] { 0, 1 };
             list.Submitting += new EditableListViewSubmitting(listViewSaveEditHandler);
 
             this.textBoxStockCode.TextChanged += new System.EventHandler(this.Data_Changed);
@@ -50,6 +51,20 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             ListViewItem item = e.Cell.Item;
             int itemindex = e.Cell.Column.Index;
             item.SubItems[itemindex].Text = value;
+
+            GridNode node = (GridNode)item.Tag;
+
+            if (itemindex == 0)
+            {
+                node.TradingPrice = decimal.Parse(value);
+            }
+            else
+            {
+                node.HoldingVolume = int.Parse(value);
+            }
+
+            Grid.ResetOrders();
+            RefreshControls();
             bDataChanged = true;
         }
 
@@ -58,47 +73,67 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             bDataChanged = true;
         }
 
-        private void treeViewGrid_AfterSelect(object sender, TreeViewEventArgs e)
+        private void RefreshControls()
         {
             Grid g = Grid;
             this.textBoxStockCode.Text = g.StockCode;
             this.textBoxStockName.Text = g.StockName;
             this.textBoxInitPrice.Text = g.InitPrice.ToString();
             this.textBoxInitVolume.Text = g.InitHoldingVolume.ToString();
-            this.textBoxMinPrice.Text = g.MinPrice.ToString();
-            this.textBoxMaxPrice.Text = g.MaxPrice.ToString();
 
+            listViewGrid.Items.Clear();
             foreach (GridNode node in g.GridNodes)
             {
                 ListViewItem lvi = listViewGrid.Items.Add(node.TradingPrice.ToString());
                 lvi.Tag = node;
+                lvi.UseItemStyleForSubItems = false;
                 lvi.SubItems.Add(node.HoldingVolume.ToString());
 
+                string price = "";
+                string volume = "";
                 if (node.BuyOrder != null)
                 {
-                    ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(node.BuyOrder.Price.ToString());
-                    lvsi.ForeColor = Color.Red;
-
-                    lvi.SubItems.Add(node.BuyOrder.Volume.ToString());
+                    price = node.BuyOrder.Price.ToString();
+                    volume = node.BuyOrder.Volume.ToString();
                 }
+                ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(price);
+                lvsi.ForeColor = Color.Red;
+                lvi.SubItems.Add(volume);
+
+
+                price = "";
+                volume = "";
                 if (node.SellOrder != null)
                 {
-                    ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(node.SellOrder.Price.ToString());
-                    lvsi.ForeColor = Color.Green;
-
-                    lvi.SubItems.Add(node.SellOrder.Volume.ToString());
+                    price = node.SellOrder.Price.ToString();
+                    volume = node.SellOrder.Volume.ToString();
                 }
+                lvsi = lvi.SubItems.Add(price);
+                lvsi.ForeColor = Color.Green;
+                lvi.SubItems.Add(volume);
             }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (bDataChanged)
+            {
+                GridDao.SaveGrid(Grid);
 
+                bDataChanged = false;
+            }
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void GridModifyForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            if (bDataChanged)
+            {
+                DialogResult result = MessageBox.Show("确实要放弃网格数据更改吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

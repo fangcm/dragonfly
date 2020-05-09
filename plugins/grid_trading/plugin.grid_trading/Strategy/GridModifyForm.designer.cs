@@ -84,14 +84,13 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Abort;
             this.buttonCancel.Location = new System.Drawing.Point(354, 36);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(60, 23);
             this.buttonCancel.TabIndex = 17;
             this.buttonCancel.Text = "取消";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonSave
             // 
@@ -226,6 +225,7 @@
             this.Name = "GridModifyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "交易策略";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GridModifyForm_FormClosing);
             this.Load += new System.EventHandler(this.GridModifyForm_Load);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();

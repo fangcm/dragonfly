@@ -14,12 +14,11 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             List<SQLiteParameter> paramList = new List<SQLiteParameter>();
 
             string sql = @"select id,strategy_json,disable_flag
-                from grid_strategy
-                where delete_flag = 0 ";
+                from grid_strategy ";
 
             if (onlyEnabled)
             {
-                sql += "and disable_flag=@disable_flag ";
+                sql += "where disable_flag=@disable_flag ";
                 paramList.Add(new SQLiteParameter("disable_flag") { Value = 0 });
             }
             sql += "order by id ";
@@ -38,6 +37,47 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                 }
             }
             return grids;
+        }
+
+        internal static void SaveGrid(Grid grid)
+        {
+            if (grid.Id == 0)
+            {
+                InsertGrid(grid);
+            }
+            else
+            {
+                UpdateGrid(grid);
+            }
+        }
+
+        internal static void InsertGrid(Grid grid)
+        {
+            string sql = @"INSERT INTO grid_strategy(strategy_json, disable_flag) 
+                VALUES ( @strategy_json, @disable_flag)";
+
+            string strategy_json = grid.ToJson();
+
+            List<SQLiteParameter> paramList = new List<SQLiteParameter>();
+            paramList.Add(new SQLiteParameter("strategy_json") { Value = strategy_json });
+            paramList.Add(new SQLiteParameter("disable_flag") { Value = grid.DisableFlag });
+
+            SqliteHelper.ExecuteNonQuery(sql, paramList.ToArray());
+        }
+
+        internal static void UpdateGrid(Grid grid)
+        {
+            string sql = @"UPDATE grid_strategy SET strategy_json=@strategy_json, disable_flag=@disable_flag
+                WHERE id=@id";
+
+            string strategy_json = grid.ToJson();
+
+            List<SQLiteParameter> paramList = new List<SQLiteParameter>();
+            paramList.Add(new SQLiteParameter("id") { Value = grid.Id });
+            paramList.Add(new SQLiteParameter("strategy_json") { Value = strategy_json });
+            paramList.Add(new SQLiteParameter("disable_flag") { Value = grid.DisableFlag });
+
+            SqliteHelper.ExecuteNonQuery(sql, paramList.ToArray());
         }
     }
 }

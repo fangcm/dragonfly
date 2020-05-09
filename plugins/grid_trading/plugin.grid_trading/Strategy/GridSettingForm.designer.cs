@@ -31,18 +31,16 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeViewGrid = new System.Windows.Forms.TreeView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.textBoxStockMarket = new System.Windows.Forms.TextBox();
+            this.labelMarket = new System.Windows.Forms.Label();
             this.buttonAddNew = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.textBoxStockName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.textBoxStockCode = new System.Windows.Forms.TextBox();
             this.labelCode = new System.Windows.Forms.Label();
-            this.textBoxMaxPrice = new System.Windows.Forms.TextBox();
-            this.labelMaxPrice = new System.Windows.Forms.Label();
-            this.textBoxMinPrice = new System.Windows.Forms.TextBox();
             this.labelInitVolume = new System.Windows.Forms.Label();
             this.textBoxInitVolume = new System.Windows.Forms.TextBox();
-            this.labelMinPrice = new System.Windows.Forms.Label();
             this.textBoxInitPrice = new System.Windows.Forms.TextBox();
             this.labelInitPrice = new System.Windows.Forms.Label();
             this.buttonModify = new System.Windows.Forms.Button();
@@ -93,161 +91,143 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.textBoxStockMarket);
+            this.splitContainer2.Panel1.Controls.Add(this.labelMarket);
             this.splitContainer2.Panel1.Controls.Add(this.buttonAddNew);
             this.splitContainer2.Panel1.Controls.Add(this.buttonDelete);
             this.splitContainer2.Panel1.Controls.Add(this.textBoxStockName);
             this.splitContainer2.Panel1.Controls.Add(this.labelName);
             this.splitContainer2.Panel1.Controls.Add(this.textBoxStockCode);
             this.splitContainer2.Panel1.Controls.Add(this.labelCode);
-            this.splitContainer2.Panel1.Controls.Add(this.textBoxMaxPrice);
-            this.splitContainer2.Panel1.Controls.Add(this.labelMaxPrice);
-            this.splitContainer2.Panel1.Controls.Add(this.textBoxMinPrice);
             this.splitContainer2.Panel1.Controls.Add(this.labelInitVolume);
             this.splitContainer2.Panel1.Controls.Add(this.textBoxInitVolume);
-            this.splitContainer2.Panel1.Controls.Add(this.labelMinPrice);
             this.splitContainer2.Panel1.Controls.Add(this.textBoxInitPrice);
             this.splitContainer2.Panel1.Controls.Add(this.labelInitPrice);
             this.splitContainer2.Panel1.Controls.Add(this.buttonModify);
+            this.splitContainer2.Panel1MinSize = 80;
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.listViewGrid);
             this.splitContainer2.Size = new System.Drawing.Size(429, 359);
-            this.splitContainer2.SplitterDistance = 110;
+            this.splitContainer2.SplitterDistance = 80;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // textBoxStockMarket
+            // 
+            this.textBoxStockMarket.Location = new System.Drawing.Point(62, 5);
+            this.textBoxStockMarket.Name = "textBoxStockMarket";
+            this.textBoxStockMarket.ReadOnly = true;
+            this.textBoxStockMarket.Size = new System.Drawing.Size(40, 21);
+            this.textBoxStockMarket.TabIndex = 12;
+            this.textBoxStockMarket.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // labelMarket
+            // 
+            this.labelMarket.AutoSize = true;
+            this.labelMarket.Location = new System.Drawing.Point(3, 9);
+            this.labelMarket.Name = "labelMarket";
+            this.labelMarket.Size = new System.Drawing.Size(53, 12);
+            this.labelMarket.TabIndex = 11;
+            this.labelMarket.Text = "交易市场";
             // 
             // buttonAddNew
             // 
-            this.buttonAddNew.Location = new System.Drawing.Point(176, 75);
+            this.buttonAddNew.Location = new System.Drawing.Point(226, 40);
             this.buttonAddNew.Name = "buttonAddNew";
-            this.buttonAddNew.Size = new System.Drawing.Size(50, 23);
-            this.buttonAddNew.TabIndex = 16;
+            this.buttonAddNew.Size = new System.Drawing.Size(40, 23);
+            this.buttonAddNew.TabIndex = 8;
             this.buttonAddNew.Text = "新增";
             this.buttonAddNew.UseVisualStyleBackColor = true;
             this.buttonAddNew.Click += new System.EventHandler(this.buttonAddNew_Click);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(288, 75);
+            this.buttonDelete.Location = new System.Drawing.Point(340, 40);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(50, 23);
-            this.buttonDelete.TabIndex = 15;
+            this.buttonDelete.Size = new System.Drawing.Size(40, 23);
+            this.buttonDelete.TabIndex = 10;
             this.buttonDelete.Text = "删除";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // textBoxStockName
             // 
-            this.textBoxStockName.Location = new System.Drawing.Point(63, 38);
+            this.textBoxStockName.Location = new System.Drawing.Point(283, 5);
             this.textBoxStockName.Name = "textBoxStockName";
             this.textBoxStockName.ReadOnly = true;
-            this.textBoxStockName.Size = new System.Drawing.Size(53, 21);
-            this.textBoxStockName.TabIndex = 5;
+            this.textBoxStockName.Size = new System.Drawing.Size(97, 21);
+            this.textBoxStockName.TabIndex = 3;
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(4, 44);
+            this.labelName.Location = new System.Drawing.Point(224, 9);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(53, 12);
-            this.labelName.TabIndex = 4;
+            this.labelName.TabIndex = 2;
             this.labelName.Text = "股票名称";
             // 
             // textBoxStockCode
             // 
-            this.textBoxStockCode.Location = new System.Drawing.Point(63, 8);
+            this.textBoxStockCode.Location = new System.Drawing.Point(168, 5);
             this.textBoxStockCode.Name = "textBoxStockCode";
             this.textBoxStockCode.ReadOnly = true;
-            this.textBoxStockCode.Size = new System.Drawing.Size(53, 21);
-            this.textBoxStockCode.TabIndex = 3;
+            this.textBoxStockCode.Size = new System.Drawing.Size(50, 21);
+            this.textBoxStockCode.TabIndex = 1;
             // 
             // labelCode
             // 
             this.labelCode.AutoSize = true;
-            this.labelCode.Location = new System.Drawing.Point(3, 14);
+            this.labelCode.Location = new System.Drawing.Point(109, 9);
             this.labelCode.Name = "labelCode";
             this.labelCode.Size = new System.Drawing.Size(53, 12);
-            this.labelCode.TabIndex = 2;
+            this.labelCode.TabIndex = 0;
             this.labelCode.Text = "股票代码";
-            // 
-            // textBoxMaxPrice
-            // 
-            this.textBoxMaxPrice.Location = new System.Drawing.Point(286, 38);
-            this.textBoxMaxPrice.Name = "textBoxMaxPrice";
-            this.textBoxMaxPrice.ReadOnly = true;
-            this.textBoxMaxPrice.Size = new System.Drawing.Size(52, 21);
-            this.textBoxMaxPrice.TabIndex = 13;
-            this.textBoxMaxPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // labelMaxPrice
-            // 
-            this.labelMaxPrice.AutoSize = true;
-            this.labelMaxPrice.Location = new System.Drawing.Point(227, 44);
-            this.labelMaxPrice.Name = "labelMaxPrice";
-            this.labelMaxPrice.Size = new System.Drawing.Size(53, 12);
-            this.labelMaxPrice.TabIndex = 12;
-            this.labelMaxPrice.Text = "最大价格";
-            // 
-            // textBoxMinPrice
-            // 
-            this.textBoxMinPrice.Location = new System.Drawing.Point(286, 8);
-            this.textBoxMinPrice.Name = "textBoxMinPrice";
-            this.textBoxMinPrice.ReadOnly = true;
-            this.textBoxMinPrice.Size = new System.Drawing.Size(52, 21);
-            this.textBoxMinPrice.TabIndex = 11;
-            this.textBoxMinPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelInitVolume
             // 
             this.labelInitVolume.AutoSize = true;
-            this.labelInitVolume.Location = new System.Drawing.Point(122, 44);
+            this.labelInitVolume.Location = new System.Drawing.Point(109, 44);
             this.labelInitVolume.Name = "labelInitVolume";
             this.labelInitVolume.Size = new System.Drawing.Size(53, 12);
-            this.labelInitVolume.TabIndex = 8;
+            this.labelInitVolume.TabIndex = 6;
             this.labelInitVolume.Text = "初始持股";
             // 
             // textBoxInitVolume
             // 
-            this.textBoxInitVolume.Location = new System.Drawing.Point(181, 38);
+            this.textBoxInitVolume.Location = new System.Drawing.Point(168, 41);
             this.textBoxInitVolume.Name = "textBoxInitVolume";
             this.textBoxInitVolume.ReadOnly = true;
             this.textBoxInitVolume.Size = new System.Drawing.Size(40, 21);
-            this.textBoxInitVolume.TabIndex = 9;
+            this.textBoxInitVolume.TabIndex = 7;
             this.textBoxInitVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // labelMinPrice
-            // 
-            this.labelMinPrice.AutoSize = true;
-            this.labelMinPrice.Location = new System.Drawing.Point(227, 14);
-            this.labelMinPrice.Name = "labelMinPrice";
-            this.labelMinPrice.Size = new System.Drawing.Size(53, 12);
-            this.labelMinPrice.TabIndex = 10;
-            this.labelMinPrice.Text = "最小价格";
             // 
             // textBoxInitPrice
             // 
-            this.textBoxInitPrice.Location = new System.Drawing.Point(181, 8);
+            this.textBoxInitPrice.Location = new System.Drawing.Point(62, 41);
             this.textBoxInitPrice.Name = "textBoxInitPrice";
             this.textBoxInitPrice.ReadOnly = true;
             this.textBoxInitPrice.Size = new System.Drawing.Size(40, 21);
-            this.textBoxInitPrice.TabIndex = 7;
+            this.textBoxInitPrice.TabIndex = 5;
             this.textBoxInitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelInitPrice
             // 
             this.labelInitPrice.AutoSize = true;
-            this.labelInitPrice.Location = new System.Drawing.Point(122, 14);
+            this.labelInitPrice.Location = new System.Drawing.Point(3, 44);
             this.labelInitPrice.Name = "labelInitPrice";
             this.labelInitPrice.Size = new System.Drawing.Size(53, 12);
-            this.labelInitPrice.TabIndex = 6;
+            this.labelInitPrice.TabIndex = 4;
             this.labelInitPrice.Text = "初始价格";
+            this.labelInitPrice.Click += new System.EventHandler(this.labelInitPrice_Click);
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(232, 75);
+            this.buttonModify.Location = new System.Drawing.Point(283, 40);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(50, 23);
-            this.buttonModify.TabIndex = 14;
+            this.buttonModify.Size = new System.Drawing.Size(40, 23);
+            this.buttonModify.TabIndex = 9;
             this.buttonModify.Text = "修改";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
@@ -258,7 +238,7 @@
             this.listViewGrid.FullRowSelect = true;
             this.listViewGrid.Location = new System.Drawing.Point(0, 0);
             this.listViewGrid.Name = "listViewGrid";
-            this.listViewGrid.Size = new System.Drawing.Size(429, 245);
+            this.listViewGrid.Size = new System.Drawing.Size(429, 275);
             this.listViewGrid.TabIndex = 0;
             this.listViewGrid.UseCompatibleStateImageBehavior = false;
             this.listViewGrid.View = System.Windows.Forms.View.Details;
@@ -292,12 +272,8 @@
         private System.Windows.Forms.TreeView treeViewGrid;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ListView listViewGrid;
-        private System.Windows.Forms.TextBox textBoxMaxPrice;
-        private System.Windows.Forms.Label labelMaxPrice;
-        private System.Windows.Forms.TextBox textBoxMinPrice;
         private System.Windows.Forms.Label labelInitVolume;
         private System.Windows.Forms.TextBox textBoxInitVolume;
-        private System.Windows.Forms.Label labelMinPrice;
         private System.Windows.Forms.TextBox textBoxInitPrice;
         private System.Windows.Forms.Label labelInitPrice;
         private System.Windows.Forms.Button buttonModify;
@@ -307,5 +283,7 @@
         private System.Windows.Forms.Label labelCode;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAddNew;
+        private System.Windows.Forms.TextBox textBoxStockMarket;
+        private System.Windows.Forms.Label labelMarket;
     }
 }

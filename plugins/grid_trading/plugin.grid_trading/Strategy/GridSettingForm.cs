@@ -15,13 +15,19 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         private void GridSettingForm_Load(object sender, EventArgs e)
         {
             listViewGrid.Columns.Clear();
-            listViewGrid.Columns.Add("价格", 50, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("价格", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("持仓量", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("买单价", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("买单量", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("卖单价", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("卖单数", 60, HorizontalAlignment.Right);
 
+            RefreshControls();
+
+        }
+
+        private void RefreshControls()
+        {
             List<Grid> gridList = GridDao.GetAllGrids(false);
             foreach (Grid g in gridList)
             {
@@ -39,48 +45,74 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             TreeNode treeNode = treeViewGrid.SelectedNode;
             Grid g = (Grid)treeNode.Tag;
+            this.textBoxStockMarket.Text = g.GetStockMarketDesc();
             this.textBoxStockCode.Text = g.StockCode;
             this.textBoxStockName.Text = g.StockName;
             this.textBoxInitPrice.Text = g.InitPrice.ToString();
             this.textBoxInitVolume.Text = g.InitHoldingVolume.ToString();
-            this.textBoxMinPrice.Text = g.MinPrice.ToString();
-            this.textBoxMaxPrice.Text = g.MaxPrice.ToString();
 
             foreach (GridNode node in g.GridNodes)
             {
                 ListViewItem lvi = listViewGrid.Items.Add(node.TradingPrice.ToString());
                 lvi.Tag = node;
+                lvi.UseItemStyleForSubItems = false;
                 lvi.SubItems.Add(node.HoldingVolume.ToString());
 
+                string price = "";
+                string volume = "";
                 if (node.BuyOrder != null)
                 {
-                    ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(node.BuyOrder.Price.ToString());
-                    lvsi.ForeColor = Color.Red;
-
-                    lvi.SubItems.Add(node.BuyOrder.Volume.ToString());
+                    price = node.BuyOrder.Price.ToString();
+                    volume = node.BuyOrder.Volume.ToString();
                 }
+                ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(price);
+                lvsi.ForeColor = Color.Red;
+                lvi.SubItems.Add(volume);
+
+
+                price = "";
+                volume = "";
                 if (node.SellOrder != null)
                 {
-                    ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(node.SellOrder.Price.ToString());
-                    lvsi.ForeColor = Color.Green;
-
-                    lvi.SubItems.Add(node.SellOrder.Volume.ToString());
+                    price = node.SellOrder.Price.ToString();
+                    volume = node.SellOrder.Volume.ToString();
                 }
+                lvsi = lvi.SubItems.Add(price);
+                lvsi.ForeColor = Color.Green;
+                lvi.SubItems.Add(volume);
             }
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
+            TreeNode treeNode = treeViewGrid.SelectedNode;
+            if (treeNode == null)
+            {
+                MessageBox.Show("请选择网格策略");
+                return;
+            }
+
             GridModifyForm form = new GridModifyForm();
+            form.Grid = (Grid)treeNode.Tag;
             form.ShowDialog();
+            RefreshControls();
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
 
+            RefreshControls();
         }
 
         private void buttonAddNew_Click(object sender, EventArgs e)
+        {
+            GridModifyForm form = new GridModifyForm();
+            form.Grid =  new Grid();
+            form.ShowDialog();
+            RefreshControls();
+        }
+
+        private void labelInitPrice_Click(object sender, EventArgs e)
         {
 
         }
