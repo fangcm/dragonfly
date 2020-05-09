@@ -75,17 +75,9 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         private void comboBoxStrategy_SelectedIndexChanged(object sender, EventArgs e)
         {
             bDataChanged = true;
-
-            switch(this.comboBoxStrategy.Text)
-            {
-                case "2, 20":
-                    break;
-                case "1.5, 20":
-                    break;
-                case "1, 20":
-                    break;
-            }
-
+            Grid g = Grid;
+            g.GridNodes = GridHelper.BuildGridNodes(this.comboBoxStrategy.Text);
+            g.ResetOrders();
         }
 
         private void RefreshControls()
