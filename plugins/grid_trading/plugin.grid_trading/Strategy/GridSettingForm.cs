@@ -28,6 +28,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
         private void RefreshControls()
         {
+            treeViewGrid.Nodes.Clear();
             List<Grid> gridList = GridDao.GetAllGrids(false);
             foreach (Grid g in gridList)
             {
@@ -51,35 +52,39 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             this.textBoxInitPrice.Text = g.InitPrice.ToString();
             this.textBoxInitVolume.Text = g.InitHoldingVolume.ToString();
 
-            foreach (GridNode node in g.GridNodes)
+            listViewGrid.Items.Clear();
+            if (g.GridNodes != null)
             {
-                ListViewItem lvi = listViewGrid.Items.Add(node.TradingPrice.ToString());
-                lvi.Tag = node;
-                lvi.UseItemStyleForSubItems = false;
-                lvi.SubItems.Add(node.HoldingVolume.ToString());
-
-                string price = "";
-                string volume = "";
-                if (node.BuyOrder != null)
+                foreach (GridNode node in g.GridNodes)
                 {
-                    price = node.BuyOrder.Price.ToString();
-                    volume = node.BuyOrder.Volume.ToString();
-                }
-                ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(price);
-                lvsi.ForeColor = Color.Red;
-                lvi.SubItems.Add(volume);
+                    ListViewItem lvi = listViewGrid.Items.Add(node.TradingPrice.ToString());
+                    lvi.Tag = node;
+                    lvi.UseItemStyleForSubItems = false;
+                    lvi.SubItems.Add(node.HoldingVolume.ToString());
+
+                    string price = "";
+                    string volume = "";
+                    if (node.BuyOrder != null)
+                    {
+                        price = node.BuyOrder.Price.ToString();
+                        volume = node.BuyOrder.Volume.ToString();
+                    }
+                    ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(price);
+                    lvsi.ForeColor = Color.Red;
+                    lvi.SubItems.Add(volume);
 
 
-                price = "";
-                volume = "";
-                if (node.SellOrder != null)
-                {
-                    price = node.SellOrder.Price.ToString();
-                    volume = node.SellOrder.Volume.ToString();
+                    price = "";
+                    volume = "";
+                    if (node.SellOrder != null)
+                    {
+                        price = node.SellOrder.Price.ToString();
+                        volume = node.SellOrder.Volume.ToString();
+                    }
+                    lvsi = lvi.SubItems.Add(price);
+                    lvsi.ForeColor = Color.Green;
+                    lvi.SubItems.Add(volume);
                 }
-                lvsi = lvi.SubItems.Add(price);
-                lvsi.ForeColor = Color.Green;
-                lvi.SubItems.Add(volume);
             }
         }
 

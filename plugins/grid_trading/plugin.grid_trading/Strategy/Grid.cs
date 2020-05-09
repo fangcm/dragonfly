@@ -73,6 +73,26 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
         }
 
+        internal void SetStockMarketByDesc(string desc)
+        {
+            switch (desc)
+            {
+                case "A股":
+                    StockMarket = StockMarket.A;
+                    break;
+                case "沪港通":
+                    StockMarket = StockMarket.Hgt;
+                    break;
+                case "深港通":
+                    StockMarket = StockMarket.Sgt;
+                    break;
+                default:
+                    StockMarket = StockMarket.A;
+                    break;
+            }
+
+        }
+
         internal virtual void ResetOrders()
         {
             if (GridNodes == null || GridNodes.Count == 0)

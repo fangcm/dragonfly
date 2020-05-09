@@ -36,10 +36,9 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             this.textBoxStockName.TextChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxInitPrice.TextChanged += new System.EventHandler(this.Data_Changed);
             this.textBoxInitVolume.TextChanged += new System.EventHandler(this.Data_Changed);
-            this.textBoxMinPrice.TextChanged += new System.EventHandler(this.Data_Changed);
-            this.textBoxMaxPrice.TextChanged += new System.EventHandler(this.Data_Changed);
             bDataChanged = false;
         }
+
 
         private void listViewSaveEditHandler(object sender, EditableListViewSubmittingEventArgs e)
         {
@@ -73,44 +72,66 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             bDataChanged = true;
         }
 
+        private void comboBoxStrategy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bDataChanged = true;
+
+            switch(this.comboBoxStrategy.Text)
+            {
+                case "2, 20":
+                    break;
+                case "1.5, 20":
+                    break;
+                case "1, 20":
+                    break;
+            }
+
+        }
+
         private void RefreshControls()
         {
             Grid g = Grid;
+
+            this.comboBoxStockMarket.SelectedIndex = (int)g.StockMarket;
+            this.checkBoxDisable.Checked = g.DisableFlag == 1;
             this.textBoxStockCode.Text = g.StockCode;
             this.textBoxStockName.Text = g.StockName;
             this.textBoxInitPrice.Text = g.InitPrice.ToString();
             this.textBoxInitVolume.Text = g.InitHoldingVolume.ToString();
 
             listViewGrid.Items.Clear();
-            foreach (GridNode node in g.GridNodes)
+            if (g.GridNodes != null)
             {
-                ListViewItem lvi = listViewGrid.Items.Add(node.TradingPrice.ToString());
-                lvi.Tag = node;
-                lvi.UseItemStyleForSubItems = false;
-                lvi.SubItems.Add(node.HoldingVolume.ToString());
-
-                string price = "";
-                string volume = "";
-                if (node.BuyOrder != null)
+                foreach (GridNode node in g.GridNodes)
                 {
-                    price = node.BuyOrder.Price.ToString();
-                    volume = node.BuyOrder.Volume.ToString();
-                }
-                ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(price);
-                lvsi.ForeColor = Color.Red;
-                lvi.SubItems.Add(volume);
+                    ListViewItem lvi = listViewGrid.Items.Add(node.TradingPrice.ToString());
+                    lvi.Tag = node;
+                    lvi.UseItemStyleForSubItems = false;
+                    lvi.SubItems.Add(node.HoldingVolume.ToString());
+
+                    string price = "";
+                    string volume = "";
+                    if (node.BuyOrder != null)
+                    {
+                        price = node.BuyOrder.Price.ToString();
+                        volume = node.BuyOrder.Volume.ToString();
+                    }
+                    ListViewItem.ListViewSubItem lvsi = lvi.SubItems.Add(price);
+                    lvsi.ForeColor = Color.Red;
+                    lvi.SubItems.Add(volume);
 
 
-                price = "";
-                volume = "";
-                if (node.SellOrder != null)
-                {
-                    price = node.SellOrder.Price.ToString();
-                    volume = node.SellOrder.Volume.ToString();
+                    price = "";
+                    volume = "";
+                    if (node.SellOrder != null)
+                    {
+                        price = node.SellOrder.Price.ToString();
+                        volume = node.SellOrder.Volume.ToString();
+                    }
+                    lvsi = lvi.SubItems.Add(price);
+                    lvsi.ForeColor = Color.Green;
+                    lvi.SubItems.Add(volume);
                 }
-                lvsi = lvi.SubItems.Add(price);
-                lvsi.ForeColor = Color.Green;
-                lvi.SubItems.Add(volume);
             }
         }
 
@@ -118,6 +139,13 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             if (bDataChanged)
             {
+                Grid g = Grid;
+                g.SetStockMarketByDesc(comboBoxStockMarket.Text);
+                g.DisableFlag = this.checkBoxDisable.Checked ? 1 : 0;
+                g.StockCode = this.textBoxStockCode.Text;
+                g.StockName = this.textBoxStockName.Text;
+                g.InitPrice = decimal.Parse(this.textBoxInitPrice.Text);
+                g.InitHoldingVolume = int.Parse(this.textBoxInitVolume.Text);
                 GridDao.SaveGrid(Grid);
 
                 bDataChanged = false;
@@ -135,5 +163,6 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                 }
             }
         }
+
     }
 }
