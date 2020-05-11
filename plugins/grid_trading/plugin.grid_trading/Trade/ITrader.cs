@@ -13,9 +13,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         #region A股
 
-        void BuyStock(string stockCode, decimal price, int volume);
+        bool BuyStock(string stockCode, decimal price, int volume);
 
-        void SellStock(string stockCode, decimal price, int volume);
+        bool SellStock(string stockCode, decimal price, int volume);
 
         List<ModelRevocableOrder> RevocableOrders(); // 可撤订单
 
@@ -27,9 +27,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         #region 沪港通
 
-        void HgtBuyStock(string stockCode, decimal price, int volume);
+        bool HgtBuyStock(string stockCode, decimal price, int volume);
 
-        void HgtSellStock(string stockCode, decimal price, int volume);
+        bool HgtSellStock(string stockCode, decimal price, int volume);
 
         List<ModelRevocableOrder> HgtRevocableOrders(); // 可撤订单
 
@@ -41,9 +41,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         #region 深港通
 
-        void SgtBuyStock(string stockCode, decimal price, int volume);
+        bool SgtBuyStock(string stockCode, decimal price, int volume);
 
-        void SgtSellStock(string stockCode, decimal price, int volume);
+        bool SgtSellStock(string stockCode, decimal price, int volume);
 
         List<ModelRevocableOrder> SgtRevocableOrders(); // 可撤订单
 

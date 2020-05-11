@@ -1,4 +1,5 @@
 ﻿using Dragonfly.Plugin.GridTrading.Trade;
+using Dragonfly.Plugin.GridTrading.Utils;
 using System;
 using System.Windows.Forms;
 
@@ -6,7 +7,6 @@ namespace Dragonfly.Plugin.GridTrading
 {
     internal partial class TradingForm : Form
     {
-
 
         public TradingForm()
         {
@@ -20,10 +20,19 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void buttonBuy_Click(object sender, EventArgs e)
         {
-            string stockMarket = this.comboBoxStockMarket.Text;
-            string stockCode = textBoxStockCode.Text;
-            string price = textBoxBuyPrice.Text;
-            string volume = textBoxBuyVolume.Text;
+            string stockMarket = this.comboBoxStockMarket.Text.Trim();
+            string stockCode = textBoxStockCode.Text.Trim();
+            string price = textBoxBuyPrice.Text.Trim();
+            string volume = textBoxBuyVolume.Text.Trim();
+
+            if (!(
+                StringValidator.IsNotEmptyAndUnsignedNumber(stockCode) &&
+                StringValidator.IsNotEmptyAndUnsignedRealNumber(price) &&
+                StringValidator.IsNotEmptyAndUnsignedNumber(volume)))
+            {
+                return;
+            }
+
             switch (stockMarket)
             {
                 case "A股":
@@ -40,10 +49,19 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void buttonSell_Click(object sender, EventArgs e)
         {
-            string stockMarket = this.comboBoxStockMarket.Text;
-            string stockCode = textBoxStockCode.Text;
-            string price = textBoxBuyPrice.Text;
-            string volume = textBoxBuyVolume.Text;
+            string stockMarket = this.comboBoxStockMarket.Text.Trim();
+            string stockCode = textBoxStockCode.Text.Trim();
+            string price = textBoxSellPrice.Text.Trim();
+            string volume = textBoxSellVolume.Text.Trim();
+
+            if (!(
+                StringValidator.IsNotEmptyAndUnsignedNumber(stockCode) &&
+                StringValidator.IsNotEmptyAndUnsignedRealNumber(price) &&
+                StringValidator.IsNotEmptyAndUnsignedNumber(volume)))
+            {
+                return;
+            }
+
             switch (stockMarket)
             {
                 case "A股":

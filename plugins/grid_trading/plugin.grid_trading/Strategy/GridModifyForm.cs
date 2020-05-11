@@ -76,7 +76,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             bDataChanged = true;
             Grid g = Grid;
-            g.GridNodes = GridHelper.BuildGridNodes(this.comboBoxStrategy.Text);
+           // g.GridNodes = GridHelper.BuildGridNodes(this.comboBoxStrategy.Text);
             g.ResetOrders();
         }
 

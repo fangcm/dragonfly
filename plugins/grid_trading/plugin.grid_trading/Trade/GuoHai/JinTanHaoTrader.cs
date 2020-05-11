@@ -186,7 +186,60 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 new IntPtr((int)System.Windows.Forms.Keys.F5), IntPtr.Zero);
         }
 
+        // 委托后确认
+        internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume)
+        {
+            IntPtr hConfirmDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", direction + "交易确认", true);
+            if (hConfirmDlg != IntPtr.Zero)
+            {
+                IntPtr hBtnYes = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", direction + "确认");
+                IntPtr hBtnNo = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
 
+                IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
+                string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
+
+                Dictionary<string, string> patten = new Dictionary<string, string>();
+                patten["操作类别"] = @"^" + direction + "$";
+                patten["股票代码"] = @"^" + stockCode;
+                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
+                patten["委托数量"] = @"^" + volume + "股";
+                patten["委托方式"] = "限价委托";
+                if (!ValidateTipText(txtConfirm, patten))
+                {
+                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
+                    WindowButton.Click(hBtnNo);
+                    return false;
+                }
+                WindowButton.Click(hBtnYes);
+
+                IntPtr hTipDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "提示", true);
+                if (hTipDlg != IntPtr.Zero)
+                {
+                    IntPtr hBtnOk = WindowHwnd.GetDlgItem(hTipDlg, 0x1B67);
+                    IntPtr hStaticTip = WindowHwnd.GetDlgItem(hTipDlg, 0x1B65);
+
+                    string tipTxt = WindowHwnd.GetWindowText(hStaticTip);
+                    WindowButton.Click(hBtnOk);
+
+                    if (!string.IsNullOrEmpty(tipTxt) && tipTxt.Contains("合同号"))
+                    {
+                        Log(LoggType.Gray, direction + "下单完成");
+                        return true;
+                    }
+                    Log(LoggType.Red, "下单提示信息没有【合同号】");
+                    return false;
+                }
+                Log(LoggType.Red, "没有检测到【提示】对话框");
+                return false;
+            }
+            else
+            {
+                Log(LoggType.Red, "没有检测到卖出确认对话框");
+                return false;
+            }
+
+
+        }
 
         // 校验弹出框提示信息是否为委托信息
         internal bool ValidateTipText(string tipText, Dictionary<string, string> patten)
@@ -231,7 +284,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             Misc.Delay(500);
 
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
+            IntPtr hConfirmDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
             if (hConfirmDlg != IntPtr.Zero)
             {
                 IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);

@@ -32,19 +32,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         #region A股
 
-        internal void BuyStock(string stockCode, decimal price, int volume)
+        internal bool BuyStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
-                trader.BuyStock(stockCode, price, volume);
+                return trader.BuyStock(stockCode, price, volume);
             }
         }
 
-        internal void SellStock(string stockCode, decimal price, int volume)
+        internal bool SellStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
-                trader.SellStock(stockCode, price, volume);
+                return trader.SellStock(stockCode, price, volume);
             }
         }
 
@@ -77,19 +77,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         #region 沪港通
 
 
-        internal void HgtBuyStock(string stockCode, decimal price, int volume)
+        internal bool HgtBuyStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
-                trader.HgtBuyStock(stockCode, price, volume);
+                return trader.HgtBuyStock(stockCode, price, volume);
             }
         }
 
-        internal void HgtSellStock(string stockCode, decimal price, int volume)
+        internal bool HgtSellStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
-                trader.HgtSellStock(stockCode, price, volume);
+                return trader.HgtSellStock(stockCode, price, volume);
             }
         }
 
@@ -122,19 +122,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         #region 深港通
 
 
-        internal void SgtBuyStock(string stockCode, decimal price, int volume)
+        internal bool SgtBuyStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
-                trader.SgtBuyStock(stockCode, price, volume);
+                return trader.SgtBuyStock(stockCode, price, volume);
             }
         }
 
-        internal void SgtSellStock(string stockCode, decimal price, int volume)
+        internal bool SgtSellStock(string stockCode, decimal price, int volume)
         {
             lock (lockObject)
             {
-                trader.SgtSellStock(stockCode, price, volume);
+                return trader.SgtSellStock(stockCode, price, volume);
             }
         }
 

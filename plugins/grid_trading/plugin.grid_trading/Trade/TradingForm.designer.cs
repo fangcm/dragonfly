@@ -30,17 +30,17 @@
         {
             this.groupBoxBuy = new System.Windows.Forms.GroupBox();
             this.buttonBuy = new System.Windows.Forms.Button();
-            this.textBoxBuyVolume = new System.Windows.Forms.MaskedTextBox();
-            this.textBoxBuyPrice = new System.Windows.Forms.MaskedTextBox();
+            this.textBoxBuyVolume = new System.Windows.Forms.TextBox();
+            this.textBoxBuyPrice = new System.Windows.Forms.TextBox();
             this.labelBuyVolume = new System.Windows.Forms.Label();
             this.labelBuyPrice = new System.Windows.Forms.Label();
             this.groupBoxSell = new System.Windows.Forms.GroupBox();
             this.buttonSell = new System.Windows.Forms.Button();
-            this.textBoxSellVolume = new System.Windows.Forms.MaskedTextBox();
+            this.textBoxSellVolume = new System.Windows.Forms.TextBox();
             this.labelSellVolume = new System.Windows.Forms.Label();
-            this.textBoxSellPrice = new System.Windows.Forms.MaskedTextBox();
+            this.textBoxSellPrice = new System.Windows.Forms.TextBox();
             this.labelSellPrice = new System.Windows.Forms.Label();
-            this.textBoxStockCode = new System.Windows.Forms.MaskedTextBox();
+            this.textBoxStockCode = new System.Windows.Forms.TextBox();
             this.labelStockCode = new System.Windows.Forms.Label();
             this.labelStockMarket = new System.Windows.Forms.Label();
             this.comboBoxStockMarket = new System.Windows.Forms.ComboBox();
@@ -75,7 +75,6 @@
             // textBoxBuyVolume
             // 
             this.textBoxBuyVolume.Location = new System.Drawing.Point(67, 56);
-            this.textBoxBuyVolume.Mask = "999999";
             this.textBoxBuyVolume.Name = "textBoxBuyVolume";
             this.textBoxBuyVolume.Size = new System.Drawing.Size(57, 21);
             this.textBoxBuyVolume.TabIndex = 3;
@@ -132,7 +131,6 @@
             // textBoxSellVolume
             // 
             this.textBoxSellVolume.Location = new System.Drawing.Point(65, 56);
-            this.textBoxSellVolume.Mask = "999999";
             this.textBoxSellVolume.Name = "textBoxSellVolume";
             this.textBoxSellVolume.Size = new System.Drawing.Size(57, 21);
             this.textBoxSellVolume.TabIndex = 3;
@@ -234,11 +232,11 @@
         private System.Windows.Forms.ComboBox comboBoxStockMarket;
         private System.Windows.Forms.Label labelStockMarket;
         private System.Windows.Forms.Label labelStockCode;
-        private System.Windows.Forms.MaskedTextBox textBoxStockCode;
-        private System.Windows.Forms.MaskedTextBox textBoxSellVolume;
-        private System.Windows.Forms.MaskedTextBox textBoxSellPrice;
-        private System.Windows.Forms.MaskedTextBox textBoxBuyVolume;
-        private System.Windows.Forms.MaskedTextBox textBoxBuyPrice;
+        private System.Windows.Forms.TextBox textBoxStockCode;
+        private System.Windows.Forms.TextBox textBoxSellVolume;
+        private System.Windows.Forms.TextBox textBoxSellPrice;
+        private System.Windows.Forms.TextBox textBoxBuyVolume;
+        private System.Windows.Forms.TextBox textBoxBuyPrice;
         private System.Windows.Forms.Button buttonBuy;
         private System.Windows.Forms.Button buttonSell;
     }

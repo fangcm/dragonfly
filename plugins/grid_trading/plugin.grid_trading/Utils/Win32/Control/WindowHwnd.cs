@@ -28,6 +28,26 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             return retHandle;
         }
 
+        internal static IntPtr WaitForFindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName, bool onlyInVisibleParent)
+        {
+            int counter = 0;
+            while (true)
+            {
+                IntPtr hFinded = WindowHwnd.FindHwndInParentRecursive(hParent, lpClassName, lpWindowName, onlyInVisibleParent);
+                if (hFinded != IntPtr.Zero)
+                {
+                    return hFinded;
+                }
+
+                Misc.Delay(200);
+                counter++;
+                if (counter > 50)
+                {
+                    return IntPtr.Zero;
+                }
+            }
+        }
+
         internal static IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName)
         {
             return FindHwndInParentRecursive(hParent, lpClassName, lpWindowName, false);

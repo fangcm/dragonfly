@@ -10,11 +10,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
     internal partial class JintanhaoTrader : AbstractTrader, ITrader
     {
 
-        public void BuyStock(string stockCode, decimal price, int volume)
+        public bool BuyStock(string stockCode, decimal price, int volume)
         {
             if (hStockTree == IntPtr.Zero || hBuy == IntPtr.Zero)
             {
-                return;
+                return false;
             }
 
             Log(LoggType.Red, "A股购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
@@ -29,7 +29,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "买入下单")
             {
                 Log(LoggType.Black, "不是买入下单页面");
-                return;
+                return false;
             }
 
             IntPtr hStaticMaxBuyVolume = WindowHwnd.GetDlgItem(panel, 0x07E6);
@@ -40,7 +40,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 Log(LoggType.Red, "不是买入下单的控件页面");
-                return;
+                return false;
             }
 
             WindowHwnd.SetFocus(hEditCode);
@@ -55,61 +55,20 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             // 点击买入按钮
             Misc.Delay(500);
-
-            string maxBuyVolume = WindowStatic.GetText(hStaticMaxBuyVolume);
-            if (maxBuyVolume != null && maxBuyVolume.Length > 0)
-            {
-                int maxVolume = int.Parse(maxBuyVolume);
-                if (maxVolume < volume)
-                {
-                    Log(LoggType.Red, "资金不足，不能购买");
-                    return;
-                }
-            }
-
             WindowButton.Click(btnConfirm);
             Misc.Delay(500);
 
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "买入交易确认", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hBtnYes = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "买入确认");
-                IntPtr hBtnNo = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
-
-                IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
-                string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
-
-                Dictionary<string, string> patten = new Dictionary<string, string>();
-                patten["操作类别"] = @"^买入$";
-                patten["股票代码"] = @"^" + stockCode;
-                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + volume + "股";
-                patten["委托方式"] = "限价委托";
-                if (ValidateTipText(txtConfirm, patten))
-                {
-                    WindowButton.Click(hBtnYes);
-                    Log(LoggType.Gray, "买入下单完成");
-                }
-                else
-                {
-                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
-                    WindowButton.Click(hBtnNo);
-                }
-            }
-            else
-            {
-                Log(LoggType.Red, "没有检测到卖出确认对话框");
-            }
+            return ConfirmOrder("买入", stockCode, price, volume);
 
         }
 
-        public void SellStock(string stockCode, decimal price, int volume)
+        public bool SellStock(string stockCode, decimal price, int volume)
         {
             if (hStockTree == IntPtr.Zero || hSell == IntPtr.Zero)
             {
-                return;
+                return false;
             }
-            
+
             Log(LoggType.Red, "A股卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
             MouseClickToolbar(hToolBar, 0);
             //WindowTreeView.SelectItem(hStockTree, hSell);
@@ -122,7 +81,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "卖出下单")
             {
                 Log(LoggType.Black, "不是卖出下单页面");
-                return;
+                return false;
             }
 
             IntPtr hStaticMaxSellVolume = WindowHwnd.GetDlgItem(panel, 0x0811);
@@ -133,7 +92,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 Log(LoggType.Red, "不是卖出下单的控件页面");
-                return;
+                return false;
             }
 
             WindowHwnd.SetFocus(hEditCode);
@@ -148,50 +107,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             // 点击买入按钮
             Misc.Delay(500);
-            string maxSellVolume = WindowStatic.GetText(hStaticMaxSellVolume);
-            if (maxSellVolume != null && maxSellVolume.Length > 0)
-            {
-                int maxVolume = int.Parse(maxSellVolume);
-                if (maxVolume < volume)
-                {
-                    Log(LoggType.Red, "股票不足，不能卖出");
-                    return;
-                }
-            }
-
             WindowButton.Click(btnConfirm);
             Misc.Delay(500);
 
-            IntPtr hConfirmDlg = WindowHwnd.FindHwndInParentRecursive(IntPtr.Zero, "#32770", "卖出交易确认", true);
-            if (hConfirmDlg != IntPtr.Zero)
-            {
-                IntPtr hBtnYes = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "卖出确认");
-                IntPtr hBtnNo = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
+            return ConfirmOrder("卖出", stockCode, price, volume);
 
-                IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
-                string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
-
-                Dictionary<string, string> patten = new Dictionary<string, string>();
-                patten["操作类别"] = @"^卖出$";
-                patten["股票代码"] = @"^" + stockCode;
-                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + volume + "股";
-                patten["委托方式"] = "限价委托";
-                if (ValidateTipText(txtConfirm, patten))
-                {
-                    WindowButton.Click(hBtnYes);
-                    Log(LoggType.Gray, "买出下单完成");
-                }
-                else
-                {
-                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
-                    WindowButton.Click(hBtnNo);
-                }
-            }
-            else
-            {
-                Log(LoggType.Red, "没有检测到卖出确认对话框");
-            }
         }
 
 
@@ -224,7 +144,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelTodayDeals> TodayDealsList()
         {
-            if(hStockTree == IntPtr.Zero || hTodayDeals == IntPtr.Zero)
+            if (hStockTree == IntPtr.Zero || hTodayDeals == IntPtr.Zero)
             {
                 return null;
             }
