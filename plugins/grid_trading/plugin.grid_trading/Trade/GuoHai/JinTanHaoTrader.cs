@@ -186,6 +186,28 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 new IntPtr((int)System.Windows.Forms.Keys.F5), IntPtr.Zero);
         }
 
+        internal bool ClickTreeNode(IntPtr hTree, IntPtr hItem)
+        {
+            if (hTree == IntPtr.Zero || hItem == IntPtr.Zero)
+            {
+                Log(LoggType.Red, "没有检测到菜单树、菜单项");
+                return false;
+            }
+
+            NativeMethods.SwitchToThisWindow(hAppWnd, true);
+            int index;
+            if (hTree == hStockTree)
+                index = 0;
+            else
+                index = 2;
+
+            MouseClickToolbar(hToolBar, index);
+            WindowTreeView.SimulateClick(hTree, hItem);
+            Misc.Delay(1000);
+            return true;
+        }
+
+
         // 委托后确认
         internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume)
         {

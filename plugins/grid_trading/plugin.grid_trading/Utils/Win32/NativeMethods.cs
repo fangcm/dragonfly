@@ -1903,7 +1903,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal static extern bool IsWindow(IntPtr hWnd);
         [DllImport("user32.dll", ExactSpelling = true)]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
-
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern bool SwitchToThisWindow(IntPtr hWnd, bool fAltTab);
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern bool CloseHandle(IntPtr h);
         [DllImport("kernel32.dll", SetLastError = true)]

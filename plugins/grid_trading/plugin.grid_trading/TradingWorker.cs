@@ -176,8 +176,7 @@ namespace Dragonfly.Plugin.GridTrading
             {
                 if (hs.stockCode == stockCode)
                 {
-                    // todo: hgt ?
-                    return hs.holdingVolume;
+                    return hs.FixHoldingVolume;
                 }
             }
 

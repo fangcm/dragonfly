@@ -14,6 +14,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
         internal int availableVolume = 0; // 可卖数量
         internal int currVolume = 0; // 当前数量（港股）
         internal decimal currPrice = 0; // 当前价 or 最新价(港币)
+        internal int returnBuyVolume = 0; // 回报买入数量
+        internal int returnSellVolume = 0; // 回报卖出数量
+        internal int unreturnedBuyVolume = 0; // 未回买入数量
+        internal int unreturnedSellVolume = 0; // 未回卖出数量
+
+        internal int FixHoldingVolume
+        {
+            get
+            {
+                return holdingVolume + returnBuyVolume - returnSellVolume +
+                            unreturnedBuyVolume - unreturnedSellVolume;
+            }
+        }
 
         internal static List<ModelHoldingStock> Parse(List<string[]> param)
         {
@@ -24,13 +37,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             string[] header = null;
             for (int row = 0; row < param.Count; row++)
             {
-                if(param[row].Length < 10)
+                if (param[row].Length < 10)
                 {
                     // 忽略其他信息
                     continue;
                 }
 
-                if(header == null)
+                if (header == null)
                 {
                     header = param[row];
                     continue;
@@ -69,6 +82,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                         case "当前价":
                             item.currPrice = decimal.Parse(value);
                             break;
+                        case "回报买入数量":
+                            item.returnBuyVolume = (int)decimal.Parse(value);
+                            break;
+                        case "回报卖出数量":
+                            item.returnSellVolume = (int)decimal.Parse(value);
+                            break;
+                        case "未回买入数量":
+                            item.unreturnedBuyVolume = (int)decimal.Parse(value);
+                            break;
+                        case "未回卖出数量":
+                            item.unreturnedSellVolume = (int)decimal.Parse(value);
+                            break;
+
                     }
                 }
 

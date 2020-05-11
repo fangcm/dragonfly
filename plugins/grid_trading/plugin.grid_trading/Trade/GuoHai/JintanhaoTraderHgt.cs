@@ -12,17 +12,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public bool HgtBuyStock(string stockCode, decimal price, int volume)
         {
-            if (hHkStockTree == IntPtr.Zero || hHkHgtBuy == IntPtr.Zero)
+            Log(LoggType.Red, "沪港通购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
+            if (!ClickTreeNode(hHkStockTree, hHkHgtBuy))
             {
                 return false;
             }
-
-            Log(LoggType.Red, "沪港通购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hHkStockTree, hHkHgtBuy);
-            WindowTreeView.SimulateClick(hHkStockTree, hHkHgtBuy);
-            Misc.Delay(1000);
-
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
@@ -64,17 +58,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public bool HgtSellStock(string stockCode, decimal price, int volume)
         {
-            if (hHkStockTree == IntPtr.Zero || hHkHgtSell == IntPtr.Zero)
+            Log(LoggType.Red, "沪港通卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
+            if (!ClickTreeNode(hHkStockTree, hHkHgtSell))
             {
                 return false;
             }
-
-            Log(LoggType.Red, "沪港通卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hHkStockTree, hHkHgtSell);
-            WindowTreeView.SimulateClick(hHkStockTree, hHkHgtSell);
-            Misc.Delay(1000);
-
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
@@ -117,18 +105,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelRevocableOrder> HgtRevocableOrders()
         {
-            if (hHkStockTree == IntPtr.Zero || hHkHgtCancel == IntPtr.Zero)
+            Log(LoggType.Red, "沪港通可撤委托");
+            if (!ClickTreeNode(hHkStockTree, hHkHgtCancel))
             {
                 return null;
             }
-
-            Log(LoggType.Red, "沪港通可撤委托");
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hHkStockTree, hHkHgtCancel);
-            WindowTreeView.SimulateClick(hHkStockTree, hHkHgtCancel);
-
-            Misc.Delay(1000);
-
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
@@ -144,18 +125,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelTodayDeals> HgtTodayDealsList()
         {
-            if (hHkStockTree == IntPtr.Zero || hHkHgtTodayDeals == IntPtr.Zero)
+            Log(LoggType.Black, "沪港通当日成交");
+            if (!ClickTreeNode(hHkStockTree, hHkHgtTodayDeals))
             {
                 return null;
             }
-
-            Log(LoggType.Black, "沪港通当日成交");
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hHkStockTree, hHkHgtTodayDeals);
-            WindowTreeView.SimulateClick(hHkStockTree, hHkHgtTodayDeals);
-
-            Misc.Delay(1000);
-
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
@@ -171,17 +145,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelHoldingStock> HgtHoldingStockList()
         {
-            if (hHkStockTree == IntPtr.Zero || hHkHgtHoldingStock == IntPtr.Zero)
+            Log(LoggType.Black, "沪港通资金股份");
+            if (!ClickTreeNode(hHkStockTree, hHkHgtHoldingStock))
             {
                 return null;
             }
-
-            Log(LoggType.Black, "沪港通资金股份");
-            MouseClickToolbar(hToolBar, 0);
-            //WindowTreeView.SelectItem(hHkStockTree, hHkHgtHoldingStock);
-            WindowTreeView.SimulateClick(hHkStockTree, hHkHgtHoldingStock);
-            Misc.Delay(1000);
-
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x06BB);
@@ -190,8 +158,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 Log(LoggType.Black, "沪港通资金股份 - 不是该页面");
                 return null;
             }
-
-
+            
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
