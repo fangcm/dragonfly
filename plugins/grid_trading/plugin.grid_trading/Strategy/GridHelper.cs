@@ -46,7 +46,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                     break;
                 }
             }
-            return null;
+            return gridNodes;
         }
     }
 }
