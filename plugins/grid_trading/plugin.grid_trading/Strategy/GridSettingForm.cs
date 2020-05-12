@@ -14,6 +14,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
         private void GridSettingForm_Load(object sender, EventArgs e)
         {
+            listViewGrid.GridLines = true;
             listViewGrid.Columns.Clear();
             listViewGrid.Columns.Add("价格", 60, HorizontalAlignment.Right);
             listViewGrid.Columns.Add("持仓量", 60, HorizontalAlignment.Right);
@@ -37,6 +38,11 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                     Text = g.StockCode + " " + g.StockName,
                     Tag = g,
                 };
+                if (g.DisableFlag == 1)
+                {
+                    treeNode.ForeColor = Color.Gray;
+                }
+
                 treeViewGrid.Nodes.Add(treeNode);
             }
 
@@ -105,21 +111,28 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-
-            RefreshControls();
+            TreeNode treeNode = treeViewGrid.SelectedNode;
+            if (treeNode == null)
+            {
+                MessageBox.Show("请选择网格策略");
+                return;
+            }
+            DialogResult result = MessageBox.Show("确实要删除该网格数据吗?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                Grid g = (Grid)treeNode.Tag;
+                GridDao.DeleteGrid(g.Id);
+                RefreshControls();
+            }
         }
 
         private void buttonAddNew_Click(object sender, EventArgs e)
         {
             GridModifyForm form = new GridModifyForm();
-            form.Grid =  new Grid();
+            form.Grid = new Grid();
             form.ShowDialog();
             RefreshControls();
         }
 
-        private void labelInitPrice_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

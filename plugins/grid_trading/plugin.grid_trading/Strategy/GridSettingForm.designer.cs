@@ -75,6 +75,8 @@
             // treeViewGrid
             // 
             this.treeViewGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewGrid.FullRowSelect = true;
+            this.treeViewGrid.HideSelection = false;
             this.treeViewGrid.Location = new System.Drawing.Point(0, 0);
             this.treeViewGrid.Name = "treeViewGrid";
             this.treeViewGrid.Size = new System.Drawing.Size(124, 359);
@@ -220,7 +222,6 @@
             this.labelInitPrice.Size = new System.Drawing.Size(53, 12);
             this.labelInitPrice.TabIndex = 6;
             this.labelInitPrice.Text = "初始价格";
-            this.labelInitPrice.Click += new System.EventHandler(this.labelInitPrice_Click);
             // 
             // buttonModify
             // 

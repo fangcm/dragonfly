@@ -11,7 +11,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
             gridNodes.Add(new GridNode()
             {
-                TradingPrice = initPrice,
+                TradingPrice = decimal.Round(initPrice, priceDecimalPlace),
                 HoldingVolume = initHoldingVolume,
             });
 
@@ -21,9 +21,13 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             while (true)
             {
                 priceUp = decimal.Round(priceUp * (1 + pricePercent), priceDecimalPlace);
-                if (maxPrice > (decimal)0.001 && priceUp <= maxPrice)
+                if (maxPrice > (decimal)0.001 && priceUp <= maxPrice && holdingVolumeUp > 0)
                 {
                     holdingVolumeUp -= volumeStrategy;
+                    if (holdingVolumeUp < 0)
+                    {
+                        holdingVolumeUp = 0;
+                    }
                     gridNodes.Add(new GridNode()
                     {
                         TradingPrice = priceUp,

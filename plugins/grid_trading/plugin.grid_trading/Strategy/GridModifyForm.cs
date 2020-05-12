@@ -18,13 +18,14 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
         private void GridModifyForm_Load(object sender, EventArgs e)
         {
+            listViewGrid.GridLines = true;
             listViewGrid.Columns.Clear();
-            listViewGrid.Columns.Add("价格", 60, HorizontalAlignment.Right);
-            listViewGrid.Columns.Add("持仓量", 60, HorizontalAlignment.Right);
-            listViewGrid.Columns.Add("买单价", 60, HorizontalAlignment.Right);
-            listViewGrid.Columns.Add("买单量", 60, HorizontalAlignment.Right);
-            listViewGrid.Columns.Add("卖单价", 60, HorizontalAlignment.Right);
-            listViewGrid.Columns.Add("卖单数", 60, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("价格", 80, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("持仓量", 80, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("买单价", 80, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("买单量", 80, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("卖单价", 80, HorizontalAlignment.Right);
+            listViewGrid.Columns.Add("卖单数", 80, HorizontalAlignment.Right);
 
             RefreshControls();
 

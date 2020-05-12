@@ -79,5 +79,16 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
 
             SqliteHelper.ExecuteNonQuery(sql, paramList.ToArray());
         }
+
+        internal static void DeleteGrid(int gridId)
+        {
+            string sql = @"DELETE FROM grid_strategy WHERE id=@id";
+
+            List<SQLiteParameter> paramList = new List<SQLiteParameter>();
+            paramList.Add(new SQLiteParameter("id") { Value = gridId });
+
+            SqliteHelper.ExecuteNonQuery(sql, paramList.ToArray());
+        }
+
     }
 }
