@@ -6,8 +6,8 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 {
     public class RegexHelper
     {
-        private static Regex RegNumber = new Regex("^[0-9]+$");
-        private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
+        private static Regex RegNumber = new Regex(@"^[0-9]\d*$");
+        private static Regex RegDecimal = new Regex(@"^[0-9]*([.][0-9]+)?$");
 
         public static bool IsNotEmpty(string inputData)
         {

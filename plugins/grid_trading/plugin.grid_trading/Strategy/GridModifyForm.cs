@@ -178,6 +178,31 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             int volumeStrategy = Convert.ToInt32(this.textBoxVolumeStrategy.Text.Trim());
             int priceDecimalPlace = Convert.ToInt32(this.textBoxPriceDecimalPlace.Text.Trim());
 
+            if (minPrice < (decimal)0.99)
+            {
+                MessageBox.Show("最小价格不能低于1元", "输入错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxMinPrice.Focus();
+                return;
+            }
+            if (maxPrice > 2000)
+            {
+                MessageBox.Show("最大价格不能高于2000元", "输入错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxMaxPrice.Focus();
+                return;
+            }
+            if (priceStrategy < (decimal)1.00 || priceStrategy > 20)
+            {
+                MessageBox.Show("价格策略数值不合理，应该在1到20之间", "输入错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxPriceStrategy.Focus();
+                return;
+            }
+            if (priceDecimalPlace < 0 || priceDecimalPlace > 3)
+            {
+                MessageBox.Show("小数位数在0到3之间", "输入错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxPriceDecimalPlace.Focus();
+                return;
+            }
+
             decimal initPrice = decimal.Parse(this.textBoxInitPrice.Text.Trim());
             int initHoldingVolume = int.Parse(this.textBoxInitVolume.Text.Trim());
 
