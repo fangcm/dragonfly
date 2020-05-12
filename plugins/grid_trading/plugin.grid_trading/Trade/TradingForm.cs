@@ -20,18 +20,18 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void buttonBuy_Click(object sender, EventArgs e)
         {
+            if (!(RegexHelper.CheckNotEmpty(comboBoxStockMarket) &&
+                RegexHelper.CheckIsNumberAndNotEmpty(textBoxStockCode) &&
+                RegexHelper.CheckIsDecimalAndNotEmpty(textBoxBuyPrice) &&
+                RegexHelper.CheckIsNumberAndNotEmpty(textBoxBuyVolume)))
+            {
+                return;
+            }
+
             string stockMarket = this.comboBoxStockMarket.Text.Trim();
             string stockCode = textBoxStockCode.Text.Trim();
             string price = textBoxBuyPrice.Text.Trim();
             string volume = textBoxBuyVolume.Text.Trim();
-
-            if (!(
-                StringValidator.IsNotEmptyAndUnsignedNumber(stockCode) &&
-                StringValidator.IsNotEmptyAndUnsignedRealNumber(price) &&
-                StringValidator.IsNotEmptyAndUnsignedNumber(volume)))
-            {
-                return;
-            }
 
             switch (stockMarket)
             {
@@ -49,18 +49,18 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void buttonSell_Click(object sender, EventArgs e)
         {
+            if (!(RegexHelper.CheckNotEmpty(comboBoxStockMarket) &&
+                    RegexHelper.CheckIsNumberAndNotEmpty(textBoxStockCode) &&
+                    RegexHelper.CheckIsDecimalAndNotEmpty(textBoxSellPrice) &&
+                    RegexHelper.CheckIsNumberAndNotEmpty(textBoxSellVolume)))
+            {
+                return;
+            }
+
             string stockMarket = this.comboBoxStockMarket.Text.Trim();
             string stockCode = textBoxStockCode.Text.Trim();
             string price = textBoxSellPrice.Text.Trim();
             string volume = textBoxSellVolume.Text.Trim();
-
-            if (!(
-                StringValidator.IsNotEmptyAndUnsignedNumber(stockCode) &&
-                StringValidator.IsNotEmptyAndUnsignedRealNumber(price) &&
-                StringValidator.IsNotEmptyAndUnsignedNumber(volume)))
-            {
-                return;
-            }
 
             switch (stockMarket)
             {

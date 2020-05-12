@@ -95,7 +95,6 @@
     <Compile Include="Utils\EditableListView.cs" />
     <Compile Include="Utils\RegexHelper.cs" />
     <Compile Include="Utils\SqliteHelper.cs" />
-    <Compile Include="Utils\StringValidator.cs" />
     <Compile Include="Utils\Win32\Control\WindowButton.cs" />
     <Compile Include="Utils\Win32\Control\WindowEditBox.cs" />
     <Compile Include="Utils\Win32\Control\WindowStatic.cs" />

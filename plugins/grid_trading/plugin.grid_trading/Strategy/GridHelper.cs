@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Dragonfly.Plugin.GridTrading.Strategy
 {
     internal class GridHelper
     {
-        internal static List<GridNode> BuildGridNodes(string strategy, decimal initPrice, int initHoldingVolume,
-            decimal minPrice, decimal maxPrice)
+        internal static List<GridNode> BuildGridNodes(decimal priceStrategy, int volumeStrategy, decimal initPrice, int initHoldingVolume,
+            decimal minPrice, decimal maxPrice, int priceDecimalPlace)
         {
             List<GridNode> gridNodes = new List<GridNode>();
 
@@ -19,29 +15,34 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                 HoldingVolume = initHoldingVolume,
             });
 
-            decimal pricePercent = (decimal)0.02;
-            decimal volumePercent = (decimal)0.20;
+            decimal pricePercent = priceStrategy / 100;
             decimal priceUp = initPrice, priceDown = initPrice;
             int holdingVolumeUp = initHoldingVolume, holdingVolumeDown = initHoldingVolume;
             while (true)
             {
-                priceUp = priceUp * (1 + pricePercent);
-                priceDown = priceDown * (1 - pricePercent);
-                holdingVolumeUp = (int)(holdingVolumeUp * (1 - volumePercent));
-                holdingVolumeDown = (int)(holdingVolumeDown * (1 + volumePercent));
-
-                gridNodes.Add(new GridNode()
+                priceUp = decimal.Round(priceUp * (1 + pricePercent), priceDecimalPlace);
+                if (maxPrice > (decimal)0.001 && priceUp <= maxPrice)
                 {
-                    TradingPrice = priceUp,
-                    HoldingVolume = holdingVolumeUp,
-                });
-                gridNodes.Add(new GridNode()
-                {
-                    TradingPrice = priceDown,
-                    HoldingVolume = holdingVolumeDown,
-                });
+                    holdingVolumeUp -= volumeStrategy;
+                    gridNodes.Add(new GridNode()
+                    {
+                        TradingPrice = priceUp,
+                        HoldingVolume = holdingVolumeUp,
+                    });
+                }
 
-                if (priceUp > maxPrice || priceDown < minPrice)
+                priceDown = decimal.Round(priceDown * (1 - pricePercent), priceDecimalPlace);
+                if (minPrice > (decimal)0.001 && priceDown >= minPrice)
+                {
+                    holdingVolumeDown += volumeStrategy;
+                    gridNodes.Add(new GridNode()
+                    {
+                        TradingPrice = priceDown,
+                        HoldingVolume = holdingVolumeDown,
+                    });
+                }
+
+                if (priceUp > maxPrice && priceDown < minPrice)
                 {
                     break;
                 }

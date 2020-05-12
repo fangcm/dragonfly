@@ -72,14 +72,6 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             bDataChanged = true;
         }
 
-        private void comboBoxStrategy_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bDataChanged = true;
-            Grid g = Grid;
-           // g.GridNodes = GridHelper.BuildGridNodes(this.comboBoxStrategy.Text);
-            g.ResetOrders();
-        }
-
         private void RefreshControls()
         {
             Grid g = Grid;
@@ -131,6 +123,15 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
         {
             if (bDataChanged)
             {
+                if (!(RegexHelper.CheckNotEmpty(comboBoxStockMarket)
+                    && RegexHelper.CheckIsNumberAndNotEmpty(textBoxStockCode)
+                    && RegexHelper.CheckNotEmpty(textBoxStockName)
+                    && RegexHelper.CheckIsDecimalAndNotEmpty(textBoxInitPrice)
+                    && RegexHelper.CheckIsNumberAndNotEmpty(textBoxInitVolume)))
+                {
+                    return;
+                }
+
                 Grid g = Grid;
                 g.SetStockMarketByDesc(comboBoxStockMarket.Text);
                 g.DisableFlag = this.checkBoxDisable.Checked ? 1 : 0;
@@ -156,5 +157,42 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             }
         }
 
+        private void buttonReBuild_Click(object sender, EventArgs e)
+        {
+            if (!(RegexHelper.CheckIsDecimalAndNotEmpty(textBoxInitPrice)
+                && RegexHelper.CheckIsNumberAndNotEmpty(textBoxInitVolume)
+                && RegexHelper.CheckIsDecimalAndNotEmpty(textBoxMinPrice)
+                && RegexHelper.CheckIsDecimalAndNotEmpty(textBoxMaxPrice)
+                && RegexHelper.CheckIsDecimalAndNotEmpty(textBoxPriceStrategy)
+                && RegexHelper.CheckIsNumberAndNotEmpty(textBoxVolumeStrategy)
+                && RegexHelper.CheckIsNumberAndNotEmpty(textBoxPriceDecimalPlace)
+                ))
+            {
+                return;
+            }
+
+            decimal minPrice = Convert.ToDecimal(this.textBoxMinPrice.Text.Trim());
+            decimal maxPrice = Convert.ToDecimal(this.textBoxMaxPrice.Text.Trim());
+            decimal priceStrategy = Convert.ToDecimal(this.textBoxPriceStrategy.Text.Trim());
+            int volumeStrategy = Convert.ToInt32(this.textBoxVolumeStrategy.Text.Trim());
+            int priceDecimalPlace = Convert.ToInt32(this.textBoxPriceDecimalPlace.Text.Trim());
+
+            decimal initPrice = decimal.Parse(this.textBoxInitPrice.Text.Trim());
+            int initHoldingVolume = int.Parse(this.textBoxInitVolume.Text.Trim());
+
+            Grid g = Grid;
+            g.SetStockMarketByDesc(comboBoxStockMarket.Text);
+            g.DisableFlag = this.checkBoxDisable.Checked ? 1 : 0;
+            g.StockCode = this.textBoxStockCode.Text.Trim();
+            g.StockName = this.textBoxStockName.Text.Trim();
+            g.InitPrice = initPrice;
+            g.InitHoldingVolume = initHoldingVolume;
+
+            g.GridNodes = GridHelper.BuildGridNodes(priceStrategy, volumeStrategy, initPrice, initHoldingVolume, minPrice, maxPrice, priceDecimalPlace);
+            g.ResetOrders();
+            RefreshControls();
+
+            bDataChanged = true;
+        }
     }
 }

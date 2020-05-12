@@ -1,155 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Dragonfly.Plugin.GridTrading.Utils
 {
     public class RegexHelper
     {
-        #region 验证输入字符串是否与模式字符串匹配
-        /// <summary>
-        /// 验证输入字符串是否与模式字符串匹配，匹配返回true
-        /// </summary>
-        /// <param name="input">输入字符串</param>
-        /// <param name="pattern">模式字符串</param>        
-        public static bool IsMatch(string input, string pattern)
+        private static Regex RegNumber = new Regex("^[0-9]+$");
+        private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
+
+        public static bool IsNotEmpty(string inputData)
         {
-            return IsMatch(input, pattern, RegexOptions.IgnoreCase);
+            return !string.IsNullOrWhiteSpace(inputData);
         }
 
-        /// <summary>
-        /// 验证输入字符串是否与模式字符串匹配，匹配返回true
-        /// </summary>
-        /// <param name="input">输入的字符串</param>
-        /// <param name="pattern">模式字符串</param>
-        /// <param name="options">筛选条件</param>
-        public static bool IsMatch(string input, string pattern, RegexOptions options)
+        private static bool IsNumber(string input)
         {
-            return Regex.IsMatch(input, pattern, options);
+            Match m = RegNumber.Match(input);
+            return m.Success;
         }
-        #endregion
 
-        #region 返回匹配结果
-        /// <summary>
-        /// 匹配到的多项
-        /// </summary>
-        /// <param name="input">待验证字符串</param>
-        /// <param name="pattern">匹配模式</param>
-        /// <param name="strStart">匹配项的起始标志</param>
-        /// <param name="strEnd">匹配项的结束标志</param>
-        /// <param name="result">匹配结果</param>
-        public static void GetMatchList(string input, string pattern, string strStart, string strEnd, List<string> result)
+        private static bool IsDecimal(string input)
         {
-            if (result == null)
-                result = new List<string>();
+            Match m = RegDecimal.Match(input);
+            return m.Success;
+        }
 
-            if (!IsMatch(input, pattern)) return;
-
-            int startIdx = 0, endIdx = 0;
-            Regex regex = new Regex(pattern);
-            MatchCollection matchList = regex.Matches(input);
-            foreach (Match item in matchList)
+        private static bool RegexCheck(Control ctrl, string errorMsg, Func<string, bool> checkMethod)
+        {
+            string strCheck = ctrl.Text.Trim();
+            if (string.IsNullOrWhiteSpace(strCheck) || !checkMethod(strCheck))
             {
-                startIdx = item.Value.IndexOf(strStart);
-                endIdx = item.Value.LastIndexOf(strEnd);
-                result.Add(item.Value.Substring(startIdx + strStart.Length + 1, endIdx - startIdx - strStart.Length - 2));
+                MessageBox.Show(errorMsg, "输入错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ctrl.Focus();
+                return false;
             }
+            return true;
         }
 
-        /// <summary>
-        /// 匹配特定内容
-        /// </summary>
-        /// <param name="input">待验证字符串</param>
-        /// <param name="pattern">匹配模式</param>
-        /// <param name="strStart">匹配项的起始标志</param>
-        /// <param name="strEnd">匹配项的结束标志</param>
-        /// <returns>匹配结果</returns>
-        public static string GetMatchItem(string input, string pattern, string strStart, string strEnd)
+        public static bool CheckIsNumberAndNotEmpty(Control ctrl)
         {
-            string result = string.Empty;
-
-            if (!IsMatch(input, pattern)) return result;
-
-            int startIdx = 0, endIdx = 0;
-            Regex regex = new Regex(pattern);
-            Match matchInfo = regex.Match(input);
-            startIdx = matchInfo.Value.IndexOf(strStart);
-            endIdx = matchInfo.Value.IndexOf(strEnd);
-
-            result = matchInfo.Value.Substring(startIdx + strStart.Length + 1, endIdx - startIdx - strStart.Length - 2);
-
-            return result;
+            return RegexCheck(ctrl, "请输入数字", RegexHelper.IsNumber);
         }
 
-        #endregion
-
-        #region 常用格式验证
-        /// <summary>
-        /// 中文字符
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsChineseWords(string input)
+        public static bool CheckIsDecimalAndNotEmpty(Control ctrl)
         {
-            string strPattern = "^[\u4e00-\u9fa5]{0,}$";
-            return IsMatch(input, strPattern);
+            return RegexCheck(ctrl, "请输入数字", RegexHelper.IsDecimal);
+
         }
 
-        /// <summary>
-        /// 数字
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsValidNumber(string input)
+        public static bool CheckNotEmpty(Control ctrl)
         {
-            string strPattern = @"^[0-9]*$";
-            return IsMatch(input, strPattern);
+            string strCheck = ctrl.Text.Trim();
+            if (string.IsNullOrWhiteSpace(strCheck))
+            {
+                MessageBox.Show("该项为必填", "输入错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ctrl.Focus();
+                return false;
+            }
+            return true;
+
         }
 
-        /// <summary>
-        /// 正实数（正浮点数）
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsUnsignedRealNumber(string input)
-        {
-            string strPattern = @"^\d+(\.\d{1,2})?$";
-            return IsMatch(input, strPattern);
-        }
 
-        /// <summary>
-        /// 匹配正整数
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsNumberUnsignedinteger(string input)
-        {
-            string strPattern = @"^[1-9]\d*$";
-            return IsMatch(input, strPattern);
-        }
-
-        /// <summary>
-        /// 只能输入某个区间数字
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsNumberRange(string input, int min, int max)
-        {
-            string strPattern = string.Format(@"^[{0}-{1}]$", min, max);
-            return IsMatch(input, strPattern);
-        }
-
-        /// <summary>
-        /// 只能输入m到n个数字
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public static bool IsNumberLength(string input, int min, int max)
-        {
-            string strPattern = string.Format(@"\d{{0},{1}}$", min, max);
-            return IsMatch(input, strPattern);
-        }
-        #endregion
     }
 }
