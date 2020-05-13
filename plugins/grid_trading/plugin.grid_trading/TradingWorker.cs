@@ -44,29 +44,35 @@ namespace Dragonfly.Plugin.GridTrading
             // 查询持仓数据
             List<ModelHoldingStock> holdingStocks = null;
 
-            switch (market)
+            try
             {
-                case StockMarket.A:
-                    todayDeals = TraderHelper.Instance.TodayDealsList();
-                    TradeDao.SaveOrUpdateTodayDeals(StockMarket.A, todayDeals);
-                    revocableOrders = TraderHelper.Instance.RevocableOrders();
-                    holdingStocks = TraderHelper.Instance.HoldingStockList();
-                    break;
-                case StockMarket.Hgt:
-                    todayDeals = TraderHelper.Instance.HgtTodayDealsList();
-                    TradeDao.SaveOrUpdateTodayDeals(StockMarket.Hgt, todayDeals);
-                    revocableOrders = TraderHelper.Instance.HgtRevocableOrders();
-                    holdingStocks = TraderHelper.Instance.HgtHoldingStockList();
-                    break;
-                case StockMarket.Sgt:
-                    todayDeals = TraderHelper.Instance.SgtTodayDealsList();
-                    TradeDao.SaveOrUpdateTodayDeals(StockMarket.Sgt, todayDeals);
-                    revocableOrders = TraderHelper.Instance.SgtRevocableOrders();
-                    holdingStocks = TraderHelper.Instance.SgtHoldingStockList();
-                    break;
+                switch (market)
+                {
+                    case StockMarket.A:
+                        todayDeals = TraderHelper.Instance.TodayDealsList();
+                        TradeDao.SaveOrUpdateTodayDeals(StockMarket.A, todayDeals);
+                        revocableOrders = TraderHelper.Instance.RevocableOrders();
+                        holdingStocks = TraderHelper.Instance.HoldingStockList();
+                        break;
+                    case StockMarket.Hgt:
+                        todayDeals = TraderHelper.Instance.HgtTodayDealsList();
+                        TradeDao.SaveOrUpdateTodayDeals(StockMarket.Hgt, todayDeals);
+                        revocableOrders = TraderHelper.Instance.HgtRevocableOrders();
+                        holdingStocks = TraderHelper.Instance.HgtHoldingStockList();
+                        break;
+                    case StockMarket.Sgt:
+                        todayDeals = TraderHelper.Instance.SgtTodayDealsList();
+                        TradeDao.SaveOrUpdateTodayDeals(StockMarket.Sgt, todayDeals);
+                        revocableOrders = TraderHelper.Instance.SgtRevocableOrders();
+                        holdingStocks = TraderHelper.Instance.SgtHoldingStockList();
+                        break;
+                }
             }
-
-
+            catch (Exception ex)
+            {
+                LoggerUtil.Log(LoggType.Red, "异常：" + ex.Message);
+                return;
+            }
 
 
             foreach (Grid grid in grids)
@@ -89,7 +95,7 @@ namespace Dragonfly.Plugin.GridTrading
                 int holdingVolume = FindStockHoldingVolume(grid.StockMarket, grid.StockCode, holdingStocks);
                 if (holdingVolume == 0)
                 {
-                    LoggerUtil.Log(LoggType.Red, "忽略 - 查询股票持仓数量为0。 市场：" + grid.StockMarket.ToString() + ", 股票：" + grid.StockCode);
+                    LoggerUtil.Log(LoggType.Red, "忽略：" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】持仓为0");
                     continue;
                 }
 
@@ -98,8 +104,7 @@ namespace Dragonfly.Plugin.GridTrading
                 bool sameNode = Grid.Equals(nodeByPrice, nodeByVolume);
                 if (!sameNode)
                 {
-                    LoggerUtil.Log(LoggType.Red, "忽略 - 网格策略在判断当前网格节点时存在不一致，需人工参与。 市场：" + grid.StockMarket.ToString() +
-                        ", 股票：" + grid.StockCode + ", 查询最后交易价格" + lastTradePrice + ", 持仓：" + holdingVolume);
+                    LoggerUtil.Log(LoggType.Red, "忽略：判断网格节点时有歧义，" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】最后交易价：" + lastTradePrice + ",持仓：" + holdingVolume);
                     continue;
                 }
 
@@ -129,38 +134,46 @@ namespace Dragonfly.Plugin.GridTrading
 
 
                 // 下单，（保存委托记录，仅作为日志）
-                switch (grid.StockMarket)
+                try
                 {
-                    case StockMarket.A:
-                        if (doBuyOrder)
-                        {
-                            TraderHelper.Instance.BuyStock(grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume);
-                        }
-                        if (doSellOrder)
-                        {
-                            TraderHelper.Instance.SellStock(grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume);
-                        }
-                        break;
-                    case StockMarket.Hgt:
-                        if (doBuyOrder)
-                        {
-                            TraderHelper.Instance.HgtBuyStock(grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume);
-                        }
-                        if (doSellOrder)
-                        {
-                            TraderHelper.Instance.HgtSellStock(grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume);
-                        }
-                        break;
-                    case StockMarket.Sgt:
-                        if (doBuyOrder)
-                        {
-                            TraderHelper.Instance.SgtBuyStock(grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume);
-                        }
-                        if (doSellOrder)
-                        {
-                            TraderHelper.Instance.SgtSellStock(grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume);
-                        }
-                        break;
+                    switch (grid.StockMarket)
+                    {
+                        case StockMarket.A:
+                            if (doBuyOrder)
+                            {
+                                TraderHelper.Instance.BuyStock(grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume);
+                            }
+                            if (doSellOrder)
+                            {
+                                TraderHelper.Instance.SellStock(grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume);
+                            }
+                            break;
+                        case StockMarket.Hgt:
+                            if (doBuyOrder)
+                            {
+                                TraderHelper.Instance.HgtBuyStock(grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume);
+                            }
+                            if (doSellOrder)
+                            {
+                                TraderHelper.Instance.HgtSellStock(grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume);
+                            }
+                            break;
+                        case StockMarket.Sgt:
+                            if (doBuyOrder)
+                            {
+                                TraderHelper.Instance.SgtBuyStock(grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume);
+                            }
+                            if (doSellOrder)
+                            {
+                                TraderHelper.Instance.SgtSellStock(grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume);
+                            }
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggerUtil.Log(LoggType.Red, "异常：" + ex.Message);
+                    return;
                 }
             }
         }
@@ -193,7 +206,7 @@ namespace Dragonfly.Plugin.GridTrading
             foreach (ModelRevocableOrder ro in revocableOrders)
             {
                 if (ro.stockCode == stockCode && ro.orderVolume == volume && ro.ConvertDirectionToInt() == direction &&
-                    Math.Abs(ro.orderPrice - price) < decimal.Parse("0.02"))
+                    Math.Abs(ro.orderPrice - price) < decimal.Parse("0.001"))
                 {
                     return true;
                 }

@@ -186,12 +186,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 new IntPtr((int)System.Windows.Forms.Keys.F5), IntPtr.Zero);
         }
 
-        internal bool ClickTreeNode(IntPtr hTree, IntPtr hItem)
+        internal void ClickTreeNode(IntPtr hTree, IntPtr hItem)
         {
             if (hTree == IntPtr.Zero || hItem == IntPtr.Zero)
             {
-                Log(LoggType.Red, "没有检测到菜单树、菜单项");
-                return false;
+                throw new ApplicationException("没有检测到菜单树、菜单项");
             }
 
             NativeMethods.SwitchToThisWindow(hAppWnd, true);
@@ -204,7 +203,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             MouseClickToolbar(hToolBar, index);
             WindowTreeView.SimulateClick(hTree, hItem);
             Misc.Delay(1000);
-            return true;
         }
 
 
@@ -248,16 +246,15 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                         Log(LoggType.Gray, direction + "下单完成");
                         return true;
                     }
-                    Log(LoggType.Red, "下单提示信息没有【合同号】");
-                    return false;
+
+                    throw new ApplicationException("下单提示信息没有【合同号】");
                 }
-                Log(LoggType.Red, "没有检测到【提示】对话框");
-                return false;
+
+                throw new ApplicationException("没有检测到【提示】对话框");
             }
             else
             {
-                Log(LoggType.Red, "没有检测到卖出确认对话框");
-                return false;
+                throw new ApplicationException("没有检测到卖出确认对话框");
             }
 
 
@@ -336,7 +333,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                     }
                 }
             }
-            return null;
+            throw new ApplicationException("没有等到保存文件确认窗口");
         }
 
     }

@@ -15,11 +15,19 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
                 HoldingVolume = initHoldingVolume,
             });
 
+            int maxLoop = 30;
             decimal pricePercent = priceStrategy / 100;
             decimal priceUp = initPrice, priceDown = initPrice;
             int holdingVolumeUp = initHoldingVolume, holdingVolumeDown = initHoldingVolume;
             while (true)
             {
+                maxLoop--;
+                if (maxLoop <= 0)
+                {
+                    //最多网格N个
+                    break;
+                }
+
                 if (maxPrice > (decimal)0.001 && priceUp < maxPrice && holdingVolumeUp > 0)
                 {
                     priceUp = decimal.Round(priceUp * (1 + pricePercent), priceDecimalPlace);
