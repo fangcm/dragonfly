@@ -203,6 +203,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             MouseClickToolbar(hToolBar, index);
             WindowTreeView.SimulateClick(hTree, hItem);
             Misc.Delay(1000);
+            IntPtr hSelectedItem = WindowTreeView.GetSelection(hTree);
+            if (hSelectedItem != hItem)
+            {
+                throw new ApplicationException("没有选中树节点");
+            }
         }
 
 

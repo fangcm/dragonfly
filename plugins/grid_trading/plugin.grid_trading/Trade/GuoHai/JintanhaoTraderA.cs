@@ -21,7 +21,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            IntPtr hStaticMaxBuyVolume = WindowHwnd.GetDlgItem(panel, 0x07E6);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
             IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
@@ -60,7 +59,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            IntPtr hStaticMaxSellVolume = WindowHwnd.GetDlgItem(panel, 0x0811);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
             IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);

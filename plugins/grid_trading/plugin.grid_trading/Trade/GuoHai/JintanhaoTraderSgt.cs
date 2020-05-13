@@ -14,19 +14,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "购买：深港通【" + stockCode + "】,价:" + price + ",量:" + volume);
             ClickTreeNode(hHkStockTree, hHkSgtBuy);
 
-            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x07DA, "买入下单");
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x1B7F, "买入");
             if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("不是买入下单页面");
             }
 
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            IntPtr hStaticMaxBuyVolume = WindowHwnd.GetDlgItem(panel, 0x07E6);
-            IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
-            IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
-            IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
+            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x1B7F);
+            IntPtr hComboBoxType = WindowHwnd.GetDlgItem(panel, 0x1B67);
+            IntPtr hEditCode = WindowHwnd.GetDlgItem(panel, 0x1B68);
+            IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x1B6B);
+            IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x1B77);
 
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
+            if (hComboBoxType == IntPtr.Zero || hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 throw new ApplicationException("不是买入下单的控件页面");
             }
@@ -53,19 +53,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "卖出：深港通【" + stockCode + "】,价:" + price + ",数:" + volume);
             ClickTreeNode(hHkStockTree, hHkSgtSell);
 
-            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x07DA, "卖出下单");
-            if (panel == IntPtr.Zero  )
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x1B7F, "卖出");
+            if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("不是卖出下单页面");
             }
 
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            IntPtr hStaticMaxSellVolume = WindowHwnd.GetDlgItem(panel, 0x0811);
-            IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
-            IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
-            IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
+            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x1B7F);
+            IntPtr hComboBoxType = WindowHwnd.GetDlgItem(panel, 0x1B67);
+            IntPtr hEditCode = WindowHwnd.GetDlgItem(panel, 0x1B68);
+            IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x1B6B);
+            IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x1B77);
 
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
+            if (hComboBoxType == IntPtr.Zero || hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 throw new ApplicationException("不是卖出下单的控件页面");
             }
@@ -93,7 +93,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "查询：深港通可撤委托");
             ClickTreeNode(hHkStockTree, hHkSgtCancel);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x1B87, "撤 单");
+            if (panel == IntPtr.Zero)
+            {
+                throw new ApplicationException("不是撤单页面");
+            }
+
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
@@ -109,8 +114,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "查询：深港通当日成交");
             ClickTreeNode(hHkStockTree, hHkSgtTodayDeals);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 4);
+            if (panel == IntPtr.Zero)
+            {
+                throw new ApplicationException("不是当日成交页面");
+            }
+
+            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x1B84);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
                 Log(LoggType.Black, "深港通：当日无成交（输出按钮不可用）");
@@ -125,15 +135,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "查询：深港通资金股份");
             ClickTreeNode(hHkStockTree, hHkSgtHoldingStock);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x06BB);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "修改成本")
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 7);
+            if (panel == IntPtr.Zero)
             {
-                throw new ApplicationException("深港通资金股份 - 不是该页面");
+                throw new ApplicationException("不是资金股份页面");
             }
 
-
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
+            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x1B9C);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
                 Log(LoggType.Black, "深港通资金股份 - 输出按钮不可用");
