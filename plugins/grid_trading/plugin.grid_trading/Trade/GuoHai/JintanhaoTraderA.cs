@@ -96,6 +96,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             {
                 throw new ApplicationException("不是撤单页面");
             }
+            ClickMenuItem(panel,0,0);
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {

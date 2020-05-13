@@ -23,6 +23,27 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             return true;
         }
 
+        internal void SelectComboBox(IntPtr hWnd, int item)
+        {
+            Misc.ProxySendMessageInt(hWnd, NativeMethods.CB_SETCURSEL, new IntPtr(item), IntPtr.Zero);
+        }
+
+        internal static bool ClickMenuItem(IntPtr hWnd, int menuPosition, int subMenuItemPosition)
+        {
+            // Get the handle to the main menu
+            IntPtr hWndMain = NativeMethods.GetMenu(hWnd);
+            // Get the handle to the sub menu
+            IntPtr hWndSubMenu = NativeMethods.GetSubMenu(hWndMain, menuPosition);
+            // Get the sub-menu item ID
+            uint menuItemId = NativeMethods.GetMenuItemID(hWndSubMenu, subMenuItemPosition);
+            // Call an aliased SendNotifyMessage
+            return NativeMethods.ClickMenuItem(
+                hWnd,
+                 NativeMethods.WM_COMMAND,
+                menuItemId,
+                IntPtr.Zero);
+        }
+
     }
 
 }

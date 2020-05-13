@@ -17,6 +17,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 
         // Combobox
         internal const int CB_GETCURSEL = 0x0147;
+        internal const int CB_SETCURSEL = 0x014E;
         internal const int CB_GETLBTEXT = 0x0148;
         internal const int CB_GETLBTEXTLEN = 0x0149;
         internal const int CB_SHOWDROPDOWN = 0x014F;
@@ -1996,5 +1997,14 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         internal static extern bool ClipCursor(ref Win32Rect rect);
         [DllImport("user32.dll", EntryPoint = "ClipCursor", SetLastError = true)]
         internal static extern bool ClipCursor(IntPtr rect);
+
+        [DllImport("user32.dll", EntryPoint = "SendNotifyMessage", SetLastError = true)]
+        internal static extern bool ClickMenuItem(IntPtr hWndSubMenu, uint menuMessage, uint menuItemID, IntPtr lParam);
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetMenu(IntPtr hWndMainWindow);
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetSubMenu(IntPtr hWndMenu, int menuPosition);
+        [DllImport("user32.dll")]
+        internal static extern uint GetMenuItemID(IntPtr hWndSubMenu, int menuItemPosition);
     }
 }
