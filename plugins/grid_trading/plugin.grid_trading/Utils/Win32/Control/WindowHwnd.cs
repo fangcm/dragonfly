@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Text;
 
@@ -7,7 +6,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
 {
     internal class WindowHwnd
     {
-
         internal static IntPtr FindHwndInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName)
         {
             return NativeMethods.FindWindowEx(hParent, hChildAfter, lpClassName, lpWindowName);
@@ -28,32 +26,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             return retHandle;
         }
 
-        internal static IntPtr WaitForFindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName, bool onlyInVisibleParent)
-        {
-            int counter = 0;
-            while (true)
-            {
-                IntPtr hFinded = WindowHwnd.FindHwndInParentRecursive(hParent, lpClassName, lpWindowName, onlyInVisibleParent);
-                if (hFinded != IntPtr.Zero)
-                {
-                    return hFinded;
-                }
-
-                Misc.Delay(200);
-                counter++;
-                if (counter > 50)
-                {
-                    return IntPtr.Zero;
-                }
-            }
-        }
-
-        internal static IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName)
-        {
-            return FindHwndInParentRecursive(hParent, lpClassName, lpWindowName, false);
-        }
-
-        internal static IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName, bool onlyInVisibleParent)
+        internal static IntPtr FindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName, bool onlyVisibleInParent = false)
         {
             IntPtr iResult = IntPtr.Zero;
             // 首先在父窗体上查找控件
@@ -64,7 +37,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             // 枚举子窗体，查找控件句柄
             NativeMethods.EnumChildWindows(hParent, (h, l) =>
             {
-                if (onlyInVisibleParent)
+                if (onlyVisibleInParent)
                 {
                     if (!NativeMethods.IsWindowVisible(h)) { return true; }
                 }
@@ -155,16 +128,16 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             return NativeMethods.SetForegroundWindow(hwnd);
         }
 
-        internal static void closeProcess(string procName, string prefixTitle)
+        internal static Process FindProcess(string procName, string prefixTitle)
         {
             foreach (Process thisProc in Process.GetProcessesByName(procName))
             {
                 if (thisProc.MainWindowTitle.Contains(prefixTitle))
                 {
-                    if (!thisProc.CloseMainWindow())
-                        thisProc.Kill();  //当发送关闭窗口命令无效时强行结束进程 
+                    return thisProc;
                 }
             }
+            return null;
         }
 
     }

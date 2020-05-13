@@ -103,6 +103,7 @@
     <Compile Include="Utils\Win32\Control\WindowHwnd.cs" />
     <Compile Include="Utils\Win32\Misc.cs" />
     <Compile Include="Utils\Win32\Control\WindowRichEdit.cs" />
+    <Compile Include="Utils\Win32\WaitForHwnd.cs" />
     <Compile Include="Utils\Win32\XSendMessage.cs" />
     <Compile Include="Utils\Win32\ProcessHandle.cs" />
     <Compile Include="Utils\Win32\RemoteMemoryBlock.cs" />

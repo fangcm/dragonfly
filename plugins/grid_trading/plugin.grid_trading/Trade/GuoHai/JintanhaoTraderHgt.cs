@@ -14,13 +14,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "购买：沪港通【" + stockCode + "】,价:" + price + ",数:" + volume);
             ClickTreeNode(hHkStockTree, hHkHgtBuy);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "买入下单")
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x07DA, "买入下单");
+            if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("不是买入下单页面");
             }
 
+            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
             IntPtr hStaticMaxBuyVolume = WindowHwnd.GetDlgItem(panel, 0x07E6);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
@@ -44,8 +44,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             // 点击买入按钮
             Misc.Delay(500);
             WindowButton.Click(btnConfirm);
-            Misc.Delay(500);
-
             return ConfirmOrder("买入", stockCode, price, volume);
 
         }
@@ -55,13 +53,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "卖出：沪港通【" + stockCode + "】,价:" + price + ",数:" + volume);
             ClickTreeNode(hHkStockTree, hHkHgtSell);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "卖出下单")
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x07DA, "卖出下单");
+            if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("不是卖出下单页面");
             }
 
+            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
             IntPtr hStaticMaxSellVolume = WindowHwnd.GetDlgItem(panel, 0x0811);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
@@ -85,8 +83,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             // 点击买入按钮
             Misc.Delay(500);
             WindowButton.Click(btnConfirm);
-            Misc.Delay(500);
-
             return ConfirmOrder("卖出", stockCode, price, volume);
 
         }

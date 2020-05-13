@@ -209,11 +209,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         // 委托后确认
         internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume)
         {
-            IntPtr hConfirmDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", direction + "交易确认", true);
+            IntPtr hConfirmDlg = WaitForHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", direction + "交易确认", true);
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hBtnYes = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", direction + "确认");
-                IntPtr hBtnNo = WindowHwnd.FindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
+                IntPtr hBtnYes = WaitForHwnd.WaitForFindHwndInParentRecursive(hConfirmDlg, "Button", direction + "确认");
+                IntPtr hBtnNo = WaitForHwnd.WaitForFindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
 
                 IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
                 string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
@@ -232,7 +232,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 }
                 WindowButton.Click(hBtnYes);
 
-                IntPtr hTipDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "提示", true);
+                IntPtr hTipDlg = WaitForHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "提示", true);
                 if (hTipDlg != IntPtr.Zero)
                 {
                     IntPtr hBtnOk = WindowHwnd.GetDlgItem(hTipDlg, 0x1B67);
@@ -301,7 +301,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         // 通用保存文件窗口确认后，解析txt文件，返回解析model
         internal static object ParseModelDataFromTxtFileAfterConfirDlg(Func<List<string[]>, object> modelParser)
         {
-            IntPtr hConfirmDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
+            IntPtr hConfirmDlg = WaitForHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
             if (hConfirmDlg != IntPtr.Zero)
             {
                 IntPtr hCheckTxt = WindowHwnd.GetDlgItem(hConfirmDlg, 0x00E6);
@@ -314,8 +314,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 WindowButton.Click(hBtnYes);
                 try
                 {
-                    Misc.Delay(1000);
-                    WindowHwnd.closeProcess("notepad", Path.GetFileName(tempFile));
+                    WaitForHwnd.WaitForCloseProcess("notepad", Path.GetFileName(tempFile));
                     Misc.Delay(1000);
                     List<string[]> rawData = DataParser.ReadCsv(tempFile);
                     return modelParser(rawData);

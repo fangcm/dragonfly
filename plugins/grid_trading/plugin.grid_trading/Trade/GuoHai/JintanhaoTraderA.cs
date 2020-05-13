@@ -14,13 +14,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "购买：A股【" + stockCode + "】,价:" + price + ",量:" + volume);
             ClickTreeNode(hStockTree, hBuy);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "买入下单")
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x07DA, "买入下单");
+            if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("不是买入下单页面");
             }
 
+            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
             IntPtr hStaticMaxBuyVolume = WindowHwnd.GetDlgItem(panel, 0x07E6);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
@@ -44,8 +44,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             // 点击买入按钮
             Misc.Delay(500);
             WindowButton.Click(btnConfirm);
-            Misc.Delay(500);
-
             return ConfirmOrder("买入", stockCode, price, volume);
 
         }
@@ -55,13 +53,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "卖出：A股【" + stockCode + "】,价:" + price + ",数:" + volume);
             ClickTreeNode(hStockTree, hSell);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "卖出下单")
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x07DA, "卖出下单");
+            if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("不是卖出下单页面");
             }
 
+            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
             IntPtr hStaticMaxSellVolume = WindowHwnd.GetDlgItem(panel, 0x0811);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
@@ -85,8 +83,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             // 点击买入按钮
             Misc.Delay(500);
             WindowButton.Click(btnConfirm);
-            Misc.Delay(500);
-
             return ConfirmOrder("卖出", stockCode, price, volume);
 
         }
@@ -97,7 +93,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "查询：A股可撤委托");
             ClickTreeNode(hStockTree, hCancel);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x0470, "撤 单");
+            if (panel == IntPtr.Zero)
+            {
+                throw new ApplicationException("不是撤单页面");
+            }
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
@@ -114,7 +114,12 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "查询：A股当日成交");
             ClickTreeNode(hStockTree, hTodayDeals);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 4);
+            if (panel == IntPtr.Zero)
+            {
+                throw new ApplicationException("不是当日成交页面");
+            }
+
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
@@ -130,9 +135,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             Log(LoggType.Black, "查询：A股资金股份");
             ClickTreeNode(hStockTree, hHoldingStock);
 
-            IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
-            IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x06BB);
-            if (btnConfirm == IntPtr.Zero || WindowHwnd.GetWindowText(btnConfirm) != "修改成本")
+            IntPtr panel = WaitForHwnd.WaitForFindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null, 0x06BB, "修改成本");
+            if (panel == IntPtr.Zero)
             {
                 throw new ApplicationException("A股资金股份 - 不是该页面");
             }
