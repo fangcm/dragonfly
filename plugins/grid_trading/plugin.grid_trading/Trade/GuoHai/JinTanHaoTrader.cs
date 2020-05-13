@@ -24,7 +24,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         {
             if (!Init("TdxW_MainFrame_Class", null))
             {
-                Log(LoggType.Red, "【国海金叹号网上交易系统】未启动");
+                Log(LoggType.MediumBlue, "【国海金叹号网上交易系统】未启动");
                 return false;
             }
             hMainWnd = WindowHwnd.FindHwndInParentRecursive(hMainWnd, null, @"通达信网上交易V6");
@@ -36,7 +36,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             if (hToolBar == IntPtr.Zero)
             {
-                Log(LoggType.Red, "未找到选择股票市场工具条");
+                Log(LoggType.MediumBlue, "未找到选择股票市场工具条");
                 return false;
             }
 
@@ -46,23 +46,23 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             if (hStockTree == IntPtr.Zero)
             {
-                Log(LoggType.Red, "没有找到金叹号交易软件");
+                Log(LoggType.MediumBlue, "没有找到金叹号交易软件");
                 return false;
             }
             if (hHkStockTree == IntPtr.Zero)
             {
-                Log(LoggType.Red, "没有找到金叹号港股交易软件");
+                Log(LoggType.MediumBlue, "没有找到金叹号港股交易软件");
                 return false;
             }
 
             if (!InitStockTreeViewItemHandler())
             {
-                Log(LoggType.Red, "初始化A股菜单树失败");
+                Log(LoggType.MediumBlue, "初始化A股菜单树失败");
                 return false;
             }
             if (!InitHKStockTreeViewItemHandler())
             {
-                Log(LoggType.Red, "初始化港股通菜单树失败");
+                Log(LoggType.MediumBlue, "初始化港股通菜单树失败");
                 return false;
             }
 
@@ -87,7 +87,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             var items = WindowTreeView.GetAllItems(hStockTree);
             if (items.Count != 23)
             {
-                Log(LoggType.Black, "A股菜单树菜单个数不一致");
+                Log(LoggType.MediumBlue, "A股菜单树菜单个数不一致");
                 return false;
             }
 
@@ -124,7 +124,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             var items = WindowTreeView.GetAllItems(hHkStockTree);
             if (items.Count != 2)
             {
-                Log(LoggType.Black, "港股通菜单树菜单个数不一致");
+                Log(LoggType.MediumBlue, "港股通菜单树菜单个数不一致");
                 return false;
             }
 
@@ -226,7 +226,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 patten["委托方式"] = "限价委托";
                 if (!ValidateTipText(txtConfirm, patten))
                 {
-                    Log(LoggType.Red, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
+                    Log(LoggType.MediumBlue, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
                     WindowButton.Click(hBtnNo);
                     return false;
                 }
@@ -243,14 +243,14 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
                     if (!string.IsNullOrEmpty(tipTxt) && tipTxt.Contains("合同号"))
                     {
-                        Log(LoggType.Gray, direction + "下单完成");
+                        Log(LoggType.Black, direction + "下单成功，【" + stockCode + "】,价格:" + price + ",数量" + volume);
                         return true;
                     }
 
-                    throw new ApplicationException("下单提示信息没有【合同号】");
+                    throw new ApplicationException("下单提示信息没有【合同号】，下单可能成功");
                 }
 
-                throw new ApplicationException("没有检测到【提示】对话框");
+                throw new ApplicationException("没有检测到【提示】对话框，下单可能成功");
             }
             else
             {
@@ -301,8 +301,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
         // 通用保存文件窗口确认后，解析txt文件，返回解析model
         internal static object ParseModelDataFromTxtFileAfterConfirDlg(Func<List<string[]>, object> modelParser)
         {
-            Misc.Delay(500);
-
             IntPtr hConfirmDlg = WindowHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "输出", true);
             if (hConfirmDlg != IntPtr.Zero)
             {

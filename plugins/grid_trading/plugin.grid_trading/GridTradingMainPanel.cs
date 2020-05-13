@@ -27,8 +27,8 @@ namespace Dragonfly.Plugin.GridTrading
             listViewMain.Columns.Add("时间", 150, HorizontalAlignment.Left);
             listViewMain.Columns.Add("描述", 450, HorizontalAlignment.Left);
 
-            TraderHelper.Instance.Init();
-
+            toolStripButtonInit.Checked = gridTradingPlugin.TraderReady;
+            toolStripButtonStop.Checked = !gridTradingPlugin.TraderReady;
         }
 
         private delegate void InsertLineDelegate(int index, DateTime date, Color foreColor, string desc);
@@ -66,18 +66,30 @@ namespace Dragonfly.Plugin.GridTrading
             settingForm.ShowDialog();
         }
 
+        private void toolStripButtonOrder_Click(object sender, EventArgs e)
+        {
+            TradingForm form = new TradingForm();
+            form.ShowDialog();
+        }
+
         private void toolStripButtonInit_Click(object sender, EventArgs e)
         {
             if (gridTradingPlugin != null)
             {
                 gridTradingPlugin.TraderReady = TraderHelper.Instance.Init();
+                toolStripButtonInit.Checked = gridTradingPlugin.TraderReady;
+                toolStripButtonStop.Checked = !gridTradingPlugin.TraderReady;
             }
         }
 
-        private void toolStripButtonOrder_Click(object sender, EventArgs e)
+        private void toolStripButtonStop_Click(object sender, EventArgs e)
         {
-            TradingForm form = new TradingForm();
-            form.ShowDialog();
+            if (gridTradingPlugin != null)
+            {
+                gridTradingPlugin.TraderReady = false;
+                toolStripButtonInit.Checked = gridTradingPlugin.TraderReady;
+                toolStripButtonStop.Checked = !gridTradingPlugin.TraderReady;
+            }
         }
     }
 

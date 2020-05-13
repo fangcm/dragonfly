@@ -53,9 +53,6 @@ namespace Dragonfly.Plugin.GridTrading
             timer.AutoReset = true;
             timer.Enabled = true;
 
-
-            Logger.info("GridTradingPlugin", "Initialize");
-
         }
 
 
@@ -63,7 +60,6 @@ namespace Dragonfly.Plugin.GridTrading
         {
             timer.Enabled = false;
             this.bgWorker.Dispose();
-            Logger.info("GridTradingPlugin", "Dispose");
         }
 
         public UserControl PluginPanel
@@ -108,7 +104,7 @@ namespace Dragonfly.Plugin.GridTrading
         {
             if (!TraderReady)
             {
-                LoggerUtil.Log(LoggType.Black, "没有关联交易软件,不能自动下单");
+                LoggerUtil.Log(LoggType.MediumBlue, "没有关联交易软件,不能自动下单");
                 return;
             }
             elapsedCounter++;

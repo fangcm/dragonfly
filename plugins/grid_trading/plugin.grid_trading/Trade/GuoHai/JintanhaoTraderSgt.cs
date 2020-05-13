@@ -11,7 +11,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
     {
         public bool SgtBuyStock(string stockCode, decimal price, int volume)
         {
-            Log(LoggType.Red, "深港通购买股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
+            Log(LoggType.Black, "购买：深港通【" + stockCode + "】,价:" + price + ",量:" + volume);
             ClickTreeNode(hHkStockTree, hHkSgtBuy);
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
@@ -52,7 +52,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public bool SgtSellStock(string stockCode, decimal price, int volume)
         {
-            Log(LoggType.Red, "深港通卖出股票: " + stockCode + ", 价格: " + price + ", 数量: " + volume);
+            Log(LoggType.Black, "卖出：深港通【" + stockCode + "】,价:" + price + ",数:" + volume);
             ClickTreeNode(hHkStockTree, hHkSgtSell);
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
@@ -94,14 +94,14 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelRevocableOrder> SgtRevocableOrders()
         {
-            Log(LoggType.Red, "深港通可撤委托");
+            Log(LoggType.Black, "查询：深港通可撤委托");
             ClickTreeNode(hHkStockTree, hHkSgtCancel);
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
-                Log(LoggType.Red, "深港通可撤委托 - 无可撤单（输出按钮不可用）");
+                Log(LoggType.Red, "深港通：无可撤委托（输出按钮不可用）");
                 return null;
             }
             WindowButton.Click(hOutputButton);
@@ -110,14 +110,14 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelTodayDeals> SgtTodayDealsList()
         {
-            Log(LoggType.Black, "深港通当日成交");
+            Log(LoggType.Black, "查询：深港通当日成交");
             ClickTreeNode(hHkStockTree, hHkSgtTodayDeals);
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
-                Log(LoggType.Red, "深港通当日成交 - 无成交（输出按钮不可用）");
+                Log(LoggType.Black, "深港通：当日无成交（输出按钮不可用）");
                 return null;
             }
             WindowButton.Click(hOutputButton);
@@ -126,7 +126,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         public List<ModelHoldingStock> SgtHoldingStockList()
         {
-            Log(LoggType.Black, "深港通资金股份");
+            Log(LoggType.Black, "查询：深港通资金股份");
             ClickTreeNode(hHkStockTree, hHkSgtHoldingStock);
 
             IntPtr panel = WindowHwnd.FindVisibleHwndLikeInParent(afxWind42DetailPanel, IntPtr.Zero, "#32770", null);
@@ -140,7 +140,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
-                Log(LoggType.Red, "深港通资金股份 - 输出按钮不可用");
+                Log(LoggType.Black, "深港通资金股份 - 输出按钮不可用");
                 return null;
             }
             WindowButton.Click(hOutputButton);

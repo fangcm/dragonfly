@@ -34,6 +34,7 @@
             this.toolStripButtonSetting = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonInit = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOrder = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,8 +57,9 @@
             this.toolStripMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonSetting,
+            this.toolStripButtonOrder,
             this.toolStripButtonInit,
-            this.toolStripButtonOrder});
+            this.toolStripButtonStop});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(353, 25);
@@ -76,11 +78,10 @@
             // toolStripButtonInit
             // 
             this.toolStripButtonInit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonInit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonInit.Image")));
             this.toolStripButtonInit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonInit.Name = "toolStripButtonInit";
-            this.toolStripButtonInit.Size = new System.Drawing.Size(60, 22);
-            this.toolStripButtonInit.Text = "关联交易";
+            this.toolStripButtonInit.Size = new System.Drawing.Size(84, 22);
+            this.toolStripButtonInit.Text = "启动自动交易";
             this.toolStripButtonInit.Click += new System.EventHandler(this.toolStripButtonInit_Click);
             // 
             // toolStripButtonOrder
@@ -92,6 +93,17 @@
             this.toolStripButtonOrder.Size = new System.Drawing.Size(60, 22);
             this.toolStripButtonOrder.Text = "手工下单";
             this.toolStripButtonOrder.Click += new System.EventHandler(this.toolStripButtonOrder_Click);
+            // 
+            // toolStripButtonStop
+            // 
+            this.toolStripButtonStop.Checked = true;
+            this.toolStripButtonStop.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStop.Name = "toolStripButtonStop";
+            this.toolStripButtonStop.Size = new System.Drawing.Size(84, 22);
+            this.toolStripButtonStop.Text = "停止自动交易";
+            this.toolStripButtonStop.Click += new System.EventHandler(this.toolStripButtonStop_Click);
             // 
             // GridTradingMainPanel
             // 
@@ -116,5 +128,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonSetting;
         private System.Windows.Forms.ToolStripButton toolStripButtonInit;
         private System.Windows.Forms.ToolStripButton toolStripButtonOrder;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStop;
     }
 }

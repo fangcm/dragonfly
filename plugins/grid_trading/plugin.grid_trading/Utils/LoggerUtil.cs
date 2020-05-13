@@ -7,9 +7,11 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 {
     internal enum LoggType
     {
-        Red,
-        Black,
-        Gray
+        Red, //买入
+        Green, //卖出
+        Black, //信息
+        Gray, //提示 debug
+        MediumBlue, //错误
     }
 
     internal class LoggerUtil
@@ -55,6 +57,12 @@ namespace Dragonfly.Plugin.GridTrading.Utils
             {
                 case LoggType.Red:
                     foreColor = Color.Red;
+                    break;
+                case LoggType.Green:
+                    foreColor = Color.Green;
+                    break;
+                case LoggType.MediumBlue:
+                    foreColor = Color.MediumBlue;
                     break;
                 case LoggType.Gray:
                     foreColor = Color.Gray;

@@ -14,7 +14,7 @@ namespace Dragonfly.Plugin.GridTrading
             List<Grid> grids = GridDao.GetAllGrids();
             if (grids == null || grids.Count == 0)
             {
-                LoggerUtil.Log(LoggType.Gray, "无网格策略可用");
+                LoggerUtil.Log(LoggType.MediumBlue, "无网格策略可用");
                 return;
             }
 
@@ -31,7 +31,7 @@ namespace Dragonfly.Plugin.GridTrading
         {
             if (grids == null || grids.Count == 0)
             {
-                LoggerUtil.Log(LoggType.Gray, "无网格策略,在市场：" + market.ToString());
+                LoggerUtil.Log(LoggType.Gray, "在市场【" + market.ToString() + "】无网格策略");
                 return;
             }
 
@@ -70,7 +70,7 @@ namespace Dragonfly.Plugin.GridTrading
             }
             catch (Exception ex)
             {
-                LoggerUtil.Log(LoggType.Red, "异常：" + ex.Message);
+                LoggerUtil.Log(LoggType.MediumBlue, "异常：" + ex.Message);
                 return;
             }
 
@@ -95,7 +95,7 @@ namespace Dragonfly.Plugin.GridTrading
                 int holdingVolume = FindStockHoldingVolume(grid.StockMarket, grid.StockCode, holdingStocks);
                 if (holdingVolume == 0)
                 {
-                    LoggerUtil.Log(LoggType.Red, "忽略：" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】持仓为0");
+                    LoggerUtil.Log(LoggType.MediumBlue, "忽略：" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】持仓为0");
                     continue;
                 }
 
@@ -104,7 +104,7 @@ namespace Dragonfly.Plugin.GridTrading
                 bool sameNode = Grid.Equals(nodeByPrice, nodeByVolume);
                 if (!sameNode)
                 {
-                    LoggerUtil.Log(LoggType.Red, "忽略：判断网格节点时有歧义，" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】最后交易价：" + lastTradePrice + ",持仓：" + holdingVolume);
+                    LoggerUtil.Log(LoggType.MediumBlue, "忽略：判断网格节点时有歧义，" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】最后交易价：" + lastTradePrice + ",持仓：" + holdingVolume);
                     continue;
                 }
 
@@ -119,6 +119,10 @@ namespace Dragonfly.Plugin.GridTrading
                 else
                 {
                     bool existOrder = IsExistRevocableOrders(Direction.buy, grid.StockCode, nodeByPrice.BuyOrder.Price, nodeByPrice.BuyOrder.Volume, revocableOrders);
+                    if (existOrder)
+                    {
+                        LoggerUtil.Log(LoggType.Gray, "买单已存在：" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】,价：" + nodeByPrice.BuyOrder.Price + ",量：" + nodeByPrice.BuyOrder.Volume);
+                    }
                     doBuyOrder = !existOrder;
                 }
 
@@ -129,6 +133,10 @@ namespace Dragonfly.Plugin.GridTrading
                 else
                 {
                     bool existOrder = IsExistRevocableOrders(Direction.sell, grid.StockCode, nodeByPrice.SellOrder.Price, nodeByPrice.SellOrder.Volume, revocableOrders);
+                    if (existOrder)
+                    {
+                        LoggerUtil.Log(LoggType.Gray, "卖单已存在：" + grid.StockMarket.ToString() + "【" + grid.StockCode + "】,价：" + nodeByPrice.SellOrder.Price + ",量：" + nodeByPrice.SellOrder.Volume);
+                    }
                     doSellOrder = !existOrder;
                 }
 
@@ -172,7 +180,7 @@ namespace Dragonfly.Plugin.GridTrading
                 }
                 catch (Exception ex)
                 {
-                    LoggerUtil.Log(LoggType.Red, "异常：" + ex.Message);
+                    LoggerUtil.Log(LoggType.MediumBlue, "异常：" + ex.Message);
                     return;
                 }
             }
