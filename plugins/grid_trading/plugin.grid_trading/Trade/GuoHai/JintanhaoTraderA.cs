@@ -123,6 +123,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("不是当日成交页面");
             }
 
+            IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x061F);
+            ClickMenuItem(hListView, 14023);
+            /*
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
@@ -130,6 +133,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 return null;
             }
             WindowButton.Click(hOutputButton);
+            */
             return (List<ModelTodayDeals>)ParseModelDataFromTxtFileAfterConfirDlg(ModelTodayDeals.Parse);
         }
 
@@ -144,6 +148,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("A股资金股份 - 不是该页面");
             }
 
+            IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x061F);
+            ClickMenuItem(hListView, 14023);
+            /*
             IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
             if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
             {
@@ -152,6 +159,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             WindowButton.Click(hOutputButton);
+            */
             return (List<ModelHoldingStock>)ParseModelDataFromTxtFileAfterConfirDlg(ModelHoldingStock.Parse);
         }
 

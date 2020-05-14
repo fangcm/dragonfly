@@ -203,7 +203,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             Misc.Delay(100);
             MouseClickToolbar(hToolBar, index);
-            Misc.Delay(1000);
+            Misc.Delay(400);
+            WindowTreeView.SelectItem(hTree, hItem);
+            Misc.Delay(600);
             WindowTreeView.SimulateClick(hTree, hItem);
             Misc.Delay(2000);
             IntPtr hSelectedItem = WindowTreeView.GetSelection(hTree);
