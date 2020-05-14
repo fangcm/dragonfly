@@ -200,8 +200,10 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             break;
                     }
                 }
-
-                todayDealsList.Add(item);
+                if (item.tradeStatus == "成交")
+                {
+                    todayDealsList.Add(item);
+                }
             }
 
             return todayDealsList;

@@ -23,7 +23,9 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 from trade_record
                 where trade_date = @trade_date and stock_market = @stock_market ";
 
-            paramList.Add(new SQLiteParameter("trade_date") { Value = 0 });
+            int tradeDate = int.Parse(DateTime.Now.ToString("yyyyMMdd"));
+
+            paramList.Add(new SQLiteParameter("trade_date") { Value = tradeDate });
             paramList.Add(new SQLiteParameter("stock_market") { Value = (int)market });
 
             Dictionary<string, ModelTodayDeals> existTodayDeals = new Dictionary<string, ModelTodayDeals>();
@@ -47,19 +49,18 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             foreach (ModelTodayDeals td in todayDealsList)
             {
                 ModelTodayDeals existItem;
-                if (!existTodayDeals.TryGetValue(td.tradeNo, out existItem))
+                if (existTodayDeals.TryGetValue(td.tradeNo, out existItem))
                 {
-                    continue;
-                }
-                if ((td.tradeTime == existItem.tradeTime) &&
-                    (td.direction == existItem.direction) &&
-                    (td.stockCode == existItem.stockCode) &&
-                    (td.tradePrice == existItem.tradePrice) &&
-                    (td.tradeVolume == existItem.tradeVolume) &&
-                    (td.tradeStatus == existItem.tradeStatus) &&
-                    (td.orderNo == existItem.orderNo))
-                {
-                    continue;
+                    if ((td.tradeTime == existItem.tradeTime) &&
+                        (td.direction == existItem.direction) &&
+                        (td.stockCode == existItem.stockCode) &&
+                        (td.tradePrice == existItem.tradePrice) &&
+                        (td.tradeVolume == existItem.tradeVolume) &&
+                        (td.tradeStatus == existItem.tradeStatus) &&
+                        (td.orderNo == existItem.orderNo))
+                    {
+                        continue;
+                    }
                 }
 
                 InsertTradingRecord(market, td);

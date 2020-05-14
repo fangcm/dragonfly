@@ -99,13 +99,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("不是撤单页面");
             }
 
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
-            if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
-            {
-                Log(LoggType.Black, "沪港通：无可撤委托（输出按钮不可用）");
-                return null;
-            }
-            WindowButton.Click(hOutputButton);
+            IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x0064);
+            ClickMenuItem(hListView, 32820);
             return (List<ModelRevocableOrder>)ParseModelDataFromTxtFileAfterConfirDlg(ModelRevocableOrder.Parse);
 
         }
