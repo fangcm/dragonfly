@@ -1,4 +1,5 @@
-﻿using Dragonfly.Plugin.GridTrading.Utils;
+﻿using Dragonfly.Plugin.GridTrading.Strategy;
+using Dragonfly.Plugin.GridTrading.Utils;
 using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
 using System.Collections.Generic;
@@ -200,9 +201,11 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             else
                 index = 2;
 
+            Misc.Delay(100);
             MouseClickToolbar(hToolBar, index);
-            WindowTreeView.SimulateClick(hTree, hItem);
             Misc.Delay(1000);
+            WindowTreeView.SimulateClick(hTree, hItem);
+            Misc.Delay(2000);
             IntPtr hSelectedItem = WindowTreeView.GetSelection(hTree);
             if (hSelectedItem != hItem)
             {
@@ -212,23 +215,43 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
 
         // 委托后确认
-        internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume)
+        internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume, StockMarket market = StockMarket.A)
+        {
+            Dictionary<string, string> patten = new Dictionary<string, string>();
+
+            switch (market)
+            {
+                case StockMarket.A:
+                    patten["操作类别"] = @"^" + direction + "$";
+                    patten["股票代码"] = @"^" + stockCode;
+                    patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
+                    patten["委托数量"] = @"^" + volume + "股";
+                    patten["委托方式"] = "限价委托";
+                    break;
+                case StockMarket.Hgt:
+                case StockMarket.Sgt:
+                    patten["操作类别"] = @"^港股通" + direction + "$";
+                    patten["证券代码"] = @"^" + stockCode;
+                    patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
+                    patten["委托数量"] = @"^" + volume + " 股";
+                    patten["申报类型"] = "增强限价盘";
+                    break;
+            }
+
+            return ConfirmOrder(direction, stockCode, price, volume, patten);
+        }
+
+        // 委托后确认
+        internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume, Dictionary<string, string> patten)
         {
             IntPtr hConfirmDlg = WaitForHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", direction + "交易确认", true);
             if (hConfirmDlg != IntPtr.Zero)
             {
-                IntPtr hBtnYes = WaitForHwnd.WaitForFindHwndInParentRecursive(hConfirmDlg, "Button", direction + "确认");
-                IntPtr hBtnNo = WaitForHwnd.WaitForFindHwndInParentRecursive(hConfirmDlg, "Button", "取消");
-
+                IntPtr hBtnYes = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B67);
+                IntPtr hBtnNo = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B68);
                 IntPtr hStaticConfirm = WindowHwnd.GetDlgItem(hConfirmDlg, 0x1B65);
                 string txtConfirm = WindowHwnd.GetWindowText(hStaticConfirm);
 
-                Dictionary<string, string> patten = new Dictionary<string, string>();
-                patten["操作类别"] = @"^" + direction + "$";
-                patten["股票代码"] = @"^" + stockCode;
-                patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
-                patten["委托数量"] = @"^" + volume + "股";
-                patten["委托方式"] = "限价委托";
                 if (!ValidateTipText(txtConfirm, patten))
                 {
                     Log(LoggType.MediumBlue, "校验提示异常: " + txtConfirm.Replace('\n', ' '));
@@ -244,8 +267,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                     IntPtr hStaticTip = WindowHwnd.GetDlgItem(hTipDlg, 0x1B65);
 
                     string tipTxt = WindowHwnd.GetWindowText(hStaticTip);
+                    Log(LoggType.Black, tipTxt);
                     WindowButton.Click(hBtnOk);
-
                     if (!string.IsNullOrEmpty(tipTxt) && tipTxt.Contains("合同号"))
                     {
                         Log(LoggType.Black, direction + "下单成功，【" + stockCode + "】,价格:" + price + ",数量" + volume);
@@ -259,10 +282,21 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
             else
             {
-                throw new ApplicationException("没有检测到卖出确认对话框");
+                Log(LoggType.MediumBlue, "没有检测到卖出确认对话框");
+
+                IntPtr hTipDlg = WaitForHwnd.WaitForFindHwndInParentRecursive(IntPtr.Zero, "#32770", "提示", true);
+                if (hTipDlg != IntPtr.Zero)
+                {
+                    IntPtr hBtnCancel = WindowHwnd.GetDlgItem(hTipDlg, 0x1B68);
+                    IntPtr hStaticTip = WindowHwnd.GetDlgItem(hTipDlg, 0x1B65);
+
+                    string tipTxt = WindowHwnd.GetWindowText(hStaticTip);
+                    Log(LoggType.Black, tipTxt);
+                    WindowButton.Click(hBtnCancel);
+                    throw new ApplicationException(tipTxt);
+                }
+                return false;
             }
-
-
         }
 
         // 校验弹出框提示信息是否为委托信息

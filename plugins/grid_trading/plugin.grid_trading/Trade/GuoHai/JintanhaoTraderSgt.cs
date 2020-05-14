@@ -1,4 +1,5 @@
-﻿using Dragonfly.Plugin.GridTrading.Utils;
+﻿using Dragonfly.Plugin.GridTrading.Strategy;
+using Dragonfly.Plugin.GridTrading.Utils;
 using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
 using System.Collections.Generic;
@@ -32,19 +33,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             WindowHwnd.SetFocus(hEditCode);
-            Misc.Delay(500);
+            Misc.Delay(1000);
             Misc.KeyboardPress(hEditCode, stockCode);
             WindowHwnd.SetFocus(hEditPrice);
-            Misc.Delay(500);
+            Misc.Delay(1000);
             Misc.KeyboardPress(hEditPrice, "" + price);
             WindowHwnd.SetFocus(hEditVolume);
-            Misc.Delay(500);
+            Misc.Delay(1000);
             Misc.KeyboardPress(hEditVolume, "" + volume);
 
             // 点击买入按钮
             Misc.Delay(500);
             WindowButton.Click(btnConfirm);
-            return ConfirmOrder("买入", stockCode, price, volume);
+            return ConfirmOrder("买入", stockCode, price, volume, StockMarket.Sgt);
 
         }
 
@@ -71,19 +72,19 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             WindowHwnd.SetFocus(hEditCode);
-            Misc.Delay(500);
+            Misc.Delay(1000);
             Misc.KeyboardPress(hEditCode, stockCode);
             WindowHwnd.SetFocus(hEditPrice);
-            Misc.Delay(500);
+            Misc.Delay(1000);
             Misc.KeyboardPress(hEditPrice, "" + price);
             WindowHwnd.SetFocus(hEditVolume);
-            Misc.Delay(500);
+            Misc.Delay(1000);
             Misc.KeyboardPress(hEditVolume, "" + volume);
 
             // 点击买入按钮
             Misc.Delay(500);
             WindowButton.Click(btnConfirm);
-            return ConfirmOrder("卖出", stockCode, price, volume);
+            return ConfirmOrder("卖出", stockCode, price, volume, StockMarket.Sgt);
 
         }
 
@@ -99,13 +100,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("不是撤单页面");
             }
 
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);
-            if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
-            {
-                Log(LoggType.Red, "深港通：无可撤委托（输出按钮不可用）");
-                return null;
-            }
-            WindowButton.Click(hOutputButton);
+            IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x0064);
+            ClickMenuItem(hListView, 32820);
             return (List<ModelRevocableOrder>)ParseModelDataFromTxtFileAfterConfirDlg(ModelRevocableOrder.Parse);
         }
 
