@@ -200,7 +200,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             break;
                     }
                 }
-                if (item.tradeStatus == "成交" && item.direction != "买入撤单" && item.direction != "卖出撤单")
+                if (item.tradeStatus == "成交" && !item.direction.Contains("撤单"))
                 {
                     todayDealsList.Add(item);
                 }
