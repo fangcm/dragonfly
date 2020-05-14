@@ -32,6 +32,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("不是买入下单的控件页面");
             }
 
+            SelectComboBox(hComboBoxType, HkOrderTimeType());
             WindowHwnd.SetFocus(hEditCode);
             Misc.Delay(1000);
             Misc.KeyboardPress(hEditCode, stockCode);
@@ -71,6 +72,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("不是卖出下单的控件页面");
             }
 
+            SelectComboBox(hComboBoxType, HkOrderTimeType());
             WindowHwnd.SetFocus(hEditCode);
             Misc.Delay(1000);
             Misc.KeyboardPress(hEditCode, stockCode);

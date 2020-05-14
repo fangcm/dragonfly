@@ -213,6 +213,32 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
         }
 
+        internal int HkOrderTimeType()
+        {
+            int time = int.Parse(DateTime.Now.ToString("Hmmss"));
+            if (time > 90000 && time < 91500 || time > 160000 && time < 161000)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+        internal string HkOrderTimeTypeDesc()
+        {
+            if (HkOrderTimeType() == 1)
+            {
+                return "竞价限价盘";
+            }
+            else
+            {
+                return "增强限价盘";
+            }
+
+        }
 
         // 委托后确认
         internal bool ConfirmOrder(string direction, string stockCode, decimal price, int volume, StockMarket market = StockMarket.A)
@@ -234,7 +260,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                     patten["证券代码"] = @"^" + stockCode;
                     patten["委托价格"] = @"^" + price.ToString().Replace(".", "\\.");
                     patten["委托数量"] = @"^" + volume + " 股";
-                    patten["申报类型"] = "增强限价盘";
+                    patten["申报类型"] = HkOrderTimeTypeDesc();
                     break;
             }
 
