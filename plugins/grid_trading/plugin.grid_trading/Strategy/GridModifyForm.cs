@@ -202,8 +202,7 @@ namespace Dragonfly.Plugin.GridTrading.Strategy
             g.InitPrice = initPrice;
             g.InitHoldingVolume = initHoldingVolume;
 
-            g.GridNodes = GridHelper.BuildGridNodes(priceStrategy, volumeStrategy, initPrice, initHoldingVolume, minPrice, maxPrice, priceDecimalPlace);
-            g.ResetOrders();
+            g.ReBuildGridNodes(priceStrategy, volumeStrategy, initPrice, initHoldingVolume, minPrice, maxPrice, priceDecimalPlace);
             RefreshControls();
 
             bDataChanged = true;

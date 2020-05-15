@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GridTradingPlugin.cs" />
-    <Compile Include="Strategy\GridHelper.cs" />
     <Compile Include="Strategy\GridModifyForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -30,7 +30,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade
 
         internal static bool ClickMenuItem(IntPtr hWnd, uint menuItemId)
         {
-            // Call an aliased SendNotifyMessage
             return NativeMethods.ClickMenuItem(hWnd, NativeMethods.WM_COMMAND, menuItemId, IntPtr.Zero);
         }
 
