@@ -74,22 +74,28 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void toolStripButtonInit_Click(object sender, EventArgs e)
         {
-            if (gridTradingPlugin != null)
-            {
-                gridTradingPlugin.TraderReady = TraderHelper.Instance.Init();
-                toolStripButtonInit.Checked = gridTradingPlugin.TraderReady;
-                toolStripButtonStop.Checked = !gridTradingPlugin.TraderReady;
-            }
+            SetAutoTraderFlag(true);
         }
 
         private void toolStripButtonStop_Click(object sender, EventArgs e)
         {
-            if (gridTradingPlugin != null)
+            SetAutoTraderFlag(false);
+        }
+
+        private void SetAutoTraderFlag(bool enable)
+        {
+            if (gridTradingPlugin == null)
+                return;
+
+            if (enable)
             {
-                gridTradingPlugin.TraderReady = false;
-                toolStripButtonInit.Checked = gridTradingPlugin.TraderReady;
-                toolStripButtonStop.Checked = !gridTradingPlugin.TraderReady;
+                gridTradingPlugin.TraderReady = TraderHelper.Instance.Init();
             }
+            toolStripButtonInit.Checked = enable;
+            toolStripButtonStop.Checked = !enable;
+
+            gridTradingPlugin.SetAutoTraderFlag(enable);
+
         }
     }
 

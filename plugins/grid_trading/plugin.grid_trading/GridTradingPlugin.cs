@@ -1,5 +1,4 @@
 ﻿using Dragonfly.Common.Plugin;
-using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Utils;
 using System;
 using System.ComponentModel;
@@ -13,7 +12,7 @@ namespace Dragonfly.Plugin.GridTrading
         private GridTradingMainPanel mainPanel = null;
 
         private static object LockObject = new Object();
-        private static int CheckUpDateLock = 0;
+        private static int CheckUpDataLock = 0;
         private static int elapsedCounter = 0;
         private BackgroundWorker bgWorker;
         private System.Timers.Timer timer;
@@ -51,7 +50,7 @@ namespace Dragonfly.Plugin.GridTrading
             timer = new System.Timers.Timer(10000);
             timer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
             timer.AutoReset = true;
-            timer.Enabled = true;
+            timer.Enabled = false;
 
         }
 
@@ -80,22 +79,29 @@ namespace Dragonfly.Plugin.GridTrading
         {
             lock (LockObject)
             {
-                if (CheckUpDateLock == 0) CheckUpDateLock = 1;
+                if (CheckUpDataLock == 0) CheckUpDataLock = 1;
                 else return;
             }
 
-            Start();
+            StartWorker();
+
             // 解锁更新检查锁
             lock (LockObject)
             {
-                CheckUpDateLock = 0;
+                CheckUpDataLock = 0;
             }
         }
 
-        private void Start()
+        private void StartWorker()
         {
+            if (!TraderReady)
+            {
+                LoggerUtil.Log(LoggType.MediumBlue, "没有关联交易软件,不能自动交易");
+                return;
+            }
+
             elapsedCounter++;
-            if (elapsedCounter % 18 != 0)
+            if (elapsedCounter % 18 != 1)
             {
                 return;
             }
@@ -108,14 +114,23 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (!TraderReady)
-            {
-                LoggerUtil.Log(LoggType.MediumBlue, "没有关联交易软件,不能自动交易");
-                return;
-            }
             TradingWorker.start();
         }
 
+        internal void SetAutoTraderFlag(bool enable)
+        {
+            elapsedCounter = 0;
+            if (enable)
+            {
+                LoggerUtil.Log(LoggType.MediumBlue, "开启自动交易");
+                timer.Start();
+            }
+            else
+            {
+                LoggerUtil.Log(LoggType.MediumBlue, "停止自动交易");
+                timer.Stop();
+            }
+        }
 
     }
 }
