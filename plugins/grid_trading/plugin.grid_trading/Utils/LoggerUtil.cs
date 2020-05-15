@@ -21,32 +21,11 @@ namespace Dragonfly.Plugin.GridTrading.Utils
         public static void Init(GridTradingMainPanel gridTradingMainPanel)
         {
             LoggerUtil.gridTradingMainPanel = gridTradingMainPanel;
-
-            /*
-            foreach (LoggInfo loggInfo in ReadableLogger.LoggInfos)
-            {
-                LoggType loggType = ConvertToLoggType(loggInfo.Type);
-                InserLineToGridTradingMainPanel(loggInfo.Date, loggType, loggInfo.Text);
-            }
-
-            ReadableLogger.LoggInfos.CollectionChanged += LoggInfos_CollectionChanged;
-            */
-        }
-
-        private static void LoggInfos_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            foreach (LoggInfo loggInfo in e.NewItems)
-            {
-                LoggType loggType = ConvertToLoggType(loggInfo.Type);
-                InserLineToGridTradingMainPanel(loggInfo.Date, loggType, loggInfo.Text);
-            }
         }
 
         public static void Log(LoggType loggType, string msg)
         {
-            /*
-            ReadableLogger.Instance.Log(type.ToString(), msg);
-            */
+            ReadableLogger.Instance.Log(loggType.ToString(), msg);
             InserLineToGridTradingMainPanel(DateTime.Now, loggType, msg);
         }
 

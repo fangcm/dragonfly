@@ -31,9 +31,9 @@ namespace Dragonfly.Plugin.GridTrading
             toolStripButtonStop.Checked = !gridTradingPlugin.TraderReady;
         }
 
-        private delegate void InsertLineDelegate(int index, DateTime date, Color foreColor, string desc);
+        private delegate void InsertLineDelegate(DateTime date, Color foreColor, string desc);
 
-        public void InsertLine(int index, DateTime date, System.Drawing.Color foreColor, string desc)
+        public void InsertLine(DateTime date, Color foreColor, string desc)
         {
             if (this.listViewMain.InvokeRequired == false)
             {
@@ -41,6 +41,7 @@ namespace Dragonfly.Plugin.GridTrading
                 ListViewItem lvi = listViewMain.Items.Add(date.ToString("yyyy年MM月dd日 HH:mm:ss"));
                 lvi.ForeColor = foreColor;
                 lvi.SubItems.Add(desc);
+                listViewMain.Items[listViewMain.Items.Count - 1].EnsureVisible();
             }
             else
             {
@@ -49,16 +50,10 @@ namespace Dragonfly.Plugin.GridTrading
                 InsertLineDelegate insertLineDelegate = new InsertLineDelegate(InsertLine);
 
                 //使用控件lstMain的Invoke方法执行DMSGD代理(其类型是DispMSGDelegate)
-                this.listViewMain.Invoke(insertLineDelegate, index, date, foreColor, desc);
+                this.listViewMain.Invoke(insertLineDelegate, date, foreColor, desc);
 
             }
         }
-
-        public void InsertLine(DateTime date, Color foreColor, string desc)
-        {
-            InsertLine(0, date, foreColor, desc);
-        }
-
 
         private void toolStripButtonSetting_Click(object sender, EventArgs e)
         {
