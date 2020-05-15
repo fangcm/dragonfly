@@ -11,7 +11,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
     {
         internal static IntPtr WaitForFindHwndInParentRecursive(IntPtr hParent, string lpClassName, string lpWindowName, bool onlyInVisibleParent = false, int timeoutSeconds = 10)
         {
-            int counter = timeoutSeconds * 5;
+            int counter = timeoutSeconds * 50;
             while (true)
             {
                 IntPtr hFinded = WindowHwnd.FindHwndInParentRecursive(hParent, lpClassName, lpWindowName, onlyInVisibleParent);
@@ -26,14 +26,14 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                     return IntPtr.Zero;
                 }
 
-                Misc.Delay(200);
+                Misc.Delay(100);
             }
         }
 
         internal static IntPtr WaitForFindVisibleHwndLikeInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName,
             int confirmDlgId, string confirmTxt, int timeoutSeconds = 10)
         {
-            int counter = timeoutSeconds * 5;
+            int counter = timeoutSeconds * 50;
             while (true)
             {
                 IntPtr hFinded = WindowHwnd.FindVisibleHwndLikeInParent(hParent, hChildAfter, lpClassName, lpWindowName);
@@ -54,13 +54,13 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                     return IntPtr.Zero;
                 }
 
-                Misc.Delay(200);
+                Misc.Delay(100);
             }
         }
 
         internal static IntPtr WaitForFindVisibleHwndLikeInParent(IntPtr hParent, IntPtr hChildAfter, string lpClassName, string lpWindowName, int confirmVisibleChildrenCount, int timeoutSeconds = 10)
         {
-            int counter = timeoutSeconds * 5;
+            int counter = timeoutSeconds * 50;
             while (true)
             {
                 IntPtr hFinded = WindowHwnd.FindVisibleHwndLikeInParent(hParent, hChildAfter, lpClassName, lpWindowName);
@@ -94,13 +94,13 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                     return IntPtr.Zero;
                 }
 
-                Misc.Delay(200);
+                Misc.Delay(100);
             }
         }
 
         internal static void WaitForCloseProcess(string procName, string prefixTitle, int timeoutSeconds = 10)
         {
-            int counter = timeoutSeconds * 5;
+            int counter = timeoutSeconds * 50;
             while (true)
             {
                 Process p = WindowHwnd.FindProcess(procName, prefixTitle);
@@ -116,7 +116,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
                     return;
                 }
 
-                Misc.Delay(200);
+                Misc.Delay(100);
             }
         }
 

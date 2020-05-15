@@ -18,12 +18,16 @@ namespace Dragonfly.Plugin.GridTrading
                 return;
             }
 
+            LoggerUtil.Log(LoggType.Gray, "开始策略交易 ......");
+
             List<Grid> gridsForA = grids.FindAll(x => x.StockMarket == StockMarket.A);
             ProgressMarket(StockMarket.A, gridsForA);
             List<Grid> gridsForHgt = grids.FindAll(x => x.StockMarket == StockMarket.Hgt);
             ProgressMarket(StockMarket.Hgt, gridsForHgt);
             List<Grid> gridsForSgt = grids.FindAll(x => x.StockMarket == StockMarket.Sgt);
             ProgressMarket(StockMarket.Sgt, gridsForSgt);
+
+            LoggerUtil.Log(LoggType.Gray, "结束本次策略交易");
         }
 
 

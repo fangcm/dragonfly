@@ -48,7 +48,7 @@ namespace Dragonfly.Plugin.GridTrading
             this.bgWorker = new BackgroundWorker();
             this.bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
 
-            timer = new System.Timers.Timer(60000);
+            timer = new System.Timers.Timer(10000);
             timer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
             timer.AutoReset = true;
             timer.Enabled = true;
@@ -94,6 +94,12 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void Start()
         {
+            elapsedCounter++;
+            if (elapsedCounter % 18 != 0)
+            {
+                return;
+            }
+
             if (!this.bgWorker.IsBusy)
             {
                 this.bgWorker.RunWorkerAsync();
@@ -104,12 +110,9 @@ namespace Dragonfly.Plugin.GridTrading
         {
             if (!TraderReady)
             {
-                LoggerUtil.Log(LoggType.MediumBlue, "没有关联交易软件,不能自动下单");
+                LoggerUtil.Log(LoggType.MediumBlue, "没有关联交易软件,不能自动交易");
                 return;
             }
-            elapsedCounter++;
-            LoggerUtil.Log(LoggType.Gray, "开始策略交易，第" + elapsedCounter + "次");
-
             TradingWorker.start();
         }
 

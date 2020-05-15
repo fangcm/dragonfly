@@ -293,7 +293,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                     WindowButton.Click(hBtnOk);
                     if (!string.IsNullOrEmpty(tipTxt) && tipTxt.Contains("合同号"))
                     {
-                        Log(LoggType.Black, direction + "下单成功，【" + stockCode + "】,价格:" + price + ",数量" + volume);
+                        LoggType loggType = LoggType.Black;
+                        if (direction.Contains("买"))
+                        {
+                            loggType = LoggType.Red;
+                        }
+                        else if (direction.Contains("卖"))
+                        {
+                            loggType = LoggType.Green;
+                        }
+                        Log(loggType, direction + "下单成功，【" + stockCode + "】,价格:" + price + ",数量" + volume);
                         return true;
                     }
 
