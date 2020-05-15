@@ -30,7 +30,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils
     public class ListViewCellLocator
     {
         [DllImport("user32")]
-        public static extern int GetScrollPos(int hwnd, int nBar);
+        private static extern int GetScrollPos(IntPtr hwnd, int nBar);
 
 
         ///
@@ -54,7 +54,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils
 
             // 根据各列宽度，获得单元格所在的列，以及 Bounds。
             int currentX = cell.Item.GetBounds(ItemBoundsPortion.Entire).Left; // 依次循环各列，表示各列的起点值
-            int scrollLeft = GetScrollPos(listView.Handle.ToInt32(), 0); // 可能出现了横向滚动条，左边隐藏起来的宽度
+            int scrollLeft = GetScrollPos(listView.Handle, 0); // 可能出现了横向滚动条，左边隐藏起来的宽度
             for (int i = 0; i < listView.Columns.Count; i++)
             {
                 if (scrollLeft + x >= currentX &&

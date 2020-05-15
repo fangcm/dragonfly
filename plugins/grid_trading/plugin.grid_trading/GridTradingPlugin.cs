@@ -57,8 +57,10 @@ namespace Dragonfly.Plugin.GridTrading
 
         public void Dispose()
         {
-            timer.Enabled = false;
+            this.timer.Enabled = false;
+            this.timer.Dispose();
             this.bgWorker.Dispose();
+            this.mainPanel.Dispose();
         }
 
         public UserControl PluginPanel
