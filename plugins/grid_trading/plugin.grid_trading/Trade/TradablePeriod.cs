@@ -1,9 +1,6 @@
 ﻿using Dragonfly.Plugin.GridTrading.Strategy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
@@ -24,7 +21,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade
             periodsA.Add(new TradablePeriod() { StartTime = 173000, EndTime = 235959, TradeType = "限价委托" });
 
             periodsGgt.Add(new TradablePeriod() { StartTime = 90000, EndTime = 91500, TradeType = "竞价限价盘" });
-            periodsGgt.Add(new TradablePeriod() { StartTime = 93000, EndTime = 160000, TradeType = "增强限价盘" });
+            periodsGgt.Add(new TradablePeriod() { StartTime = 93000, EndTime = 120000, TradeType = "增强限价盘" });
+            periodsGgt.Add(new TradablePeriod() { StartTime = 130000, EndTime = 160000, TradeType = "增强限价盘" });
             periodsGgt.Add(new TradablePeriod() { StartTime = 160000, EndTime = 161000, TradeType = "竞价限价盘" });
         }
 

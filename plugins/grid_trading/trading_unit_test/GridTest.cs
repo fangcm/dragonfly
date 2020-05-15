@@ -8,7 +8,7 @@ namespace trading_unit_test
     [TestClass]
     public class GridTest
     {
- 
+
         [TestMethod]
         public void TestManualGridJson()
         {
@@ -34,7 +34,7 @@ namespace trading_unit_test
                 ]
             }";
 
-            ManualGrid g = ManualGrid.FromJson<ManualGrid>(json);
+            Grid g = Grid.FromJson(json);
 
             PrintGridData(g);
 
@@ -49,7 +49,7 @@ namespace trading_unit_test
 
         }
 
-        private void PrintExpectedNodeData(ManualGrid g, int volume)
+        private void PrintExpectedNodeData(Grid g, int volume)
         {
             Console.WriteLine(" ");
             Console.WriteLine("Expected volume:" + volume);
@@ -65,8 +65,7 @@ namespace trading_unit_test
 
             Console.WriteLine("InitPrice:" + g.InitPrice);
             Console.WriteLine("InitHoldingVolume:" + g.InitHoldingVolume);
-            Console.WriteLine("MinPrice:" + g.MinPrice);
-            Console.WriteLine("MaxPrice:" + g.MaxPrice);
+
 
         }
 
