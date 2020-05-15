@@ -217,29 +217,23 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
         internal int HkOrderTimeType()
         {
-            int time = int.Parse(DateTime.Now.ToString("Hmmss"));
-            if (time > 90000 && time < 91500 || time > 160000 && time < 161000)
+            string type = HkOrderTimeTypeDesc();
+            int index = -1;
+            switch (type)
             {
-                return 1;
+                case "增强限价盘":
+                    index = 0;
+                    break;
+                case "竞价限价盘":
+                    index = 1;
+                    break;
             }
-            else
-            {
-                return 0;
-            }
-
+            return index;
         }
 
         internal string HkOrderTimeTypeDesc()
         {
-            if (HkOrderTimeType() == 1)
-            {
-                return "竞价限价盘";
-            }
-            else
-            {
-                return "增强限价盘";
-            }
-
+            return StockMarketTradingPeriods.Instance.CurrentTimeTradingType(Strategy.StockMarket.Hgt);
         }
 
         // 委托后确认

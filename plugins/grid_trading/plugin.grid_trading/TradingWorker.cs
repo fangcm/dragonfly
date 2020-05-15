@@ -29,6 +29,14 @@ namespace Dragonfly.Plugin.GridTrading
 
         private static void ProgressMarket(StockMarket market, List<Grid> grids)
         {
+            string tradingType = StockMarketTradingPeriods.Instance.CurrentTimeTradingType(market);
+            if (string.IsNullOrEmpty(tradingType))
+            {
+                LoggerUtil.Log(LoggType.Gray, "市场【" + market.ToString() + "】未到下单时间");
+                return;
+            }
+
+
             if (grids == null || grids.Count == 0)
             {
                 LoggerUtil.Log(LoggType.Gray, "在市场【" + market.ToString() + "】无网格策略");
