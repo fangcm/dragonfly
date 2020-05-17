@@ -194,6 +194,12 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             NativeMethods.ClipCursor(ref rect);
         }
 
+        public static void LockMouse(NativeMethods.Win32Point point)
+        {
+            NativeMethods.Win32Rect rect = new NativeMethods.Win32Rect(point.x, point.y, point.x + 2, point.y + 2);
+            LockMouse(rect);
+        }
+
         /// 解除鼠标的区域限制
         public static void UnLockMouse()
         {

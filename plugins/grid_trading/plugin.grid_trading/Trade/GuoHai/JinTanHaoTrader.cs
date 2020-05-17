@@ -185,9 +185,13 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 
             if (NativeMethods.GetForegroundWindow() != hAppWnd)
             {
+                Log(LoggType.Black, "设置为当前窗口");
                 NativeMethods.SwitchToThisWindow(hAppWnd, true);
                 Misc.Delay(1000);
             }
+            else
+                Log(LoggType.Black, "已经是当前窗口，不用设置");
+
 
             int index;
             if (hTree == hStockTree)
