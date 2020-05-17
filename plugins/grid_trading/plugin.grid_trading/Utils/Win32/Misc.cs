@@ -200,7 +200,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             NativeMethods.ClipCursor(IntPtr.Zero);
         }
 
-        internal static void SimulateClick(IntPtr hwnd, int x, int y)
+        internal static void MouseClick(IntPtr hwnd, int x, int y)
         {
             NativeMethods.PostMessage(hwnd, NativeMethods.WM_LBUTTONDOWN, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));
             NativeMethods.PostMessage(hwnd, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, NativeMethods.Util.MAKELPARAM(x, y));

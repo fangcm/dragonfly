@@ -72,17 +72,6 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             return true;
         }
 
-        private static void MouseClickToolbar(IntPtr hToolBar, int index)
-        {
-            NativeMethods.Win32Rect rect = new NativeMethods.Win32Rect();
-            NativeMethods.GetWindowRect(hToolBar, ref rect);
-
-            int x = 10 + (rect.right - rect.left) / 3 * index;
-            int y = 10;
-
-            Misc.SimulateClick(hToolBar, x, y);
-        }
-
         private bool InitStockTreeViewItemHandler()
         {
             var items = WindowTreeView.GetAllItems(hStockTree);
@@ -194,14 +183,18 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("没有检测到菜单树、菜单项");
             }
 
-            NativeMethods.SwitchToThisWindow(hAppWnd, true);
+            if (NativeMethods.GetForegroundWindow() != hAppWnd)
+            {
+                NativeMethods.SwitchToThisWindow(hAppWnd, true);
+                Misc.Delay(1000);
+            }
+
             int index;
             if (hTree == hStockTree)
                 index = 0;
             else
                 index = 2;
 
-            Misc.Delay(100);
             MouseClickToolbar(hToolBar, index);
             Misc.Delay(400);
             WindowTreeView.SelectItem(hTree, hItem);
@@ -213,6 +206,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             {
                 throw new ApplicationException("没有选中树节点");
             }
+        }
+
+        private static void MouseClickToolbar(IntPtr hToolBar, int index)
+        {
+            NativeMethods.Win32Rect rect = new NativeMethods.Win32Rect();
+            NativeMethods.GetWindowRect(hToolBar, ref rect);
+
+            int x = 10 + (rect.right - rect.left) / 3 * index;
+            int y = 10;
+
+            Misc.MouseClick(hToolBar, x, y);
         }
 
         internal int HkOrderTimeType()
