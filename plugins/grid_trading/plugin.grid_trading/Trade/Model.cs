@@ -183,7 +183,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                         case "成交金额(港币)": //港股通
                             item.tradeAmount = decimal.Parse(value);
                             break;
-                        case "成交状态":
+                        case "成交状态": //港股通
                             item.tradeStatus = value;
                             break;
                         case "委托编号":
