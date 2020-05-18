@@ -157,7 +157,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                     string value = rawTodayDeals[col];
                     switch (key)
                     {
-                        case "成交日期":
+                        case "成交日期": //港股通
                             item.tradeDate = int.Parse(value);
                             break;
                         case "成交时间":
@@ -173,17 +173,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             item.stockName = value;
                             break;
                         case "成交价格":
-                        case "成交价格(港币)":
+                        case "成交价格(港币)": //港股通
                             item.tradePrice = decimal.Parse(value);
                             break;
                         case "成交数量":
                             item.tradeVolume = (int)decimal.Parse(value);
                             break;
                         case "成交金额":
-                        case "成交金额(港币)":
+                        case "成交金额(港币)": //港股通
                             item.tradeAmount = decimal.Parse(value);
                             break;
-                        case "成交状态":
+                        case "成交状态": //港股通
                             item.tradeStatus = value;
                             break;
                         case "委托编号":
@@ -200,10 +200,16 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                             break;
                     }
                 }
-                if (item.tradeStatus == "成交" && !item.direction.Contains("撤单"))
+                if (item.direction.Contains("撤单"))
                 {
-                    todayDealsList.Add(item);
+                    continue;
                 }
+                if (!string.IsNullOrWhiteSpace(item.tradeStatus) && item.tradeStatus != "成交")
+                {
+                    continue;
+                }
+
+                todayDealsList.Add(item);
             }
 
             return todayDealsList;
