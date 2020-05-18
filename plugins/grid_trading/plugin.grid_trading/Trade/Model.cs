@@ -204,7 +204,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade
                 {
                     continue;
                 }
-                if (string.IsNullOrWhiteSpace(item.tradeStatus) && item.tradeStatus != "成交")
+                if (!string.IsNullOrWhiteSpace(item.tradeStatus) && item.tradeStatus != "成交")
                 {
                     continue;
                 }
