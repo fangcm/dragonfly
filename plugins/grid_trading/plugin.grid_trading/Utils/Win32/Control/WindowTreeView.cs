@@ -11,9 +11,7 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
         {
             NativeMethods.Win32Rect rectItem = GetItemRect(hTreeView, hItem, true);
             NativeMethods.Win32Point deskTopPt = new NativeMethods.Win32Point(((rectItem.left + rectItem.right) / 2), ((rectItem.top + rectItem.bottom) / 2));
-            Misc.LockMouse(deskTopPt);
             Misc.MouseClickScreen(deskTopPt.x, deskTopPt.y);
-            Misc.UnLockMouse();
         }
 
 
