@@ -4,7 +4,6 @@ using Dragonfly.Plugin.GridTrading.Utils.Win32;
 using System;
 using System.Collections.Generic;
 
-
 namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
 {
     // 国海金叹号
@@ -117,7 +116,7 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             {
                 throw new ApplicationException("不是当日成交页面");
             }
-                        
+
             IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x0064);
             ClickMenuItem(hListView, 32820);
 

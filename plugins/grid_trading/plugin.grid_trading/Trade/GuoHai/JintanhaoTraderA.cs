@@ -21,15 +21,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
+            IntPtr hComboBoxType = WindowHwnd.GetDlgItem(panel, 0x046D);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
             IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
 
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
+            if (hComboBoxType == IntPtr.Zero || hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 throw new ApplicationException("不是买入下单的控件页面");
             }
 
+            SelectComboBox(hComboBoxType, 0);
             WindowHwnd.SetFocus(hEditCode);
             Misc.Delay(500);
             Misc.KeyboardPress(hEditCode, stockCode);
@@ -59,15 +61,17 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
             }
 
             IntPtr btnConfirm = WindowHwnd.GetDlgItem(panel, 0x07DA);
+            IntPtr hComboBoxType = WindowHwnd.GetDlgItem(panel, 0x046D);
             IntPtr hEditCode = WindowHwnd.FindVisibleHwndInParent(panel, IntPtr.Zero, "AfxWnd42", null);
             IntPtr hEditPrice = WindowHwnd.GetDlgItem(panel, 0x2EE6);
             IntPtr hEditVolume = WindowHwnd.GetDlgItem(panel, 0x2EE7);
 
-            if (hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
+            if (hComboBoxType == IntPtr.Zero || hEditCode == IntPtr.Zero || hEditPrice == IntPtr.Zero || hEditVolume == IntPtr.Zero)
             {
                 throw new ApplicationException("不是卖出下单的控件页面");
             }
 
+            SelectComboBox(hComboBoxType, 0);
             WindowHwnd.SetFocus(hEditCode);
             Misc.Delay(500);
             Misc.KeyboardPress(hEditCode, stockCode);
@@ -97,17 +101,8 @@ namespace Dragonfly.Plugin.GridTrading.Trade.GuoHai
                 throw new ApplicationException("不是撤单页面");
             }
 
-            IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x061F); 
+            IntPtr hListView = WindowHwnd.GetDlgItem(panel, 0x061F);
             ClickMenuItem(hListView, 14023);
-            /*
-            IntPtr hOutputButton = WindowHwnd.GetDlgItem(panel, 0x047F);061F
-            if (!(NativeMethods.IsWindowVisible(hOutputButton) && NativeMethods.IsWindowEnabled(hOutputButton)))
-            {
-                Log(LoggType.Black, "A股：无可撤委托（输出按钮不可用）");
-                return null;
-            }
-            WindowButton.Click(hOutputButton);
-            */
             return (List<ModelRevocableOrder>)ParseModelDataFromTxtFileAfterConfirDlg(ModelRevocableOrder.Parse);
 
         }
