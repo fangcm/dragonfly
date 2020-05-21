@@ -1,16 +1,16 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Dragonfly.Common.Plugin
 {
-    public interface IPlugin
+    public interface IPlugin : IDisposable
     {
         void Initialize();
-        void Dispose();
-
-        UserControl PluginPanel { get; }
 
         string Name { get; }
         string Caption { get; }
         string Version { get; }
+
+        UserControl PluginPanel { get; }
     }
 }

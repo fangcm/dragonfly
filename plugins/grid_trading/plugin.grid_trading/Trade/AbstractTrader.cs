@@ -4,10 +4,10 @@ using System;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
-    public abstract class AbstractTrader
+    internal abstract class AbstractTrader
     {
-        protected IntPtr hAppWnd;    // 主窗口句柄（可能是外壳行情，如果无行情则与hMainWnd同）
-        protected IntPtr hMainWnd;    // 交易软件主窗口句柄
+        internal IntPtr hAppWnd;    // 主窗口句柄（可能是外壳行情，如果无行情则与hMainWnd同）
+        internal IntPtr hMainWnd;    // 交易软件主窗口句柄
 
         internal void Log(LoggType type, string msg)
         {
