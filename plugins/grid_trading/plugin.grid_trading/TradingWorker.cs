@@ -33,18 +33,18 @@ namespace Dragonfly.Plugin.GridTrading
 
         private static void ProgressMarket(StockMarket market, List<Grid> grids)
         {
-            string tradingType = StockMarketTradingPeriods.Instance.CurrentTimeTradingType(market);
-            if (string.IsNullOrEmpty(tradingType))
-            {
-                LoggerUtil.Log(LoggType.Gray, "市场【" + market.ToString() + "】未到下单时间");
-                return;
-            }
-
-
             if (grids == null || grids.Count == 0)
             {
                 LoggerUtil.Log(LoggType.Gray, "在市场【" + market.ToString() + "】无网格策略");
                 return;
+            }
+
+            bool isTradingTime = true;
+            string tradingType = StockMarketTradingPeriods.Instance.CurrentTimeTradingType(market);
+            if (string.IsNullOrEmpty(tradingType))
+            {
+                isTradingTime = false;
+                LoggerUtil.Log(LoggType.Gray, "市场【" + market.ToString() + "】未到下单时间，只做成交数据同步");
             }
 
             // 查询当日最后成交（同步当日成交记录）
@@ -63,20 +63,29 @@ namespace Dragonfly.Plugin.GridTrading
                     case StockMarket.A:
                         todayDeals = TraderHelper.Instance.TodayDealsList();
                         TradeDao.SaveOrUpdateTodayDeals(StockMarket.A, todayDeals);
-                        revocableOrders = TraderHelper.Instance.RevocableOrders();
-                        holdingStocks = TraderHelper.Instance.HoldingStockList();
+                        if (isTradingTime)
+                        {
+                            revocableOrders = TraderHelper.Instance.RevocableOrders();
+                            holdingStocks = TraderHelper.Instance.HoldingStockList();
+                        }
                         break;
                     case StockMarket.Hgt:
                         todayDeals = TraderHelper.Instance.HgtTodayDealsList();
                         TradeDao.SaveOrUpdateTodayDeals(StockMarket.Hgt, todayDeals);
-                        revocableOrders = TraderHelper.Instance.HgtRevocableOrders();
-                        holdingStocks = TraderHelper.Instance.HgtHoldingStockList();
+                        if (isTradingTime)
+                        {
+                            revocableOrders = TraderHelper.Instance.HgtRevocableOrders();
+                            holdingStocks = TraderHelper.Instance.HgtHoldingStockList();
+                        }
                         break;
                     case StockMarket.Sgt:
                         todayDeals = TraderHelper.Instance.SgtTodayDealsList();
                         TradeDao.SaveOrUpdateTodayDeals(StockMarket.Sgt, todayDeals);
-                        revocableOrders = TraderHelper.Instance.SgtRevocableOrders();
-                        holdingStocks = TraderHelper.Instance.SgtHoldingStockList();
+                        if (isTradingTime)
+                        {
+                            revocableOrders = TraderHelper.Instance.SgtRevocableOrders();
+                            holdingStocks = TraderHelper.Instance.SgtHoldingStockList();
+                        }
                         break;
                 }
             }
@@ -86,6 +95,11 @@ namespace Dragonfly.Plugin.GridTrading
                 return;
             }
 
+            if (!isTradingTime)
+            {
+                //未到交易时间
+                return;
+            }
 
             foreach (Grid grid in grids)
             {
@@ -153,7 +167,7 @@ namespace Dragonfly.Plugin.GridTrading
                 }
 
 
-                // 下单，（保存委托记录，仅作为日志）
+                // 下单
                 try
                 {
                     switch (grid.StockMarket)
