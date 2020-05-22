@@ -10,6 +10,10 @@ namespace Dragonfly.Plugin.GridTrading
     {
         internal static void start()
         {
+            if(!GridTradingPlugin.TimerEnabled) {
+                return;
+            }
+
             // 获取策略网格
             List<Grid> grids = GridDao.GetAllGrids();
             if (grids == null || grids.Count == 0)
@@ -33,6 +37,10 @@ namespace Dragonfly.Plugin.GridTrading
 
         private static void ProgressMarket(StockMarket market, List<Grid> grids)
         {
+            if (!GridTradingPlugin.TimerEnabled)
+            {
+                return;
+            }
             if (grids == null || grids.Count == 0)
             {
                 LoggerUtil.Log(LoggType.Gray, "在市场【" + market.ToString() + "】无网格策略");
@@ -92,6 +100,11 @@ namespace Dragonfly.Plugin.GridTrading
             catch (Exception ex)
             {
                 LoggerUtil.Log(LoggType.MediumBlue, "异常：" + ex.Message);
+                return;
+            }
+
+            if (!GridTradingPlugin.TimerEnabled)
+            {
                 return;
             }
 

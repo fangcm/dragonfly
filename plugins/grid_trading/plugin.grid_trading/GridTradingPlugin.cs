@@ -9,11 +9,12 @@ namespace Dragonfly.Plugin.GridTrading
 
     public class GridTradingPlugin : IPlugin
     {
-        private GridTradingMainPanel mainPanel = null;
-
-        private static object LockObject = new Object();
-        private static int CheckUpDataLock = 0;
+        private static object lockObject = new Object();
+        private static int checkUpDataLock = 0;
         private static int elapsedCounter = 0;
+        private static bool timerEnabled = false;
+
+        private GridTradingMainPanel mainPanel = null;
         private BackgroundWorker bgWorker;
         private System.Timers.Timer timer;
 
@@ -24,6 +25,14 @@ namespace Dragonfly.Plugin.GridTrading
         }
         ~GridTradingPlugin()
         {
+        }
+
+        internal static bool TimerEnabled
+        {
+            get
+            {
+                return timerEnabled;
+            }
         }
 
         public string Name { get { return "DragonflyGridTrading"; } }
@@ -50,7 +59,7 @@ namespace Dragonfly.Plugin.GridTrading
             timer = new System.Timers.Timer(10000);
             timer.Elapsed += new System.Timers.ElapsedEventHandler(Timer_Elapsed);
             timer.AutoReset = true;
-            timer.Enabled = false;
+            timer.Enabled = timerEnabled;
 
         }
 
@@ -77,18 +86,18 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void Timer_Elapsed(object source, System.Timers.ElapsedEventArgs e)
         {
-            lock (LockObject)
+            lock (lockObject)
             {
-                if (CheckUpDataLock == 0) CheckUpDataLock = 1;
+                if (checkUpDataLock == 0) checkUpDataLock = 1;
                 else return;
             }
 
             StartWorker();
 
             // 解锁更新检查锁
-            lock (LockObject)
+            lock (lockObject)
             {
-                CheckUpDataLock = 0;
+                checkUpDataLock = 0;
             }
         }
 
@@ -120,6 +129,8 @@ namespace Dragonfly.Plugin.GridTrading
         internal void SetAutoTraderFlag(bool enable)
         {
             elapsedCounter = 0;
+            timerEnabled = enable;
+
             if (enable)
             {
                 LoggerUtil.Log(LoggType.MediumBlue, "开启自动交易");
