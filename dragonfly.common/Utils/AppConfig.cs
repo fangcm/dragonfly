@@ -70,7 +70,7 @@ namespace Dragonfly.Common.Utils
             }
         }
 
-        public static string ReadAppSetting(string key)
+        private static string ReadAppSetting(string key)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Dragonfly.Common.Utils
             }
         }
 
-        public static void UpdateAppSetting(string key, string value)
+        public static void SaveAppSetting(string key, string value)
         {
             try
             {
