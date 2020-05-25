@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plugin.grid_trading", "plug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly.common", "..\..\dragonfly.common\dragonfly.common.csproj", "{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "trading_unit_test", "trading_unit_test\trading_unit_test.csproj", "{35842B6F-DC92-4A54-8BF6-16FFBF7BD00C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A72322C-0EF7-4A3E-BF03-7C4D7B944753}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35842B6F-DC92-4A54-8BF6-16FFBF7BD00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35842B6F-DC92-4A54-8BF6-16FFBF7BD00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35842B6F-DC92-4A54-8BF6-16FFBF7BD00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35842B6F-DC92-4A54-8BF6-16FFBF7BD00C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
