@@ -1,4 +1,4 @@
-﻿using Dragonfly.Plugin.GridTrading.Utils;
+﻿using Dragonfly.Common.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;

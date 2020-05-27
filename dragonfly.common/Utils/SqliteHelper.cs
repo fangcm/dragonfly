@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace Dragonfly.Common.Utils
 {
-    class SqliteHelper
+    public class SqliteHelper
     {
         private static SQLiteConnectionStringBuilder connectionString = new SQLiteConnectionStringBuilder();
 

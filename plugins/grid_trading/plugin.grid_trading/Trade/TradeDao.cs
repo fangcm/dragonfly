@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dragonfly.Common.Utils;
 using Dragonfly.Plugin.GridTrading.Strategy;
-using System.Data.SQLite;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using Dragonfly.Plugin.GridTrading.Utils;
+using System.Data.SQLite;
 
 namespace Dragonfly.Plugin.GridTrading.Trade
 {
