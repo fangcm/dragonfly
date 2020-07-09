@@ -69,11 +69,17 @@ namespace Dragonfly.Plugin.GridTrading
 
         private void toolStripButtonInit_Click(object sender, EventArgs e)
         {
+            if (GridTradingPlugin.TimerEnabled)
+                return;
+
             SetAutoTraderFlag(true);
         }
 
         private void toolStripButtonStop_Click(object sender, EventArgs e)
         {
+            if (!GridTradingPlugin.TimerEnabled)
+                return;
+
             SetAutoTraderFlag(false);
         }
 
@@ -90,7 +96,6 @@ namespace Dragonfly.Plugin.GridTrading
             toolStripButtonStop.Checked = !enable;
 
             gridTradingPlugin.SetAutoTraderFlag(enable);
-
         }
     }
 

@@ -51,7 +51,11 @@ namespace Dragonfly.Plugin.GridTrading
             string tradingType = StockMarketTradingPeriods.Instance.CurrentTimeTradingType(market);
             if (string.IsNullOrEmpty(tradingType))
             {
+#if DEBUG
+                isTradingTime = true;
+#else
                 isTradingTime = false;
+#endif
                 LoggerUtil.Log(LoggType.Gray, "市场【" + market.ToString() + "】未到下单时间，只做成交数据同步");
             }
 

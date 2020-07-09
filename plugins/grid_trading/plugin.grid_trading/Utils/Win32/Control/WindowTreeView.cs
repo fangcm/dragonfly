@@ -201,7 +201,6 @@ namespace Dragonfly.Plugin.GridTrading.Utils.Win32
             {
                 return NativeMethods.Win32Rect.Empty;
             }
-
             // Temporarily allow the possibility of returning a bounding rect for scrolled off items.  
             // Will need to revisit this when there is a method that can scroll items into view.
             //if (Misc.IsItemVisible(hTreeView, ref rc))
